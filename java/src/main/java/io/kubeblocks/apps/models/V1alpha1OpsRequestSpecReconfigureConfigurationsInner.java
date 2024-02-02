@@ -335,7 +335,7 @@ public class V1alpha1OpsRequestSpecReconfigureConfigurationsInner {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1OpsRequestSpecReconfigureConfigurationsInner
   */
   public static V1alpha1OpsRequestSpecReconfigureConfigurationsInner fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1OpsRequestSpecReconfigureConfigurationsInner.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1OpsRequestSpecReconfigureConfigurationsInner.class);
   }
 
  /**
@@ -344,7 +344,7 @@ public class V1alpha1OpsRequestSpecReconfigureConfigurationsInner {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

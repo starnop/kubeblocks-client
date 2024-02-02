@@ -967,7 +967,7 @@ public class V1alpha1OpsRequestSpec {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1OpsRequestSpec
   */
   public static V1alpha1OpsRequestSpec fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1OpsRequestSpec.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1OpsRequestSpec.class);
   }
 
  /**
@@ -976,7 +976,7 @@ public class V1alpha1OpsRequestSpec {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

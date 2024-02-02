@@ -253,7 +253,7 @@ public class V1alpha1OpsDefinitionSpecJobSpecTemplateSpecTopologySpreadConstrain
   * @throws IOException if the JSON string is invalid with respect to V1alpha1OpsDefinitionSpecJobSpecTemplateSpecTopologySpreadConstraintsInnerLabelSelector
   */
   public static V1alpha1OpsDefinitionSpecJobSpecTemplateSpecTopologySpreadConstraintsInnerLabelSelector fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecJobSpecTemplateSpecTopologySpreadConstraintsInnerLabelSelector.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecJobSpecTemplateSpecTopologySpreadConstraintsInnerLabelSelector.class);
   }
 
  /**
@@ -262,7 +262,7 @@ public class V1alpha1OpsDefinitionSpecJobSpecTemplateSpecTopologySpreadConstrain
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

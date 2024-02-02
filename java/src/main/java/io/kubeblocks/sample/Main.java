@@ -2,7 +2,7 @@ package io.kubeblocks.sample;
 
 import io.kubeblocks.apps.models.V1alpha1Cluster;
 import io.kubeblocks.apps.models.V1alpha1ClusterSpec;
-import io.kubeblocks.apps.models.V1alpha1ClusterSpecComponentSpecs;
+import io.kubeblocks.apps.models.V1alpha1ClusterSpecComponentSpecsInner;
 import io.kubernetes.client.openapi.ApiClient;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.Configuration;
@@ -41,15 +41,15 @@ public class Main {
         spec.setClusterDefinitionRef("redis");
         spec.setClusterVersionRef("redis-7.0.6");
         List componentSpecs = new ArrayList<>();
-        V1alpha1ClusterSpecComponentSpecs redisComponentSpec = new V1alpha1ClusterSpecComponentSpecs();
+        V1alpha1ClusterSpecComponentSpecsInner redisComponentSpec = new V1alpha1ClusterSpecComponentSpecsInner();
         redisComponentSpec.setComponentDefRef("redis");
         redisComponentSpec.setName("redis");
         redisComponentSpec.setReplicas(1);
-        V1alpha1ClusterSpecComponentSpecs proxyComponentSpec = new V1alpha1ClusterSpecComponentSpecs();
+        V1alpha1ClusterSpecComponentSpecsInner proxyComponentSpec = new V1alpha1ClusterSpecComponentSpecsInner();
         proxyComponentSpec.setComponentDefRef("redis-twemproxy");
         proxyComponentSpec.setName("redis-twemproxy");
         proxyComponentSpec.setReplicas(1);
-        V1alpha1ClusterSpecComponentSpecs sentinelComponentSpec = new V1alpha1ClusterSpecComponentSpecs();
+        V1alpha1ClusterSpecComponentSpecsInner sentinelComponentSpec = new V1alpha1ClusterSpecComponentSpecsInner();
         sentinelComponentSpec.setComponentDefRef("redis-sentinel");
         sentinelComponentSpec.setName("redis-sentinel");
         sentinelComponentSpec.setReplicas(3);

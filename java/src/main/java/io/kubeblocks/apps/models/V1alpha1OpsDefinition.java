@@ -319,7 +319,7 @@ public class V1alpha1OpsDefinition implements io.kubernetes.client.common.Kubern
   * @throws IOException if the JSON string is invalid with respect to V1alpha1OpsDefinition
   */
   public static V1alpha1OpsDefinition fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1OpsDefinition.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1OpsDefinition.class);
   }
 
  /**
@@ -328,7 +328,7 @@ public class V1alpha1OpsDefinition implements io.kubernetes.client.common.Kubern
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

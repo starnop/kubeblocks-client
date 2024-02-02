@@ -302,7 +302,7 @@ public class V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerConfigMap {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerConfigMap
   */
   public static V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerConfigMap fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerConfigMap.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerConfigMap.class);
   }
 
  /**
@@ -311,7 +311,7 @@ public class V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerConfigMap {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

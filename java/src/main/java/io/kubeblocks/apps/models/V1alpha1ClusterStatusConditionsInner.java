@@ -405,7 +405,7 @@ public class V1alpha1ClusterStatusConditionsInner {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1ClusterStatusConditionsInner
   */
   public static V1alpha1ClusterStatusConditionsInner fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1ClusterStatusConditionsInner.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1ClusterStatusConditionsInner.class);
   }
 
  /**
@@ -414,7 +414,7 @@ public class V1alpha1ClusterStatusConditionsInner {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

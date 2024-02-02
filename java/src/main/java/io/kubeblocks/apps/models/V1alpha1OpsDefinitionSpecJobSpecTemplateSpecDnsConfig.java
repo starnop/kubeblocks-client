@@ -295,7 +295,7 @@ public class V1alpha1OpsDefinitionSpecJobSpecTemplateSpecDnsConfig {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1OpsDefinitionSpecJobSpecTemplateSpecDnsConfig
   */
   public static V1alpha1OpsDefinitionSpecJobSpecTemplateSpecDnsConfig fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecJobSpecTemplateSpecDnsConfig.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecJobSpecTemplateSpecDnsConfig.class);
   }
 
  /**
@@ -304,7 +304,7 @@ public class V1alpha1OpsDefinitionSpecJobSpecTemplateSpecDnsConfig {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

@@ -193,7 +193,7 @@ public class V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerScaleIOSecr
   * @throws IOException if the JSON string is invalid with respect to V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerScaleIOSecretRef
   */
   public static V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerScaleIOSecretRef fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerScaleIOSecretRef.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerScaleIOSecretRef.class);
   }
 
  /**
@@ -202,7 +202,7 @@ public class V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerScaleIOSecr
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

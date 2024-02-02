@@ -462,7 +462,7 @@ public class V1alpha1OpsDefinitionSpecJobSpecTemplateSpecContainersInnerLiveness
   * @throws IOException if the JSON string is invalid with respect to V1alpha1OpsDefinitionSpecJobSpecTemplateSpecContainersInnerLivenessProbe
   */
   public static V1alpha1OpsDefinitionSpecJobSpecTemplateSpecContainersInnerLivenessProbe fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecJobSpecTemplateSpecContainersInnerLivenessProbe.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecJobSpecTemplateSpecContainersInnerLivenessProbe.class);
   }
 
  /**
@@ -471,7 +471,7 @@ public class V1alpha1OpsDefinitionSpecJobSpecTemplateSpecContainersInnerLiveness
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

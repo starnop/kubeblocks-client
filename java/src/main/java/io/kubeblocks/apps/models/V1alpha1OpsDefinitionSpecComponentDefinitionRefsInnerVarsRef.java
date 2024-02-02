@@ -301,7 +301,7 @@ public class V1alpha1OpsDefinitionSpecComponentDefinitionRefsInnerVarsRef {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1OpsDefinitionSpecComponentDefinitionRefsInnerVarsRef
   */
   public static V1alpha1OpsDefinitionSpecComponentDefinitionRefsInnerVarsRef fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecComponentDefinitionRefsInnerVarsRef.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecComponentDefinitionRefsInnerVarsRef.class);
   }
 
  /**
@@ -310,7 +310,7 @@ public class V1alpha1OpsDefinitionSpecComponentDefinitionRefsInnerVarsRef {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

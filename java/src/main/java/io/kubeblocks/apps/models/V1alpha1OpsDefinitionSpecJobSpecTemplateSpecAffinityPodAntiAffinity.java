@@ -266,7 +266,7 @@ public class V1alpha1OpsDefinitionSpecJobSpecTemplateSpecAffinityPodAntiAffinity
   * @throws IOException if the JSON string is invalid with respect to V1alpha1OpsDefinitionSpecJobSpecTemplateSpecAffinityPodAntiAffinity
   */
   public static V1alpha1OpsDefinitionSpecJobSpecTemplateSpecAffinityPodAntiAffinity fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecJobSpecTemplateSpecAffinityPodAntiAffinity.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecJobSpecTemplateSpecAffinityPodAntiAffinity.class);
   }
 
  /**
@@ -275,7 +275,7 @@ public class V1alpha1OpsDefinitionSpecJobSpecTemplateSpecAffinityPodAntiAffinity
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

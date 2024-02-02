@@ -334,7 +334,7 @@ public class V1alpha1OpsDefinitionSpecPreConditionsInnerExec {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1OpsDefinitionSpecPreConditionsInnerExec
   */
   public static V1alpha1OpsDefinitionSpecPreConditionsInnerExec fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecPreConditionsInnerExec.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecPreConditionsInnerExec.class);
   }
 
  /**
@@ -343,7 +343,7 @@ public class V1alpha1OpsDefinitionSpecPreConditionsInnerExec {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

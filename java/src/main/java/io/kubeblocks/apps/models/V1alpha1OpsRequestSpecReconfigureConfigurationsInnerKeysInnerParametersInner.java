@@ -232,7 +232,7 @@ public class V1alpha1OpsRequestSpecReconfigureConfigurationsInnerKeysInnerParame
   * @throws IOException if the JSON string is invalid with respect to V1alpha1OpsRequestSpecReconfigureConfigurationsInnerKeysInnerParametersInner
   */
   public static V1alpha1OpsRequestSpecReconfigureConfigurationsInnerKeysInnerParametersInner fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1OpsRequestSpecReconfigureConfigurationsInnerKeysInnerParametersInner.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1OpsRequestSpecReconfigureConfigurationsInnerKeysInnerParametersInner.class);
   }
 
  /**
@@ -241,7 +241,7 @@ public class V1alpha1OpsRequestSpecReconfigureConfigurationsInnerKeysInnerParame
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

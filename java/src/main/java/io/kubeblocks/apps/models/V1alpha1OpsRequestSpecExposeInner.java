@@ -330,7 +330,7 @@ public class V1alpha1OpsRequestSpecExposeInner {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1OpsRequestSpecExposeInner
   */
   public static V1alpha1OpsRequestSpecExposeInner fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1OpsRequestSpecExposeInner.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1OpsRequestSpecExposeInner.class);
   }
 
  /**
@@ -339,7 +339,7 @@ public class V1alpha1OpsRequestSpecExposeInner {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

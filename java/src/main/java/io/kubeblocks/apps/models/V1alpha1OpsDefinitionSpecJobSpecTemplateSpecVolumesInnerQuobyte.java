@@ -354,7 +354,7 @@ public class V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerQuobyte {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerQuobyte
   */
   public static V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerQuobyte fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerQuobyte.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerQuobyte.class);
   }
 
  /**
@@ -363,7 +363,7 @@ public class V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerQuobyte {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

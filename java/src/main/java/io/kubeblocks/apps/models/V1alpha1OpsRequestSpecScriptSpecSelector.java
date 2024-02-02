@@ -253,7 +253,7 @@ public class V1alpha1OpsRequestSpecScriptSpecSelector {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1OpsRequestSpecScriptSpecSelector
   */
   public static V1alpha1OpsRequestSpecScriptSpecSelector fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1OpsRequestSpecScriptSpecSelector.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1OpsRequestSpecScriptSpecSelector.class);
   }
 
  /**
@@ -262,7 +262,7 @@ public class V1alpha1OpsRequestSpecScriptSpecSelector {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

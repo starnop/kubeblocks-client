@@ -497,7 +497,7 @@ public class V1alpha1OpsDefinitionSpecJobSpecTemplateSpecSecurityContext {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1OpsDefinitionSpecJobSpecTemplateSpecSecurityContext
   */
   public static V1alpha1OpsDefinitionSpecJobSpecTemplateSpecSecurityContext fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecJobSpecTemplateSpecSecurityContext.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecJobSpecTemplateSpecSecurityContext.class);
   }
 
  /**
@@ -506,7 +506,7 @@ public class V1alpha1OpsDefinitionSpecJobSpecTemplateSpecSecurityContext {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

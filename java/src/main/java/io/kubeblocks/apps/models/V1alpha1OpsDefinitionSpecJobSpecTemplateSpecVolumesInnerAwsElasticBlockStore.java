@@ -288,7 +288,7 @@ public class V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerAwsElasticB
   * @throws IOException if the JSON string is invalid with respect to V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerAwsElasticBlockStore
   */
   public static V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerAwsElasticBlockStore fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerAwsElasticBlockStore.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerAwsElasticBlockStore.class);
   }
 
  /**
@@ -297,7 +297,7 @@ public class V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerAwsElasticB
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

@@ -263,7 +263,7 @@ public class V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerGitRepo {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerGitRepo
   */
   public static V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerGitRepo fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerGitRepo.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerGitRepo.class);
   }
 
  /**
@@ -272,7 +272,7 @@ public class V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerGitRepo {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

@@ -263,7 +263,7 @@ public class V1alpha1OpsRequestSpecScriptSpecSecret {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1OpsRequestSpecScriptSpecSecret
   */
   public static V1alpha1OpsRequestSpecScriptSpecSecret fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1OpsRequestSpecScriptSpecSecret.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1OpsRequestSpecScriptSpecSecret.class);
   }
 
  /**
@@ -272,7 +272,7 @@ public class V1alpha1OpsRequestSpecScriptSpecSecret {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

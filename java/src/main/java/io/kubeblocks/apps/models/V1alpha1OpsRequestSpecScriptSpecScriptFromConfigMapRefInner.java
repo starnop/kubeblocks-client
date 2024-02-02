@@ -260,7 +260,7 @@ public class V1alpha1OpsRequestSpecScriptSpecScriptFromConfigMapRefInner {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1OpsRequestSpecScriptSpecScriptFromConfigMapRefInner
   */
   public static V1alpha1OpsRequestSpecScriptSpecScriptFromConfigMapRefInner fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1OpsRequestSpecScriptSpecScriptFromConfigMapRefInner.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1OpsRequestSpecScriptSpecScriptFromConfigMapRefInner.class);
   }
 
  /**
@@ -269,7 +269,7 @@ public class V1alpha1OpsRequestSpecScriptSpecScriptFromConfigMapRefInner {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

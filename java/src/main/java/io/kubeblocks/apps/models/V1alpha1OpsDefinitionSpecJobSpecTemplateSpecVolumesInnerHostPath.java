@@ -232,7 +232,7 @@ public class V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerHostPath {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerHostPath
   */
   public static V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerHostPath fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerHostPath.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerHostPath.class);
   }
 
  /**
@@ -241,7 +241,7 @@ public class V1alpha1OpsDefinitionSpecJobSpecTemplateSpecVolumesInnerHostPath {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

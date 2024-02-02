@@ -251,7 +251,7 @@ public class V1alpha1OpsRequestSpecVolumeExpansionInner {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1OpsRequestSpecVolumeExpansionInner
   */
   public static V1alpha1OpsRequestSpecVolumeExpansionInner fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1OpsRequestSpecVolumeExpansionInner.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1OpsRequestSpecVolumeExpansionInner.class);
   }
 
  /**
@@ -260,7 +260,7 @@ public class V1alpha1OpsRequestSpecVolumeExpansionInner {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

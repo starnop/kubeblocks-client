@@ -277,7 +277,7 @@ public class V1alpha1OpsDefinitionSpecJobSpecPodFailurePolicyRulesInnerOnExitCod
   * @throws IOException if the JSON string is invalid with respect to V1alpha1OpsDefinitionSpecJobSpecPodFailurePolicyRulesInnerOnExitCodes
   */
   public static V1alpha1OpsDefinitionSpecJobSpecPodFailurePolicyRulesInnerOnExitCodes fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecJobSpecPodFailurePolicyRulesInnerOnExitCodes.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1OpsDefinitionSpecJobSpecPodFailurePolicyRulesInnerOnExitCodes.class);
   }
 
  /**
@@ -286,7 +286,7 @@ public class V1alpha1OpsDefinitionSpecJobSpecPodFailurePolicyRulesInnerOnExitCod
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 
