@@ -8,3 +8,5 @@ The project is based on [Kubernetes Clients](https://github.com/kubernetes-clien
 [Cluster creation sample](java/src/main/java/io/kubeblocks/sample/Main.java)
 - [x] Python
 [Cluster creation sample](python/sample.py)
+- [x] Rust
+[Cluster creation sample](rust/src/main.rs)

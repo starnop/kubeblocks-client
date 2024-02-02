@@ -25,3 +25,7 @@ Dockerfile.cross
 *.swo
 *~
 *.iml
+
+# Rust
+target/
+Cargo.lock
