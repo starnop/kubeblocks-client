@@ -3,13 +3,13 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.12.1
-  creationTimestamp: "2024-01-31T05:17:16Z"
-  generation: 1
+  creationTimestamp: "2023-11-21T11:07:17Z"
+  generation: 3
   labels:
     app.kubernetes.io/name: kubeblocks
   name: servicedescriptors.apps.kubeblocks.io
-  resourceVersion: "7687518"
-  uid: dcffad61-8f9d-4f8b-a91f-e2cba921528d
+  resourceVersion: "133300075"
+  uid: bb709061-e634-44ff-a34a-0b53cf0d7026
 spec:
   conversion:
     strategy: None
@@ -59,16 +59,16 @@ spec:
               description: ServiceDescriptorSpec defines the desired state of ServiceDescriptor
               properties:
                 auth:
-                  description: auth is the auth of the service connection credential.
+                  description: Represents the authentication details of the service connection credential.
                   properties:
                     password:
-                      description: service connection based-on username and password credential.
+                      description: Represents the password credential for the service connection.
                       properties:
                         value:
-                          description: 'Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".'
+                          description: "Specifies an optional variable. Only one of the following may be specified. Variable references, denoted by $(VAR_NAME), are expanded using previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string remains unchanged. \n Double $$ are reduced to a single $, enabling the escaping of the $(VAR_NAME) syntax. For instance, \"$$(VAR_NAME)\" will produce the string literal \"$(VAR_NAME)\". Escaped references will never be expanded, irrespective of the variable's existence. The default value is \"\"."
                           type: string
                         valueFrom:
-                          description: Source for the environment variable's value. Cannot be used if value is not empty.
+                          description: Defines the source for the environment variable's value. This cannot be used if the value is not empty.
                           properties:
                             configMapKeyRef:
                               description: Selects a key of a ConfigMap.
@@ -138,13 +138,13 @@ spec:
                           type: object
                       type: object
                     username:
-                      description: service connection based-on username and password credential.
+                      description: Represents the username credential for the service connection.
                       properties:
                         value:
-                          description: 'Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".'
+                          description: "Specifies an optional variable. Only one of the following may be specified. Variable references, denoted by $(VAR_NAME), are expanded using previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string remains unchanged. \n Double $$ are reduced to a single $, enabling the escaping of the $(VAR_NAME) syntax. For instance, \"$$(VAR_NAME)\" will produce the string literal \"$(VAR_NAME)\". Escaped references will never be expanded, irrespective of the variable's existence. The default value is \"\"."
                           type: string
                         valueFrom:
-                          description: Source for the environment variable's value. Cannot be used if value is not empty.
+                          description: Defines the source for the environment variable's value. This cannot be used if the value is not empty.
                           properties:
                             configMapKeyRef:
                               description: Selects a key of a ConfigMap.
@@ -215,13 +215,13 @@ spec:
                       type: object
                   type: object
                 endpoint:
-                  description: endpoint is the endpoint of the service connection credential.
+                  description: Represents the endpoint of the service connection credential.
                   properties:
                     value:
-                      description: 'Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".'
+                      description: "Specifies an optional variable. Only one of the following may be specified. Variable references, denoted by $(VAR_NAME), are expanded using previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string remains unchanged. \n Double $$ are reduced to a single $, enabling the escaping of the $(VAR_NAME) syntax. For instance, \"$$(VAR_NAME)\" will produce the string literal \"$(VAR_NAME)\". Escaped references will never be expanded, irrespective of the variable's existence. The default value is \"\"."
                       type: string
                     valueFrom:
-                      description: Source for the environment variable's value. Cannot be used if value is not empty.
+                      description: Defines the source for the environment variable's value. This cannot be used if the value is not empty.
                       properties:
                         configMapKeyRef:
                           description: Selects a key of a ConfigMap.
@@ -291,13 +291,13 @@ spec:
                       type: object
                   type: object
                 port:
-                  description: port is the port of the service connection credential.
+                  description: Represents the port of the service connection credential.
                   properties:
                     value:
-                      description: 'Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".'
+                      description: "Specifies an optional variable. Only one of the following may be specified. Variable references, denoted by $(VAR_NAME), are expanded using previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string remains unchanged. \n Double $$ are reduced to a single $, enabling the escaping of the $(VAR_NAME) syntax. For instance, \"$$(VAR_NAME)\" will produce the string literal \"$(VAR_NAME)\". Escaped references will never be expanded, irrespective of the variable's existence. The default value is \"\"."
                       type: string
                     valueFrom:
-                      description: Source for the environment variable's value. Cannot be used if value is not empty.
+                      description: Defines the source for the environment variable's value. This cannot be used if the value is not empty.
                       properties:
                         configMapKeyRef:
                           description: Selects a key of a ConfigMap.
@@ -367,10 +367,10 @@ spec:
                       type: object
                   type: object
                 serviceKind:
-                  description: service kind, indicating the type or nature of the service. It should be well-known application cluster type, e.g. {mysql, redis, mongodb}. The serviceKind is case-insensitive and supports abbreviations for some well-known databases. For example, both 'zk' and 'zookeeper' will be considered as a ZooKeeper cluster, and 'pg', 'postgres', 'postgresql' will all be considered as a PostgreSQL cluster.
+                  description: Specifies the type or nature of the service. Should represent a well-known application cluster type, such as {mysql, redis, mongodb}. This field is case-insensitive and supports abbreviations for some well-known databases. For instance, both `zk` and `zookeeper` will be recognized as a ZooKeeper cluster, and `pg`, `postgres`, `postgresql` will all be recognized as a PostgreSQL cluster.
                   type: string
                 serviceVersion:
-                  description: The version of the service reference.
+                  description: Represents the version of the service reference.
                   type: string
               required:
                 - serviceKind
@@ -380,14 +380,14 @@ spec:
               description: ServiceDescriptorStatus defines the observed state of ServiceDescriptor
               properties:
                 message:
-                  description: A human-readable message indicating details about why the ServiceConnectionCredential is in this phase.
+                  description: Provides a human-readable explanation detailing the reason for the current phase of the ServiceConnectionCredential.
                   type: string
                 observedGeneration:
-                  description: generation number
+                  description: Represents the generation number that has been processed by the controller.
                   format: int64
                   type: integer
                 phase:
-                  description: phase - in list of [Available,Unavailable]
+                  description: Indicates the current lifecycle phase of the ServiceDescriptor. This can be either 'Available' or 'Unavailable'.
                   enum:
                     - Available
                     - Unavailable
@@ -410,12 +410,12 @@ status:
       - sd
     singular: servicedescriptor
   conditions:
-    - lastTransitionTime: "2024-01-31T05:17:16Z"
+    - lastTransitionTime: "2023-11-21T11:07:17Z"
       message: no conflicts found
       reason: NoConflicts
       status: "True"
       type: NamesAccepted
-    - lastTransitionTime: "2024-01-31T05:17:16Z"
+    - lastTransitionTime: "2023-11-21T11:07:17Z"
       message: the initial names have been accepted
       reason: InitialNamesAccepted
       status: "True"

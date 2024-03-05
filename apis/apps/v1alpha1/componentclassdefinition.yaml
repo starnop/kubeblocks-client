@@ -3,13 +3,13 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.12.1
-  creationTimestamp: "2024-01-31T05:17:13Z"
-  generation: 1
+  creationTimestamp: "2023-11-17T07:24:38Z"
+  generation: 2
   labels:
     app.kubernetes.io/name: kubeblocks
   name: componentclassdefinitions.apps.kubeblocks.io
-  resourceVersion: "7687491"
-  uid: 848bbe79-1349-477a-b2f3-38435e4ce804
+  resourceVersion: "124655847"
+  uid: 78f516d3-6e6e-4436-a583-964f17b1e228
 spec:
   conversion:
     strategy: None
@@ -25,7 +25,9 @@ spec:
     singular: componentclassdefinition
   scope: Cluster
   versions:
-    - name: v1alpha1
+    - deprecated: true
+      deprecationWarning: Due to the lack of practical use cases, this API is deprecated from KB 0.9.0.
+      name: v1alpha1
       schema:
         openAPIV3Schema:
           description: ComponentClassDefinition is the Schema for the componentclassdefinitions API
@@ -83,7 +85,7 @@ spec:
                           type: object
                         type: array
                       template:
-                        description: "template is a class definition template that uses the Go template syntax and allows for variable declaration. When defining a class in Series, specifying the variable's value is sufficient, as the complete class definition will be generated through rendering the template. \n For example: template: | cpu: \"{{ or .cpu 1 }}\" memory: \"{{ or .memory 4 }}Gi\""
+                        description: "template is a class definition template that uses the Go template syntax and allows for variable declaration. When defining a class in Series, specifying the variable's value is sufficient, as the complete class definition will be generated through rendering the template. \n For example: \n ```yaml template: | cpu: \"{{ or .cpu 1 }}\" memory: \"{{ or .memory 4 }}Gi\" ```"
                         type: string
                       vars:
                         description: vars defines the variables declared in the template and will be used to generating the complete class definition by render the template.
@@ -146,12 +148,12 @@ status:
       - ccd
     singular: componentclassdefinition
   conditions:
-    - lastTransitionTime: "2024-01-31T05:17:13Z"
+    - lastTransitionTime: "2023-11-17T07:24:38Z"
       message: no conflicts found
       reason: NoConflicts
       status: "True"
       type: NamesAccepted
-    - lastTransitionTime: "2024-01-31T05:17:14Z"
+    - lastTransitionTime: "2023-11-17T07:24:38Z"
       message: the initial names have been accepted
       reason: InitialNamesAccepted
       status: "True"

@@ -3,13 +3,13 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.12.1
-  creationTimestamp: "2024-01-31T05:17:14Z"
-  generation: 1
+  creationTimestamp: "2023-11-17T07:24:38Z"
+  generation: 5
   labels:
     app.kubernetes.io/name: kubeblocks
   name: componentresourceconstraints.apps.kubeblocks.io
-  resourceVersion: "7687496"
-  uid: a1428114-6668-4ddd-b878-760a58014e03
+  resourceVersion: "124656032"
+  uid: 2e38e588-3354-4228-b9e8-6af3d9c6f023
 spec:
   conversion:
     strategy: None
@@ -26,7 +26,9 @@ spec:
     singular: componentresourceconstraint
   scope: Cluster
   versions:
-    - name: v1alpha1
+    - deprecated: true
+      deprecationWarning: Due to the lack of practical use cases, this API is deprecated from KB 0.9.0.
+      name: v1alpha1
       schema:
         openAPIV3Schema:
           description: ComponentResourceConstraint is the Schema for the componentresourceconstraints API
@@ -210,12 +212,12 @@ status:
       - crc
     singular: componentresourceconstraint
   conditions:
-    - lastTransitionTime: "2024-01-31T05:17:14Z"
+    - lastTransitionTime: "2023-11-17T07:24:38Z"
       message: no conflicts found
       reason: NoConflicts
       status: "True"
       type: NamesAccepted
-    - lastTransitionTime: "2024-01-31T05:17:14Z"
+    - lastTransitionTime: "2023-11-17T07:24:38Z"
       message: the initial names have been accepted
       reason: InitialNamesAccepted
       status: "True"
