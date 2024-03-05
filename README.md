@@ -5,7 +5,7 @@ The project is based on [Kubernetes Clients](https://github.com/kubernetes-clien
 
 # Languages Supported
 - [x] Java
-[Cluster creation sample](java/src/main/java/io/kubeblocks/sample/Main.java)
+[Cluster CRUD sample](java/src/main/java/io/kubeblocks/sample/Main.java)
 - [x] Python
 [Cluster creation sample](python/sample.py)
 - [x] Rust

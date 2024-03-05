@@ -1,5 +1,5 @@
 ## Samples
-[KubeBlocks Cluster Creation](src/main/java/io/kubeblocks/sample/Main.java)
+[KubeBlocks Cluster CRUD](src/main/java/io/kubeblocks/sample/Main.java)
 
 ## How to build the jar package
 build the jar by `maven`:
