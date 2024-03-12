@@ -57,6 +57,7 @@ public class Main {
         List<V1alpha1ClusterSpecComponentSpecsInnerInstancesInner> instances = new ArrayList<>();
         V1alpha1ClusterSpecComponentSpecsInnerInstancesInner instance = new V1alpha1ClusterSpecComponentSpecsInnerInstancesInner();
         instance.setName("proxy-0");
+        instance.setImage("redis:7.0.6");
         instances.add(instance);
         proxyComponentSpec.setInstances(instances);
         V1alpha1ClusterSpecComponentSpecsInner sentinelComponentSpec = new V1alpha1ClusterSpecComponentSpecsInner();

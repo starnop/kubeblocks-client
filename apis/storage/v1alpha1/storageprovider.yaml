@@ -3,13 +3,13 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.12.1
-  creationTimestamp: "2023-11-17T07:24:39Z"
-  generation: 4
+  creationTimestamp: "2024-01-31T05:17:20Z"
+  generation: 2
   labels:
     app.kubernetes.io/name: kubeblocks
   name: storageproviders.storage.kubeblocks.io
-  resourceVersion: "133300084"
-  uid: f4ade02d-ef75-4e6d-b20e-102ac362f9ad
+  resourceVersion: "9231040"
+  uid: 4b948f10-8d65-4f0a-8170-edd910388c62
 spec:
   conversion:
     strategy: None
@@ -146,12 +146,12 @@ status:
     plural: storageproviders
     singular: storageprovider
   conditions:
-    - lastTransitionTime: "2023-11-17T07:24:39Z"
+    - lastTransitionTime: "2024-01-31T05:17:20Z"
       message: no conflicts found
       reason: NoConflicts
       status: "True"
       type: NamesAccepted
-    - lastTransitionTime: "2023-11-17T07:24:39Z"
+    - lastTransitionTime: "2024-01-31T05:17:20Z"
       message: the initial names have been accepted
       reason: InitialNamesAccepted
       status: "True"

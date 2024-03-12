@@ -3,13 +3,13 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.12.1
-  creationTimestamp: "2023-11-21T11:07:17Z"
-  generation: 3
+  creationTimestamp: "2024-01-31T05:17:16Z"
+  generation: 2
   labels:
     app.kubernetes.io/name: kubeblocks
   name: servicedescriptors.apps.kubeblocks.io
-  resourceVersion: "133300075"
-  uid: bb709061-e634-44ff-a34a-0b53cf0d7026
+  resourceVersion: "9231039"
+  uid: dcffad61-8f9d-4f8b-a91f-e2cba921528d
 spec:
   conversion:
     strategy: None
@@ -410,12 +410,12 @@ status:
       - sd
     singular: servicedescriptor
   conditions:
-    - lastTransitionTime: "2023-11-21T11:07:17Z"
+    - lastTransitionTime: "2024-01-31T05:17:16Z"
       message: no conflicts found
       reason: NoConflicts
       status: "True"
       type: NamesAccepted
-    - lastTransitionTime: "2023-11-21T11:07:17Z"
+    - lastTransitionTime: "2024-01-31T05:17:16Z"
       message: the initial names have been accepted
       reason: InitialNamesAccepted
       status: "True"

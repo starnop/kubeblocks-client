@@ -3,13 +3,13 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.12.1
-  creationTimestamp: "2023-11-17T07:24:36Z"
-  generation: 14
+  creationTimestamp: "2024-01-31T05:17:13Z"
+  generation: 2
   labels:
     app.kubernetes.io/name: kubeblocks
   name: clusters.apps.kubeblocks.io
-  resourceVersion: "133305560"
-  uid: cec674dc-a6c1-4e31-98b7-d7d71f57831b
+  resourceVersion: "9231024"
+  uid: df8bf8c3-c631-4f2d-8d48-9321b822211f
 spec:
   conversion:
     strategy: None
@@ -212,6 +212,12 @@ spec:
                                 type: string
                               description: Defines annotations to override. Add new or override existing annotations.
                               type: object
+                            generateName:
+                              description: "GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server. \n Applied only if Name is not specified."
+                              type: string
+                            image:
+                              description: Defines image to override. Will override the first container's image of the pod.
+                              type: string
                             labels:
                               additionalProperties:
                                 type: string
@@ -235,7 +241,7 @@ spec:
                               minimum: 0
                               type: integer
                             resources:
-                              description: Defines Resources to override.
+                              description: Defines Resources to override. Will override the first container's resources of the pod.
                               properties:
                                 claims:
                                   description: "Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container. \n This is an alpha field and requires enabling the DynamicResourceAllocation feature gate. \n This field is immutable. It can only be set for containers."
@@ -516,7 +522,7 @@ spec:
                                 type: object
                               type: array
                             volumeMounts:
-                              description: Defines VolumeMounts to override. Add new or override existing volume mounts.
+                              description: Defines VolumeMounts to override. Add new or override existing volume mounts of the first container in the pod.
                               items:
                                 description: VolumeMount describes a mounting of a Volume within a container.
                                 properties:
@@ -2187,6 +2193,12 @@ spec:
                                     type: string
                                   description: Defines annotations to override. Add new or override existing annotations.
                                   type: object
+                                generateName:
+                                  description: "GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server. \n Applied only if Name is not specified."
+                                  type: string
+                                image:
+                                  description: Defines image to override. Will override the first container's image of the pod.
+                                  type: string
                                 labels:
                                   additionalProperties:
                                     type: string
@@ -2210,7 +2222,7 @@ spec:
                                   minimum: 0
                                   type: integer
                                 resources:
-                                  description: Defines Resources to override.
+                                  description: Defines Resources to override. Will override the first container's resources of the pod.
                                   properties:
                                     claims:
                                       description: "Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container. \n This is an alpha field and requires enabling the DynamicResourceAllocation feature gate. \n This field is immutable. It can only be set for containers."
@@ -2491,7 +2503,7 @@ spec:
                                     type: object
                                   type: array
                                 volumeMounts:
-                                  description: Defines VolumeMounts to override. Add new or override existing volume mounts.
+                                  description: Defines VolumeMounts to override. Add new or override existing volume mounts of the first container in the pod.
                                   items:
                                     description: VolumeMount describes a mounting of a Volume within a container.
                                     properties:
@@ -3995,7 +4007,6 @@ spec:
                               type: object
                           required:
                             - podName
-                            - role
                           type: object
                         type: array
                       message:
@@ -4104,12 +4115,12 @@ status:
     plural: clusters
     singular: cluster
   conditions:
-    - lastTransitionTime: "2023-11-17T07:24:36Z"
+    - lastTransitionTime: "2024-01-31T05:17:13Z"
       message: no conflicts found
       reason: NoConflicts
       status: "True"
       type: NamesAccepted
-    - lastTransitionTime: "2023-11-17T07:24:36Z"
+    - lastTransitionTime: "2024-01-31T05:17:14Z"
       message: the initial names have been accepted
       reason: InitialNamesAccepted
       status: "True"

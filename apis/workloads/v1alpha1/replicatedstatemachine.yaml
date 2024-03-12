@@ -3,13 +3,13 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.12.1
-  creationTimestamp: "2023-11-17T07:24:39Z"
-  generation: 12
+  creationTimestamp: "2024-01-31T05:17:20Z"
+  generation: 2
   labels:
     app.kubernetes.io/name: kubeblocks
   name: replicatedstatemachines.workloads.kubeblocks.io
-  resourceVersion: "133305662"
-  uid: 19682d3c-ea1a-4cc9-a2de-6b28bf3cef1a
+  resourceVersion: "9231037"
+  uid: 9e11f325-b393-45b7-838d-1a6935e741af
 spec:
   conversion:
     strategy: None
@@ -469,6 +469,12 @@ spec:
                           type: string
                         description: Defines annotations to override. Add new or override existing annotations.
                         type: object
+                      generateName:
+                        description: "GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server. \n Applied only if Name is not specified."
+                        type: string
+                      image:
+                        description: Defines image to override. Will override the first container's image of the pod.
+                        type: string
                       labels:
                         additionalProperties:
                           type: string
@@ -492,7 +498,7 @@ spec:
                         minimum: 0
                         type: integer
                       resources:
-                        description: Defines Resources to override.
+                        description: Defines Resources to override. Will override the first container's resources of the pod.
                         properties:
                           claims:
                             description: "Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container. \n This is an alpha field and requires enabling the DynamicResourceAllocation feature gate. \n This field is immutable. It can only be set for containers."
@@ -773,7 +779,7 @@ spec:
                           type: object
                         type: array
                       volumeMounts:
-                        description: Defines VolumeMounts to override. Add new or override existing volume mounts.
+                        description: Defines VolumeMounts to override. Add new or override existing volume mounts of the first container in the pod.
                         items:
                           description: VolumeMount describes a mounting of a Volume within a container.
                           properties:
@@ -6874,6 +6880,11 @@ spec:
                 currentRevision:
                   description: currentRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [0,currentReplicas).
                   type: string
+                currentRevisions:
+                  additionalProperties:
+                    type: string
+                  description: currentRevisions, if not empty, indicates the old version of the RSM used to generate Pods. key is the pod name, value is the revision.
+                  type: object
                 initReplicas:
                   description: Defines the initial number of pods (members) when the cluster is first initialized. This value is set to spec.Replicas at the time of object creation and remains constant thereafter.
                   format: int32
@@ -6921,7 +6932,6 @@ spec:
                         type: object
                     required:
                       - podName
-                      - role
                     type: object
                   type: array
                 observedGeneration:
@@ -6943,6 +6953,11 @@ spec:
                 updateRevision:
                   description: updateRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [replicas-updatedReplicas,replicas)
                   type: string
+                updateRevisions:
+                  additionalProperties:
+                    type: string
+                  description: updateRevisions, if not empty, indicates the new version of the RSM used to generate Pods. key is the pod name, value is the revision.
+                  type: object
                 updatedReplicas:
                   description: updatedReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by updateRevision.
                   format: int32
@@ -6968,12 +6983,12 @@ status:
       - rsm
     singular: replicatedstatemachine
   conditions:
-    - lastTransitionTime: "2023-11-17T07:24:39Z"
+    - lastTransitionTime: "2024-01-31T05:17:20Z"
       message: no conflicts found
       reason: NoConflicts
       status: "True"
       type: NamesAccepted
-    - lastTransitionTime: "2023-11-17T07:24:39Z"
+    - lastTransitionTime: "2024-01-31T05:17:20Z"
       message: the initial names have been accepted
       reason: InitialNamesAccepted
       status: "True"

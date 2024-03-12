@@ -3,13 +3,13 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.12.1
-  creationTimestamp: "2023-11-17T07:24:38Z"
-  generation: 3
+  creationTimestamp: "2024-01-31T05:17:18Z"
+  generation: 2
   labels:
     app.kubernetes.io/name: kubeblocks
   name: backuprepos.dataprotection.kubeblocks.io
-  resourceVersion: "133299841"
-  uid: a2a54356-8fae-4413-9a59-46edf82228cf
+  resourceVersion: "9231017"
+  uid: 26a79340-2448-4fb8-8b0d-ff3d37db10e5
 spec:
   conversion:
     strategy: None
@@ -201,12 +201,12 @@ status:
     plural: backuprepos
     singular: backuprepo
   conditions:
-    - lastTransitionTime: "2023-11-17T07:24:38Z"
+    - lastTransitionTime: "2024-01-31T05:17:18Z"
       message: no conflicts found
       reason: NoConflicts
       status: "True"
       type: NamesAccepted
-    - lastTransitionTime: "2023-11-17T07:24:38Z"
+    - lastTransitionTime: "2024-01-31T05:17:18Z"
       message: the initial names have been accepted
       reason: InitialNamesAccepted
       status: "True"

@@ -3,13 +3,13 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.12.1
-  creationTimestamp: "2023-12-06T07:13:05Z"
-  generation: 7
+  creationTimestamp: "2024-01-31T05:17:14Z"
+  generation: 2
   labels:
     app.kubernetes.io/name: kubeblocks
   name: components.apps.kubeblocks.io
-  resourceVersion: "133305614"
-  uid: 0b880de9-6724-43b9-baca-5fc63a37c410
+  resourceVersion: "9231029"
+  uid: 6aa7ce38-9f82-4819-97de-3a74f14ffa75
 spec:
   conversion:
     strategy: None
@@ -192,6 +192,12 @@ spec:
                           type: string
                         description: Defines annotations to override. Add new or override existing annotations.
                         type: object
+                      generateName:
+                        description: "GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server. \n Applied only if Name is not specified."
+                        type: string
+                      image:
+                        description: Defines image to override. Will override the first container's image of the pod.
+                        type: string
                       labels:
                         additionalProperties:
                           type: string
@@ -215,7 +221,7 @@ spec:
                         minimum: 0
                         type: integer
                       resources:
-                        description: Defines Resources to override.
+                        description: Defines Resources to override. Will override the first container's resources of the pod.
                         properties:
                           claims:
                             description: "Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container. \n This is an alpha field and requires enabling the DynamicResourceAllocation feature gate. \n This field is immutable. It can only be set for containers."
@@ -496,7 +502,7 @@ spec:
                           type: object
                         type: array
                       volumeMounts:
-                        description: Defines VolumeMounts to override. Add new or override existing volume mounts.
+                        description: Defines VolumeMounts to override. Add new or override existing volume mounts of the first container in the pod.
                         items:
                           description: VolumeMount describes a mounting of a Volume within a container.
                           properties:
@@ -1787,12 +1793,12 @@ status:
       - cmp
     singular: component
   conditions:
-    - lastTransitionTime: "2023-12-06T07:13:05Z"
+    - lastTransitionTime: "2024-01-31T05:17:14Z"
       message: no conflicts found
       reason: NoConflicts
       status: "True"
       type: NamesAccepted
-    - lastTransitionTime: "2023-12-06T07:13:05Z"
+    - lastTransitionTime: "2024-01-31T05:17:14Z"
       message: the initial names have been accepted
       reason: InitialNamesAccepted
       status: "True"
