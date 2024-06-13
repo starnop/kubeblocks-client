@@ -61,7 +61,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * The blueprint for the components. Generates a set of components (also referred to as shards) based on this template. All components or shards generated will have identical specifications and definitions.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-03-12T08:58:42.064637Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
 public class V1alpha1ClusterSpecShardingSpecsInnerTemplate {
   public static final String SERIALIZED_NAME_AFFINITY = "affinity";
   @SerializedName(SERIALIZED_NAME_AFFINITY)
@@ -926,7 +926,7 @@ public class V1alpha1ClusterSpecShardingSpecsInnerTemplate {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1ClusterSpecShardingSpecsInnerTemplate
   */
   public static V1alpha1ClusterSpecShardingSpecsInnerTemplate fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1ClusterSpecShardingSpecsInnerTemplate.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1ClusterSpecShardingSpecsInnerTemplate.class);
   }
 
  /**
@@ -935,7 +935,7 @@ public class V1alpha1ClusterSpecShardingSpecsInnerTemplate {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

@@ -50,7 +50,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * hostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath --- TODO(jonesdl) We need to restrict who can use host directory mounts and who can/can not mount host directories as read/write.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-03-12T08:58:42.064637Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
 public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerHostPath {
   public static final String SERIALIZED_NAME_PATH = "path";
   @SerializedName(SERIALIZED_NAME_PATH)
@@ -232,7 +232,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerHos
   * @throws IOException if the JSON string is invalid with respect to V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerHostPath
   */
   public static V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerHostPath fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerHostPath.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerHostPath.class);
   }
 
  /**
@@ -241,7 +241,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerHos
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

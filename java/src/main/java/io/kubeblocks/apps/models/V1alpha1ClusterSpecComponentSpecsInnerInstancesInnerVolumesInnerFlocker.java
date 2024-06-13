@@ -50,7 +50,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * flocker represents a Flocker volume attached to a kubelet&#39;s host machine. This depends on the Flocker control service being running
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-03-12T08:58:42.064637Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
 public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerFlocker {
   public static final String SERIALIZED_NAME_DATASET_NAME = "datasetName";
   @SerializedName(SERIALIZED_NAME_DATASET_NAME)
@@ -224,7 +224,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerFlo
   * @throws IOException if the JSON string is invalid with respect to V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerFlocker
   */
   public static V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerFlocker fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerFlocker.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerFlocker.class);
   }
 
  /**
@@ -233,7 +233,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerFlo
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

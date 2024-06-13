@@ -41,7 +41,8 @@ crd_list=(
 	"restores;dataprotection;restore"
 	"storageproviders;storage;storageprovider"
 	"addons;extensions;addon"
-	"replicatedstatemachines;workloads;replicatedstatemachine"
+	"instancesets;workloads;instancesets"
+#	"replicatedstatemachines;workloads;replicatedstatemachine"
 )
 
 for crd_arr in "${crd_list[@]}"; do

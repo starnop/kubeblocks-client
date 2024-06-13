@@ -3,13 +3,13 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.12.1
-  creationTimestamp: "2024-01-31T05:17:13Z"
-  generation: 2
+  creationTimestamp: "2024-05-14T07:40:38Z"
+  generation: 3
   labels:
     app.kubernetes.io/name: kubeblocks
   name: clusterversions.apps.kubeblocks.io
-  resourceVersion: "9231025"
-  uid: 98e29fdb-e86b-4f15-9ec3-9730a789cd9d
+  resourceVersion: "551327"
+  uid: 9a383934-6896-495e-b435-6156202ccac0
 spec:
   conversion:
     strategy: None
@@ -37,10 +37,12 @@ spec:
         - jsonPath: .metadata.creationTimestamp
           name: AGE
           type: date
+      deprecated: true
+      deprecationWarning: The ClusterVersion CRD has been deprecated since 0.9.0
       name: v1alpha1
       schema:
         openAPIV3Schema:
-          description: ClusterVersion is the Schema for the ClusterVersions API
+          description: "ClusterVersion is the Schema for the ClusterVersions API. \n Deprecated: ClusterVersion has been replaced by ComponentVersion since v0.9. This struct is maintained for backward compatibility and its use is discouraged."
           properties:
             apiVersion:
               description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
@@ -51,7 +53,7 @@ spec:
             metadata:
               type: object
             spec:
-              description: ClusterVersionSpec defines the desired state of ClusterVersion
+              description: "ClusterVersionSpec defines the desired state of ClusterVersion. \n Deprecated since v0.9. This struct is maintained for backward compatibility and its use is discouraged."
               properties:
                 clusterDefinitionRef:
                   description: Specifies a reference to the ClusterDefinition.
@@ -60,7 +62,7 @@ spec:
                 componentVersions:
                   description: Contains a list of versioning contexts for the components' containers.
                   items:
-                    description: ClusterComponentVersion is an application version component spec.
+                    description: "ClusterComponentVersion is an application version component spec. \n Deprecated since v0.9. This struct is maintained for backward compatibility and its use is discouraged."
                     properties:
                       componentDefRef:
                         description: Specifies a reference to one of the cluster component definition names in the ClusterDefinition API (spec.componentDefs.name).
@@ -72,28 +74,34 @@ spec:
                         items:
                           properties:
                             asEnvFrom:
-                              description: An optional field where the list of containers will be injected into EnvFrom.
+                              description: "Specifies the containers to inject the ConfigMap parameters as environment variables. \n This is useful when application images accept parameters through environment variables and generate the final configuration file in the startup script based on these variables. \n This field allows users to specify a list of container names, and KubeBlocks will inject the environment variables converted from the ConfigMap into these designated containers. This provides a flexible way to pass the configuration items from the ConfigMap to the container without modifying the image. \n Deprecated: `asEnvFrom` has been deprecated since 0.9.0 and will be removed in 0.10.0. Use `injectEnvTo` instead."
                               items:
                                 type: string
                               type: array
                               x-kubernetes-list-type: set
                             constraintRef:
-                              description: An optional field that defines the name of the referenced configuration constraints object.
+                              description: Specifies the name of the referenced configuration constraints object.
                               maxLength: 63
                               pattern: ^[a-z0-9]([a-z0-9\.\-]*[a-z0-9])?$
                               type: string
                             defaultMode:
-                              description: "Refers to the mode bits used to set permissions on created files by default. \n Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. \n Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set."
+                              description: "The operator attempts to set default file permissions for scripts (0555) and configurations (0444). However, certain database engines may require different file permissions. You can specify the desired file permissions here. \n Must be specified as an octal value between 0000 and 0777 (inclusive), or as a decimal value between 0 and 511 (inclusive). YAML supports both octal and decimal values for file permissions. \n Please note that this setting only affects the permissions of the files themselves. Directories within the specified path are not impacted by this setting. It's important to be aware that this setting might conflict with other options that influence the file mode, such as fsGroup. In such cases, the resulting file mode may have additional bits set. Refers to documents of k8s.ConfigMapVolumeSource.defaultMode for more information."
                               format: int32
                               type: integer
+                            injectEnvTo:
+                              description: "Specifies the containers to inject the ConfigMap parameters as environment variables. \n This is useful when application images accept parameters through environment variables and generate the final configuration file in the startup script based on these variables. \n This field allows users to specify a list of container names, and KubeBlocks will inject the environment variables converted from the ConfigMap into these designated containers. This provides a flexible way to pass the configuration items from the ConfigMap to the container without modifying the image."
+                              items:
+                                type: string
+                              type: array
+                              x-kubernetes-list-type: set
                             keys:
-                              description: Defines a list of keys. If left empty, ConfigConstraint applies to all keys in the configmap.
+                              description: "Specifies the configuration files within the ConfigMap that support dynamic updates. \n A configuration template (provided in the form of a ConfigMap) may contain templates for multiple configuration files. Each configuration file corresponds to a key in the ConfigMap. Some of these configuration files may support dynamic modification and reloading without requiring a pod restart. \n If empty or omitted, all configuration files in the ConfigMap are assumed to support dynamic updates, and ConfigConstraint applies to all keys."
                               items:
                                 type: string
                               type: array
                               x-kubernetes-list-type: set
                             legacyRenderedConfigSpec:
-                              description: An optional field that defines the secondary rendered config spec.
+                              description: "Specifies the secondary rendered config spec for pod-specific customization. \n The template is rendered inside the pod (by the \"config-manager\" sidecar container) and merged with the main template's render result to generate the final configuration file. \n This field is intended to handle scenarios where different pods within the same Component have varying configurations. It allows for pod-specific customization of the configuration. \n Note: This field will be deprecated in future versions, and the functionality will be moved to `cluster.spec.componentSpecs[*].instances[*]`."
                               properties:
                                 namespace:
                                   default: default
@@ -128,6 +136,17 @@ spec:
                               maxLength: 63
                               pattern: ^[a-z0-9]([a-z0-9\-]*[a-z0-9])?$
                               type: string
+                            reRenderResourceTypes:
+                              description: "Specifies whether the configuration needs to be re-rendered after v-scale or h-scale operations to reflect changes. \n In some scenarios, the configuration may need to be updated to reflect the changes in resource allocation or cluster topology. Examples: \n - Redis: adjust maxmemory after v-scale operation. - MySQL: increase max connections after v-scale operation. - Zookeeper: update zoo.cfg with new node addresses after h-scale operation."
+                              items:
+                                description: RerenderResourceType defines the resource requirements for a component.
+                                enum:
+                                  - vscale
+                                  - hscale
+                                  - tls
+                                type: string
+                              type: array
+                              x-kubernetes-list-type: set
                             templateRef:
                               description: Specifies the name of the referenced configuration template ConfigMap object.
                               maxLength: 63
@@ -2015,7 +2034,7 @@ spec:
                 - componentVersions
               type: object
             status:
-              description: ClusterVersionStatus defines the observed state of ClusterVersion
+              description: "ClusterVersionStatus defines the observed state of ClusterVersion. \n Deprecated since v0.9. This struct is maintained for backward compatibility and its use is discouraged."
               properties:
                 clusterDefGeneration:
                   description: The generation number of the ClusterDefinition that is currently being referenced.
@@ -2051,12 +2070,12 @@ status:
       - cv
     singular: clusterversion
   conditions:
-    - lastTransitionTime: "2024-01-31T05:17:13Z"
+    - lastTransitionTime: "2024-05-14T07:40:39Z"
       message: no conflicts found
       reason: NoConflicts
       status: "True"
       type: NamesAccepted
-    - lastTransitionTime: "2024-01-31T05:17:14Z"
+    - lastTransitionTime: "2024-05-14T07:40:39Z"
       message: the initial names have been accepted
       reason: InitialNamesAccepted
       status: "True"

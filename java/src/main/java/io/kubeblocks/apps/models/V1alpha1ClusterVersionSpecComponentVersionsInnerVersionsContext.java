@@ -50,7 +50,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * Defines the context for container images for component versions. This value replaces the values in clusterDefinition.spec.componentDefs.podSpec.[initContainers | containers].
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-03-12T08:58:42.064637Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
 public class V1alpha1ClusterVersionSpecComponentVersionsInnerVersionsContext {
   public static final String SERIALIZED_NAME_CONTAINERS = "containers";
   @SerializedName(SERIALIZED_NAME_CONTAINERS)
@@ -218,7 +218,7 @@ public class V1alpha1ClusterVersionSpecComponentVersionsInnerVersionsContext {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1ClusterVersionSpecComponentVersionsInnerVersionsContext
   */
   public static V1alpha1ClusterVersionSpecComponentVersionsInnerVersionsContext fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1ClusterVersionSpecComponentVersionsInnerVersionsContext.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1ClusterVersionSpecComponentVersionsInnerVersionsContext.class);
   }
 
  /**
@@ -227,7 +227,7 @@ public class V1alpha1ClusterVersionSpecComponentVersionsInnerVersionsContext {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

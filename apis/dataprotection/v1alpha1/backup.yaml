@@ -3,13 +3,13 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.12.1
-  creationTimestamp: "2024-01-31T05:17:18Z"
-  generation: 2
+  creationTimestamp: "2024-05-14T07:40:43Z"
+  generation: 1
   labels:
     app.kubernetes.io/name: kubeblocks
   name: backups.dataprotection.kubeblocks.io
-  resourceVersion: "9231018"
-  uid: cfcac09f-b784-4693-919a-10aac1680f4e
+  resourceVersion: "474"
+  uid: 67c43b6a-a570-4341-aa7f-3d58a9989984
 spec:
   conversion:
     strategy: None
@@ -152,6 +152,9 @@ spec:
                         description: Records the time an action was started.
                         format: date-time
                         type: string
+                      targetPodName:
+                        description: Records the target pod name which has been backed up.
+                        type: string
                       timeRange:
                         description: Records the time range of backed up data, for PITR, this is the time range of recoverable data.
                         properties:
@@ -183,6 +186,9 @@ spec:
                               type: string
                             size:
                               description: The size of the volume snapshot.
+                              type: string
+                            targetName:
+                              description: Associates this volumeSnapshot with its corresponding target.
                               type: string
                             volumeName:
                               description: The name of the volume.
@@ -357,6 +363,9 @@ spec:
                           required:
                             - secretName
                           type: object
+                        name:
+                          description: Specifies a mandatory and unique identifier for each target when using the "targets" field. The backup data for the current target is stored in a uniquely named subdirectory.
+                          type: string
                         podSelector:
                           description: Used to find the target pod. The volumes of the target pod will be backed up.
                           properties:
@@ -388,7 +397,7 @@ spec:
                               type: object
                             strategy:
                               default: Any
-                              description: "Specifies the strategy to select the target pod when multiple pods are selected. Valid values are: Any: select any one pod that match the labelsSelector. \n - `Any`: select any one pod that match the labelsSelector. - `All`: select all pods that match the labelsSelector."
+                              description: "Specifies the strategy to select the target pod when multiple pods are selected. Valid values are: \n - `Any`: select any one pod that match the labelsSelector. - `All`: select all pods that match the labelsSelector. The backup data for the current pod will be stored in a subdirectory named after the pod."
                               enum:
                                 - Any
                                 - All
@@ -481,6 +490,125 @@ spec:
                             type: string
                           type: array
                       type: object
+                    targets:
+                      description: Specifies multiple target information for backup operations. This includes details such as the target pod and cluster connection credentials. All specified targets will be backed up collectively.
+                      items:
+                        properties:
+                          connectionCredential:
+                            description: Specifies the connection credential to connect to the target database cluster.
+                            properties:
+                              hostKey:
+                                description: Specifies the map key of the host in the connection credential secret.
+                                type: string
+                              passwordKey:
+                                default: password
+                                description: Specifies the map key of the password in the connection credential secret. This password will be saved in the backup annotation for full backup. You can use the environment variable DP_ENCRYPTION_KEY to specify encryption key.
+                                type: string
+                              portKey:
+                                description: Specifies the map key of the port in the connection credential secret.
+                                type: string
+                              secretName:
+                                description: Refers to the Secret object that contains the connection credential.
+                                pattern: ^[a-z0-9]([a-z0-9\.\-]*[a-z0-9])?$
+                                type: string
+                              usernameKey:
+                                default: username
+                                description: Specifies the map key of the user in the connection credential secret.
+                                type: string
+                            required:
+                              - secretName
+                            type: object
+                          name:
+                            description: Specifies a mandatory and unique identifier for each target when using the "targets" field. The backup data for the current target is stored in a uniquely named subdirectory.
+                            type: string
+                          podSelector:
+                            description: Used to find the target pod. The volumes of the target pod will be backed up.
+                            properties:
+                              matchExpressions:
+                                description: matchExpressions is a list of label selector requirements. The requirements are ANDed.
+                                items:
+                                  description: A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+                                  properties:
+                                    key:
+                                      description: key is the label key that the selector applies to.
+                                      type: string
+                                    operator:
+                                      description: operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
+                                      type: string
+                                    values:
+                                      description: values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
+                                      items:
+                                        type: string
+                                      type: array
+                                  required:
+                                    - key
+                                    - operator
+                                  type: object
+                                type: array
+                              matchLabels:
+                                additionalProperties:
+                                  type: string
+                                description: matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                                type: object
+                              strategy:
+                                default: Any
+                                description: "Specifies the strategy to select the target pod when multiple pods are selected. Valid values are: \n - `Any`: select any one pod that match the labelsSelector. - `All`: select all pods that match the labelsSelector. The backup data for the current pod will be stored in a subdirectory named after the pod."
+                                enum:
+                                  - Any
+                                  - All
+                                type: string
+                            type: object
+                            x-kubernetes-map-type: atomic
+                          resources:
+                            description: Specifies the kubernetes resources to back up.
+                            properties:
+                              excluded:
+                                description: excluded is a slice of namespaced-scoped resource type names to exclude in the kubernetes resources. The default value is empty.
+                                items:
+                                  type: string
+                                type: array
+                              included:
+                                description: included is a slice of namespaced-scoped resource type names to include in the kubernetes resources. The default value is empty.
+                                items:
+                                  type: string
+                                type: array
+                              selector:
+                                description: A metav1.LabelSelector to filter the target kubernetes resources that need to be backed up. If not set, will do not back up any kubernetes resources.
+                                properties:
+                                  matchExpressions:
+                                    description: matchExpressions is a list of label selector requirements. The requirements are ANDed.
+                                    items:
+                                      description: A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+                                      properties:
+                                        key:
+                                          description: key is the label key that the selector applies to.
+                                          type: string
+                                        operator:
+                                          description: operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
+                                          type: string
+                                        values:
+                                          description: values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
+                                          items:
+                                            type: string
+                                          type: array
+                                      required:
+                                        - key
+                                        - operator
+                                      type: object
+                                    type: array
+                                  matchLabels:
+                                    additionalProperties:
+                                      type: string
+                                    description: matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                                    type: object
+                                type: object
+                                x-kubernetes-map-type: atomic
+                            type: object
+                          serviceAccountName:
+                            description: Specifies the service account to run the backup workload.
+                            type: string
+                        type: object
+                      type: array
                   required:
                     - name
                   type: object
@@ -494,6 +622,37 @@ spec:
                 duration:
                   description: Records the duration of the backup operation. When converted to a string, the format is "1h2m0.5s".
                   type: string
+                encryptionConfig:
+                  description: Records the encryption config for this backup.
+                  properties:
+                    algorithm:
+                      default: AES-256-CFB
+                      description: "Specifies the encryption algorithm. Currently supported algorithms are: \n - AES-128-CFB - AES-192-CFB - AES-256-CFB"
+                      enum:
+                        - AES-128-CFB
+                        - AES-192-CFB
+                        - AES-256-CFB
+                      type: string
+                    passPhraseSecretKeyRef:
+                      description: Selects the key of a secret in the current namespace, the value of the secret is used as the encryption key.
+                      properties:
+                        key:
+                          description: The key of the secret to select from.  Must be a valid secret key.
+                          type: string
+                        name:
+                          description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?'
+                          type: string
+                        optional:
+                          description: Specify whether the Secret or its key must be defined
+                          type: boolean
+                      required:
+                        - key
+                      type: object
+                      x-kubernetes-map-type: atomic
+                  required:
+                    - algorithm
+                    - passPhraseSecretKeyRef
+                  type: object
                 expiration:
                   description: Indicates when this backup becomes eligible for garbage collection. A 'null' value implies that the backup will not be cleaned up unless manually deleted.
                   format: date-time
@@ -561,6 +720,9 @@ spec:
                       required:
                         - secretName
                       type: object
+                    name:
+                      description: Specifies a mandatory and unique identifier for each target when using the "targets" field. The backup data for the current target is stored in a uniquely named subdirectory.
+                      type: string
                     podSelector:
                       description: Used to find the target pod. The volumes of the target pod will be backed up.
                       properties:
@@ -592,7 +754,7 @@ spec:
                           type: object
                         strategy:
                           default: Any
-                          description: "Specifies the strategy to select the target pod when multiple pods are selected. Valid values are: Any: select any one pod that match the labelsSelector. \n - `Any`: select any one pod that match the labelsSelector. - `All`: select all pods that match the labelsSelector."
+                          description: "Specifies the strategy to select the target pod when multiple pods are selected. Valid values are: \n - `Any`: select any one pod that match the labelsSelector. - `All`: select all pods that match the labelsSelector. The backup data for the current pod will be stored in a subdirectory named after the pod."
                           enum:
                             - Any
                             - All
@@ -644,10 +806,139 @@ spec:
                           type: object
                           x-kubernetes-map-type: atomic
                       type: object
+                    selectedTargetPods:
+                      description: Records the selected pods by the target info during backup.
+                      items:
+                        type: string
+                      type: array
                     serviceAccountName:
                       description: Specifies the service account to run the backup workload.
                       type: string
                   type: object
+                targets:
+                  description: Records the targets information for this backup.
+                  items:
+                    properties:
+                      connectionCredential:
+                        description: Specifies the connection credential to connect to the target database cluster.
+                        properties:
+                          hostKey:
+                            description: Specifies the map key of the host in the connection credential secret.
+                            type: string
+                          passwordKey:
+                            default: password
+                            description: Specifies the map key of the password in the connection credential secret. This password will be saved in the backup annotation for full backup. You can use the environment variable DP_ENCRYPTION_KEY to specify encryption key.
+                            type: string
+                          portKey:
+                            description: Specifies the map key of the port in the connection credential secret.
+                            type: string
+                          secretName:
+                            description: Refers to the Secret object that contains the connection credential.
+                            pattern: ^[a-z0-9]([a-z0-9\.\-]*[a-z0-9])?$
+                            type: string
+                          usernameKey:
+                            default: username
+                            description: Specifies the map key of the user in the connection credential secret.
+                            type: string
+                        required:
+                          - secretName
+                        type: object
+                      name:
+                        description: Specifies a mandatory and unique identifier for each target when using the "targets" field. The backup data for the current target is stored in a uniquely named subdirectory.
+                        type: string
+                      podSelector:
+                        description: Used to find the target pod. The volumes of the target pod will be backed up.
+                        properties:
+                          matchExpressions:
+                            description: matchExpressions is a list of label selector requirements. The requirements are ANDed.
+                            items:
+                              description: A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+                              properties:
+                                key:
+                                  description: key is the label key that the selector applies to.
+                                  type: string
+                                operator:
+                                  description: operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
+                                  type: string
+                                values:
+                                  description: values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
+                                  items:
+                                    type: string
+                                  type: array
+                              required:
+                                - key
+                                - operator
+                              type: object
+                            type: array
+                          matchLabels:
+                            additionalProperties:
+                              type: string
+                            description: matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                            type: object
+                          strategy:
+                            default: Any
+                            description: "Specifies the strategy to select the target pod when multiple pods are selected. Valid values are: \n - `Any`: select any one pod that match the labelsSelector. - `All`: select all pods that match the labelsSelector. The backup data for the current pod will be stored in a subdirectory named after the pod."
+                            enum:
+                              - Any
+                              - All
+                            type: string
+                        type: object
+                        x-kubernetes-map-type: atomic
+                      resources:
+                        description: Specifies the kubernetes resources to back up.
+                        properties:
+                          excluded:
+                            description: excluded is a slice of namespaced-scoped resource type names to exclude in the kubernetes resources. The default value is empty.
+                            items:
+                              type: string
+                            type: array
+                          included:
+                            description: included is a slice of namespaced-scoped resource type names to include in the kubernetes resources. The default value is empty.
+                            items:
+                              type: string
+                            type: array
+                          selector:
+                            description: A metav1.LabelSelector to filter the target kubernetes resources that need to be backed up. If not set, will do not back up any kubernetes resources.
+                            properties:
+                              matchExpressions:
+                                description: matchExpressions is a list of label selector requirements. The requirements are ANDed.
+                                items:
+                                  description: A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+                                  properties:
+                                    key:
+                                      description: key is the label key that the selector applies to.
+                                      type: string
+                                    operator:
+                                      description: operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
+                                      type: string
+                                    values:
+                                      description: values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
+                                      items:
+                                        type: string
+                                      type: array
+                                  required:
+                                    - key
+                                    - operator
+                                  type: object
+                                type: array
+                              matchLabels:
+                                additionalProperties:
+                                  type: string
+                                description: matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                                type: object
+                            type: object
+                            x-kubernetes-map-type: atomic
+                        type: object
+                      selectedTargetPods:
+                        description: Records the selected pods by the target info during backup.
+                        items:
+                          type: string
+                        type: array
+                      serviceAccountName:
+                        description: Specifies the service account to run the backup workload.
+                        type: string
+                    type: object
+                  type: array
                 timeRange:
                   description: Records the time range of the data backed up. For Point-in-Time Recovery (PITR), this is the time range of recoverable data.
                   properties:
@@ -680,6 +971,9 @@ spec:
                       size:
                         description: The size of the volume snapshot.
                         type: string
+                      targetName:
+                        description: Associates this volumeSnapshot with its corresponding target.
+                        type: string
                       volumeName:
                         description: The name of the volume.
                         type: string
@@ -700,12 +994,12 @@ status:
     plural: backups
     singular: backup
   conditions:
-    - lastTransitionTime: "2024-01-31T05:17:18Z"
+    - lastTransitionTime: "2024-05-14T07:40:44Z"
       message: no conflicts found
       reason: NoConflicts
       status: "True"
       type: NamesAccepted
-    - lastTransitionTime: "2024-01-31T05:17:18Z"
+    - lastTransitionTime: "2024-05-14T07:40:44Z"
       message: the initial names have been accepted
       reason: InitialNamesAccepted
       status: "True"

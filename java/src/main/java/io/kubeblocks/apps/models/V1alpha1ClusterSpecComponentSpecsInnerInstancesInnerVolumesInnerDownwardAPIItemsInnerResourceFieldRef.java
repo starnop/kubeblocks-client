@@ -50,7 +50,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-03-12T08:58:42.064637Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
 public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerDownwardAPIItemsInnerResourceFieldRef {
   public static final String SERIALIZED_NAME_CONTAINER_NAME = "containerName";
   @SerializedName(SERIALIZED_NAME_CONTAINER_NAME)
@@ -260,7 +260,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerDow
   * @throws IOException if the JSON string is invalid with respect to V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerDownwardAPIItemsInnerResourceFieldRef
   */
   public static V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerDownwardAPIItemsInnerResourceFieldRef fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerDownwardAPIItemsInnerResourceFieldRef.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerDownwardAPIItemsInnerResourceFieldRef.class);
   }
 
  /**
@@ -269,7 +269,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerDow
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

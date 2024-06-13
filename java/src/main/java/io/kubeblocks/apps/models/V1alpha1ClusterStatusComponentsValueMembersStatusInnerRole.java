@@ -50,7 +50,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * Defines the role of the replica in the cluster.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-03-12T08:58:42.064637Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
 public class V1alpha1ClusterStatusComponentsValueMembersStatusInnerRole {
   /**
    * Specifies the service capabilities of this member.
@@ -338,7 +338,7 @@ public class V1alpha1ClusterStatusComponentsValueMembersStatusInnerRole {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1ClusterStatusComponentsValueMembersStatusInnerRole
   */
   public static V1alpha1ClusterStatusComponentsValueMembersStatusInnerRole fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1ClusterStatusComponentsValueMembersStatusInnerRole.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1ClusterStatusComponentsValueMembersStatusInnerRole.class);
   }
 
  /**
@@ -347,7 +347,7 @@ public class V1alpha1ClusterStatusComponentsValueMembersStatusInnerRole {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

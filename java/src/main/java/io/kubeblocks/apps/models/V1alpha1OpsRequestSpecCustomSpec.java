@@ -53,7 +53,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * Specifies a custom operation as defined by OpsDefinition.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-03-12T08:58:42.064637Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
 public class V1alpha1OpsRequestSpecCustomSpec {
   public static final String SERIALIZED_NAME_COMPONENT_NAME = "componentName";
   @SerializedName(SERIALIZED_NAME_COMPONENT_NAME)
@@ -276,7 +276,7 @@ public class V1alpha1OpsRequestSpecCustomSpec {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1OpsRequestSpecCustomSpec
   */
   public static V1alpha1OpsRequestSpecCustomSpec fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1OpsRequestSpecCustomSpec.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1OpsRequestSpecCustomSpec.class);
   }
 
  /**
@@ -285,7 +285,7 @@ public class V1alpha1OpsRequestSpecCustomSpec {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

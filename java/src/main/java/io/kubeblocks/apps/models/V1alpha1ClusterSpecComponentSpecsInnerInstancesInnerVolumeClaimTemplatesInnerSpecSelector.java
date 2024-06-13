@@ -55,7 +55,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * selector is a label query over volumes to consider for binding.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-03-12T08:58:42.064637Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
 public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecSelector {
   public static final String SERIALIZED_NAME_MATCH_EXPRESSIONS = "matchExpressions";
   @SerializedName(SERIALIZED_NAME_MATCH_EXPRESSIONS)
@@ -253,7 +253,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemp
   * @throws IOException if the JSON string is invalid with respect to V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecSelector
   */
   public static V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecSelector fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecSelector.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecSelector.class);
   }
 
  /**
@@ -262,7 +262,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemp
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

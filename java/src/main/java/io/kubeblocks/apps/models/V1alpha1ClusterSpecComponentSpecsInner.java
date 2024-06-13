@@ -61,7 +61,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * ClusterComponentSpec defines the specifications for a cluster component. TODO +kubebuilder:validation:XValidation:rule&#x3D;\&quot;!has(oldSelf.componentDefRef) || has(self.componentDefRef)\&quot;, message&#x3D;\&quot;componentDefRef is required once set\&quot; TODO +kubebuilder:validation:XValidation:rule&#x3D;\&quot;!has(oldSelf.componentDef) || has(self.componentDef)\&quot;, message&#x3D;\&quot;componentDef is required once set\&quot;
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-03-12T08:58:42.064637Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
 public class V1alpha1ClusterSpecComponentSpecsInner {
   public static final String SERIALIZED_NAME_AFFINITY = "affinity";
   @SerializedName(SERIALIZED_NAME_AFFINITY)
@@ -926,7 +926,7 @@ public class V1alpha1ClusterSpecComponentSpecsInner {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1ClusterSpecComponentSpecsInner
   */
   public static V1alpha1ClusterSpecComponentSpecsInner fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1ClusterSpecComponentSpecsInner.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1ClusterSpecComponentSpecsInner.class);
   }
 
  /**
@@ -935,7 +935,7 @@ public class V1alpha1ClusterSpecComponentSpecsInner {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

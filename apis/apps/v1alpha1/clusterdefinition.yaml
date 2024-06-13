@@ -3,13 +3,13 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.12.1
-  creationTimestamp: "2024-01-31T05:17:13Z"
-  generation: 2
+  creationTimestamp: "2024-05-14T07:40:38Z"
+  generation: 3
   labels:
     app.kubernetes.io/name: kubeblocks
   name: clusterdefinitions.apps.kubeblocks.io
-  resourceVersion: "9231021"
-  uid: e5938d04-636d-4cc9-b744-6c7d0ffd4983
+  resourceVersion: "551322"
+  uid: 67caa3aa-942a-4e83-9146-18ab7d50e86f
 spec:
   conversion:
     strategy: None
@@ -26,9 +26,13 @@ spec:
   scope: Cluster
   versions:
     - additionalPrinterColumns:
-        - description: main component names
-          jsonPath: .spec.componentDefs[0].name
-          name: MAIN-COMPONENT-NAME
+        - description: topologies
+          jsonPath: .status.topologies
+          name: Topologies
+          type: string
+        - description: service references
+          jsonPath: .status.serviceRefs
+          name: ServiceRefs
           type: string
         - description: status phase
           jsonPath: .status.phase
@@ -40,7 +44,7 @@ spec:
       name: v1alpha1
       schema:
         openAPIV3Schema:
-          description: ClusterDefinition is the Schema for the clusterdefinitions API
+          description: "ClusterDefinition defines the topology for databases or storage systems, offering a variety of topological configurations to meet diverse deployment needs and scenarios. \n It includes a list of Components, each linked to a ComponentDefinition, which enhances reusability and reduce redundancy. For example, widely used components such as etcd and Zookeeper can be defined once and reused across multiple ClusterDefinitions, simplifying the setup of new systems. \n Additionally, ClusterDefinition also specifies the sequence of startup, upgrade, and shutdown for Components, ensuring a controlled and predictable management of component lifecycles."
           properties:
             apiVersion:
               description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
@@ -51,12 +55,12 @@ spec:
             metadata:
               type: object
             spec:
-              description: ClusterDefinitionSpec defines the desired state of ClusterDefinition
+              description: ClusterDefinitionSpec defines the desired state of ClusterDefinition.
               properties:
                 componentDefs:
-                  description: Provides the definitions for the cluster components.
+                  description: "Provides the definitions for the cluster components. \n Deprecated since v0.9. Components should now be individually defined using ComponentDefinition and collectively referenced via `topology.components`. This field is maintained for backward compatibility and its use is discouraged. Existing usage should be updated to the current preferred approach to avoid compatibility issues in future releases."
                   items:
-                    description: ClusterComponentDefinition provides a workload component specification template. Attributes are designed to work effectively with stateful workloads and day-2 operations behaviors.
+                    description: "ClusterComponentDefinition defines a Component within a ClusterDefinition but is deprecated and has been replaced by ComponentDefinition. \n Deprecated: Use ComponentDefinition instead. This type is deprecated as of version 0.8."
                     properties:
                       characterType:
                         description: Defines well-known database component name, such as mongos(mongodb), proxy(redis), mariadb(mysql).
@@ -64,7 +68,7 @@ spec:
                       componentDefRef:
                         description: Used to inject values from other components into the current component. Values will be saved and updated in a configmap and mounted to the current component.
                         items:
-                          description: ComponentDefRef is used to select the component and its fields to be referenced.
+                          description: "ComponentDefRef is used to select the component and its fields to be referenced. \n Deprecated since v0.8."
                           properties:
                             componentDefName:
                               description: The name of the componentDef to be selected.
@@ -72,7 +76,7 @@ spec:
                             componentRefEnv:
                               description: The values that are to be injected as environment variables into each component.
                               items:
-                                description: ComponentRefEnv specifies name and value of an env.
+                                description: "ComponentRefEnv specifies name and value of an env. \n Deprecated since v0.8."
                                 properties:
                                   name:
                                     description: The name of the env, it must be a C identifier.
@@ -139,28 +143,34 @@ spec:
                         items:
                           properties:
                             asEnvFrom:
-                              description: An optional field where the list of containers will be injected into EnvFrom.
+                              description: "Specifies the containers to inject the ConfigMap parameters as environment variables. \n This is useful when application images accept parameters through environment variables and generate the final configuration file in the startup script based on these variables. \n This field allows users to specify a list of container names, and KubeBlocks will inject the environment variables converted from the ConfigMap into these designated containers. This provides a flexible way to pass the configuration items from the ConfigMap to the container without modifying the image. \n Deprecated: `asEnvFrom` has been deprecated since 0.9.0 and will be removed in 0.10.0. Use `injectEnvTo` instead."
                               items:
                                 type: string
                               type: array
                               x-kubernetes-list-type: set
                             constraintRef:
-                              description: An optional field that defines the name of the referenced configuration constraints object.
+                              description: Specifies the name of the referenced configuration constraints object.
                               maxLength: 63
                               pattern: ^[a-z0-9]([a-z0-9\.\-]*[a-z0-9])?$
                               type: string
                             defaultMode:
-                              description: "Refers to the mode bits used to set permissions on created files by default. \n Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. \n Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set."
+                              description: "The operator attempts to set default file permissions for scripts (0555) and configurations (0444). However, certain database engines may require different file permissions. You can specify the desired file permissions here. \n Must be specified as an octal value between 0000 and 0777 (inclusive), or as a decimal value between 0 and 511 (inclusive). YAML supports both octal and decimal values for file permissions. \n Please note that this setting only affects the permissions of the files themselves. Directories within the specified path are not impacted by this setting. It's important to be aware that this setting might conflict with other options that influence the file mode, such as fsGroup. In such cases, the resulting file mode may have additional bits set. Refers to documents of k8s.ConfigMapVolumeSource.defaultMode for more information."
                               format: int32
                               type: integer
+                            injectEnvTo:
+                              description: "Specifies the containers to inject the ConfigMap parameters as environment variables. \n This is useful when application images accept parameters through environment variables and generate the final configuration file in the startup script based on these variables. \n This field allows users to specify a list of container names, and KubeBlocks will inject the environment variables converted from the ConfigMap into these designated containers. This provides a flexible way to pass the configuration items from the ConfigMap to the container without modifying the image."
+                              items:
+                                type: string
+                              type: array
+                              x-kubernetes-list-type: set
                             keys:
-                              description: Defines a list of keys. If left empty, ConfigConstraint applies to all keys in the configmap.
+                              description: "Specifies the configuration files within the ConfigMap that support dynamic updates. \n A configuration template (provided in the form of a ConfigMap) may contain templates for multiple configuration files. Each configuration file corresponds to a key in the ConfigMap. Some of these configuration files may support dynamic modification and reloading without requiring a pod restart. \n If empty or omitted, all configuration files in the ConfigMap are assumed to support dynamic updates, and ConfigConstraint applies to all keys."
                               items:
                                 type: string
                               type: array
                               x-kubernetes-list-type: set
                             legacyRenderedConfigSpec:
-                              description: An optional field that defines the secondary rendered config spec.
+                              description: "Specifies the secondary rendered config spec for pod-specific customization. \n The template is rendered inside the pod (by the \"config-manager\" sidecar container) and merged with the main template's render result to generate the final configuration file. \n This field is intended to handle scenarios where different pods within the same Component have varying configurations. It allows for pod-specific customization of the configuration. \n Note: This field will be deprecated in future versions, and the functionality will be moved to `cluster.spec.componentSpecs[*].instances[*]`."
                               properties:
                                 namespace:
                                   default: default
@@ -195,6 +205,17 @@ spec:
                               maxLength: 63
                               pattern: ^[a-z0-9]([a-z0-9\-]*[a-z0-9])?$
                               type: string
+                            reRenderResourceTypes:
+                              description: "Specifies whether the configuration needs to be re-rendered after v-scale or h-scale operations to reflect changes. \n In some scenarios, the configuration may need to be updated to reflect the changes in resource allocation or cluster topology. Examples: \n - Redis: adjust maxmemory after v-scale operation. - MySQL: increase max connections after v-scale operation. - Zookeeper: update zoo.cfg with new node addresses after h-scale operation."
+                              items:
+                                description: RerenderResourceType defines the resource requirements for a component.
+                                enum:
+                                  - vscale
+                                  - hscale
+                                  - tls
+                                type: string
+                              type: array
+                              x-kubernetes-list-type: set
                             templateRef:
                               description: Specifies the name of the referenced configuration template ConfigMap object.
                               maxLength: 63
@@ -220,6 +241,7 @@ spec:
                           followers:
                             description: Members of the consensus set that have voting rights but are not the leader.
                             items:
+                              description: ConsensusMember is deprecated since v0.7.
                               properties:
                                 accessMode:
                                   default: ReadWrite
@@ -332,6 +354,7 @@ spec:
                       customLabelSpecs:
                         description: Used for custom label tags which you want to add to the component resources.
                         items:
+                          description: CustomLabelSpec is deprecated since v0.8.
                           properties:
                             key:
                               description: The key of the label.
@@ -339,6 +362,7 @@ spec:
                             resources:
                               description: The resources that will be patched with the label.
                               items:
+                                description: GVKResource is deprecated since v0.8.
                                 properties:
                                   gvk:
                                     description: Represents the GVK of a resource, such as "v1/Pod", "apps/v1/StatefulSet", etc. When a resource matching this is found by the selector, a custom label will be added if it doesn't already exist, or updated if it does.
@@ -366,6 +390,25 @@ spec:
                       description:
                         description: Description of the component definition.
                         type: string
+                      exporter:
+                        description: Defines the metrics exporter.
+                        properties:
+                          containerName:
+                            description: Specifies the name of the built-in metrics exporter container.
+                            type: string
+                          scrapePath:
+                            description: Specifies the http/https url path to scrape for metrics. If empty, Prometheus uses the default value (e.g. `/metrics`).
+                            type: string
+                          scrapePort:
+                            description: Specifies the port name to scrape for metrics.
+                            type: string
+                          scrapeScheme:
+                            description: Specifies the schema to use for scraping. `http` and `https` are the expected values unless you rewrite the `__scheme__` label via relabeling. If empty, Prometheus uses the default value `http`.
+                            enum:
+                              - http
+                              - https
+                            type: string
+                        type: object
                       horizontalScalePolicy:
                         description: Defines the behavior of horizontal scale.
                         properties:
@@ -389,11 +432,11 @@ spec:
                         items:
                           properties:
                             filePathPattern:
-                              description: Indicates the path to the log file using a pattern, it corresponds to the variable (log path) in the database kernel.
+                              description: "Specifies the paths or patterns identifying where the log files are stored. This field allows the system to locate and manage log files effectively. \n Examples: \n - /home/postgres/pgdata/pgroot/data/log/postgresql-* - /data/mysql/log/mysqld-error.log"
                               maxLength: 4096
                               type: string
                             name:
-                              description: Specifies the type of log, such as 'slow' for a MySQL slow log file.
+                              description: Specifies a descriptive label for the log type, such as 'slow' for a MySQL slow log file. It provides a clear identification of the log's purpose and content.
                               maxLength: 128
                               type: string
                           required:
@@ -405,25 +448,25 @@ spec:
                           - name
                         x-kubernetes-list-type: map
                       monitor:
-                        description: Specify the config that how to monitor the component.
+                        description: Deprecated since v0.9 monitor is monitoring config which provided by provider.
                         properties:
                           builtIn:
                             default: false
-                            description: To enable the built-in monitoring. When set to true, monitoring metrics will be automatically scraped. When set to false, the provider is expected to configure the ExporterConfig and manage the Sidecar container.
+                            description: builtIn is a switch to enable KubeBlocks builtIn monitoring. If BuiltIn is set to true, monitor metrics will be scraped automatically. If BuiltIn is set to false, the provider should set ExporterConfig and Sidecar container own.
                             type: boolean
                           exporterConfig:
-                            description: Provided by the provider and contains the necessary information for the Time Series Database. This field is only valid when BuiltIn is set to false.
+                            description: exporterConfig provided by provider, which specify necessary information to Time Series Database. exporterConfig is valid when builtIn is false.
                             properties:
                               scrapePath:
                                 default: /metrics
-                                description: Specifies the URL path that the exporter uses for the Time Series Database to scrape metrics.
+                                description: scrapePath is exporter url path for Time Series Database to scrape metrics.
                                 maxLength: 128
                                 type: string
                               scrapePort:
                                 anyOf:
                                   - type: integer
                                   - type: string
-                                description: Defines the port that the exporter uses for the Time Series Database to scrape metrics.
+                                description: scrapePort is exporter port for Time Series Database to scrape metrics.
                                 x-kubernetes-int-or-string: true
                             required:
                               - scrapePort
@@ -5006,7 +5049,7 @@ spec:
                             type: string
                         type: object
                       rsmSpec:
-                        description: Defines workload spec of this component. From KB 0.7.0, RSM(ReplicatedStateMachineSpec) will be the underlying CR which powers all kinds of workload in KB. RSM is an enhanced stateful workload extension dedicated for heavy-state workloads like databases.
+                        description: Defines workload spec of this component. From KB 0.7.0, RSM(InstanceSetSpec) will be the underlying CR which powers all kinds of workload in KB. RSM is an enhanced stateful workload extension dedicated for heavy-state workloads like databases.
                         properties:
                           memberUpdateStrategy:
                             description: "Describes the strategy for updating Members (Pods). \n - `Serial`: Updates Members sequentially to ensure minimum component downtime. - `BestEffortParallel`: Updates Members in parallel to ensure minimum component write downtime. - `Parallel`: Forces parallel updates."
@@ -5095,7 +5138,7 @@ spec:
                                   - command
                                 type: object
                               switchoverAction:
-                                description: "Specifies the environment variables that can be used in all following Actions: - KB_RSM_USERNAME: Represents the username part of the credential - KB_RSM_PASSWORD: Represents the password part of the credential - KB_RSM_LEADER_HOST: Represents the leader host - KB_RSM_TARGET_HOST: Represents the target host - KB_RSM_SERVICE_PORT: Represents the service port \n Defines the action to perform a switchover. If the Image is not configured, the latest [BusyBox](https://busybox.net/) image will be used."
+                                description: "Specifies the environment variables that can be used in all following Actions: - KB_ITS_USERNAME: Represents the username part of the credential - KB_ITS_PASSWORD: Represents the password part of the credential - KB_ITS_LEADER_HOST: Represents the leader host - KB_ITS_TARGET_HOST: Represents the target host - KB_ITS_SERVICE_PORT: Represents the service port \n Defines the action to perform a switchover. If the Image is not configured, the latest [BusyBox](https://busybox.net/) image will be used."
                                 properties:
                                   args:
                                     description: Additional parameters used to perform specific statements. This field is optional.
@@ -5121,7 +5164,7 @@ spec:
                                 description: 'Specifies the builtin handler name to use to probe the role of the main container. Available handlers include: mysql, postgres, mongodb, redis, etcd, kafka. Use CustomHandler to define a custom role probe function if none of the built-in handlers meet the requirement.'
                                 type: string
                               customHandler:
-                                description: 'Defines a custom method for role probing. If the BuiltinHandler meets the requirement, use it instead. Actions defined here are executed in series. Upon completion of all actions, the final output should be a single string representing the role name defined in spec.Roles. The latest [BusyBox](https://busybox.net/) image will be used if Image is not configured. Environment variables can be used in Command: - v_KB_RSM_LAST_STDOUT: stdout from the last action, watch for ''v_'' prefix - KB_RSM_USERNAME: username part of the credential - KB_RSM_PASSWORD: password part of the credential'
+                                description: 'Defines a custom method for role probing. If the BuiltinHandler meets the requirement, use it instead. Actions defined here are executed in series. Upon completion of all actions, the final output should be a single string representing the role name defined in spec.Roles. The latest [BusyBox](https://busybox.net/) image will be used if Image is not configured. Environment variables can be used in Command: - v_KB_ITS_LAST_STDOUT: stdout from the last action, watch for ''v_'' prefix - KB_ITS_USERNAME: username part of the credential - KB_ITS_PASSWORD: password part of the credential'
                                 items:
                                   properties:
                                     args:
@@ -5214,7 +5257,7 @@ spec:
                         items:
                           properties:
                             defaultMode:
-                              description: "Refers to the mode bits used to set permissions on created files by default. \n Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. \n Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set."
+                              description: "The operator attempts to set default file permissions for scripts (0555) and configurations (0444). However, certain database engines may require different file permissions. You can specify the desired file permissions here. \n Must be specified as an octal value between 0000 and 0777 (inclusive), or as a decimal value between 0 and 511 (inclusive). YAML supports both octal and decimal values for file permissions. \n Please note that this setting only affects the permissions of the files themselves. Directories within the specified path are not impacted by this setting. It's important to be aware that this setting might conflict with other options that influence the file mode, such as fsGroup. In such cases, the resulting file mode may have additional bits set. Refers to documents of k8s.ConfigMapVolumeSource.defaultMode for more information."
                               format: int32
                               type: integer
                             name:
@@ -5253,6 +5296,7 @@ spec:
                           ports:
                             description: 'The list of ports that are exposed by this service. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies'
                             items:
+                              description: ServicePort is deprecated since v0.8.
                               properties:
                                 appProtocol:
                                   description: The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
@@ -5290,12 +5334,16 @@ spec:
                       serviceRefDeclarations:
                         description: Used to declare the service reference of the current component.
                         items:
+                          description: "ServiceRefDeclaration represents a reference to a service that can be either provided by a KubeBlocks Cluster or an external service. It acts as a placeholder for the actual service reference, which is determined later when a Cluster is created. \n The purpose of ServiceRefDeclaration is to declare a service dependency without specifying the concrete details of the service. It allows for flexibility and abstraction in defining service references within a Component. By using ServiceRefDeclaration, you can define service dependencies in a declarative manner, enabling loose coupling and easier management of service references across different components and clusters. \n Upon Cluster creation, the ServiceRefDeclaration is bound to an actual service through the ServiceRef field, effectively resolving and connecting to the specified service."
                           properties:
                             name:
-                              description: "Specifies the name of the service reference declaration. \n The service reference may originate from an external service that is not part of KubeBlocks, or from services provided by other KubeBlocks Cluster objects. The specific type of service reference is determined by the binding declaration when a Cluster is created."
+                              description: Specifies the name of the ServiceRefDeclaration.
                               type: string
+                            optional:
+                              description: "Specifies whether the service reference can be optional. \n For an optional service-ref, the component can still be created even if the service-ref is not provided."
+                              type: boolean
                             serviceRefDeclarationSpecs:
-                              description: "Represents a collection of service descriptions for a service reference declaration. \n Each ServiceRefDeclarationSpec defines a service Kind and Version. When multiple ServiceRefDeclarationSpecs are defined, it implies that the ServiceRefDeclaration can be any one of the specified ServiceRefDeclarationSpecs. \n For instance, when the ServiceRefDeclaration is declared to require an OLTP database, which can be either MySQL or PostgreSQL, a ServiceRefDeclarationSpec for MySQL and another for PostgreSQL can be defined. When referencing the service within the cluster, as long as the serviceKind and serviceVersion match either MySQL or PostgreSQL, it can be used."
+                              description: "Defines a list of constraints and requirements for services that can be bound to this ServiceRefDeclaration upon Cluster creation. Each ServiceRefDeclarationSpec defines a ServiceKind and ServiceVersion, outlining the acceptable service types and versions that are compatible. \n This flexibility allows a ServiceRefDeclaration to be fulfilled by any one of the provided specs. For example, if it requires an OLTP database, specs for both MySQL and PostgreSQL are listed, either MySQL or PostgreSQL services can be used when binding."
                               items:
                                 properties:
                                   serviceKind:
@@ -5637,7 +5685,7 @@ spec:
                           accounts:
                             description: Defines the configuration settings for system accounts.
                             items:
-                              description: SystemAccountConfig specifies how to create and delete system accounts.
+                              description: "SystemAccountConfig specifies how to create and delete system accounts. \n Deprecated since v0.9."
                               properties:
                                 name:
                                   description: The unique identifier of a system account.
@@ -5675,7 +5723,7 @@ spec:
                                           description: Specifies the statement required to create a new account with the necessary privileges.
                                           type: string
                                         deletion:
-                                          description: 'Defines the statement required to delete an existing account. Typically used in conjunction with the creation statement to delete an account before recreating it. For example, one might use a `drop user if exists` statement followed by a `create user` statement to ensure a fresh account. Deprecated: This field is deprecated and the update statement should be used instead.'
+                                          description: "Defines the statement required to delete an existing account. Typically used in conjunction with the creation statement to delete an account before recreating it. For example, one might use a `drop user if exists` statement followed by a `create user` statement to ensure a fresh account. \n Deprecated: This field is deprecated and the update statement should be used instead."
                                           type: string
                                         update:
                                           description: Defines the statement required to update the password of an existing account.
@@ -5861,6 +5909,7 @@ spec:
                           volumes:
                             description: The Volumes to be protected.
                             items:
+                              description: ProtectedVolume is deprecated since v0.9, replaced with ComponentVolume.HighWatermark.
                               properties:
                                 highWatermark:
                                   description: Defines the high watermark threshold for the volume, it will override the component level threshold. If the value is invalid, it will be ignored and the component level threshold will be used.
@@ -5876,6 +5925,7 @@ spec:
                       volumeTypes:
                         description: "Used to describe the purpose of the volumes mapping the name of the VolumeMounts in the PodSpec.Container field, such as data volume, log volume, etc. When backing up the volume, the volume can be correctly backed up according to the volumeType. \n For example: \n - `name: data, type: data` means that the volume named `data` is used to store `data`. - `name: binlog, type: log` means that the volume named `binlog` is used to store `log`. \n NOTE: When volumeTypes is not defined, the backup function will not be supported, even if a persistent volume has been specified."
                         items:
+                          description: VolumeTypeSpec is deprecated since v0.9, replaced with ComponentVolume.
                           properties:
                             name:
                               description: Corresponds to the name of the VolumeMounts field in PodSpec.Container.
@@ -5906,7 +5956,6 @@ spec:
                       - name
                       - workloadType
                     type: object
-                  minItems: 1
                   type: array
                   x-kubernetes-list-map-keys:
                     - name
@@ -5914,15 +5963,72 @@ spec:
                 connectionCredential:
                   additionalProperties:
                     type: string
-                  description: "Connection credential template used for creating a connection credential secret for cluster objects. \n Built-in objects are: \n - `$(RANDOM_PASSWD)` random 8 characters. - `$(STRONG_RANDOM_PASSWD)` random 16 characters, with mixed cases, digits and symbols. - `$(UUID)` generate a random UUID v4 string. - `$(UUID_B64)` generate a random UUID v4 BASE64 encoded string. - `$(UUID_STR_B64)` generate a random UUID v4 string then BASE64 encoded. - `$(UUID_HEX)` generate a random UUID v4 HEX representation. - `$(HEADLESS_SVC_FQDN)` headless service FQDN placeholder, value pattern is `$(CLUSTER_NAME)-$(1ST_COMP_NAME)-headless.$(NAMESPACE).svc`, where 1ST_COMP_NAME is the 1st component that provide `ClusterDefinition.spec.componentDefs[].service` attribute; - `$(SVC_FQDN)` service FQDN placeholder, value pattern is `$(CLUSTER_NAME)-$(1ST_COMP_NAME).$(NAMESPACE).svc`, where 1ST_COMP_NAME is the 1st component that provide `ClusterDefinition.spec.componentDefs[].service` attribute; - `$(SVC_PORT_{PORT-NAME})` is ServicePort's port value with specified port name, i.e, a servicePort JSON struct: `{\"name\": \"mysql\", \"targetPort\": \"mysqlContainerPort\", \"port\": 3306}`, and `$(SVC_PORT_mysql)` in the connection credential value is 3306."
+                  description: "Connection credential template used for creating a connection credential secret for cluster objects. \n Built-in objects are: \n - `$(RANDOM_PASSWD)` random 8 characters. - `$(STRONG_RANDOM_PASSWD)` random 16 characters, with mixed cases, digits and symbols. - `$(UUID)` generate a random UUID v4 string. - `$(UUID_B64)` generate a random UUID v4 BASE64 encoded string. - `$(UUID_STR_B64)` generate a random UUID v4 string then BASE64 encoded. - `$(UUID_HEX)` generate a random UUID v4 HEX representation. - `$(HEADLESS_SVC_FQDN)` headless service FQDN placeholder, value pattern is `$(CLUSTER_NAME)-$(1ST_COMP_NAME)-headless.$(NAMESPACE).svc`, where 1ST_COMP_NAME is the 1st component that provide `ClusterDefinition.spec.componentDefs[].service` attribute; - `$(SVC_FQDN)` service FQDN placeholder, value pattern is `$(CLUSTER_NAME)-$(1ST_COMP_NAME).$(NAMESPACE).svc`, where 1ST_COMP_NAME is the 1st component that provide `ClusterDefinition.spec.componentDefs[].service` attribute; - `$(SVC_PORT_{PORT-NAME})` is ServicePort's port value with specified port name, i.e, a servicePort JSON struct: `{\"name\": \"mysql\", \"targetPort\": \"mysqlContainerPort\", \"port\": 3306}`, and `$(SVC_PORT_mysql)` in the connection credential value is 3306. \n Deprecated since v0.9. This field is maintained for backward compatibility and its use is discouraged. Existing usage should be updated to the current preferred approach to avoid compatibility issues in future releases."
                   type: object
+                topologies:
+                  description: Topologies defines all possible topologies within the cluster.
+                  items:
+                    description: ClusterTopology represents the definition for a specific cluster topology.
+                    properties:
+                      components:
+                        description: Components specifies the components in the topology.
+                        items:
+                          description: ClusterTopologyComponent defines a Component within a ClusterTopology.
+                          properties:
+                            compDef:
+                              description: "Specifies the name or prefix of the ComponentDefinition custom resource(CR) that defines the Component's characteristics and behavior. \n When a prefix is used, the system selects the ComponentDefinition CR with the latest version that matches the prefix. This approach allows: \n 1. Precise selection by providing the exact name of a ComponentDefinition CR. 2. Flexible and automatic selection of the most up-to-date ComponentDefinition CR by specifying a prefix. \n Once set, this field cannot be updated."
+                              maxLength: 64
+                              type: string
+                            name:
+                              description: "Defines the unique identifier of the component within the cluster topology. It follows IANA Service naming rules and is used as part of the Service's DNS name. The name must start with a lowercase letter, can contain lowercase letters, numbers, and hyphens, and must end with a lowercase letter or number. \n Cannot be updated once set."
+                              maxLength: 16
+                              pattern: ^[a-z]([a-z0-9\-]*[a-z0-9])?$
+                              type: string
+                          required:
+                            - compDef
+                            - name
+                          type: object
+                        maxItems: 128
+                        minItems: 1
+                        type: array
+                      default:
+                        description: Default indicates whether this topology serves as the default configuration. When set to true, this topology is automatically used unless another is explicitly specified.
+                        type: boolean
+                      name:
+                        description: Name is the unique identifier for the cluster topology. Cannot be updated.
+                        maxLength: 32
+                        type: string
+                      orders:
+                        description: Specifies the sequence in which components within a cluster topology are started, stopped, and upgraded. This ordering is crucial for maintaining the correct dependencies and operational flow across components.
+                        properties:
+                          provision:
+                            description: "Specifies the order for creating and initializing components. This is designed for components that depend on one another. Components without dependencies can be grouped together. \n Components that can be provisioned independently or have no dependencies can be listed together in the same stage, separated by commas."
+                            items:
+                              type: string
+                            type: array
+                          terminate:
+                            description: "Outlines the order for stopping and deleting components. This sequence is designed for components that require a graceful shutdown or have interdependencies. \n Components that can be terminated independently or have no dependencies can be listed together in the same stage, separated by commas."
+                            items:
+                              type: string
+                            type: array
+                          update:
+                            description: "Update determines the order for updating components' specifications, such as image upgrades or resource scaling. This sequence is designed for components that have dependencies or require specific update procedures. \n Components that can be updated independently or have no dependencies can be listed together in the same stage, separated by commas."
+                            items:
+                              type: string
+                            type: array
+                        type: object
+                    required:
+                      - components
+                      - name
+                    type: object
+                  maxItems: 128
+                  minItems: 1
+                  type: array
                 type:
-                  description: Specifies the well-known application cluster type, such as mysql, redis, or mongodb.
+                  description: "Specifies the well-known database type, such as mysql, redis, or mongodb. \n Deprecated since v0.9. This field is maintained for backward compatibility and its use is discouraged. Existing usage should be updated to the current preferred approach to avoid compatibility issues in future releases."
                   maxLength: 24
                   pattern: ^[a-z0-9]([a-z0-9\-]*[a-z0-9])?$
                   type: string
-              required:
-                - componentDefs
               type: object
             status:
               description: ClusterDefinitionStatus defines the observed state of ClusterDefinition
@@ -5939,6 +6045,12 @@ spec:
                   enum:
                     - Available
                     - Unavailable
+                  type: string
+                serviceRefs:
+                  description: The service references declared by this ClusterDefinition.
+                  type: string
+                topologies:
+                  description: Topologies this ClusterDefinition supported.
                   type: string
               type: object
           type: object
@@ -5957,12 +6069,12 @@ status:
       - cd
     singular: clusterdefinition
   conditions:
-    - lastTransitionTime: "2024-01-31T05:17:13Z"
+    - lastTransitionTime: "2024-05-14T07:40:38Z"
       message: no conflicts found
       reason: NoConflicts
       status: "True"
       type: NamesAccepted
-    - lastTransitionTime: "2024-01-31T05:17:13Z"
+    - lastTransitionTime: "2024-05-14T07:40:38Z"
       message: the initial names have been accepted
       reason: InitialNamesAccepted
       status: "True"

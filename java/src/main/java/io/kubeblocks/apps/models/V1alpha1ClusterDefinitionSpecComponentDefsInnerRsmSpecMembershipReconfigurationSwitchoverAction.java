@@ -52,7 +52,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * Specifies the environment variables that can be used in all following Actions: - KB_RSM_USERNAME: Represents the username part of the credential - KB_RSM_PASSWORD: Represents the password part of the credential - KB_RSM_LEADER_HOST: Represents the leader host - KB_RSM_TARGET_HOST: Represents the target host - KB_RSM_SERVICE_PORT: Represents the service port   Defines the action to perform a switchover. If the Image is not configured, the latest [BusyBox](https://busybox.net/) image will be used.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-03-12T08:58:42.064637Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
 public class V1alpha1ClusterDefinitionSpecComponentDefsInnerRsmSpecMembershipReconfigurationSwitchoverAction {
   public static final String SERIALIZED_NAME_ARGS = "args";
   @SerializedName(SERIALIZED_NAME_ARGS)
@@ -285,7 +285,7 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerRsmSpecMembershipRec
   * @throws IOException if the JSON string is invalid with respect to V1alpha1ClusterDefinitionSpecComponentDefsInnerRsmSpecMembershipReconfigurationSwitchoverAction
   */
   public static V1alpha1ClusterDefinitionSpecComponentDefsInnerRsmSpecMembershipReconfigurationSwitchoverAction fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1ClusterDefinitionSpecComponentDefsInnerRsmSpecMembershipReconfigurationSwitchoverAction.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1ClusterDefinitionSpecComponentDefsInnerRsmSpecMembershipReconfigurationSwitchoverAction.class);
   }
 
  /**
@@ -294,7 +294,7 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerRsmSpecMembershipRec
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

@@ -3,13 +3,13 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.12.1
-  creationTimestamp: "2024-01-31T05:17:20Z"
-  generation: 2
+  creationTimestamp: "2024-05-14T07:40:46Z"
+  generation: 1
   labels:
     app.kubernetes.io/name: kubeblocks
   name: storageproviders.storage.kubeblocks.io
-  resourceVersion: "9231040"
-  uid: 4b948f10-8d65-4f0a-8170-edd910388c62
+  resourceVersion: "502"
+  uid: 55bca940-d2cc-4357-98f1-a7eb975b678e
 spec:
   conversion:
     strategy: None
@@ -36,7 +36,7 @@ spec:
       name: v1alpha1
       schema:
         openAPIV3Schema:
-          description: StorageProvider comprises specifications that provide guidance on accessing remote storage. Currently the supported access methods are via a dedicated CSI driver or the `datasafed` tool. In case of CSI driver, the specification expounds on provisioning PVCs for that driver. As for the `datasafed` tool, the specification provides insights on generating the necessary configuration file.
+          description: "StorageProvider comprises specifications that provide guidance on accessing remote storage. Currently the supported access methods are via a dedicated CSI driver or the `datasafed` tool. In case of CSI driver, the specification expounds on provisioning PVCs for that driver. As for the `datasafed` tool, the specification provides insights on generating the necessary configuration file. \n Deprecated since v0.9, moving to dataprotection.kubeblocks.io API group, will be removed in v0.11."
           properties:
             apiVersion:
               description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
@@ -146,12 +146,12 @@ status:
     plural: storageproviders
     singular: storageprovider
   conditions:
-    - lastTransitionTime: "2024-01-31T05:17:20Z"
+    - lastTransitionTime: "2024-05-14T07:40:46Z"
       message: no conflicts found
       reason: NoConflicts
       status: "True"
       type: NamesAccepted
-    - lastTransitionTime: "2024-01-31T05:17:20Z"
+    - lastTransitionTime: "2024-05-14T07:40:46Z"
       message: the initial names have been accepted
       reason: InitialNamesAccepted
       status: "True"

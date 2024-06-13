@@ -51,7 +51,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * Defines the image for the component to connect to databases or engines. This overrides the &#x60;image&#x60; and &#x60;env&#x60; attributes defined in clusterDefinition.spec.componentDefs.systemAccountSpec.cmdExecutorConfig. To clear default environment settings, set systemAccountSpec.cmdExecutorConfig.env to an empty list.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-03-12T08:58:42.064637Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
 public class V1alpha1ClusterVersionSpecComponentVersionsInnerSystemAccountSpec {
   public static final String SERIALIZED_NAME_CMD_EXECUTOR_CONFIG = "cmdExecutorConfig";
   @SerializedName(SERIALIZED_NAME_CMD_EXECUTOR_CONFIG)
@@ -201,7 +201,7 @@ public class V1alpha1ClusterVersionSpecComponentVersionsInnerSystemAccountSpec {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1ClusterVersionSpecComponentVersionsInnerSystemAccountSpec
   */
   public static V1alpha1ClusterVersionSpecComponentVersionsInnerSystemAccountSpec fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1ClusterVersionSpecComponentVersionsInnerSystemAccountSpec.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1ClusterVersionSpecComponentVersionsInnerSystemAccountSpec.class);
   }
 
  /**
@@ -210,7 +210,7 @@ public class V1alpha1ClusterVersionSpecComponentVersionsInnerSystemAccountSpec {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

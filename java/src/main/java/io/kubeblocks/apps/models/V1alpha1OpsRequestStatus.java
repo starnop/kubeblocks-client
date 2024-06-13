@@ -60,7 +60,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * OpsRequestStatus represents the observed state of an OpsRequest.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-03-12T08:58:42.064637Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
 public class V1alpha1OpsRequestStatus {
   public static final String SERIALIZED_NAME_CANCEL_TIMESTAMP = "cancelTimestamp";
   @SerializedName(SERIALIZED_NAME_CANCEL_TIMESTAMP)
@@ -597,7 +597,7 @@ public class V1alpha1OpsRequestStatus {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1OpsRequestStatus
   */
   public static V1alpha1OpsRequestStatus fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1OpsRequestStatus.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1OpsRequestStatus.class);
   }
 
  /**
@@ -606,7 +606,7 @@ public class V1alpha1OpsRequestStatus {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

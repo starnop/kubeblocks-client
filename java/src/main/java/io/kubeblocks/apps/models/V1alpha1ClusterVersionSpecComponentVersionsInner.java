@@ -56,7 +56,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * ClusterComponentVersion is an application version component spec.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-03-12T08:58:42.064637Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
 public class V1alpha1ClusterVersionSpecComponentVersionsInner {
   public static final String SERIALIZED_NAME_COMPONENT_DEF_REF = "componentDefRef";
   @SerializedName(SERIALIZED_NAME_COMPONENT_DEF_REF)
@@ -352,7 +352,7 @@ public class V1alpha1ClusterVersionSpecComponentVersionsInner {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1ClusterVersionSpecComponentVersionsInner
   */
   public static V1alpha1ClusterVersionSpecComponentVersionsInner fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1ClusterVersionSpecComponentVersionsInner.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1ClusterVersionSpecComponentVersionsInner.class);
   }
 
  /**
@@ -361,7 +361,7 @@ public class V1alpha1ClusterVersionSpecComponentVersionsInner {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

@@ -3,13 +3,13 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.12.1
-  creationTimestamp: "2024-01-31T05:17:14Z"
-  generation: 2
+  creationTimestamp: "2024-05-14T07:40:39Z"
+  generation: 3
   labels:
     app.kubernetes.io/name: kubeblocks
   name: components.apps.kubeblocks.io
-  resourceVersion: "9231029"
-  uid: 6aa7ce38-9f82-4819-97de-3a74f14ffa75
+  resourceVersion: "551332"
+  uid: 0539d022-165f-43dd-b5b7-17def90cd4a2
 spec:
   conversion:
     strategy: None
@@ -29,7 +29,11 @@ spec:
     - additionalPrinterColumns:
         - description: component definition
           jsonPath: .spec.compDef
-          name: COMPONENT-DEFINITION
+          name: DEFINITION
+          type: string
+        - description: service version
+          jsonPath: .spec.serviceVersion
+          name: SERVICE-VERSION
           type: string
         - description: status phase
           jsonPath: .status.phase
@@ -41,7 +45,7 @@ spec:
       name: v1alpha1
       schema:
         openAPIV3Schema:
-          description: Component is the Schema for the components API
+          description: "Component is a fundamental building block of a Cluster object. For example, a Redis Cluster can include Components like 'redis', 'sentinel', and potentially a proxy like 'twemproxy'. \n The Component object is responsible for managing the lifecycle of all replicas within a Cluster component, It supports a wide range of operations including provisioning, stopping, restarting, termination, upgrading, configuration changes, vertical and horizontal scaling, failover, switchover, cross-node migration, scheduling configuration, exposing Services, managing system accounts, enabling/disabling exporter, and configuring log collection. \n Component is an internal sub-object derived from the user-submitted Cluster object. It is designed primarily to be used by the KubeBlocks controllers, users are discouraged from modifying Component objects directly and should use them only for monitoring Component statuses."
           properties:
             apiVersion:
               description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
@@ -52,39 +56,39 @@ spec:
             metadata:
               type: object
             spec:
-              description: ComponentSpec defines the desired state of Component
+              description: ComponentSpec defines the desired state of Component.
               properties:
                 affinity:
-                  description: Specifies the scheduling constraints for the component's workload. If specified, it will override the cluster-wide affinity.
+                  description: Specifies a group of affinity scheduling rules for the Component. It allows users to control how the Component's Pods are scheduled onto nodes in the Cluster.
                   properties:
                     nodeLabels:
                       additionalProperties:
                         type: string
-                      description: Indicates that pods must be scheduled to the nodes with the specified node labels.
+                      description: "Indicates the node labels that must be present on nodes for pods to be scheduled on them. It is a map where the keys are the label keys and the values are the corresponding label values. Pods will only be scheduled on nodes that have all the specified labels with the corresponding values. \n For example, if NodeLabels is set to {\"nodeType\": \"ssd\", \"environment\": \"production\"}, pods will only be scheduled on nodes that have both the \"nodeType\" label with value \"ssd\" and the \"environment\" label with value \"production\". \n This field allows users to control Pod placement based on specific node labels. It can be used to ensure that Pods are scheduled on nodes with certain characteristics, such as specific hardware (e.g., SSD), environment (e.g., production, staging), or any other custom labels assigned to nodes."
                       type: object
                     podAntiAffinity:
                       default: Preferred
-                      description: Specifies the anti-affinity level of pods within a component.
+                      description: 'Specifies the anti-affinity level of Pods within a Component. It determines how pods should be spread across nodes to improve availability and performance. It can have the following values: `Preferred` and `Required`. The default value is `Preferred`.'
                       enum:
                         - Preferred
                         - Required
                       type: string
                     tenancy:
                       default: SharedNode
-                      description: Defines how pods are distributed across nodes.
+                      description: "Determines the level of resource isolation between Pods. It can have the following values: `SharedNode` and `DedicatedNode`. \n - SharedNode: Allow that multiple Pods may share the same node, which is the default behavior of K8s. - DedicatedNode: Each Pod runs on a dedicated node, ensuring that no two Pods share the same node. In other words, if a Pod is already running on a node, no other Pods will be scheduled on that node. Which provides a higher level of isolation and resource guarantee for Pods. \n The default value is `SharedNode`."
                       enum:
                         - SharedNode
                         - DedicatedNode
                       type: string
                     topologyKeys:
-                      description: "Represents the key of node labels. \n Nodes with a label containing this key and identical values are considered to be in the same topology. This is used as the topology domain for pod anti-affinity and pod spread constraint. Some well-known label keys, such as `kubernetes.io/hostname` and `topology.kubernetes.io/zone`, are often used as TopologyKey, along with any other custom label key."
+                      description: "Represents the key of node labels used to define the topology domain for Pod anti-affinity and Pod spread constraints. \n In K8s, a topology domain is a set of nodes that have the same value for a specific label key. Nodes with labels containing any of the specified TopologyKeys and identical values are considered to be in the same topology domain. \n Note: The concept of topology in the context of K8s TopologyKeys is different from the concept of topology in the ClusterDefinition. \n When a Pod has anti-affinity or spread constraints specified, Kubernetes will attempt to schedule the Pod on nodes with different values for the specified TopologyKeys. This ensures that Pods are spread across different topology domains, promoting high availability and reducing the impact of node failures. \n Some well-known label keys, such as `kubernetes.io/hostname` and `topology.kubernetes.io/zone`, are often used as TopologyKey. These keys represent the hostname and zone of a node, respectively. By including these keys in the TopologyKeys list, Pods will be spread across nodes with different hostnames or zones. \n In addition to the well-known keys, users can also specify custom label keys as TopologyKeys. This allows for more flexible and custom topology definitions based on the specific needs of the application or environment. \n The TopologyKeys field is a slice of strings, where each string represents a label key. The order of the keys in the slice does not matter."
                       items:
                         type: string
                       type: array
                       x-kubernetes-list-type: set
                   type: object
                 classDefRef:
-                  description: References the class defined in ComponentClassDefinition.
+                  description: "References the class defined in ComponentClassDefinition. \n Deprecated since v0.9. This field is maintained for backward compatibility and its use is discouraged. Existing usage should be updated to the current preferred approach to avoid compatibility issues in future releases."
                   properties:
                     class:
                       description: Defines the name of the class that is defined in the ComponentClassDefinition.
@@ -99,34 +103,41 @@ spec:
                   type: object
                 compDef:
                   description: Specifies the name of the referenced ComponentDefinition.
+                  maxLength: 64
                   type: string
                 configs:
-                  description: Defines the configuration for the component.
+                  description: Reserved field for future use.
                   items:
                     properties:
                       asEnvFrom:
-                        description: An optional field where the list of containers will be injected into EnvFrom.
+                        description: "Specifies the containers to inject the ConfigMap parameters as environment variables. \n This is useful when application images accept parameters through environment variables and generate the final configuration file in the startup script based on these variables. \n This field allows users to specify a list of container names, and KubeBlocks will inject the environment variables converted from the ConfigMap into these designated containers. This provides a flexible way to pass the configuration items from the ConfigMap to the container without modifying the image. \n Deprecated: `asEnvFrom` has been deprecated since 0.9.0 and will be removed in 0.10.0. Use `injectEnvTo` instead."
                         items:
                           type: string
                         type: array
                         x-kubernetes-list-type: set
                       constraintRef:
-                        description: An optional field that defines the name of the referenced configuration constraints object.
+                        description: Specifies the name of the referenced configuration constraints object.
                         maxLength: 63
                         pattern: ^[a-z0-9]([a-z0-9\.\-]*[a-z0-9])?$
                         type: string
                       defaultMode:
-                        description: "Refers to the mode bits used to set permissions on created files by default. \n Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. \n Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set."
+                        description: "The operator attempts to set default file permissions for scripts (0555) and configurations (0444). However, certain database engines may require different file permissions. You can specify the desired file permissions here. \n Must be specified as an octal value between 0000 and 0777 (inclusive), or as a decimal value between 0 and 511 (inclusive). YAML supports both octal and decimal values for file permissions. \n Please note that this setting only affects the permissions of the files themselves. Directories within the specified path are not impacted by this setting. It's important to be aware that this setting might conflict with other options that influence the file mode, such as fsGroup. In such cases, the resulting file mode may have additional bits set. Refers to documents of k8s.ConfigMapVolumeSource.defaultMode for more information."
                         format: int32
                         type: integer
+                      injectEnvTo:
+                        description: "Specifies the containers to inject the ConfigMap parameters as environment variables. \n This is useful when application images accept parameters through environment variables and generate the final configuration file in the startup script based on these variables. \n This field allows users to specify a list of container names, and KubeBlocks will inject the environment variables converted from the ConfigMap into these designated containers. This provides a flexible way to pass the configuration items from the ConfigMap to the container without modifying the image."
+                        items:
+                          type: string
+                        type: array
+                        x-kubernetes-list-type: set
                       keys:
-                        description: Defines a list of keys. If left empty, ConfigConstraint applies to all keys in the configmap.
+                        description: "Specifies the configuration files within the ConfigMap that support dynamic updates. \n A configuration template (provided in the form of a ConfigMap) may contain templates for multiple configuration files. Each configuration file corresponds to a key in the ConfigMap. Some of these configuration files may support dynamic modification and reloading without requiring a pod restart. \n If empty or omitted, all configuration files in the ConfigMap are assumed to support dynamic updates, and ConfigConstraint applies to all keys."
                         items:
                           type: string
                         type: array
                         x-kubernetes-list-type: set
                       legacyRenderedConfigSpec:
-                        description: An optional field that defines the secondary rendered config spec.
+                        description: "Specifies the secondary rendered config spec for pod-specific customization. \n The template is rendered inside the pod (by the \"config-manager\" sidecar container) and merged with the main template's render result to generate the final configuration file. \n This field is intended to handle scenarios where different pods within the same Component have varying configurations. It allows for pod-specific customization of the configuration. \n Note: This field will be deprecated in future versions, and the functionality will be moved to `cluster.spec.componentSpecs[*].instances[*]`."
                         properties:
                           namespace:
                             default: default
@@ -161,6 +172,17 @@ spec:
                         maxLength: 63
                         pattern: ^[a-z0-9]([a-z0-9\-]*[a-z0-9])?$
                         type: string
+                      reRenderResourceTypes:
+                        description: "Specifies whether the configuration needs to be re-rendered after v-scale or h-scale operations to reflect changes. \n In some scenarios, the configuration may need to be updated to reflect the changes in resource allocation or cluster topology. Examples: \n - Redis: adjust maxmemory after v-scale operation. - MySQL: increase max connections after v-scale operation. - Zookeeper: update zoo.cfg with new node addresses after h-scale operation."
+                        items:
+                          description: RerenderResourceType defines the resource requirements for a component.
+                          enum:
+                            - vscale
+                            - hscale
+                            - tls
+                          type: string
+                        type: array
+                        x-kubernetes-list-type: set
                       templateRef:
                         description: Specifies the name of the referenced configuration template ConfigMap object.
                         maxLength: 63
@@ -177,37 +199,124 @@ spec:
                       - volumeName
                     type: object
                   type: array
+                disableExporter:
+                  description: "Determines whether metrics exporter information is annotated on the Component's headless Service. \n If set to true, the following annotations will not be patched into the Service: \n - \"monitor.kubeblocks.io/path\" - \"monitor.kubeblocks.io/port\" - \"monitor.kubeblocks.io/scheme\" \n These annotations allow the Prometheus installed by KubeBlocks to discover and scrape metrics from the exporter."
+                  type: boolean
                 enabledLogs:
-                  description: Indicates which log file takes effect in the database cluster, element is the log type which is defined in ComponentDefinition logConfig.name.
+                  description: "Specifies which types of logs should be collected for the Cluster. The log types are defined in the `componentDefinition.spec.logConfigs` field with the LogConfig entries. \n The elements in the `enabledLogs` array correspond to the names of the LogConfig entries. For example, if the `componentDefinition.spec.logConfigs` defines LogConfig entries with names \"slow_query_log\" and \"error_log\", you can enable the collection of these logs by including their names in the `enabledLogs` array: ```yaml enabledLogs: - slow_query_log - error_log ```"
                   items:
                     type: string
                   type: array
                   x-kubernetes-list-type: set
                 instances:
-                  description: Overrides values in default Template.
+                  description: "Allows for the customization of configuration values for each instance within a Component. An Instance represent a single replica (Pod and associated K8s resources like PVCs, Services, and ConfigMaps). While instances typically share a common configuration as defined in the ClusterComponentSpec, they can require unique settings in various scenarios: \n For example: - A database Component might require different resource allocations for primary and secondary instances, with primaries needing more resources. - During a rolling upgrade, a Component may first update the image for one or a few instances, and then update the remaining instances after verifying that the updated instances are functioning correctly. \n InstanceTemplate allows for specifying these unique configurations per instance. Each instance's name is constructed using the pattern: $(component.name)-$(template.name)-$(ordinal), starting with an ordinal of 0. It is crucial to maintain unique names for each InstanceTemplate to avoid conflicts. \n The sum of replicas across all InstanceTemplates should not exceed the total number of Replicas specified for the Component. Any remaining replicas will be generated using the default template and will follow the default naming rules."
                   items:
+                    description: InstanceTemplate allows customization of individual replica configurations in a Component.
                     properties:
                       annotations:
                         additionalProperties:
                           type: string
-                        description: Defines annotations to override. Add new or override existing annotations.
+                        description: Specifies a map of key-value pairs to be merged into the Pod's existing annotations. Existing keys will have their values overwritten, while new keys will be added to the annotations.
                         type: object
-                      generateName:
-                        description: "GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server. \n Applied only if Name is not specified."
-                        type: string
+                      env:
+                        description: Defines Env to override. Add new or override existing envs.
+                        items:
+                          description: EnvVar represents an environment variable present in a Container.
+                          properties:
+                            name:
+                              description: Name of the environment variable. Must be a C_IDENTIFIER.
+                              type: string
+                            value:
+                              description: 'Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".'
+                              type: string
+                            valueFrom:
+                              description: Source for the environment variable's value. Cannot be used if value is not empty.
+                              properties:
+                                configMapKeyRef:
+                                  description: Selects a key of a ConfigMap.
+                                  properties:
+                                    key:
+                                      description: The key to select.
+                                      type: string
+                                    name:
+                                      description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?'
+                                      type: string
+                                    optional:
+                                      description: Specify whether the ConfigMap or its key must be defined
+                                      type: boolean
+                                  required:
+                                    - key
+                                  type: object
+                                  x-kubernetes-map-type: atomic
+                                fieldRef:
+                                  description: 'Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels[''<KEY>'']`, `metadata.annotations[''<KEY>'']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.'
+                                  properties:
+                                    apiVersion:
+                                      description: Version of the schema the FieldPath is written in terms of, defaults to "v1".
+                                      type: string
+                                    fieldPath:
+                                      description: Path of the field to select in the specified API version.
+                                      type: string
+                                  required:
+                                    - fieldPath
+                                  type: object
+                                  x-kubernetes-map-type: atomic
+                                resourceFieldRef:
+                                  description: 'Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.'
+                                  properties:
+                                    containerName:
+                                      description: 'Container name: required for volumes, optional for env vars'
+                                      type: string
+                                    divisor:
+                                      anyOf:
+                                        - type: integer
+                                        - type: string
+                                      description: Specifies the output format of the exposed resources, defaults to "1"
+                                      pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                      x-kubernetes-int-or-string: true
+                                    resource:
+                                      description: 'Required: resource to select'
+                                      type: string
+                                  required:
+                                    - resource
+                                  type: object
+                                  x-kubernetes-map-type: atomic
+                                secretKeyRef:
+                                  description: Selects a key of a secret in the pod's namespace
+                                  properties:
+                                    key:
+                                      description: The key of the secret to select from.  Must be a valid secret key.
+                                      type: string
+                                    name:
+                                      description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?'
+                                      type: string
+                                    optional:
+                                      description: Specify whether the Secret or its key must be defined
+                                      type: boolean
+                                  required:
+                                    - key
+                                  type: object
+                                  x-kubernetes-map-type: atomic
+                              type: object
+                          required:
+                            - name
+                          type: object
+                        type: array
                       image:
-                        description: Defines image to override. Will override the first container's image of the pod.
+                        description: Specifies an override for the first container's image in the Pod.
                         type: string
                       labels:
                         additionalProperties:
                           type: string
-                        description: Defines labels to override. Add new or override existing labels.
+                        description: Specifies a map of key-value pairs that will be merged into the Pod's existing labels. Values for existing keys will be overwritten, and new keys will be added.
                         type: object
                       name:
-                        description: Defines the name of the instance. Only applied when Replicas is 1.
+                        description: 'Name specifies the unique name of the instance Pod created using this InstanceTemplate. This name is constructed by concatenating the Component''s name, the template''s name, and the instance''s ordinal using the pattern: $(cluster.name)-$(component.name)-$(template.name)-$(ordinal). Ordinals start from 0. The specified name overrides any default naming conventions or patterns.'
+                        maxLength: 54
+                        pattern: ^[a-z0-9]([a-z0-9\.\-]*[a-z0-9])?$
                         type: string
                       nodeName:
-                        description: Defines NodeName to override.
+                        description: "Specifies the name of the node where the Pod should be scheduled. If set, the Pod will be directly assigned to the specified node, bypassing the Kubernetes scheduler. This is useful for controlling Pod placement on specific nodes. \n Important considerations: - `nodeName` bypasses default scheduling constraints (e.g., resource requirements, node selectors, affinity rules). - It is the user's responsibility to ensure the node is suitable for the Pod. - If the node is unavailable, the Pod will remain in \"Pending\" state until the node is available or the Pod is deleted."
                         type: string
                       nodeSelector:
                         additionalProperties:
@@ -216,12 +325,12 @@ spec:
                         type: object
                       replicas:
                         default: 1
-                        description: Number of replicas of this template. Default is 1.
+                        description: Specifies the number of instances (Pods) to create from this InstanceTemplate. This field allows setting how many replicated instances of the Component, with the specific overrides in the InstanceTemplate, are created. The default value is 1. A value of 0 disables instance creation.
                         format: int32
                         minimum: 0
                         type: integer
                       resources:
-                        description: Defines Resources to override. Will override the first container's resources of the pod.
+                        description: Specifies an override for the resource requirements of the first container in the Pod. This field allows for customizing resource allocation (CPU, memory, etc.) for the container.
                         properties:
                           claims:
                             description: "Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container. \n This is an alpha field and requires enabling the DynamicResourceAllocation feature gate. \n This field is immutable. It can only be set for containers."
@@ -258,7 +367,7 @@ spec:
                             type: object
                         type: object
                       tolerations:
-                        description: Defines Tolerations to override. Add new or override existing tolerations.
+                        description: Tolerations specifies a list of tolerations to be applied to the Pod, allowing it to tolerate node taints. This field can be used to add new tolerations or override existing ones.
                         items:
                           description: The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
                           properties:
@@ -283,80 +392,21 @@ spec:
                       volumeClaimTemplates:
                         description: Defines VolumeClaimTemplates to override. Add new or override existing volume claim templates.
                         items:
-                          description: PersistentVolumeClaim is a user's request for and claim to a persistent volume
                           properties:
-                            apiVersion:
-                              description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+                            name:
+                              description: "Refers to the name of a volumeMount defined in either: \n - `componentDefinition.spec.runtime.containers[*].volumeMounts` - `clusterDefinition.spec.componentDefs[*].podSpec.containers[*].volumeMounts` (deprecated) \n The value of `name` must match the `name` field of a volumeMount specified in the corresponding `volumeMounts` array."
                               type: string
-                            kind:
-                              description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
-                              type: string
-                            metadata:
-                              description: 'Standard object''s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata'
-                              properties:
-                                annotations:
-                                  additionalProperties:
-                                    type: string
-                                  type: object
-                                finalizers:
-                                  items:
-                                    type: string
-                                  type: array
-                                labels:
-                                  additionalProperties:
-                                    type: string
-                                  type: object
-                                name:
-                                  type: string
-                                namespace:
-                                  type: string
-                              type: object
                             spec:
-                              description: 'spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims'
+                              description: "Defines the desired characteristics of a PersistentVolumeClaim that will be created for the volume with the mount name specified in the `name` field. \n When a Pod is created for this ClusterComponent, a new PVC will be created based on the specification defined in the `spec` field. The PVC will be associated with the volume mount specified by the `name` field."
                               properties:
                                 accessModes:
-                                  description: 'accessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1'
+                                  description: 'Contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.'
                                   items:
                                     type: string
                                   type: array
-                                dataSource:
-                                  description: 'dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.'
-                                  properties:
-                                    apiGroup:
-                                      description: APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
-                                      type: string
-                                    kind:
-                                      description: Kind is the type of resource being referenced
-                                      type: string
-                                    name:
-                                      description: Name is the name of resource being referenced
-                                      type: string
-                                  required:
-                                    - kind
-                                    - name
-                                  type: object
-                                  x-kubernetes-map-type: atomic
-                                dataSourceRef:
-                                  description: 'dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the dataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, when namespace isn''t specified in dataSourceRef, both fields (dataSource and dataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. When namespace is specified in dataSourceRef, dataSource isn''t set to the same value and must be empty. There are three important differences between dataSource and dataSourceRef: * While dataSource only allows two specific types of objects, dataSourceRef allows any non-core object, as well as PersistentVolumeClaim objects. * While dataSource ignores disallowed values (dropping them), dataSourceRef preserves all values, and generates an error if a disallowed value is specified. * While dataSource only allows local objects, dataSourceRef allows objects in any namespaces. (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.'
-                                  properties:
-                                    apiGroup:
-                                      description: APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
-                                      type: string
-                                    kind:
-                                      description: Kind is the type of resource being referenced
-                                      type: string
-                                    name:
-                                      description: Name is the name of resource being referenced
-                                      type: string
-                                    namespace:
-                                      description: Namespace is the namespace of resource being referenced Note that when a namespace is specified, a gateway.networking.k8s.io/ReferenceGrant object is required in the referent namespace to allow that namespace's owner to accept the reference. See the ReferenceGrant documentation for details. (Alpha) This field requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
-                                      type: string
-                                  required:
-                                    - kind
-                                    - name
-                                  type: object
+                                  x-kubernetes-preserve-unknown-fields: true
                                 resources:
-                                  description: 'resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources'
+                                  description: 'Represents the minimum resources the volume should have. If the RecoverVolumeExpansionFailure feature is enabled, users are allowed to specify resource requirements that are lower than the previous value but must still be higher than the capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources.'
                                   properties:
                                     claims:
                                       description: "Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container. \n This is an alpha field and requires enabling the DynamicResourceAllocation feature gate. \n This field is immutable. It can only be set for containers."
@@ -392,117 +442,20 @@ spec:
                                       description: 'Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/'
                                       type: object
                                   type: object
-                                selector:
-                                  description: selector is a label query over volumes to consider for binding.
-                                  properties:
-                                    matchExpressions:
-                                      description: matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                                      items:
-                                        description: A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-                                        properties:
-                                          key:
-                                            description: key is the label key that the selector applies to.
-                                            type: string
-                                          operator:
-                                            description: operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
-                                            type: string
-                                          values:
-                                            description: values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
-                                            items:
-                                              type: string
-                                            type: array
-                                        required:
-                                          - key
-                                          - operator
-                                        type: object
-                                      type: array
-                                    matchLabels:
-                                      additionalProperties:
-                                        type: string
-                                      description: matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                                      type: object
-                                  type: object
-                                  x-kubernetes-map-type: atomic
+                                  x-kubernetes-preserve-unknown-fields: true
                                 storageClassName:
-                                  description: 'storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1'
+                                  description: 'The name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1.'
                                   type: string
                                 volumeMode:
-                                  description: volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
-                                  type: string
-                                volumeName:
-                                  description: volumeName is the binding reference to the PersistentVolume backing this claim.
+                                  description: Defines what type of volume is required by the claim, either Block or Filesystem.
                                   type: string
                               type: object
-                            status:
-                              description: 'status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims'
-                              properties:
-                                accessModes:
-                                  description: 'accessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1'
-                                  items:
-                                    type: string
-                                  type: array
-                                allocatedResourceStatuses:
-                                  additionalProperties:
-                                    description: When a controller receives persistentvolume claim update with ClaimResourceStatus for a resource that it does not recognizes, then it should ignore that update and let other controllers handle it.
-                                    type: string
-                                  description: "allocatedResourceStatuses stores status of resource being resized for the given PVC. Key names follow standard Kubernetes label syntax. Valid values are either: * Un-prefixed keys: - storage - the capacity of the volume. * Custom resources must use implementation-defined prefixed names such as \"example.com/my-custom-resource\" Apart from above values - keys that are unprefixed or have kubernetes.io prefix are considered reserved and hence may not be used. \n ClaimResourceStatus can be in any of following states: - ControllerResizeInProgress: State set when resize controller starts resizing the volume in control-plane. - ControllerResizeFailed: State set when resize has failed in resize controller with a terminal error. - NodeResizePending: State set when resize controller has finished resizing the volume but further resizing of volume is needed on the node. - NodeResizeInProgress: State set when kubelet starts resizing the volume. - NodeResizeFailed: State set when resizing has failed in kubelet with a terminal error. Transient errors don't set NodeResizeFailed. For example: if expanding a PVC for more capacity - this field can be one of the following states: - pvc.status.allocatedResourceStatus['storage'] = \"ControllerResizeInProgress\" - pvc.status.allocatedResourceStatus['storage'] = \"ControllerResizeFailed\" - pvc.status.allocatedResourceStatus['storage'] = \"NodeResizePending\" - pvc.status.allocatedResourceStatus['storage'] = \"NodeResizeInProgress\" - pvc.status.allocatedResourceStatus['storage'] = \"NodeResizeFailed\" When this field is not set, it means that no resize operation is in progress for the given PVC. \n A controller that receives PVC update with previously unknown resourceName or ClaimResourceStatus should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC. \n This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature."
-                                  type: object
-                                  x-kubernetes-map-type: granular
-                                allocatedResources:
-                                  additionalProperties:
-                                    anyOf:
-                                      - type: integer
-                                      - type: string
-                                    pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                                    x-kubernetes-int-or-string: true
-                                  description: "allocatedResources tracks the resources allocated to a PVC including its capacity. Key names follow standard Kubernetes label syntax. Valid values are either: * Un-prefixed keys: - storage - the capacity of the volume. * Custom resources must use implementation-defined prefixed names such as \"example.com/my-custom-resource\" Apart from above values - keys that are unprefixed or have kubernetes.io prefix are considered reserved and hence may not be used. \n Capacity reported here may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. \n A controller that receives PVC update with previously unknown resourceName should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC. \n This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature."
-                                  type: object
-                                capacity:
-                                  additionalProperties:
-                                    anyOf:
-                                      - type: integer
-                                      - type: string
-                                    pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                                    x-kubernetes-int-or-string: true
-                                  description: capacity represents the actual resources of the underlying volume.
-                                  type: object
-                                conditions:
-                                  description: conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
-                                  items:
-                                    description: PersistentVolumeClaimCondition contains details about state of pvc
-                                    properties:
-                                      lastProbeTime:
-                                        description: lastProbeTime is the time we probed the condition.
-                                        format: date-time
-                                        type: string
-                                      lastTransitionTime:
-                                        description: lastTransitionTime is the time the condition transitioned from one status to another.
-                                        format: date-time
-                                        type: string
-                                      message:
-                                        description: message is the human-readable message indicating details about last transition.
-                                        type: string
-                                      reason:
-                                        description: reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
-                                        type: string
-                                      status:
-                                        type: string
-                                      type:
-                                        description: PersistentVolumeClaimConditionType is a valid value of PersistentVolumeClaimCondition.Type
-                                        type: string
-                                    required:
-                                      - status
-                                      - type
-                                    type: object
-                                  type: array
-                                phase:
-                                  description: phase represents the current phase of PersistentVolumeClaim.
-                                  type: string
-                              type: object
+                          required:
+                            - name
                           type: object
                         type: array
                       volumeMounts:
-                        description: Defines VolumeMounts to override. Add new or override existing volume mounts of the first container in the pod.
+                        description: Defines VolumeMounts to override. Add new or override existing volume mounts of the first container in the Pod.
                         items:
                           description: VolumeMount describes a mounting of a Volume within a container.
                           properties:
@@ -1497,20 +1450,23 @@ spec:
                             - name
                           type: object
                         type: array
+                    required:
+                      - name
                     type: object
                   type: array
-                monitor:
-                  default: false
-                  description: A switch to enable monitoring and is set as false by default. KubeBlocks provides an extension mechanism to support component level monitoring, which will scrape metrics auto or manually from servers in component and export metrics to Time Series Database.
-                  type: boolean
+                offlineInstances:
+                  description: "Specifies the names of instances to be transitioned to offline status. \n Marking an instance as offline results in the following: \n 1. The associated Pod is stopped, and its PersistentVolumeClaim (PVC) is retained for potential future reuse or data recovery, but it is no longer actively used. 2. The ordinal number assigned to this instance is preserved, ensuring it remains unique and avoiding conflicts with new instances. \n Setting instances to offline allows for a controlled scale-in process, preserving their data and maintaining ordinal consistency within the Cluster. Note that offline instances and their associated resources, such as PVCs, are not automatically deleted. The administrator must manually manage the cleanup and removal of these resources when they are no longer needed."
+                  items:
+                    type: string
+                  type: array
                 replicas:
                   default: 1
-                  description: Specifies the desired number of replicas for the component's workload.
+                  description: Specifies the desired number of replicas in the Component for enhancing availability and durability, or load balancing.
                   format: int32
                   minimum: 0
                   type: integer
                 resources:
-                  description: Requests and limits of workload resources.
+                  description: Specifies the resources required by the Component. It allows defining the CPU, memory requirements and limits for the Component's containers.
                   properties:
                     claims:
                       description: "Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container. \n This is an alpha field and requires enabling the DynamicResourceAllocation feature gate. \n This field is immutable. It can only be set for containers."
@@ -1547,37 +1503,294 @@ spec:
                       type: object
                   type: object
                   x-kubernetes-preserve-unknown-fields: true
+                runtimeClassName:
+                  description: Defines runtimeClassName for all Pods managed by this Component.
+                  type: string
                 serviceAccountName:
-                  description: The name of the ServiceAccount that running component depends on.
+                  description: "Specifies the name of the ServiceAccount required by the running Component. This ServiceAccount is used to grant necessary permissions for the Component's Pods to interact with other Kubernetes resources, such as modifying Pod labels or sending events. \n Defaults: If not specified, KubeBlocks automatically assigns a default ServiceAccount named \"kb-{cluster.name}\", bound to a default role defined during KubeBlocks installation. \n Future Changes: Future versions might change the default ServiceAccount creation strategy to one per Component, potentially revising the naming to \"kb-{cluster.name}-{component.name}\". \n Users can override the automatic ServiceAccount assignment by explicitly setting the name of an existed ServiceAccount in this field."
                   type: string
                 serviceRefs:
-                  description: "Define service references for the current component. Based on the referenced services, they can be categorized into two types: - Service provided by external sources: These services are provided by external sources and are not managed by KubeBlocks. They can be Kubernetes-based or non-Kubernetes services. For external services, you need to provide an additional ServiceDescriptor object to establish the service binding. - Service provided by other KubeBlocks clusters: These services are provided by other KubeBlocks clusters. You can bind to these services by specifying the name of the hosting cluster. \n Each type of service reference requires specific configurations and bindings to establish the connection and interaction with the respective services. It should be noted that the ServiceRef has cluster-level semantic consistency, meaning that within the same Cluster, service references with the same ServiceRef.Name are considered to be the same service. It is only allowed to bind to the same Cluster or ServiceDescriptor."
+                  description: "Defines a list of ServiceRef for a Component, enabling access to both external services and Services provided by other Clusters. \n Types of services: \n - External services: Not managed by KubeBlocks or managed by a different KubeBlocks operator; Require a ServiceDescriptor for connection details. - Services provided by a Cluster: Managed by the same KubeBlocks operator; identified using Cluster, Component and Service names. \n ServiceRefs with identical `serviceRef.name` in the same Cluster are considered the same. \n Example: ```yaml serviceRefs: - name: \"redis-sentinel\" serviceDescriptor: name: \"external-redis-sentinel\" - name: \"postgres-cluster\" clusterServiceSelector: cluster: \"my-postgres-cluster\" service: component: \"postgresql\" ``` The example above includes ServiceRefs to an external Redis Sentinel service and a PostgreSQL Cluster."
                   items:
                     properties:
                       cluster:
-                        description: "The name of the KubeBlocks cluster being referenced when a service provided by another KubeBlocks cluster is being referenced. \n By default, the clusterDefinition.spec.connectionCredential secret corresponding to the referenced Cluster will be used to bind to the current component. The connection credential secret should include and correspond to the following fields: endpoint, port, username, and password when a KubeBlocks cluster is being referenced. \n Under this referencing approach, the ServiceKind and ServiceVersion of service reference declaration defined in the ClusterDefinition will not be validated. If both Cluster and ServiceDescriptor are specified, the Cluster takes precedence."
+                        description: "Specifies the name of the KubeBlocks Cluster being referenced. This is used when services from another KubeBlocks Cluster are consumed. \n By default, the referenced KubeBlocks Cluster's `clusterDefinition.spec.connectionCredential` will be utilized to bind to the current Component. This credential should include: `endpoint`, `port`, `username`, and `password`. \n Note: \n - The `ServiceKind` and `ServiceVersion` specified in the service reference within the ClusterDefinition are not validated when using this approach. - If both `cluster` and `serviceDescriptor` are present, `cluster` will take precedence. \n Deprecated since v0.9 since `clusterDefinition.spec.connectionCredential` is deprecated, use `clusterServiceSelector` instead. This field is maintained for backward compatibility and its use is discouraged. Existing usage should be updated to the current preferred approach to avoid compatibility issues in future releases."
                         type: string
+                      clusterServiceSelector:
+                        description: References a service provided by another KubeBlocks Cluster. It specifies the ClusterService and the account credentials needed for access.
+                        properties:
+                          cluster:
+                            description: The name of the Cluster being referenced.
+                            type: string
+                          credential:
+                            description: Specifies the SystemAccount to authenticate and establish a connection with the referenced Cluster. The SystemAccount should be defined in `componentDefinition.spec.systemAccounts` of the Component providing the service in the referenced Cluster.
+                            properties:
+                              component:
+                                description: The name of the Component where the credential resides in.
+                                type: string
+                              name:
+                                description: The name of the credential (SystemAccount) to reference.
+                                type: string
+                            required:
+                              - component
+                              - name
+                            type: object
+                          service:
+                            description: Identifies a ClusterService from the list of Services defined in `cluster.spec.services` of the referenced Cluster.
+                            properties:
+                              component:
+                                description: "The name of the Component where the Service resides in. \n It is required when referencing a Component's Service."
+                                type: string
+                              port:
+                                description: "The port name of the Service to be referenced. \n If there is a non-zero node-port exist for the matched Service port, the node-port will be selected first. \n If the referenced Service is of pod-service type (a Service per Pod), there will be multiple Service objects matched, and the resolved value will be presented in the following format: service1.name:port1,service2.name:port2..."
+                                type: string
+                              service:
+                                description: "The name of the Service to be referenced. \n Leave it empty to reference the default Service. Set it to \"headless\" to reference the default headless Service. \n If the referenced Service is of pod-service type (a Service per Pod), there will be multiple Service objects matched, and the resolved value will be presented in the following format: service1.name,service2.name..."
+                                type: string
+                            required:
+                              - service
+                            type: object
+                        required:
+                          - cluster
+                        type: object
                       name:
-                        description: Specifies the identifier of the service reference declaration. It corresponds to the serviceRefDeclaration name defined in the clusterDefinition.componentDefs[*].serviceRefDeclarations[*].name.
+                        description: "Specifies the identifier of the service reference declaration. It corresponds to the serviceRefDeclaration name defined in either: \n - `componentDefinition.spec.serviceRefDeclarations[*].name` - `clusterDefinition.spec.componentDefs[*].serviceRefDeclarations[*].name` (deprecated)"
                         type: string
                       namespace:
-                        description: Specifies the namespace of the referenced Cluster or the namespace of the referenced ServiceDescriptor object. If not provided, the referenced Cluster and ServiceDescriptor will be searched in the namespace of the current cluster by default.
+                        description: Specifies the namespace of the referenced Cluster or the namespace of the referenced ServiceDescriptor object. If not provided, the referenced Cluster and ServiceDescriptor will be searched in the namespace of the current Cluster by default.
                         type: string
                       serviceDescriptor:
-                        description: "The service descriptor of the service provided by external sources. \n When referencing a service provided by external sources, the ServiceDescriptor object name is required to establish the service binding. The `serviceDescriptor.spec.serviceKind` and `serviceDescriptor.spec.serviceVersion` should match the serviceKind and serviceVersion defined in the service reference declaration in the ClusterDefinition. \n If both Cluster and ServiceDescriptor are specified, the Cluster takes precedence."
+                        description: "Specifies the name of the ServiceDescriptor object that describes a service provided by external sources. \n When referencing a service provided by external sources, a ServiceDescriptor object is required to establish the service binding. The `serviceDescriptor.spec.serviceKind` and `serviceDescriptor.spec.serviceVersion` should match the serviceKind and serviceVersion declared in the definition. \n If both `cluster` and `serviceDescriptor` are specified, the `cluster` takes precedence."
                         type: string
                     required:
                       - name
                     type: object
                   type: array
+                serviceVersion:
+                  description: ServiceVersion specifies the version of the Service expected to be provisioned by this Component. The version should follow the syntax and semantics of the "Semantic Versioning" specification (http://semver.org/).
+                  maxLength: 32
+                  type: string
+                services:
+                  description: Overrides Services defined in referenced ComponentDefinition and exposes endpoints that can be accessed by clients.
+                  items:
+                    description: "ComponentService defines a service that would be exposed as an inter-component service within a Cluster. A Service defined in the ComponentService is expected to be accessed by other Components within the same Cluster. \n When a Component needs to use a ComponentService provided by another Component within the same Cluster, it can declare a variable in the `componentDefinition.spec.vars` section and bind it to the specific exposed address of the ComponentService using the `serviceVarRef` field."
+                    properties:
+                      annotations:
+                        additionalProperties:
+                          type: string
+                        description: 'If ServiceType is LoadBalancer, cloud provider related parameters can be put here More info: https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer.'
+                        type: object
+                      disableAutoProvision:
+                        description: "Indicates whether the automatic provisioning of the service should be disabled. \n If set to true, the service will not be automatically created at the component provisioning. Instead, you can enable the creation of this service by specifying it explicitly in the cluster API."
+                        type: boolean
+                      name:
+                        description: Name defines the name of the service. otherwise, it indicates the name of the service. Others can refer to this service by its name. (e.g., connection credential) Cannot be updated.
+                        maxLength: 25
+                        type: string
+                      podService:
+                        default: false
+                        description: "Indicates whether to create a corresponding Service for each Pod of the selected Component. When set to true, a set of Services will be automatically generated for each Pod, and the `roleSelector` field will be ignored. \n The names of the generated Services will follow the same suffix naming pattern: `$(serviceName)-$(podOrdinal)`. The total number of generated Services will be equal to the number of replicas specified for the Component. \n Example usage: \n ```yaml name: my-service serviceName: my-service podService: true disableAutoProvision: true spec: type: NodePort ports: - name: http port: 80 targetPort: 8080 ``` \n In this example, if the Component has 3 replicas, three Services will be generated: - my-service-0: Points to the first Pod (podOrdinal: 0) - my-service-1: Points to the second Pod (podOrdinal: 1) - my-service-2: Points to the third Pod (podOrdinal: 2) \n Each generated Service will have the specified spec configuration and will target its respective Pod. \n This feature is useful when you need to expose each Pod of a Component individually, allowing external access to specific instances of the Component."
+                        type: boolean
+                      roleSelector:
+                        description: "Extends the above `serviceSpec.selector` by allowing you to specify defined role as selector for the service. When `roleSelector` is set, it adds a label selector \"kubeblocks.io/role: {roleSelector}\" to the `serviceSpec.selector`. Example usage: \n roleSelector: \"leader\" \n In this example, setting `roleSelector` to \"leader\" will add a label selector \"kubeblocks.io/role: leader\" to the `serviceSpec.selector`. This means that the service will select and route traffic to Pods with the label \"kubeblocks.io/role\" set to \"leader\". \n Note that if `podService` sets to true, RoleSelector will be ignored. The `podService` flag takes precedence over `roleSelector` and generates a service for each Pod."
+                        type: string
+                      serviceName:
+                        description: "ServiceName defines the name of the underlying service object. If not specified, the default service name with different patterns will be used: \n - CLUSTER_NAME: for cluster-level services - CLUSTER_NAME-COMPONENT_NAME: for component-level services \n Only one default service name is allowed. Cannot be updated."
+                        maxLength: 25
+                        pattern: ^[a-z]([a-z0-9\-]*[a-z0-9])?$
+                        type: string
+                      spec:
+                        description: Spec defines the behavior of a service. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+                        properties:
+                          allocateLoadBalancerNodePorts:
+                            description: allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type.
+                            type: boolean
+                          clusterIP:
+                            description: 'clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be blank) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address. Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies'
+                            type: string
+                          clusterIPs:
+                            description: "ClusterIPs is a list of IP addresses assigned to this service, and are usually assigned randomly.  If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be empty) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are \"None\", empty string (\"\"), or a valid IP address.  Setting this to \"None\" makes a \"headless service\" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName.  If this field is not specified, it will be initialized from the clusterIP field.  If this field is specified, clients must ensure that clusterIPs[0] and clusterIP have the same value. \n This field may hold a maximum of two entries (dual-stack IPs, in either order). These IPs must correspond to the values of the ipFamilies field. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies"
+                            items:
+                              type: string
+                            type: array
+                            x-kubernetes-list-type: atomic
+                          externalIPs:
+                            description: externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service.  These IPs are not managed by Kubernetes.  The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system.
+                            items:
+                              type: string
+                            type: array
+                          externalName:
+                            description: externalName is the external reference that discovery mechanisms will return as an alias for this service (e.g. a DNS CNAME record). No proxying will be involved.  Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires `type` to be "ExternalName".
+                            type: string
+                          externalTrafficPolicy:
+                            description: externalTrafficPolicy describes how nodes distribute service traffic they receive on one of the Service's "externally-facing" addresses (NodePorts, ExternalIPs, and LoadBalancer IPs). If set to "Local", the proxy will configure the service in a way that assumes that external load balancers will take care of balancing the service traffic between nodes, and so each node will deliver traffic only to the node-local endpoints of the service, without masquerading the client source IP. (Traffic mistakenly sent to a node with no endpoints will be dropped.) The default value, "Cluster", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features). Note that traffic sent to an External IP or LoadBalancer IP from within the cluster will always get "Cluster" semantics, but clients sending to a NodePort from within the cluster may need to take traffic policy into account when picking a node.
+                            type: string
+                          healthCheckNodePort:
+                            description: healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type). This field cannot be updated once set.
+                            format: int32
+                            type: integer
+                          internalTrafficPolicy:
+                            description: InternalTrafficPolicy describes how nodes distribute service traffic they receive on the ClusterIP. If set to "Local", the proxy will assume that pods only want to talk to endpoints of the service on the same node as the pod, dropping the traffic if there are no local endpoints. The default value, "Cluster", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features).
+                            type: string
+                          ipFamilies:
+                            description: "IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service. This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail. This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service. Valid values are \"IPv4\" and \"IPv6\".  This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer, and does apply to \"headless\" services. This field will be wiped when updating a Service to type ExternalName. \n This field may hold a maximum of two entries (dual-stack families, in either order).  These families must correspond to the values of the clusterIPs field, if specified. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field."
+                            items:
+                              description: IPFamily represents the IP Family (IPv4 or IPv6). This type is used to express the family of an IP expressed by a type (e.g. service.spec.ipFamilies).
+                              type: string
+                            type: array
+                            x-kubernetes-list-type: atomic
+                          ipFamilyPolicy:
+                            description: IPFamilyPolicy represents the dual-stack-ness requested or required by this Service. If there is no value provided, then this field will be set to SingleStack. Services can be "SingleStack" (a single IP family), "PreferDualStack" (two IP families on dual-stack configured clusters or a single IP family on single-stack clusters), or "RequireDualStack" (two IP families on dual-stack configured clusters, otherwise fail). The ipFamilies and clusterIPs fields depend on the value of this field. This field will be wiped when updating a service to type ExternalName.
+                            type: string
+                          loadBalancerClass:
+                            description: loadBalancerClass is the class of the load balancer implementation this Service belongs to. If specified, the value of this field must be a label-style identifier, with an optional prefix, e.g. "internal-vip" or "example.com/internal-vip". Unprefixed names are reserved for end-users. This field can only be set when the Service type is 'LoadBalancer'. If not set, the default load balancer implementation is used, today this is typically done through the cloud provider integration, but should apply for any default implementation. If set, it is assumed that a load balancer implementation is watching for Services with a matching class. Any default load balancer implementation (e.g. cloud providers) should ignore Services that set this field. This field can only be set when creating or updating a Service to type 'LoadBalancer'. Once set, it can not be changed. This field will be wiped when a service is updated to a non 'LoadBalancer' type.
+                            type: string
+                          loadBalancerIP:
+                            description: 'Only applies to Service Type: LoadBalancer. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature. Deprecated: This field was under-specified and its meaning varies across implementations. Using it is non-portable and it may not support dual-stack. Users are encouraged to use implementation-specific annotations when available.'
+                            type: string
+                          loadBalancerSourceRanges:
+                            description: 'If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/'
+                            items:
+                              type: string
+                            type: array
+                          ports:
+                            description: 'The list of ports that are exposed by this service. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies'
+                            items:
+                              description: ServicePort contains information on service's port.
+                              properties:
+                                appProtocol:
+                                  description: "The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either: \n * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). \n * Kubernetes-defined prefixed names: * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540 * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455 * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455 \n * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol."
+                                  type: string
+                                name:
+                                  description: The name of this port within the service. This must be a DNS_LABEL. All ports within a ServiceSpec must have unique names. When considering the endpoints for a Service, this must match the 'name' field in the EndpointPort. Optional if only one ServicePort is defined on this service.
+                                  type: string
+                                nodePort:
+                                  description: 'The port on each node on which this service is exposed when type is NodePort or LoadBalancer.  Usually assigned by the system. If a value is specified, in-range, and not in use it will be used, otherwise the operation will fail.  If not specified, a port will be allocated if this Service requires one.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type from NodePort to ClusterIP). More info: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport'
+                                  format: int32
+                                  type: integer
+                                port:
+                                  description: The port that will be exposed by this service.
+                                  format: int32
+                                  type: integer
+                                protocol:
+                                  default: TCP
+                                  description: The IP protocol for this port. Supports "TCP", "UDP", and "SCTP". Default is TCP.
+                                  type: string
+                                targetPort:
+                                  anyOf:
+                                    - type: integer
+                                    - type: string
+                                  description: 'Number or name of the port to access on the pods targeted by the service. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. If this is a string, it will be looked up as a named port in the target Pod''s container ports. If this is not specified, the value of the ''port'' field is used (an identity map). This field is ignored for services with clusterIP=None, and should be omitted or set equal to the ''port'' field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service'
+                                  x-kubernetes-int-or-string: true
+                              required:
+                                - port
+                              type: object
+                            type: array
+                            x-kubernetes-list-map-keys:
+                              - port
+                              - protocol
+                            x-kubernetes-list-type: map
+                          publishNotReadyAddresses:
+                            description: publishNotReadyAddresses indicates that any agent which deals with endpoints for this Service should disregard any indications of ready/not-ready. The primary use case for setting this field is for a StatefulSet's Headless Service to propagate SRV DNS records for its Pods for the purpose of peer discovery. The Kubernetes controllers that generate Endpoints and EndpointSlice resources for Services interpret this to mean that all endpoints are considered "ready" even if the Pods themselves are not. Agents which consume only Kubernetes generated endpoints through the Endpoints or EndpointSlice resources can safely assume this behavior.
+                            type: boolean
+                          selector:
+                            additionalProperties:
+                              type: string
+                            description: 'Route service traffic to pods with label keys and values matching this selector. If empty or not present, the service is assumed to have an external process managing its endpoints, which Kubernetes will not modify. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/'
+                            type: object
+                            x-kubernetes-map-type: atomic
+                          sessionAffinity:
+                            description: 'Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies'
+                            type: string
+                          sessionAffinityConfig:
+                            description: sessionAffinityConfig contains the configurations of session affinity.
+                            properties:
+                              clientIP:
+                                description: clientIP contains the configurations of Client IP based session affinity.
+                                properties:
+                                  timeoutSeconds:
+                                    description: timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value must be >0 && <=86400(for 1 day) if ServiceAffinity == "ClientIP". Default value is 10800(for 3 hours).
+                                    format: int32
+                                    type: integer
+                                type: object
+                            type: object
+                          type:
+                            description: 'type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types'
+                            type: string
+                        type: object
+                    required:
+                      - name
+                    type: object
+                  type: array
+                systemAccounts:
+                  description: Overrides system accounts defined in referenced ComponentDefinition.
+                  items:
+                    properties:
+                      name:
+                        description: The name of the system account.
+                        type: string
+                      passwordConfig:
+                        description: "Specifies the policy for generating the account's password. \n This field is immutable once set."
+                        properties:
+                          length:
+                            default: 16
+                            description: The length of the password.
+                            format: int32
+                            maximum: 32
+                            minimum: 8
+                            type: integer
+                          letterCase:
+                            default: MixedCases
+                            description: The case of the letters in the password.
+                            enum:
+                              - LowerCases
+                              - UpperCases
+                              - MixedCases
+                            type: string
+                          numDigits:
+                            default: 4
+                            description: The number of digits in the password.
+                            format: int32
+                            maximum: 8
+                            minimum: 0
+                            type: integer
+                          numSymbols:
+                            default: 0
+                            description: The number of symbols in the password.
+                            format: int32
+                            maximum: 8
+                            minimum: 0
+                            type: integer
+                          seed:
+                            description: Seed to generate the account's password. Cannot be updated.
+                            type: string
+                        type: object
+                      secretRef:
+                        description: "Refers to the secret from which data will be copied to create the new account. \n This field is immutable once set."
+                        properties:
+                          name:
+                            description: The unique identifier of the secret.
+                            type: string
+                          namespace:
+                            description: The namespace where the secret is located.
+                            type: string
+                        required:
+                          - name
+                          - namespace
+                        type: object
+                    required:
+                      - name
+                    type: object
+                  type: array
                 tlsConfig:
-                  description: Specifies the TLS configuration for the component.
+                  description: "Specifies the TLS configuration for the Component, including: \n - A boolean flag that indicates whether the Component should use Transport Layer Security (TLS) for secure communication. - An optional field that specifies the configuration for the TLS certificates issuer when TLS is enabled. It allows defining the issuer name and the reference to the secret containing the TLS certificates and key. The secret should contain the CA certificate, TLS certificate, and private key in the specified keys."
                   properties:
                     enable:
                       default: false
+                      description: A boolean flag that indicates whether the Component should use Transport Layer Security (TLS) for secure communication. When set to true, the Component will be configured to use TLS encryption for its network connections. This ensures that the data transmitted between the Component and its clients or other Components is encrypted and protected from unauthorized access. If TLS is enabled, the Component may require additional configuration, such as specifying TLS certificates and keys, to properly set up the secure communication channel.
                       type: boolean
                     issuer:
-                      description: Issuer defines the TLS certificates issuer for the cluster.
+                      description: Specifies the configuration for the TLS certificates issuer. It allows defining the issuer name and the reference to the secret containing the TLS certificates and key. The secret should contain the CA certificate, TLS certificate, and private key in the specified keys. Required when TLS is enabled.
                       properties:
                         name:
                           allOf:
@@ -1588,22 +1801,22 @@ spec:
                                 - KubeBlocks
                                 - UserProvided
                           default: KubeBlocks
-                          description: The issuer for TLS certificates.
+                          description: "The issuer for TLS certificates. It only allows two enum values: `KubeBlocks` and `UserProvided`. \n - `KubeBlocks` indicates that the self-signed TLS certificates generated by the KubeBlocks Operator will be used. - `UserProvided` means that the user is responsible for providing their own CA, Cert, and Key. In this case, the user-provided CA certificate, server certificate, and private key will be used for TLS communication."
                           type: string
                         secretRef:
-                          description: SecretRef is the reference to the TLS certificates secret. It is required when the issuer is set to UserProvided.
+                          description: SecretRef is the reference to the secret that contains user-provided certificates. It is required when the issuer is set to `UserProvided`.
                           properties:
                             ca:
-                              description: CA cert key in Secret
+                              description: Key of CA cert in Secret
                               type: string
                             cert:
-                              description: Cert key in Secret
+                              description: Key of Cert in Secret
                               type: string
                             key:
                               description: Key of TLS private key in Secret
                               type: string
                             name:
-                              description: Name of the Secret
+                              description: Name of the Secret that contains user-provided certificates.
                               type: string
                           required:
                             - ca
@@ -1616,7 +1829,7 @@ spec:
                       type: object
                   type: object
                 tolerations:
-                  description: Specify the tolerations for the component's workload. If specified, they will override the cluster-wide toleration settings.
+                  description: "Allows Pods to be scheduled onto nodes with matching taints. Each toleration in the array allows the Pod to tolerate node taints based on specified `key`, `value`, `effect`, and `operator`. \n - The `key`, `value`, and `effect` identify the taint that the toleration matches. - The `operator` determines how the toleration matches the taint. \n Pods with matching tolerations are allowed to be scheduled on tainted nodes, typically reserved for specific purposes."
                   items:
                     description: The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
                     properties:
@@ -1639,14 +1852,14 @@ spec:
                     type: object
                   type: array
                 volumeClaimTemplates:
-                  description: Information for statefulset.spec.volumeClaimTemplates.
+                  description: Specifies a list of PersistentVolumeClaim templates that define the storage requirements for the Component. Each template specifies the desired characteristics of a persistent volume, such as storage class, size, and access modes. These templates are used to dynamically provision persistent volumes for the Component.
                   items:
                     properties:
                       name:
-                        description: Refers to `clusterDefinition.spec.componentDefs.containers.volumeMounts.name`.
+                        description: "Refers to the name of a volumeMount defined in either: \n - `componentDefinition.spec.runtime.containers[*].volumeMounts` - `clusterDefinition.spec.componentDefs[*].podSpec.containers[*].volumeMounts` (deprecated) \n The value of `name` must match the `name` field of a volumeMount specified in the corresponding `volumeMounts` array."
                         type: string
                       spec:
-                        description: Defines the desired characteristics of a volume requested by a pod author.
+                        description: "Defines the desired characteristics of a PersistentVolumeClaim that will be created for the volume with the mount name specified in the `name` field. \n When a Pod is created for this ClusterComponent, a new PVC will be created based on the specification defined in the `spec` field. The PVC will be associated with the volume mount specified by the `name` field."
                         properties:
                           accessModes:
                             description: 'Contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.'
@@ -1696,7 +1909,7 @@ spec:
                             description: 'The name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1.'
                             type: string
                           volumeMode:
-                            description: Defines what type of volume is required by the claim.
+                            description: Defines what type of volume is required by the claim, either Block or Filesystem.
                             type: string
                         type: object
                     required:
@@ -1708,10 +1921,10 @@ spec:
                 - replicas
               type: object
             status:
-              description: ComponentStatus represents the observed state of a Component within the cluster.
+              description: ComponentStatus represents the observed state of a Component within the Cluster.
               properties:
                 conditions:
-                  description: Defines the current state of the component API Resource, such as warnings.
+                  description: "Represents a list of detailed status of the Component object. Each condition in the list provides real-time information about certain aspect of the Component object. \n This field is crucial for administrators and developers to monitor and respond to changes within the Component. It provides a history of state transitions and a snapshot of the current state that can be used for automated logic or direct inspection."
                   items:
                     description: "Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, \n type FooStatus struct{ // Represents the observations of a foo's current state. // Known .status.conditions.type are: \"Available\", \"Progressing\", and \"Degraded\" // +patchMergeKey=type // +patchStrategy=merge // +listType=map // +listMapKey=type Conditions []metav1.Condition `json:\"conditions,omitempty\" patchStrategy:\"merge\" patchMergeKey:\"type\" protobuf:\"bytes,1,rep,name=conditions\"` \n // other fields }"
                     properties:
@@ -1757,14 +1970,14 @@ spec:
                 message:
                   additionalProperties:
                     type: string
-                  description: Records the detailed message of the component in its current phase. Keys can be podName, deployName, or statefulSetName. The format is `ObjectKind/Name`.
+                  description: "A map that stores detailed message about the Component. Each entry in the map provides insights into specific elements of the Component, such as Pods or workloads. \n Keys in this map are formatted as `ObjectKind/Name`, where `ObjectKind` could be a type like Pod, and `Name` is the specific name of the object."
                   type: object
                 observedGeneration:
-                  description: Specifies the most recent generation observed for this Component. This corresponds to the Cluster's generation, which is updated by the API Server upon mutation.
+                  description: Specifies the most recent generation observed for this Component object.
                   format: int64
                   type: integer
                 phase:
-                  description: "Indicates the phase of the component. Detailed information for each phase is as follows: \n - Creating: A special `Updating` phase with previous phase `empty`(means \"\") or `Creating`. - Running: Component replicas > 0 and all pod specs are latest with a Running state. - Updating: Component replicas > 0 and no failed pods. The component is being updated. - Abnormal: Component replicas > 0 but some pods have failed. The component is functional but in a fragile state. - Failed: Component replicas > 0 but some pods have failed. The component is no longer functional. - Stopping: Component replicas = 0 and pods are terminating. - Stopped: Component replicas = 0 and all pods have been deleted. - Deleting: The component is being deleted."
+                  description: "Indicates the current phase of the Component, with each phase indicating specific conditions: \n - Creating: The initial phase for new Components, transitioning from 'empty'(\"\"). - Running: All Pods in a Running state. - Updating: The Component is currently being updated, with no failed Pods present. - Abnormal: Some Pods have failed, indicating a potentially unstable state. However, the cluster remains available as long as a quorum of members is functioning. - Failed: A significant number of Pods or critical Pods have failed The cluster may be non-functional or may offer only limited services (e.g, read-only). - Stopping: All Pods are being terminated, with current replica count at zero. - Stopped: All associated Pods have been successfully deleted. - Deleting: The Component is being deleted."
                   enum:
                     - Creating
                     - Running
@@ -1793,12 +2006,12 @@ status:
       - cmp
     singular: component
   conditions:
-    - lastTransitionTime: "2024-01-31T05:17:14Z"
+    - lastTransitionTime: "2024-05-14T07:40:39Z"
       message: no conflicts found
       reason: NoConflicts
       status: "True"
       type: NamesAccepted
-    - lastTransitionTime: "2024-01-31T05:17:14Z"
+    - lastTransitionTime: "2024-05-14T07:40:39Z"
       message: the initial names have been accepted
       reason: InitialNamesAccepted
       status: "True"

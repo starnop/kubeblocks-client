@@ -50,7 +50,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * SecretRef is the reference to the TLS certificates secret. It is required when the issuer is set to UserProvided.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-03-12T08:58:42.064637Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
 public class V1alpha1ClusterSpecComponentSpecsInnerIssuerSecretRef {
   public static final String SERIALIZED_NAME_CA = "ca";
   @SerializedName(SERIALIZED_NAME_CA)
@@ -297,7 +297,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerIssuerSecretRef {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1ClusterSpecComponentSpecsInnerIssuerSecretRef
   */
   public static V1alpha1ClusterSpecComponentSpecsInnerIssuerSecretRef fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1ClusterSpecComponentSpecsInnerIssuerSecretRef.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1ClusterSpecComponentSpecsInnerIssuerSecretRef.class);
   }
 
  /**
@@ -306,7 +306,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerIssuerSecretRef {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

@@ -50,7 +50,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * Configures the method for obtaining the client SDK and executing statements.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-03-12T08:58:42.064637Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
 public class V1alpha1ClusterVersionSpecComponentVersionsInnerSystemAccountSpecCmdExecutorConfig {
   public static final String SERIALIZED_NAME_ENV = "env";
   @SerializedName(SERIALIZED_NAME_ENV)
@@ -229,7 +229,7 @@ public class V1alpha1ClusterVersionSpecComponentVersionsInnerSystemAccountSpecCm
   * @throws IOException if the JSON string is invalid with respect to V1alpha1ClusterVersionSpecComponentVersionsInnerSystemAccountSpecCmdExecutorConfig
   */
   public static V1alpha1ClusterVersionSpecComponentVersionsInnerSystemAccountSpecCmdExecutorConfig fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1ClusterVersionSpecComponentVersionsInnerSystemAccountSpecCmdExecutorConfig.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1ClusterVersionSpecComponentVersionsInnerSystemAccountSpecCmdExecutorConfig.class);
   }
 
  /**
@@ -238,7 +238,7 @@ public class V1alpha1ClusterVersionSpecComponentVersionsInnerSystemAccountSpecCm
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

@@ -53,7 +53,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * Cluster is the Schema for the clusters API.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-03-12T08:58:42.064637Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
 public class V1alpha1Cluster implements io.kubernetes.client.common.KubernetesObject {
   public static final String SERIALIZED_NAME_API_VERSION = "apiVersion";
   @SerializedName(SERIALIZED_NAME_API_VERSION)
@@ -319,7 +319,7 @@ public class V1alpha1Cluster implements io.kubernetes.client.common.KubernetesOb
   * @throws IOException if the JSON string is invalid with respect to V1alpha1Cluster
   */
   public static V1alpha1Cluster fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1Cluster.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1Cluster.class);
   }
 
  /**
@@ -328,7 +328,7 @@ public class V1alpha1Cluster implements io.kubernetes.client.common.KubernetesOb
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

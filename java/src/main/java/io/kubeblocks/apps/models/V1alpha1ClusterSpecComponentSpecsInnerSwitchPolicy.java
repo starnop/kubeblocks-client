@@ -50,7 +50,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * Defines the strategy for switchover and failover when workloadType is Replication.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-03-12T08:58:42.064637Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
 public class V1alpha1ClusterSpecComponentSpecsInnerSwitchPolicy {
   /**
    * Type specifies the type of switch policy to be applied.
@@ -238,7 +238,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerSwitchPolicy {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1ClusterSpecComponentSpecsInnerSwitchPolicy
   */
   public static V1alpha1ClusterSpecComponentSpecsInnerSwitchPolicy fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1ClusterSpecComponentSpecsInnerSwitchPolicy.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1ClusterSpecComponentSpecsInnerSwitchPolicy.class);
   }
 
  /**
@@ -247,7 +247,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerSwitchPolicy {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

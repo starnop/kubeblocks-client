@@ -53,7 +53,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * ClusterVersionSpec defines the desired state of ClusterVersion
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-03-12T08:58:42.064637Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
 public class V1alpha1ClusterVersionSpec {
   public static final String SERIALIZED_NAME_CLUSTER_DEFINITION_REF = "clusterDefinitionRef";
   @SerializedName(SERIALIZED_NAME_CLUSTER_DEFINITION_REF)
@@ -251,7 +251,7 @@ public class V1alpha1ClusterVersionSpec {
   * @throws IOException if the JSON string is invalid with respect to V1alpha1ClusterVersionSpec
   */
   public static V1alpha1ClusterVersionSpec fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1ClusterVersionSpec.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1ClusterVersionSpec.class);
   }
 
  /**
@@ -260,7 +260,7 @@ public class V1alpha1ClusterVersionSpec {
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

@@ -3,13 +3,13 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.12.1
-  creationTimestamp: "2024-01-31T05:17:18Z"
-  generation: 2
+  creationTimestamp: "2024-05-14T07:40:43Z"
+  generation: 1
   labels:
     app.kubernetes.io/name: kubeblocks
   name: backuprepos.dataprotection.kubeblocks.io
-  resourceVersion: "9231017"
-  uid: 26a79340-2448-4fb8-8b0d-ff3d37db10e5
+  resourceVersion: "471"
+  uid: 80f9032d-547f-45dd-9a56-51cca3aabc28
 spec:
   conversion:
     strategy: None
@@ -78,6 +78,10 @@ spec:
                       type: string
                   type: object
                   x-kubernetes-map-type: atomic
+                pathPrefix:
+                  description: Specifies the prefix of the path for storing backup data.
+                  pattern: ^([a-zA-Z0-9-_]+/?)*$
+                  type: string
                 pvReclaimPolicy:
                   description: Specifies reclaim policy of the PV created by this backup repository.
                   enum:
@@ -201,12 +205,12 @@ status:
     plural: backuprepos
     singular: backuprepo
   conditions:
-    - lastTransitionTime: "2024-01-31T05:17:18Z"
+    - lastTransitionTime: "2024-05-14T07:40:43Z"
       message: no conflicts found
       reason: NoConflicts
       status: "True"
       type: NamesAccepted
-    - lastTransitionTime: "2024-01-31T05:17:18Z"
+    - lastTransitionTime: "2024-05-14T07:40:43Z"
       message: the initial names have been accepted
       reason: InitialNamesAccepted
       status: "True"

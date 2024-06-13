@@ -50,7 +50,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * V1alpha1ClusterDefinitionSpecComponentDefsInnerServiceRefDeclarationsInnerServiceRefDeclarationSpecsInner
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-03-12T08:58:42.064637Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
 public class V1alpha1ClusterDefinitionSpecComponentDefsInnerServiceRefDeclarationsInnerServiceRefDeclarationSpecsInner {
   public static final String SERIALIZED_NAME_SERVICE_KIND = "serviceKind";
   @SerializedName(SERIALIZED_NAME_SERVICE_KIND)
@@ -233,7 +233,7 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerServiceRefDeclaratio
   * @throws IOException if the JSON string is invalid with respect to V1alpha1ClusterDefinitionSpecComponentDefsInnerServiceRefDeclarationsInnerServiceRefDeclarationSpecsInner
   */
   public static V1alpha1ClusterDefinitionSpecComponentDefsInnerServiceRefDeclarationsInnerServiceRefDeclarationSpecsInner fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1ClusterDefinitionSpecComponentDefsInnerServiceRefDeclarationsInnerServiceRefDeclarationSpecsInner.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1ClusterDefinitionSpecComponentDefsInnerServiceRefDeclarationsInnerServiceRefDeclarationSpecsInner.class);
   }
 
  /**
@@ -242,7 +242,7 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerServiceRefDeclaratio
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 

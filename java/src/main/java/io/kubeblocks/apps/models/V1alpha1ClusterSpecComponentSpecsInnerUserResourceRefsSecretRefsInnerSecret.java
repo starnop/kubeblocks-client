@@ -53,7 +53,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * Secret specifies the secret to be mounted as a volume.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-03-12T08:58:42.064637Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
 public class V1alpha1ClusterSpecComponentSpecsInnerUserResourceRefsSecretRefsInnerSecret {
   public static final String SERIALIZED_NAME_DEFAULT_MODE = "defaultMode";
   @SerializedName(SERIALIZED_NAME_DEFAULT_MODE)
@@ -302,7 +302,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerUserResourceRefsSecretRefsInn
   * @throws IOException if the JSON string is invalid with respect to V1alpha1ClusterSpecComponentSpecsInnerUserResourceRefsSecretRefsInnerSecret
   */
   public static V1alpha1ClusterSpecComponentSpecsInnerUserResourceRefsSecretRefsInnerSecret fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, V1alpha1ClusterSpecComponentSpecsInnerUserResourceRefsSecretRefsInnerSecret.class);
+    return new JSON().getGson().fromJson(jsonString, V1alpha1ClusterSpecComponentSpecsInnerUserResourceRefsSecretRefsInnerSecret.class);
   }
 
  /**
@@ -311,7 +311,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerUserResourceRefsSecretRefsInn
   * @return JSON string
   */
   public String toJson() {
-    return JSON.getGson().toJson(this);
+    return new JSON().getGson().toJson(this);
   }
 }
 
