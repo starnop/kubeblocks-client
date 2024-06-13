@@ -50,7 +50,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * V1alpha1ComponentDefinitionSpecVolumesInner
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ComponentDefinitionSpecVolumesInner {
   public static final String SERIALIZED_NAME_HIGH_WATERMARK = "highWatermark";
   @SerializedName(SERIALIZED_NAME_HIGH_WATERMARK)
@@ -74,7 +74,7 @@ public class V1alpha1ComponentDefinitionSpecVolumesInner {
   }
 
    /**
-   * Defines the high watermark threshold for the volume space usage.   If the space usage of any specified volume exceeds this threshold, a pre-defined \&quot;LOCK\&quot; action will be triggered. This action degrades the service to protect the volume from space exhaustion, for example, by setting the instance to read-only.   If the space usage of all volumes drops below the threshold, a pre-defined \&quot;UNLOCK\&quot; action will be performed to restore the service to normal operation. Note: This field cannot be updated.
+   * Sets the critical threshold for volume space utilization as a percentage (0-100).   Exceeding this percentage triggers the system to switch the volume to read-only mode as specified in &#x60;componentDefinition.spec.lifecycleActions.readOnly&#x60;. This precaution helps prevent space depletion while maintaining read-only access. If the space utilization later falls below this threshold, the system reverts the volume to read-write mode as defined in &#x60;componentDefinition.spec.lifecycleActions.readWrite&#x60;, restoring full functionality.   Note: This field cannot be updated.
    * minimum: 0
    * maximum: 100
    * @return highWatermark
@@ -118,7 +118,7 @@ public class V1alpha1ComponentDefinitionSpecVolumesInner {
   }
 
    /**
-   * Indicates whether a snapshot is required when creating a backup for the component. Note: This field cannot be updated.
+   * Specifies whether the creation of a snapshot of this volume is necessary when performing a backup of the Component.   Note: This field cannot be updated.
    * @return needSnapshot
   **/
   @jakarta.annotation.Nullable

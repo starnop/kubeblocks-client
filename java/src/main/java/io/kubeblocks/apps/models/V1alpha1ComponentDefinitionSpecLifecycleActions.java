@@ -21,8 +21,8 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecLifecycleActionsAccountProvision;
-import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecLifecycleActionsDataAssemble;
-import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecLifecycleActionsDataPopulate;
+import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecLifecycleActionsDataDump;
+import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecLifecycleActionsDataLoad;
 import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecLifecycleActionsMemberJoin;
 import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecLifecycleActionsMemberLeave;
 import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecLifecycleActionsPostProvision;
@@ -60,21 +60,21 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * Defines the operational actions needed to interoperate with the component service and processes for lifecycle management. This field is immutable.
+ * Defines a set of hooks and procedures that customize the behavior of a Component throughout its lifecycle. Actions are triggered at specific lifecycle stages:   - &#x60;postProvision&#x60;: Defines the hook to be executed after the creation of a Component, with &#x60;preCondition&#x60; specifying when the action should be fired relative to the Component&#39;s lifecycle stages: &#x60;Immediately&#x60;, &#x60;RuntimeReady&#x60;, &#x60;ComponentReady&#x60;, and &#x60;ClusterReady&#x60;. - &#x60;preTerminate&#x60;: Defines the hook to be executed before terminating a Component. - &#x60;roleProbe&#x60;: Defines the procedure which is invoked regularly to assess the role of replicas. - &#x60;switchover&#x60;: Defines the procedure for a controlled transition of leadership from the current leader to a new replica. This approach aims to minimize downtime and maintain availability in systems with a leader-follower topology, such as before planned maintenance or upgrades on the current leader node. - &#x60;memberJoin&#x60;: Defines the procedure to add a new replica to the replication group. - &#x60;memberLeave&#x60;: Defines the method to remove a replica from the replication group. - &#x60;readOnly&#x60;: Defines the procedure to switch a replica into the read-only state. - &#x60;readWrite&#x60;: transition a replica from the read-only state back to the read-write state. - &#x60;dataDump&#x60;: Defines the procedure to export the data from a replica. - &#x60;dataLoad&#x60;: Defines the procedure to import data into a replica. - &#x60;reconfigure&#x60;: Defines the procedure that update a replica with new configuration file. - &#x60;accountProvision&#x60;: Defines the procedure to generate a new database account.   This field is immutable.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ComponentDefinitionSpecLifecycleActions {
   public static final String SERIALIZED_NAME_ACCOUNT_PROVISION = "accountProvision";
   @SerializedName(SERIALIZED_NAME_ACCOUNT_PROVISION)
   private V1alpha1ComponentDefinitionSpecLifecycleActionsAccountProvision accountProvision;
 
-  public static final String SERIALIZED_NAME_DATA_ASSEMBLE = "dataAssemble";
-  @SerializedName(SERIALIZED_NAME_DATA_ASSEMBLE)
-  private V1alpha1ComponentDefinitionSpecLifecycleActionsDataAssemble dataAssemble;
+  public static final String SERIALIZED_NAME_DATA_DUMP = "dataDump";
+  @SerializedName(SERIALIZED_NAME_DATA_DUMP)
+  private V1alpha1ComponentDefinitionSpecLifecycleActionsDataDump dataDump;
 
-  public static final String SERIALIZED_NAME_DATA_POPULATE = "dataPopulate";
-  @SerializedName(SERIALIZED_NAME_DATA_POPULATE)
-  private V1alpha1ComponentDefinitionSpecLifecycleActionsDataPopulate dataPopulate;
+  public static final String SERIALIZED_NAME_DATA_LOAD = "dataLoad";
+  @SerializedName(SERIALIZED_NAME_DATA_LOAD)
+  private V1alpha1ComponentDefinitionSpecLifecycleActionsDataLoad dataLoad;
 
   public static final String SERIALIZED_NAME_MEMBER_JOIN = "memberJoin";
   @SerializedName(SERIALIZED_NAME_MEMBER_JOIN)
@@ -136,45 +136,45 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActions {
   }
 
 
-  public V1alpha1ComponentDefinitionSpecLifecycleActions dataAssemble(V1alpha1ComponentDefinitionSpecLifecycleActionsDataAssemble dataAssemble) {
+  public V1alpha1ComponentDefinitionSpecLifecycleActions dataDump(V1alpha1ComponentDefinitionSpecLifecycleActionsDataDump dataDump) {
     
-    this.dataAssemble = dataAssemble;
+    this.dataDump = dataDump;
     return this;
   }
 
    /**
-   * Get dataAssemble
-   * @return dataAssemble
+   * Get dataDump
+   * @return dataDump
   **/
   @jakarta.annotation.Nullable
-  public V1alpha1ComponentDefinitionSpecLifecycleActionsDataAssemble getDataAssemble() {
-    return dataAssemble;
+  public V1alpha1ComponentDefinitionSpecLifecycleActionsDataDump getDataDump() {
+    return dataDump;
   }
 
 
-  public void setDataAssemble(V1alpha1ComponentDefinitionSpecLifecycleActionsDataAssemble dataAssemble) {
-    this.dataAssemble = dataAssemble;
+  public void setDataDump(V1alpha1ComponentDefinitionSpecLifecycleActionsDataDump dataDump) {
+    this.dataDump = dataDump;
   }
 
 
-  public V1alpha1ComponentDefinitionSpecLifecycleActions dataPopulate(V1alpha1ComponentDefinitionSpecLifecycleActionsDataPopulate dataPopulate) {
+  public V1alpha1ComponentDefinitionSpecLifecycleActions dataLoad(V1alpha1ComponentDefinitionSpecLifecycleActionsDataLoad dataLoad) {
     
-    this.dataPopulate = dataPopulate;
+    this.dataLoad = dataLoad;
     return this;
   }
 
    /**
-   * Get dataPopulate
-   * @return dataPopulate
+   * Get dataLoad
+   * @return dataLoad
   **/
   @jakarta.annotation.Nullable
-  public V1alpha1ComponentDefinitionSpecLifecycleActionsDataPopulate getDataPopulate() {
-    return dataPopulate;
+  public V1alpha1ComponentDefinitionSpecLifecycleActionsDataLoad getDataLoad() {
+    return dataLoad;
   }
 
 
-  public void setDataPopulate(V1alpha1ComponentDefinitionSpecLifecycleActionsDataPopulate dataPopulate) {
-    this.dataPopulate = dataPopulate;
+  public void setDataLoad(V1alpha1ComponentDefinitionSpecLifecycleActionsDataLoad dataLoad) {
+    this.dataLoad = dataLoad;
   }
 
 
@@ -378,8 +378,8 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActions {
     }
     V1alpha1ComponentDefinitionSpecLifecycleActions v1alpha1ComponentDefinitionSpecLifecycleActions = (V1alpha1ComponentDefinitionSpecLifecycleActions) o;
     return Objects.equals(this.accountProvision, v1alpha1ComponentDefinitionSpecLifecycleActions.accountProvision) &&
-        Objects.equals(this.dataAssemble, v1alpha1ComponentDefinitionSpecLifecycleActions.dataAssemble) &&
-        Objects.equals(this.dataPopulate, v1alpha1ComponentDefinitionSpecLifecycleActions.dataPopulate) &&
+        Objects.equals(this.dataDump, v1alpha1ComponentDefinitionSpecLifecycleActions.dataDump) &&
+        Objects.equals(this.dataLoad, v1alpha1ComponentDefinitionSpecLifecycleActions.dataLoad) &&
         Objects.equals(this.memberJoin, v1alpha1ComponentDefinitionSpecLifecycleActions.memberJoin) &&
         Objects.equals(this.memberLeave, v1alpha1ComponentDefinitionSpecLifecycleActions.memberLeave) &&
         Objects.equals(this.postProvision, v1alpha1ComponentDefinitionSpecLifecycleActions.postProvision) &&
@@ -393,7 +393,7 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActions {
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountProvision, dataAssemble, dataPopulate, memberJoin, memberLeave, postProvision, preTerminate, readonly, readwrite, reconfigure, roleProbe, switchover);
+    return Objects.hash(accountProvision, dataDump, dataLoad, memberJoin, memberLeave, postProvision, preTerminate, readonly, readwrite, reconfigure, roleProbe, switchover);
   }
 
   @Override
@@ -401,8 +401,8 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActions {
     StringBuilder sb = new StringBuilder();
     sb.append("class V1alpha1ComponentDefinitionSpecLifecycleActions {\n");
     sb.append("    accountProvision: ").append(toIndentedString(accountProvision)).append("\n");
-    sb.append("    dataAssemble: ").append(toIndentedString(dataAssemble)).append("\n");
-    sb.append("    dataPopulate: ").append(toIndentedString(dataPopulate)).append("\n");
+    sb.append("    dataDump: ").append(toIndentedString(dataDump)).append("\n");
+    sb.append("    dataLoad: ").append(toIndentedString(dataLoad)).append("\n");
     sb.append("    memberJoin: ").append(toIndentedString(memberJoin)).append("\n");
     sb.append("    memberLeave: ").append(toIndentedString(memberLeave)).append("\n");
     sb.append("    postProvision: ").append(toIndentedString(postProvision)).append("\n");
@@ -435,8 +435,8 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActions {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("accountProvision");
-    openapiFields.add("dataAssemble");
-    openapiFields.add("dataPopulate");
+    openapiFields.add("dataDump");
+    openapiFields.add("dataLoad");
     openapiFields.add("memberJoin");
     openapiFields.add("memberLeave");
     openapiFields.add("postProvision");
@@ -475,13 +475,13 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActions {
       if (jsonObj.get("accountProvision") != null && !jsonObj.get("accountProvision").isJsonNull()) {
         V1alpha1ComponentDefinitionSpecLifecycleActionsAccountProvision.validateJsonObject(jsonObj.getAsJsonObject("accountProvision"));
       }
-      // validate the optional field `dataAssemble`
-      if (jsonObj.get("dataAssemble") != null && !jsonObj.get("dataAssemble").isJsonNull()) {
-        V1alpha1ComponentDefinitionSpecLifecycleActionsDataAssemble.validateJsonObject(jsonObj.getAsJsonObject("dataAssemble"));
+      // validate the optional field `dataDump`
+      if (jsonObj.get("dataDump") != null && !jsonObj.get("dataDump").isJsonNull()) {
+        V1alpha1ComponentDefinitionSpecLifecycleActionsDataDump.validateJsonObject(jsonObj.getAsJsonObject("dataDump"));
       }
-      // validate the optional field `dataPopulate`
-      if (jsonObj.get("dataPopulate") != null && !jsonObj.get("dataPopulate").isJsonNull()) {
-        V1alpha1ComponentDefinitionSpecLifecycleActionsDataPopulate.validateJsonObject(jsonObj.getAsJsonObject("dataPopulate"));
+      // validate the optional field `dataLoad`
+      if (jsonObj.get("dataLoad") != null && !jsonObj.get("dataLoad").isJsonNull()) {
+        V1alpha1ComponentDefinitionSpecLifecycleActionsDataLoad.validateJsonObject(jsonObj.getAsJsonObject("dataLoad"));
       }
       // validate the optional field `memberJoin`
       if (jsonObj.get("memberJoin") != null && !jsonObj.get("memberJoin").isJsonNull()) {

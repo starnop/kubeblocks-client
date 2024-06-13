@@ -54,7 +54,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * Deprecated: Replaced by ReconfiguringStatusAsComponent. Defines the status information of reconfiguring.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsRequestStatusReconfiguringStatus {
   public static final String SERIALIZED_NAME_CONDITIONS = "conditions";
   @SerializedName(SERIALIZED_NAME_CONDITIONS)
@@ -82,7 +82,7 @@ public class V1alpha1OpsRequestStatusReconfiguringStatus {
   }
 
    /**
-   * Describes the reconfiguring detail status.
+   * Describes the reconfiguring detail status. Possible condition types include \&quot;Creating\&quot;, \&quot;Init\&quot;, \&quot;Running\&quot;, \&quot;Pending\&quot;, \&quot;Merged\&quot;, \&quot;MergeFailed\&quot;, \&quot;FailedAndPause\&quot;, \&quot;Upgrading\&quot;, \&quot;Deleting\&quot;, \&quot;FailedAndRetry\&quot;, \&quot;Finished\&quot;, \&quot;ReconfigurePersisting\&quot;, \&quot;ReconfigurePersisted\&quot;.
    * @return conditions
   **/
   @jakarta.annotation.Nullable

@@ -48,9 +48,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * Provided by the provider and contains the necessary information for the Time Series Database. This field is only valid when BuiltIn is set to false.
+ * exporterConfig provided by provider, which specify necessary information to Time Series Database. exporterConfig is valid when builtIn is false.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterDefinitionSpecComponentDefsInnerMonitorExporterConfig {
   public static final String SERIALIZED_NAME_SCRAPE_PATH = "scrapePath";
   @SerializedName(SERIALIZED_NAME_SCRAPE_PATH)
@@ -70,7 +70,7 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerMonitorExporterConfi
   }
 
    /**
-   * Specifies the URL path that the exporter uses for the Time Series Database to scrape metrics.
+   * scrapePath is exporter url path for Time Series Database to scrape metrics.
    * @return scrapePath
   **/
   @jakarta.annotation.Nullable
@@ -91,7 +91,7 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerMonitorExporterConfi
   }
 
    /**
-   * Defines the port that the exporter uses for the Time Series Database to scrape metrics.
+   * scrapePort is exporter port for Time Series Database to scrape metrics.
    * @return scrapePort
   **/
   @jakarta.annotation.Nonnull

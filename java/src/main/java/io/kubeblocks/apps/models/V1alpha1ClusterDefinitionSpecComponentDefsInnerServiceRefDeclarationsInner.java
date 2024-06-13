@@ -51,13 +51,17 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * V1alpha1ClusterDefinitionSpecComponentDefsInnerServiceRefDeclarationsInner
+ * ServiceRefDeclaration represents a reference to a service that can be either provided by a KubeBlocks Cluster or an external service. It acts as a placeholder for the actual service reference, which is determined later when a Cluster is created.   The purpose of ServiceRefDeclaration is to declare a service dependency without specifying the concrete details of the service. It allows for flexibility and abstraction in defining service references within a Component. By using ServiceRefDeclaration, you can define service dependencies in a declarative manner, enabling loose coupling and easier management of service references across different components and clusters.   Upon Cluster creation, the ServiceRefDeclaration is bound to an actual service through the ServiceRef field, effectively resolving and connecting to the specified service.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterDefinitionSpecComponentDefsInnerServiceRefDeclarationsInner {
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)
   private String name;
+
+  public static final String SERIALIZED_NAME_OPTIONAL = "optional";
+  @SerializedName(SERIALIZED_NAME_OPTIONAL)
+  private Boolean optional;
 
   public static final String SERIALIZED_NAME_SERVICE_REF_DECLARATION_SPECS = "serviceRefDeclarationSpecs";
   @SerializedName(SERIALIZED_NAME_SERVICE_REF_DECLARATION_SPECS)
@@ -73,7 +77,7 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerServiceRefDeclaratio
   }
 
    /**
-   * Specifies the name of the service reference declaration.   The service reference may originate from an external service that is not part of KubeBlocks, or from services provided by other KubeBlocks Cluster objects. The specific type of service reference is determined by the binding declaration when a Cluster is created.
+   * Specifies the name of the ServiceRefDeclaration.
    * @return name
   **/
   @jakarta.annotation.Nonnull
@@ -84,6 +88,27 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerServiceRefDeclaratio
 
   public void setName(String name) {
     this.name = name;
+  }
+
+
+  public V1alpha1ClusterDefinitionSpecComponentDefsInnerServiceRefDeclarationsInner optional(Boolean optional) {
+    
+    this.optional = optional;
+    return this;
+  }
+
+   /**
+   * Specifies whether the service reference can be optional.   For an optional service-ref, the component can still be created even if the service-ref is not provided.
+   * @return optional
+  **/
+  @jakarta.annotation.Nullable
+  public Boolean getOptional() {
+    return optional;
+  }
+
+
+  public void setOptional(Boolean optional) {
+    this.optional = optional;
   }
 
 
@@ -102,7 +127,7 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerServiceRefDeclaratio
   }
 
    /**
-   * Represents a collection of service descriptions for a service reference declaration.   Each ServiceRefDeclarationSpec defines a service Kind and Version. When multiple ServiceRefDeclarationSpecs are defined, it implies that the ServiceRefDeclaration can be any one of the specified ServiceRefDeclarationSpecs.   For instance, when the ServiceRefDeclaration is declared to require an OLTP database, which can be either MySQL or PostgreSQL, a ServiceRefDeclarationSpec for MySQL and another for PostgreSQL can be defined. When referencing the service within the cluster, as long as the serviceKind and serviceVersion match either MySQL or PostgreSQL, it can be used.
+   * Defines a list of constraints and requirements for services that can be bound to this ServiceRefDeclaration upon Cluster creation. Each ServiceRefDeclarationSpec defines a ServiceKind and ServiceVersion, outlining the acceptable service types and versions that are compatible.   This flexibility allows a ServiceRefDeclaration to be fulfilled by any one of the provided specs. For example, if it requires an OLTP database, specs for both MySQL and PostgreSQL are listed, either MySQL or PostgreSQL services can be used when binding.
    * @return serviceRefDeclarationSpecs
   **/
   @jakarta.annotation.Nonnull
@@ -127,12 +152,13 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerServiceRefDeclaratio
     }
     V1alpha1ClusterDefinitionSpecComponentDefsInnerServiceRefDeclarationsInner v1alpha1ClusterDefinitionSpecComponentDefsInnerServiceRefDeclarationsInner = (V1alpha1ClusterDefinitionSpecComponentDefsInnerServiceRefDeclarationsInner) o;
     return Objects.equals(this.name, v1alpha1ClusterDefinitionSpecComponentDefsInnerServiceRefDeclarationsInner.name) &&
+        Objects.equals(this.optional, v1alpha1ClusterDefinitionSpecComponentDefsInnerServiceRefDeclarationsInner.optional) &&
         Objects.equals(this.serviceRefDeclarationSpecs, v1alpha1ClusterDefinitionSpecComponentDefsInnerServiceRefDeclarationsInner.serviceRefDeclarationSpecs);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, serviceRefDeclarationSpecs);
+    return Objects.hash(name, optional, serviceRefDeclarationSpecs);
   }
 
   @Override
@@ -140,6 +166,7 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerServiceRefDeclaratio
     StringBuilder sb = new StringBuilder();
     sb.append("class V1alpha1ClusterDefinitionSpecComponentDefsInnerServiceRefDeclarationsInner {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    optional: ").append(toIndentedString(optional)).append("\n");
     sb.append("    serviceRefDeclarationSpecs: ").append(toIndentedString(serviceRefDeclarationSpecs)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -164,6 +191,7 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerServiceRefDeclaratio
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("name");
+    openapiFields.add("optional");
     openapiFields.add("serviceRefDeclarationSpecs");
 
     // a set of required properties/fields (JSON key names)

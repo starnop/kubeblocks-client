@@ -51,8 +51,12 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * EnvVar represents a variable present in the env of Pod/Action or the template of config/script.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ComponentDefinitionSpecVarsInner {
+  public static final String SERIALIZED_NAME_EXPRESSION = "expression";
+  @SerializedName(SERIALIZED_NAME_EXPRESSION)
+  private String expression;
+
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)
   private String name;
@@ -67,6 +71,27 @@ public class V1alpha1ComponentDefinitionSpecVarsInner {
 
   public V1alpha1ComponentDefinitionSpecVarsInner() {
   }
+
+  public V1alpha1ComponentDefinitionSpecVarsInner expression(String expression) {
+    
+    this.expression = expression;
+    return this;
+  }
+
+   /**
+   * A Go template expression that will be applied to the resolved value of the var.   The expression will only be evaluated if the var is successfully resolved to a non-credential value.   The resolved value can be accessed by its name within the expression, system vars and other user-defined non-credential vars can be used within the expression in the same way. Notice that, when accessing vars by its name, you should replace all the \&quot;-\&quot; in the name with \&quot;_\&quot;, because of that \&quot;-\&quot; is not a valid identifier in Go.   All expressions are evaluated in the order the vars are defined. If a var depends on any vars that also have expressions defined, be careful about the evaluation order as it may use intermediate values.   The result of evaluation will be used as the final value of the var. If the expression fails to evaluate, the resolving of var will also be considered failed.
+   * @return expression
+  **/
+  @jakarta.annotation.Nullable
+  public String getExpression() {
+    return expression;
+  }
+
+
+  public void setExpression(String expression) {
+    this.expression = expression;
+  }
+
 
   public V1alpha1ComponentDefinitionSpecVarsInner name(String name) {
     
@@ -96,7 +121,7 @@ public class V1alpha1ComponentDefinitionSpecVarsInner {
   }
 
    /**
-   * Variable references $(VAR_NAME) are expanded using the previously defined variables in the current context.   If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e.   - \&quot;$$(VAR_NAME)\&quot; will produce the string literal \&quot;$(VAR_NAME)\&quot;.   Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to \&quot;\&quot;.
+   * Variable references &#x60;$(VAR_NAME)&#x60; are expanded using the previously defined variables in the current context.   If a variable cannot be resolved, the reference in the input string will be unchanged. Double &#x60;$$&#x60; are reduced to a single &#x60;$&#x60;, which allows for escaping the &#x60;$(VAR_NAME)&#x60; syntax: i.e.   - &#x60;$$(VAR_NAME)&#x60; will produce the string literal &#x60;$(VAR_NAME)&#x60;.   Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to \&quot;\&quot;.
    * @return value
   **/
   @jakarta.annotation.Nullable
@@ -141,20 +166,22 @@ public class V1alpha1ComponentDefinitionSpecVarsInner {
       return false;
     }
     V1alpha1ComponentDefinitionSpecVarsInner v1alpha1ComponentDefinitionSpecVarsInner = (V1alpha1ComponentDefinitionSpecVarsInner) o;
-    return Objects.equals(this.name, v1alpha1ComponentDefinitionSpecVarsInner.name) &&
+    return Objects.equals(this.expression, v1alpha1ComponentDefinitionSpecVarsInner.expression) &&
+        Objects.equals(this.name, v1alpha1ComponentDefinitionSpecVarsInner.name) &&
         Objects.equals(this.value, v1alpha1ComponentDefinitionSpecVarsInner.value) &&
         Objects.equals(this.valueFrom, v1alpha1ComponentDefinitionSpecVarsInner.valueFrom);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, value, valueFrom);
+    return Objects.hash(expression, name, value, valueFrom);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class V1alpha1ComponentDefinitionSpecVarsInner {\n");
+    sb.append("    expression: ").append(toIndentedString(expression)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    valueFrom: ").append(toIndentedString(valueFrom)).append("\n");
@@ -180,6 +207,7 @@ public class V1alpha1ComponentDefinitionSpecVarsInner {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
+    openapiFields.add("expression");
     openapiFields.add("name");
     openapiFields.add("value");
     openapiFields.add("valueFrom");
@@ -215,6 +243,9 @@ public class V1alpha1ComponentDefinitionSpecVarsInner {
         if (jsonObj.get(requiredField) == null) {
           throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
         }
+      }
+      if ((jsonObj.get("expression") != null && !jsonObj.get("expression").isJsonNull()) && !jsonObj.get("expression").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `expression` to be a primitive type in the JSON string but got `%s`", jsonObj.get("expression").toString()));
       }
       if (!jsonObj.get("name").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));

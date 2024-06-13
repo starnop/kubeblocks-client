@@ -51,9 +51,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * Cluster is the Schema for the clusters API.
+ * Cluster offers a unified management interface for a wide variety of database and storage systems:   - Relational databases: MySQL, PostgreSQL, MariaDB - NoSQL databases: Redis, MongoDB - KV stores: ZooKeeper, etcd - Analytics systems: ElasticSearch, OpenSearch, ClickHouse, Doris, StarRocks, Solr - Message queues: Kafka, Pulsar - Distributed SQL: TiDB, OceanBase - Vector databases: Qdrant, Milvus, Weaviate - Object storage: Minio   KubeBlocks utilizes an abstraction layer to encapsulate the characteristics of these diverse systems. A Cluster is composed of multiple Components, each defined by vendors or KubeBlocks Addon developers via ComponentDefinition, arranged in Directed Acyclic Graph (DAG) topologies. The topologies, defined in a ClusterDefinition, coordinate reconciliation across Cluster&#39;s lifecycle phases: Creating, Running, Updating, Stopping, Stopped, Deleting. Lifecycle management ensures that each Component operates in harmony, executing appropriate actions at each lifecycle stage.   For sharded-nothing architecture, the Cluster supports managing multiple shards, each shard managed by a separate Component, supporting dynamic resharding.   The Cluster object is aimed to maintain the overall integrity and availability of a database cluster, serves as the central control point, abstracting the complexity of multiple-component management, and providing a unified interface for cluster-wide operations.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1Cluster implements io.kubernetes.client.common.KubernetesObject {
   public static final String SERIALIZED_NAME_API_VERSION = "apiVersion";
   @SerializedName(SERIALIZED_NAME_API_VERSION)

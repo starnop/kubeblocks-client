@@ -20,7 +20,10 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.kubeblocks.apps.models.V1alpha1OpsRequestSpecUpgradeComponentsInner;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -48,13 +51,17 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * Specifies the cluster version by specifying clusterVersionRef.
+ * Specifies the desired new version of the Cluster.   Note: This field is immutable once set.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsRequestSpecUpgrade {
   public static final String SERIALIZED_NAME_CLUSTER_VERSION_REF = "clusterVersionRef";
   @SerializedName(SERIALIZED_NAME_CLUSTER_VERSION_REF)
   private String clusterVersionRef;
+
+  public static final String SERIALIZED_NAME_COMPONENTS = "components";
+  @SerializedName(SERIALIZED_NAME_COMPONENTS)
+  private List<V1alpha1OpsRequestSpecUpgradeComponentsInner> components;
 
   public V1alpha1OpsRequestSpecUpgrade() {
   }
@@ -66,10 +73,10 @@ public class V1alpha1OpsRequestSpecUpgrade {
   }
 
    /**
-   * A reference to the name of the ClusterVersion.
+   * Deprecated: since v0.9 because ClusterVersion is deprecated. Specifies the name of the target ClusterVersion for the upgrade.
    * @return clusterVersionRef
   **/
-  @jakarta.annotation.Nonnull
+  @jakarta.annotation.Nullable
   public String getClusterVersionRef() {
     return clusterVersionRef;
   }
@@ -77,6 +84,35 @@ public class V1alpha1OpsRequestSpecUpgrade {
 
   public void setClusterVersionRef(String clusterVersionRef) {
     this.clusterVersionRef = clusterVersionRef;
+  }
+
+
+  public V1alpha1OpsRequestSpecUpgrade components(List<V1alpha1OpsRequestSpecUpgradeComponentsInner> components) {
+    
+    this.components = components;
+    return this;
+  }
+
+  public V1alpha1OpsRequestSpecUpgrade addComponentsItem(V1alpha1OpsRequestSpecUpgradeComponentsInner componentsItem) {
+    if (this.components == null) {
+      this.components = new ArrayList<>();
+    }
+    this.components.add(componentsItem);
+    return this;
+  }
+
+   /**
+   * Lists components to be upgrade based on desired ComponentDefinition and ServiceVersion. From the perspective of cluster API, the reasonable combinations should be: 1. (comp-def, service-ver) - upgrade to the specified service version and component definition, the user takes the responsibility to ensure that they are compatible. 2. (\&quot;\&quot;, service-ver) - upgrade to the specified service version, let the operator choose the latest compatible component definition. 3. (comp-def, \&quot;\&quot;) - upgrade to the specified component definition, let the operator choose the latest compatible service version. 4. (\&quot;\&quot;, \&quot;\&quot;) - upgrade to the latest service version and component definition, the operator will ensure the compatibility between the selected versions.
+   * @return components
+  **/
+  @jakarta.annotation.Nullable
+  public List<V1alpha1OpsRequestSpecUpgradeComponentsInner> getComponents() {
+    return components;
+  }
+
+
+  public void setComponents(List<V1alpha1OpsRequestSpecUpgradeComponentsInner> components) {
+    this.components = components;
   }
 
 
@@ -90,12 +126,13 @@ public class V1alpha1OpsRequestSpecUpgrade {
       return false;
     }
     V1alpha1OpsRequestSpecUpgrade v1alpha1OpsRequestSpecUpgrade = (V1alpha1OpsRequestSpecUpgrade) o;
-    return Objects.equals(this.clusterVersionRef, v1alpha1OpsRequestSpecUpgrade.clusterVersionRef);
+    return Objects.equals(this.clusterVersionRef, v1alpha1OpsRequestSpecUpgrade.clusterVersionRef) &&
+        Objects.equals(this.components, v1alpha1OpsRequestSpecUpgrade.components);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(clusterVersionRef);
+    return Objects.hash(clusterVersionRef, components);
   }
 
   @Override
@@ -103,6 +140,7 @@ public class V1alpha1OpsRequestSpecUpgrade {
     StringBuilder sb = new StringBuilder();
     sb.append("class V1alpha1OpsRequestSpecUpgrade {\n");
     sb.append("    clusterVersionRef: ").append(toIndentedString(clusterVersionRef)).append("\n");
+    sb.append("    components: ").append(toIndentedString(components)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -126,10 +164,10 @@ public class V1alpha1OpsRequestSpecUpgrade {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("clusterVersionRef");
+    openapiFields.add("components");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("clusterVersionRef");
   }
 
  /**
@@ -152,15 +190,22 @@ public class V1alpha1OpsRequestSpecUpgrade {
           throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `V1alpha1OpsRequestSpecUpgrade` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
         }
       }
-
-      // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : V1alpha1OpsRequestSpecUpgrade.openapiRequiredFields) {
-        if (jsonObj.get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
-        }
-      }
-      if (!jsonObj.get("clusterVersionRef").isJsonPrimitive()) {
+      if ((jsonObj.get("clusterVersionRef") != null && !jsonObj.get("clusterVersionRef").isJsonNull()) && !jsonObj.get("clusterVersionRef").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `clusterVersionRef` to be a primitive type in the JSON string but got `%s`", jsonObj.get("clusterVersionRef").toString()));
+      }
+      if (jsonObj.get("components") != null && !jsonObj.get("components").isJsonNull()) {
+        JsonArray jsonArraycomponents = jsonObj.getAsJsonArray("components");
+        if (jsonArraycomponents != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("components").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `components` to be an array in the JSON string but got `%s`", jsonObj.get("components").toString()));
+          }
+
+          // validate the optional field `components` (array)
+          for (int i = 0; i < jsonArraycomponents.size(); i++) {
+            V1alpha1OpsRequestSpecUpgradeComponentsInner.validateJsonObject(jsonArraycomponents.get(i).getAsJsonObject());
+          };
+        }
       }
   }
 

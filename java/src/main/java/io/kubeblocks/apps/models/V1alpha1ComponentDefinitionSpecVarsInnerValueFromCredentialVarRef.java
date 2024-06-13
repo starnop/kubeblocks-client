@@ -20,6 +20,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecVarsInnerValueFromComponentVarRefMultipleClusterObjectOption;
 import java.io.IOException;
 
 import com.google.gson.Gson;
@@ -50,11 +51,15 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * Selects a defined var of a Credential (SystemAccount).
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromCredentialVarRef {
   public static final String SERIALIZED_NAME_COMP_DEF = "compDef";
   @SerializedName(SERIALIZED_NAME_COMP_DEF)
   private String compDef;
+
+  public static final String SERIALIZED_NAME_MULTIPLE_CLUSTER_OBJECT_OPTION = "multipleClusterObjectOption";
+  @SerializedName(SERIALIZED_NAME_MULTIPLE_CLUSTER_OBJECT_OPTION)
+  private V1alpha1ComponentDefinitionSpecVarsInnerValueFromComponentVarRefMultipleClusterObjectOption multipleClusterObjectOption;
 
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)
@@ -176,7 +181,7 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromCredentialVarRef {
   }
 
    /**
-   * CompDef specifies the definition used by the component that the referent object resident in.
+   * CompDef specifies the definition used by the component that the referent object resident in. If not specified, the component itself will be used.
    * @return compDef
   **/
   @jakarta.annotation.Nullable
@@ -187,6 +192,27 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromCredentialVarRef {
 
   public void setCompDef(String compDef) {
     this.compDef = compDef;
+  }
+
+
+  public V1alpha1ComponentDefinitionSpecVarsInnerValueFromCredentialVarRef multipleClusterObjectOption(V1alpha1ComponentDefinitionSpecVarsInnerValueFromComponentVarRefMultipleClusterObjectOption multipleClusterObjectOption) {
+    
+    this.multipleClusterObjectOption = multipleClusterObjectOption;
+    return this;
+  }
+
+   /**
+   * Get multipleClusterObjectOption
+   * @return multipleClusterObjectOption
+  **/
+  @jakarta.annotation.Nullable
+  public V1alpha1ComponentDefinitionSpecVarsInnerValueFromComponentVarRefMultipleClusterObjectOption getMultipleClusterObjectOption() {
+    return multipleClusterObjectOption;
+  }
+
+
+  public void setMultipleClusterObjectOption(V1alpha1ComponentDefinitionSpecVarsInnerValueFromComponentVarRefMultipleClusterObjectOption multipleClusterObjectOption) {
+    this.multipleClusterObjectOption = multipleClusterObjectOption;
   }
 
 
@@ -285,6 +311,7 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromCredentialVarRef {
     }
     V1alpha1ComponentDefinitionSpecVarsInnerValueFromCredentialVarRef v1alpha1ComponentDefinitionSpecVarsInnerValueFromCredentialVarRef = (V1alpha1ComponentDefinitionSpecVarsInnerValueFromCredentialVarRef) o;
     return Objects.equals(this.compDef, v1alpha1ComponentDefinitionSpecVarsInnerValueFromCredentialVarRef.compDef) &&
+        Objects.equals(this.multipleClusterObjectOption, v1alpha1ComponentDefinitionSpecVarsInnerValueFromCredentialVarRef.multipleClusterObjectOption) &&
         Objects.equals(this.name, v1alpha1ComponentDefinitionSpecVarsInnerValueFromCredentialVarRef.name) &&
         Objects.equals(this.optional, v1alpha1ComponentDefinitionSpecVarsInnerValueFromCredentialVarRef.optional) &&
         Objects.equals(this.password, v1alpha1ComponentDefinitionSpecVarsInnerValueFromCredentialVarRef.password) &&
@@ -293,7 +320,7 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromCredentialVarRef {
 
   @Override
   public int hashCode() {
-    return Objects.hash(compDef, name, optional, password, username);
+    return Objects.hash(compDef, multipleClusterObjectOption, name, optional, password, username);
   }
 
   @Override
@@ -301,6 +328,7 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromCredentialVarRef {
     StringBuilder sb = new StringBuilder();
     sb.append("class V1alpha1ComponentDefinitionSpecVarsInnerValueFromCredentialVarRef {\n");
     sb.append("    compDef: ").append(toIndentedString(compDef)).append("\n");
+    sb.append("    multipleClusterObjectOption: ").append(toIndentedString(multipleClusterObjectOption)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    optional: ").append(toIndentedString(optional)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
@@ -328,6 +356,7 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromCredentialVarRef {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("compDef");
+    openapiFields.add("multipleClusterObjectOption");
     openapiFields.add("name");
     openapiFields.add("optional");
     openapiFields.add("password");
@@ -359,6 +388,10 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromCredentialVarRef {
       }
       if ((jsonObj.get("compDef") != null && !jsonObj.get("compDef").isJsonNull()) && !jsonObj.get("compDef").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `compDef` to be a primitive type in the JSON string but got `%s`", jsonObj.get("compDef").toString()));
+      }
+      // validate the optional field `multipleClusterObjectOption`
+      if (jsonObj.get("multipleClusterObjectOption") != null && !jsonObj.get("multipleClusterObjectOption").isJsonNull()) {
+        V1alpha1ComponentDefinitionSpecVarsInnerValueFromComponentVarRefMultipleClusterObjectOption.validateJsonObject(jsonObj.getAsJsonObject("multipleClusterObjectOption"));
       }
       if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));

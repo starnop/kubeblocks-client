@@ -20,7 +20,8 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRefNodePort;
+import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecVarsInnerValueFromComponentVarRefMultipleClusterObjectOption;
+import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRefPort;
 import java.io.IOException;
 
 import com.google.gson.Gson;
@@ -51,15 +52,11 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * Selects a defined var of a Service.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef {
   public static final String SERIALIZED_NAME_COMP_DEF = "compDef";
   @SerializedName(SERIALIZED_NAME_COMP_DEF)
   private String compDef;
-
-  public static final String SERIALIZED_NAME_GENERATE_POD_ORDINAL_SERVICE_VAR = "generatePodOrdinalServiceVar";
-  @SerializedName(SERIALIZED_NAME_GENERATE_POD_ORDINAL_SERVICE_VAR)
-  private Boolean generatePodOrdinalServiceVar;
 
   /**
    * VarOption defines whether a variable is required or optional.
@@ -112,13 +109,64 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef {
   @SerializedName(SERIALIZED_NAME_HOST)
   private HostEnum host;
 
+  /**
+   * LoadBalancer represents the LoadBalancer ingress point of the service.   If multiple ingress points are available, the first one will be used automatically, choosing between IP and Hostname.
+   */
+  @JsonAdapter(LoadBalancerEnum.Adapter.class)
+  public enum LoadBalancerEnum {
+    REQUIRED("Required"),
+    
+    OPTIONAL("Optional");
+
+    private String value;
+
+    LoadBalancerEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static LoadBalancerEnum fromValue(String value) {
+      for (LoadBalancerEnum b : LoadBalancerEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+
+    public static class Adapter extends TypeAdapter<LoadBalancerEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final LoadBalancerEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public LoadBalancerEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return LoadBalancerEnum.fromValue(value);
+      }
+    }
+  }
+
+  public static final String SERIALIZED_NAME_LOAD_BALANCER = "loadBalancer";
+  @SerializedName(SERIALIZED_NAME_LOAD_BALANCER)
+  private LoadBalancerEnum loadBalancer;
+
+  public static final String SERIALIZED_NAME_MULTIPLE_CLUSTER_OBJECT_OPTION = "multipleClusterObjectOption";
+  @SerializedName(SERIALIZED_NAME_MULTIPLE_CLUSTER_OBJECT_OPTION)
+  private V1alpha1ComponentDefinitionSpecVarsInnerValueFromComponentVarRefMultipleClusterObjectOption multipleClusterObjectOption;
+
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)
   private String name;
-
-  public static final String SERIALIZED_NAME_NODE_PORT = "nodePort";
-  @SerializedName(SERIALIZED_NAME_NODE_PORT)
-  private V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRefNodePort nodePort;
 
   public static final String SERIALIZED_NAME_OPTIONAL = "optional";
   @SerializedName(SERIALIZED_NAME_OPTIONAL)
@@ -126,7 +174,7 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef {
 
   public static final String SERIALIZED_NAME_PORT = "port";
   @SerializedName(SERIALIZED_NAME_PORT)
-  private V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRefNodePort port;
+  private V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRefPort port;
 
   public V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef() {
   }
@@ -138,7 +186,7 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef {
   }
 
    /**
-   * CompDef specifies the definition used by the component that the referent object resident in.
+   * CompDef specifies the definition used by the component that the referent object resident in. If not specified, the component itself will be used.
    * @return compDef
   **/
   @jakarta.annotation.Nullable
@@ -149,27 +197,6 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef {
 
   public void setCompDef(String compDef) {
     this.compDef = compDef;
-  }
-
-
-  public V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef generatePodOrdinalServiceVar(Boolean generatePodOrdinalServiceVar) {
-    
-    this.generatePodOrdinalServiceVar = generatePodOrdinalServiceVar;
-    return this;
-  }
-
-   /**
-   * GeneratePodOrdinalServiceVar indicates whether to create a corresponding ServiceVars reference variable for each Pod. If set to true, a set of ServiceVars that can be referenced will be automatically generated for each Pod Ordinal. They can be referred to by adding the PodOrdinal to the defined name template with named pattern &#x60;$(Vars[x].Name)_$(PodOrdinal)&#x60;. For example, a ServiceVarRef might be defined as follows:   &#x60;&#x60;&#x60;yaml   name: MY_SERVICE_PORT valueFrom: serviceVarRef: compDef: my-component-definition name: my-service optional: true generatePodOrdinalServiceVar: true port: name: redis-sentinel   &#x60;&#x60;&#x60;   Assuming that the Component has 3 replicas, then you can reference the port of existing services named my-service-0, my-service-1, and my-service-2 with $MY_SERVICE_PORT_0, $MY_SERVICE_PORT_1, and $MY_SERVICE_PORT_2, respectively. It should be used in conjunction with Service.GeneratePodOrdinalService.
-   * @return generatePodOrdinalServiceVar
-  **/
-  @jakarta.annotation.Nullable
-  public Boolean getGeneratePodOrdinalServiceVar() {
-    return generatePodOrdinalServiceVar;
-  }
-
-
-  public void setGeneratePodOrdinalServiceVar(Boolean generatePodOrdinalServiceVar) {
-    this.generatePodOrdinalServiceVar = generatePodOrdinalServiceVar;
   }
 
 
@@ -194,6 +221,48 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef {
   }
 
 
+  public V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef loadBalancer(LoadBalancerEnum loadBalancer) {
+    
+    this.loadBalancer = loadBalancer;
+    return this;
+  }
+
+   /**
+   * LoadBalancer represents the LoadBalancer ingress point of the service.   If multiple ingress points are available, the first one will be used automatically, choosing between IP and Hostname.
+   * @return loadBalancer
+  **/
+  @jakarta.annotation.Nullable
+  public LoadBalancerEnum getLoadBalancer() {
+    return loadBalancer;
+  }
+
+
+  public void setLoadBalancer(LoadBalancerEnum loadBalancer) {
+    this.loadBalancer = loadBalancer;
+  }
+
+
+  public V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef multipleClusterObjectOption(V1alpha1ComponentDefinitionSpecVarsInnerValueFromComponentVarRefMultipleClusterObjectOption multipleClusterObjectOption) {
+    
+    this.multipleClusterObjectOption = multipleClusterObjectOption;
+    return this;
+  }
+
+   /**
+   * Get multipleClusterObjectOption
+   * @return multipleClusterObjectOption
+  **/
+  @jakarta.annotation.Nullable
+  public V1alpha1ComponentDefinitionSpecVarsInnerValueFromComponentVarRefMultipleClusterObjectOption getMultipleClusterObjectOption() {
+    return multipleClusterObjectOption;
+  }
+
+
+  public void setMultipleClusterObjectOption(V1alpha1ComponentDefinitionSpecVarsInnerValueFromComponentVarRefMultipleClusterObjectOption multipleClusterObjectOption) {
+    this.multipleClusterObjectOption = multipleClusterObjectOption;
+  }
+
+
   public V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef name(String name) {
     
     this.name = name;
@@ -212,27 +281,6 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef {
 
   public void setName(String name) {
     this.name = name;
-  }
-
-
-  public V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef nodePort(V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRefNodePort nodePort) {
-    
-    this.nodePort = nodePort;
-    return this;
-  }
-
-   /**
-   * Get nodePort
-   * @return nodePort
-  **/
-  @jakarta.annotation.Nullable
-  public V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRefNodePort getNodePort() {
-    return nodePort;
-  }
-
-
-  public void setNodePort(V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRefNodePort nodePort) {
-    this.nodePort = nodePort;
   }
 
 
@@ -257,7 +305,7 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef {
   }
 
 
-  public V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef port(V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRefNodePort port) {
+  public V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef port(V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRefPort port) {
     
     this.port = port;
     return this;
@@ -268,12 +316,12 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef {
    * @return port
   **/
   @jakarta.annotation.Nullable
-  public V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRefNodePort getPort() {
+  public V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRefPort getPort() {
     return port;
   }
 
 
-  public void setPort(V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRefNodePort port) {
+  public void setPort(V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRefPort port) {
     this.port = port;
   }
 
@@ -289,17 +337,17 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef {
     }
     V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef v1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef = (V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef) o;
     return Objects.equals(this.compDef, v1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef.compDef) &&
-        Objects.equals(this.generatePodOrdinalServiceVar, v1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef.generatePodOrdinalServiceVar) &&
         Objects.equals(this.host, v1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef.host) &&
+        Objects.equals(this.loadBalancer, v1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef.loadBalancer) &&
+        Objects.equals(this.multipleClusterObjectOption, v1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef.multipleClusterObjectOption) &&
         Objects.equals(this.name, v1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef.name) &&
-        Objects.equals(this.nodePort, v1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef.nodePort) &&
         Objects.equals(this.optional, v1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef.optional) &&
         Objects.equals(this.port, v1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef.port);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(compDef, generatePodOrdinalServiceVar, host, name, nodePort, optional, port);
+    return Objects.hash(compDef, host, loadBalancer, multipleClusterObjectOption, name, optional, port);
   }
 
   @Override
@@ -307,10 +355,10 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef {
     StringBuilder sb = new StringBuilder();
     sb.append("class V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef {\n");
     sb.append("    compDef: ").append(toIndentedString(compDef)).append("\n");
-    sb.append("    generatePodOrdinalServiceVar: ").append(toIndentedString(generatePodOrdinalServiceVar)).append("\n");
     sb.append("    host: ").append(toIndentedString(host)).append("\n");
+    sb.append("    loadBalancer: ").append(toIndentedString(loadBalancer)).append("\n");
+    sb.append("    multipleClusterObjectOption: ").append(toIndentedString(multipleClusterObjectOption)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    nodePort: ").append(toIndentedString(nodePort)).append("\n");
     sb.append("    optional: ").append(toIndentedString(optional)).append("\n");
     sb.append("    port: ").append(toIndentedString(port)).append("\n");
     sb.append("}");
@@ -336,10 +384,10 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("compDef");
-    openapiFields.add("generatePodOrdinalServiceVar");
     openapiFields.add("host");
+    openapiFields.add("loadBalancer");
+    openapiFields.add("multipleClusterObjectOption");
     openapiFields.add("name");
-    openapiFields.add("nodePort");
     openapiFields.add("optional");
     openapiFields.add("port");
 
@@ -373,16 +421,19 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef {
       if ((jsonObj.get("host") != null && !jsonObj.get("host").isJsonNull()) && !jsonObj.get("host").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `host` to be a primitive type in the JSON string but got `%s`", jsonObj.get("host").toString()));
       }
+      if ((jsonObj.get("loadBalancer") != null && !jsonObj.get("loadBalancer").isJsonNull()) && !jsonObj.get("loadBalancer").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `loadBalancer` to be a primitive type in the JSON string but got `%s`", jsonObj.get("loadBalancer").toString()));
+      }
+      // validate the optional field `multipleClusterObjectOption`
+      if (jsonObj.get("multipleClusterObjectOption") != null && !jsonObj.get("multipleClusterObjectOption").isJsonNull()) {
+        V1alpha1ComponentDefinitionSpecVarsInnerValueFromComponentVarRefMultipleClusterObjectOption.validateJsonObject(jsonObj.getAsJsonObject("multipleClusterObjectOption"));
+      }
       if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
       }
-      // validate the optional field `nodePort`
-      if (jsonObj.get("nodePort") != null && !jsonObj.get("nodePort").isJsonNull()) {
-        V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRefNodePort.validateJsonObject(jsonObj.getAsJsonObject("nodePort"));
-      }
       // validate the optional field `port`
       if (jsonObj.get("port") != null && !jsonObj.get("port").isJsonNull()) {
-        V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRefNodePort.validateJsonObject(jsonObj.getAsJsonObject("port"));
+        V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRefPort.validateJsonObject(jsonObj.getAsJsonObject("port"));
       }
   }
 

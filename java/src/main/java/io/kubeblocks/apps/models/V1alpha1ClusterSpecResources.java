@@ -48,9 +48,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * Specifies the resources of the first componentSpec, if the resources of the first componentSpec is specified, this value will be ignored.
+ * Specifies the resources of the first componentSpec, if the resources of the first componentSpec is specified, this value will be ignored.   Deprecated since v0.9. This field is maintained for backward compatibility and its use is discouraged. Existing usage should be updated to the current preferred approach to avoid compatibility issues in future releases.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterSpecResources {
   public static final String SERIALIZED_NAME_CPU = "cpu";
   @SerializedName(SERIALIZED_NAME_CPU)
@@ -70,7 +70,7 @@ public class V1alpha1ClusterSpecResources {
   }
 
    /**
-   * Specifies the amount of processing power the cluster needs. For more information, refer to: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+   * Specifies the amount of CPU resource the Cluster needs. For more information, refer to: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
    * @return cpu
   **/
   @jakarta.annotation.Nullable
@@ -91,7 +91,7 @@ public class V1alpha1ClusterSpecResources {
   }
 
    /**
-   * Specifies the amount of memory the cluster needs. For more information, refer to: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+   * Specifies the amount of memory resource the Cluster needs. For more information, refer to: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
    * @return memory
   **/
   @jakarta.annotation.Nullable

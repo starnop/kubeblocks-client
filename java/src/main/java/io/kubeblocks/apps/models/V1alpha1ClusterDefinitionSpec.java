@@ -21,6 +21,7 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.kubeblocks.apps.models.V1alpha1ClusterDefinitionSpecComponentDefsInner;
+import io.kubeblocks.apps.models.V1alpha1ClusterDefinitionSpecTopologiesInner;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,17 +54,21 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * ClusterDefinitionSpec defines the desired state of ClusterDefinition
+ * ClusterDefinitionSpec defines the desired state of ClusterDefinition.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterDefinitionSpec {
   public static final String SERIALIZED_NAME_COMPONENT_DEFS = "componentDefs";
   @SerializedName(SERIALIZED_NAME_COMPONENT_DEFS)
-  private List<V1alpha1ClusterDefinitionSpecComponentDefsInner> componentDefs = new ArrayList<>();
+  private List<V1alpha1ClusterDefinitionSpecComponentDefsInner> componentDefs;
 
   public static final String SERIALIZED_NAME_CONNECTION_CREDENTIAL = "connectionCredential";
   @SerializedName(SERIALIZED_NAME_CONNECTION_CREDENTIAL)
   private Map<String, String> connectionCredential = new HashMap<>();
+
+  public static final String SERIALIZED_NAME_TOPOLOGIES = "topologies";
+  @SerializedName(SERIALIZED_NAME_TOPOLOGIES)
+  private List<V1alpha1ClusterDefinitionSpecTopologiesInner> topologies;
 
   public static final String SERIALIZED_NAME_TYPE = "type";
   @SerializedName(SERIALIZED_NAME_TYPE)
@@ -87,10 +92,10 @@ public class V1alpha1ClusterDefinitionSpec {
   }
 
    /**
-   * Provides the definitions for the cluster components.
+   * Provides the definitions for the cluster components.   Deprecated since v0.9. Components should now be individually defined using ComponentDefinition and collectively referenced via &#x60;topology.components&#x60;. This field is maintained for backward compatibility and its use is discouraged. Existing usage should be updated to the current preferred approach to avoid compatibility issues in future releases.
    * @return componentDefs
   **/
-  @jakarta.annotation.Nonnull
+  @jakarta.annotation.Nullable
   public List<V1alpha1ClusterDefinitionSpecComponentDefsInner> getComponentDefs() {
     return componentDefs;
   }
@@ -116,7 +121,7 @@ public class V1alpha1ClusterDefinitionSpec {
   }
 
    /**
-   * Connection credential template used for creating a connection credential secret for cluster objects.   Built-in objects are:   - &#x60;$(RANDOM_PASSWD)&#x60; random 8 characters. - &#x60;$(STRONG_RANDOM_PASSWD)&#x60; random 16 characters, with mixed cases, digits and symbols. - &#x60;$(UUID)&#x60; generate a random UUID v4 string. - &#x60;$(UUID_B64)&#x60; generate a random UUID v4 BASE64 encoded string. - &#x60;$(UUID_STR_B64)&#x60; generate a random UUID v4 string then BASE64 encoded. - &#x60;$(UUID_HEX)&#x60; generate a random UUID v4 HEX representation. - &#x60;$(HEADLESS_SVC_FQDN)&#x60; headless service FQDN placeholder, value pattern is &#x60;$(CLUSTER_NAME)-$(1ST_COMP_NAME)-headless.$(NAMESPACE).svc&#x60;, where 1ST_COMP_NAME is the 1st component that provide &#x60;ClusterDefinition.spec.componentDefs[].service&#x60; attribute; - &#x60;$(SVC_FQDN)&#x60; service FQDN placeholder, value pattern is &#x60;$(CLUSTER_NAME)-$(1ST_COMP_NAME).$(NAMESPACE).svc&#x60;, where 1ST_COMP_NAME is the 1st component that provide &#x60;ClusterDefinition.spec.componentDefs[].service&#x60; attribute; - &#x60;$(SVC_PORT_{PORT-NAME})&#x60; is ServicePort&#39;s port value with specified port name, i.e, a servicePort JSON struct: &#x60;{\&quot;name\&quot;: \&quot;mysql\&quot;, \&quot;targetPort\&quot;: \&quot;mysqlContainerPort\&quot;, \&quot;port\&quot;: 3306}&#x60;, and &#x60;$(SVC_PORT_mysql)&#x60; in the connection credential value is 3306.
+   * Connection credential template used for creating a connection credential secret for cluster objects.   Built-in objects are:   - &#x60;$(RANDOM_PASSWD)&#x60; random 8 characters. - &#x60;$(STRONG_RANDOM_PASSWD)&#x60; random 16 characters, with mixed cases, digits and symbols. - &#x60;$(UUID)&#x60; generate a random UUID v4 string. - &#x60;$(UUID_B64)&#x60; generate a random UUID v4 BASE64 encoded string. - &#x60;$(UUID_STR_B64)&#x60; generate a random UUID v4 string then BASE64 encoded. - &#x60;$(UUID_HEX)&#x60; generate a random UUID v4 HEX representation. - &#x60;$(HEADLESS_SVC_FQDN)&#x60; headless service FQDN placeholder, value pattern is &#x60;$(CLUSTER_NAME)-$(1ST_COMP_NAME)-headless.$(NAMESPACE).svc&#x60;, where 1ST_COMP_NAME is the 1st component that provide &#x60;ClusterDefinition.spec.componentDefs[].service&#x60; attribute; - &#x60;$(SVC_FQDN)&#x60; service FQDN placeholder, value pattern is &#x60;$(CLUSTER_NAME)-$(1ST_COMP_NAME).$(NAMESPACE).svc&#x60;, where 1ST_COMP_NAME is the 1st component that provide &#x60;ClusterDefinition.spec.componentDefs[].service&#x60; attribute; - &#x60;$(SVC_PORT_{PORT-NAME})&#x60; is ServicePort&#39;s port value with specified port name, i.e, a servicePort JSON struct: &#x60;{\&quot;name\&quot;: \&quot;mysql\&quot;, \&quot;targetPort\&quot;: \&quot;mysqlContainerPort\&quot;, \&quot;port\&quot;: 3306}&#x60;, and &#x60;$(SVC_PORT_mysql)&#x60; in the connection credential value is 3306.   Deprecated since v0.9. This field is maintained for backward compatibility and its use is discouraged. Existing usage should be updated to the current preferred approach to avoid compatibility issues in future releases.
    * @return connectionCredential
   **/
   @jakarta.annotation.Nullable
@@ -130,6 +135,35 @@ public class V1alpha1ClusterDefinitionSpec {
   }
 
 
+  public V1alpha1ClusterDefinitionSpec topologies(List<V1alpha1ClusterDefinitionSpecTopologiesInner> topologies) {
+    
+    this.topologies = topologies;
+    return this;
+  }
+
+  public V1alpha1ClusterDefinitionSpec addTopologiesItem(V1alpha1ClusterDefinitionSpecTopologiesInner topologiesItem) {
+    if (this.topologies == null) {
+      this.topologies = new ArrayList<>();
+    }
+    this.topologies.add(topologiesItem);
+    return this;
+  }
+
+   /**
+   * Topologies defines all possible topologies within the cluster.
+   * @return topologies
+  **/
+  @jakarta.annotation.Nullable
+  public List<V1alpha1ClusterDefinitionSpecTopologiesInner> getTopologies() {
+    return topologies;
+  }
+
+
+  public void setTopologies(List<V1alpha1ClusterDefinitionSpecTopologiesInner> topologies) {
+    this.topologies = topologies;
+  }
+
+
   public V1alpha1ClusterDefinitionSpec type(String type) {
     
     this.type = type;
@@ -137,7 +171,7 @@ public class V1alpha1ClusterDefinitionSpec {
   }
 
    /**
-   * Specifies the well-known application cluster type, such as mysql, redis, or mongodb.
+   * Specifies the well-known database type, such as mysql, redis, or mongodb.   Deprecated since v0.9. This field is maintained for backward compatibility and its use is discouraged. Existing usage should be updated to the current preferred approach to avoid compatibility issues in future releases.
    * @return type
   **/
   @jakarta.annotation.Nullable
@@ -163,12 +197,13 @@ public class V1alpha1ClusterDefinitionSpec {
     V1alpha1ClusterDefinitionSpec v1alpha1ClusterDefinitionSpec = (V1alpha1ClusterDefinitionSpec) o;
     return Objects.equals(this.componentDefs, v1alpha1ClusterDefinitionSpec.componentDefs) &&
         Objects.equals(this.connectionCredential, v1alpha1ClusterDefinitionSpec.connectionCredential) &&
+        Objects.equals(this.topologies, v1alpha1ClusterDefinitionSpec.topologies) &&
         Objects.equals(this.type, v1alpha1ClusterDefinitionSpec.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(componentDefs, connectionCredential, type);
+    return Objects.hash(componentDefs, connectionCredential, topologies, type);
   }
 
   @Override
@@ -177,6 +212,7 @@ public class V1alpha1ClusterDefinitionSpec {
     sb.append("class V1alpha1ClusterDefinitionSpec {\n");
     sb.append("    componentDefs: ").append(toIndentedString(componentDefs)).append("\n");
     sb.append("    connectionCredential: ").append(toIndentedString(connectionCredential)).append("\n");
+    sb.append("    topologies: ").append(toIndentedString(topologies)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -202,11 +238,11 @@ public class V1alpha1ClusterDefinitionSpec {
     openapiFields = new HashSet<String>();
     openapiFields.add("componentDefs");
     openapiFields.add("connectionCredential");
+    openapiFields.add("topologies");
     openapiFields.add("type");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("componentDefs");
   }
 
  /**
@@ -229,23 +265,34 @@ public class V1alpha1ClusterDefinitionSpec {
           throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `V1alpha1ClusterDefinitionSpec` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
         }
       }
+      if (jsonObj.get("componentDefs") != null && !jsonObj.get("componentDefs").isJsonNull()) {
+        JsonArray jsonArraycomponentDefs = jsonObj.getAsJsonArray("componentDefs");
+        if (jsonArraycomponentDefs != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("componentDefs").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `componentDefs` to be an array in the JSON string but got `%s`", jsonObj.get("componentDefs").toString()));
+          }
 
-      // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : V1alpha1ClusterDefinitionSpec.openapiRequiredFields) {
-        if (jsonObj.get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
+          // validate the optional field `componentDefs` (array)
+          for (int i = 0; i < jsonArraycomponentDefs.size(); i++) {
+            V1alpha1ClusterDefinitionSpecComponentDefsInner.validateJsonObject(jsonArraycomponentDefs.get(i).getAsJsonObject());
+          };
         }
       }
-      // ensure the json data is an array
-      if (!jsonObj.get("componentDefs").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `componentDefs` to be an array in the JSON string but got `%s`", jsonObj.get("componentDefs").toString()));
-      }
+      if (jsonObj.get("topologies") != null && !jsonObj.get("topologies").isJsonNull()) {
+        JsonArray jsonArraytopologies = jsonObj.getAsJsonArray("topologies");
+        if (jsonArraytopologies != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("topologies").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `topologies` to be an array in the JSON string but got `%s`", jsonObj.get("topologies").toString()));
+          }
 
-      JsonArray jsonArraycomponentDefs = jsonObj.getAsJsonArray("componentDefs");
-      // validate the required field `componentDefs` (array)
-      for (int i = 0; i < jsonArraycomponentDefs.size(); i++) {
-        V1alpha1ClusterDefinitionSpecComponentDefsInner.validateJsonObject(jsonArraycomponentDefs.get(i).getAsJsonObject());
-      };
+          // validate the optional field `topologies` (array)
+          for (int i = 0; i < jsonArraytopologies.size(); i++) {
+            V1alpha1ClusterDefinitionSpecTopologiesInner.validateJsonObject(jsonArraytopologies.get(i).getAsJsonObject());
+          };
+        }
+      }
       if ((jsonObj.get("type") != null && !jsonObj.get("type").isJsonNull()) && !jsonObj.get("type").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("type").toString()));
       }

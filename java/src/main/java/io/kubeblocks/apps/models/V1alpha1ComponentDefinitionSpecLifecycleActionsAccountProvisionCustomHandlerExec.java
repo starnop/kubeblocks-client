@@ -50,9 +50,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * Defines the action to take. This field cannot be updated.
+ * Defines the command to run.   This field cannot be updated.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ComponentDefinitionSpecLifecycleActionsAccountProvisionCustomHandlerExec {
   public static final String SERIALIZED_NAME_ARGS = "args";
   @SerializedName(SERIALIZED_NAME_ARGS)
@@ -80,7 +80,7 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActionsAccountProvisionCust
   }
 
    /**
-   * Args are used to perform statements.
+   * Args represents the arguments that are passed to the &#x60;command&#x60; for execution.
    * @return args
   **/
   @jakarta.annotation.Nullable
@@ -109,7 +109,7 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActionsAccountProvisionCust
   }
 
    /**
-   * Specifies the command line to be executed inside the container. The working directory for this command is the root (&#39;/&#39;) of the container&#39;s filesystem. The command is directly executed and not run inside a shell, hence traditional shell instructions (&#39;|&#39;, etc) are not applicable. To use a shell, it needs to be explicitly invoked.   An exit status of 0 is interpreted as live/healthy, while a non-zero status indicates unhealthy.
+   * Specifies the command to be executed inside the container. The working directory for this command is the container&#39;s root directory(&#39;/&#39;). Commands are executed directly without a shell environment, meaning shell-specific syntax (&#39;|&#39;, etc.) is not supported. If the shell is required, it must be explicitly invoked in the command.   A successful execution is indicated by an exit status of 0; any non-zero status signifies a failure.
    * @return command
   **/
   @jakarta.annotation.Nullable

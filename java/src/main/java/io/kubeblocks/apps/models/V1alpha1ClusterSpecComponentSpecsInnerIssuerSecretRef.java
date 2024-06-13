@@ -48,9 +48,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * SecretRef is the reference to the TLS certificates secret. It is required when the issuer is set to UserProvided.
+ * SecretRef is the reference to the secret that contains user-provided certificates. It is required when the issuer is set to &#x60;UserProvided&#x60;.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterSpecComponentSpecsInnerIssuerSecretRef {
   public static final String SERIALIZED_NAME_CA = "ca";
   @SerializedName(SERIALIZED_NAME_CA)
@@ -78,7 +78,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerIssuerSecretRef {
   }
 
    /**
-   * CA cert key in Secret
+   * Key of CA cert in Secret
    * @return ca
   **/
   @jakarta.annotation.Nonnull
@@ -99,7 +99,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerIssuerSecretRef {
   }
 
    /**
-   * Cert key in Secret
+   * Key of Cert in Secret
    * @return cert
   **/
   @jakarta.annotation.Nonnull
@@ -141,7 +141,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerIssuerSecretRef {
   }
 
    /**
-   * Name of the Secret
+   * Name of the Secret that contains user-provided certificates.
    * @return name
   **/
   @jakarta.annotation.Nonnull

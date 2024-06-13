@@ -51,7 +51,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * Specifies the deployment strategy that will be used to replace existing pods with new ones.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterDefinitionSpecComponentDefsInnerStatelessSpecUpdateStrategy {
   public static final String SERIALIZED_NAME_ROLLING_UPDATE = "rollingUpdate";
   @SerializedName(SERIALIZED_NAME_ROLLING_UPDATE)

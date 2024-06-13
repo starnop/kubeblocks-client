@@ -51,9 +51,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * ClusterDefinition is the Schema for the clusterdefinitions API
+ * ClusterDefinition defines the topology for databases or storage systems, offering a variety of topological configurations to meet diverse deployment needs and scenarios.   It includes a list of Components, each linked to a ComponentDefinition, which enhances reusability and reduce redundancy. For example, widely used components such as etcd and Zookeeper can be defined once and reused across multiple ClusterDefinitions, simplifying the setup of new systems.   Additionally, ClusterDefinition also specifies the sequence of startup, upgrade, and shutdown for Components, ensuring a controlled and predictable management of component lifecycles.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterDefinition implements io.kubernetes.client.common.KubernetesObject {
   public static final String SERIALIZED_NAME_API_VERSION = "apiVersion";
   @SerializedName(SERIALIZED_NAME_API_VERSION)

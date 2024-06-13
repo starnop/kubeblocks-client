@@ -54,9 +54,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * ClusterStatus defines the observed state of Cluster.
+ * ClusterStatus defines the observed state of the Cluster.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterStatus {
   public static final String SERIALIZED_NAME_CLUSTER_DEF_GENERATION = "clusterDefGeneration";
   @SerializedName(SERIALIZED_NAME_CLUSTER_DEF_GENERATION)
@@ -79,7 +79,7 @@ public class V1alpha1ClusterStatus {
   private Long observedGeneration;
 
   /**
-   * The current phase of the Cluster.
+   * The current phase of the Cluster includes: &#x60;Creating&#x60;, &#x60;Running&#x60;, &#x60;Updating&#x60;, &#x60;Stopping&#x60;, &#x60;Stopped&#x60;, &#x60;Deleting&#x60;, &#x60;Failed&#x60;, &#x60;Abnormal&#x60;.
    */
   @JsonAdapter(PhaseEnum.Adapter.class)
   public enum PhaseEnum {
@@ -180,7 +180,7 @@ public class V1alpha1ClusterStatus {
   }
 
    /**
-   * Records the current status information of all components within the cluster.
+   * Records the current status information of all Components within the Cluster.
    * @return components
   **/
   @jakarta.annotation.Nullable
@@ -209,7 +209,7 @@ public class V1alpha1ClusterStatus {
   }
 
    /**
-   * Describes the current state of the cluster API Resource, such as warnings.
+   * Represents a list of detailed status of the Cluster object. Each condition in the list provides real-time information about certain aspect of the Cluster object.   This field is crucial for administrators and developers to monitor and respond to changes within the Cluster. It provides a history of state transitions and a snapshot of the current state that can be used for automated logic or direct inspection.
    * @return conditions
   **/
   @jakarta.annotation.Nullable
@@ -251,7 +251,7 @@ public class V1alpha1ClusterStatus {
   }
 
    /**
-   * The most recent generation number that has been observed by the controller.
+   * The most recent generation number of the Cluster object that has been observed by the controller.
    * @return observedGeneration
   **/
   @jakarta.annotation.Nullable
@@ -272,7 +272,7 @@ public class V1alpha1ClusterStatus {
   }
 
    /**
-   * The current phase of the Cluster.
+   * The current phase of the Cluster includes: &#x60;Creating&#x60;, &#x60;Running&#x60;, &#x60;Updating&#x60;, &#x60;Stopping&#x60;, &#x60;Stopped&#x60;, &#x60;Deleting&#x60;, &#x60;Failed&#x60;, &#x60;Abnormal&#x60;.
    * @return phase
   **/
   @jakarta.annotation.Nullable

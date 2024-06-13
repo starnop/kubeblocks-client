@@ -48,9 +48,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * Defines the conditions under which the operation can be executed.
+ * Specifies the conditions that must be met for the operation to execute.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsDefinitionSpecPreConditionsInnerRule {
   public static final String SERIALIZED_NAME_EXPRESSION = "expression";
   @SerializedName(SERIALIZED_NAME_EXPRESSION)
@@ -70,7 +70,7 @@ public class V1alpha1OpsDefinitionSpecPreConditionsInnerRule {
   }
 
    /**
-   * Defines how the operation can be executed using a Go template expression. Should return either &#x60;true&#x60; or &#x60;false&#x60;. The built-in objects available for use in the expression include: - &#x60;params&#x60;: These are the input parameters. - &#x60;cluster&#x60;: This is the referenced cluster object. - &#x60;component&#x60;: This is the referenced component object.
+   * Specifies a Go template expression that determines how the operation can be executed. The return value must be either &#x60;true&#x60; or &#x60;false&#x60;. Available built-in objects that can be referenced in the expression include:   - &#x60;params&#x60;: Input parameters. - &#x60;cluster&#x60;: The referenced Cluster object. - &#x60;component&#x60;: The referenced Component object.
    * @return expression
   **/
   @jakarta.annotation.Nonnull
@@ -91,7 +91,7 @@ public class V1alpha1OpsDefinitionSpecPreConditionsInnerRule {
   }
 
    /**
-   * Reported if the rule is not matched.
+   * Specifies the error or status message reported if the &#x60;expression&#x60; does not evaluate to &#x60;true&#x60;.
    * @return message
   **/
   @jakarta.annotation.Nonnull

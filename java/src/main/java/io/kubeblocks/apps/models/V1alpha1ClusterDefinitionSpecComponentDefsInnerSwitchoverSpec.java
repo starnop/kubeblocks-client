@@ -52,7 +52,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * Defines command to do switchover. In particular, when workloadType&#x3D;Replication, the command defined in switchoverSpec will only be executed under the condition of cluster.componentSpecs[x].SwitchPolicy.type&#x3D;Noop.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterDefinitionSpecComponentDefsInnerSwitchoverSpec {
   public static final String SERIALIZED_NAME_WITH_CANDIDATE = "withCandidate";
   @SerializedName(SERIALIZED_NAME_WITH_CANDIDATE)

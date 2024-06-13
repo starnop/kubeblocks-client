@@ -54,9 +54,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * ClusterComponentStatus records components status.
+ * ClusterComponentStatus records Component status.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterStatusComponentsValue {
   public static final String SERIALIZED_NAME_MEMBERS_STATUS = "membersStatus";
   @SerializedName(SERIALIZED_NAME_MEMBERS_STATUS)
@@ -67,7 +67,7 @@ public class V1alpha1ClusterStatusComponentsValue {
   private Map<String, String> message = new HashMap<>();
 
   /**
-   * Specifies the current state of the component.
+   * Specifies the current state of the Component.
    */
   @JsonAdapter(PhaseEnum.Adapter.class)
   public enum PhaseEnum {
@@ -184,7 +184,7 @@ public class V1alpha1ClusterStatusComponentsValue {
   }
 
    /**
-   * Records detailed information about the component in its current phase. The keys are either podName, deployName, or statefulSetName, formatted as &#39;ObjectKind/Name&#39;.
+   * Records detailed information about the Component in its current phase. The keys are either podName, deployName, or statefulSetName, formatted as &#39;ObjectKind/Name&#39;.
    * @return message
   **/
   @jakarta.annotation.Nullable
@@ -205,7 +205,7 @@ public class V1alpha1ClusterStatusComponentsValue {
   }
 
    /**
-   * Specifies the current state of the component.
+   * Specifies the current state of the Component.
    * @return phase
   **/
   @jakarta.annotation.Nullable
@@ -226,7 +226,7 @@ public class V1alpha1ClusterStatusComponentsValue {
   }
 
    /**
-   * Checks if all pods of the component are ready.
+   * Checks if all Pods of the Component are ready.
    * @return podsReady
   **/
   @jakarta.annotation.Nullable
@@ -247,7 +247,7 @@ public class V1alpha1ClusterStatusComponentsValue {
   }
 
    /**
-   * Indicates the time when all component pods became ready. This is the readiness time of the last component pod.
+   * Indicates the time when all Component Pods became ready. This is the readiness time of the last Component Pod.
    * @return podsReadyTime
   **/
   @jakarta.annotation.Nullable

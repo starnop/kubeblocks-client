@@ -53,9 +53,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * Defines the script to be executed.
+ * Specifies the image and scripts for executing engine-specific operations such as creating databases or users. It supports limited engines including MySQL, PostgreSQL, Redis, MongoDB.   ScriptSpec has been replaced by the more versatile OpsDefinition. It is recommended to use OpsDefinition instead. ScriptSpec is deprecated and will be removed in a future version.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsRequestSpecScriptSpec {
   public static final String SERIALIZED_NAME_COMPONENT_NAME = "componentName";
   @SerializedName(SERIALIZED_NAME_COMPONENT_NAME)
@@ -91,7 +91,7 @@ public class V1alpha1OpsRequestSpecScriptSpec {
   }
 
    /**
-   * Specifies the name of the cluster component.
+   * Specifies the name of the Component.
    * @return componentName
   **/
   @jakarta.annotation.Nonnull
@@ -112,7 +112,7 @@ public class V1alpha1OpsRequestSpecScriptSpec {
   }
 
    /**
-   * Specifies the image to be used for the exec command. By default, the image of kubeblocks-datascript is used.
+   * Specifies the image to be used to execute scripts.   By default, the image \&quot;apecloud/kubeblocks-datascript:latest\&quot; is used.
    * @return image
   **/
   @jakarta.annotation.Nullable
@@ -141,7 +141,7 @@ public class V1alpha1OpsRequestSpecScriptSpec {
   }
 
    /**
-   * Defines the script to be executed.
+   * Defines the content of scripts to be executed.   All scripts specified in this field will be executed in the order they are provided.   Note: this field cannot be modified once set.
    * @return script
   **/
   @jakarta.annotation.Nullable

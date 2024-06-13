@@ -20,7 +20,8 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.kubeblocks.apps.models.V1alpha1OpsRequestSpecVolumeExpansionInnerVolumeClaimTemplatesInner;
+import io.kubeblocks.apps.models.V1alpha1OpsRequestSpecVolumeExpansionInnerInstancesInner;
+import io.kubeblocks.apps.models.V1alpha1OpsRequestSpecVolumeExpansionInnerInstancesInnerVolumeClaimTemplatesInner;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,15 +54,19 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * VolumeExpansion encapsulates the parameters required for a volume expansion operation.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsRequestSpecVolumeExpansionInner {
   public static final String SERIALIZED_NAME_COMPONENT_NAME = "componentName";
   @SerializedName(SERIALIZED_NAME_COMPONENT_NAME)
   private String componentName;
 
+  public static final String SERIALIZED_NAME_INSTANCES = "instances";
+  @SerializedName(SERIALIZED_NAME_INSTANCES)
+  private List<V1alpha1OpsRequestSpecVolumeExpansionInnerInstancesInner> instances;
+
   public static final String SERIALIZED_NAME_VOLUME_CLAIM_TEMPLATES = "volumeClaimTemplates";
   @SerializedName(SERIALIZED_NAME_VOLUME_CLAIM_TEMPLATES)
-  private List<V1alpha1OpsRequestSpecVolumeExpansionInnerVolumeClaimTemplatesInner> volumeClaimTemplates = new ArrayList<>();
+  private List<V1alpha1OpsRequestSpecVolumeExpansionInnerInstancesInnerVolumeClaimTemplatesInner> volumeClaimTemplates = new ArrayList<>();
 
   public V1alpha1OpsRequestSpecVolumeExpansionInner() {
   }
@@ -73,7 +78,7 @@ public class V1alpha1OpsRequestSpecVolumeExpansionInner {
   }
 
    /**
-   * Specifies the name of the cluster component.
+   * Specifies the name of the Component.
    * @return componentName
   **/
   @jakarta.annotation.Nonnull
@@ -87,13 +92,42 @@ public class V1alpha1OpsRequestSpecVolumeExpansionInner {
   }
 
 
-  public V1alpha1OpsRequestSpecVolumeExpansionInner volumeClaimTemplates(List<V1alpha1OpsRequestSpecVolumeExpansionInnerVolumeClaimTemplatesInner> volumeClaimTemplates) {
+  public V1alpha1OpsRequestSpecVolumeExpansionInner instances(List<V1alpha1OpsRequestSpecVolumeExpansionInnerInstancesInner> instances) {
+    
+    this.instances = instances;
+    return this;
+  }
+
+  public V1alpha1OpsRequestSpecVolumeExpansionInner addInstancesItem(V1alpha1OpsRequestSpecVolumeExpansionInnerInstancesInner instancesItem) {
+    if (this.instances == null) {
+      this.instances = new ArrayList<>();
+    }
+    this.instances.add(instancesItem);
+    return this;
+  }
+
+   /**
+   * Specifies the desired storage size of the instance template that need to volume expand.
+   * @return instances
+  **/
+  @jakarta.annotation.Nullable
+  public List<V1alpha1OpsRequestSpecVolumeExpansionInnerInstancesInner> getInstances() {
+    return instances;
+  }
+
+
+  public void setInstances(List<V1alpha1OpsRequestSpecVolumeExpansionInnerInstancesInner> instances) {
+    this.instances = instances;
+  }
+
+
+  public V1alpha1OpsRequestSpecVolumeExpansionInner volumeClaimTemplates(List<V1alpha1OpsRequestSpecVolumeExpansionInnerInstancesInnerVolumeClaimTemplatesInner> volumeClaimTemplates) {
     
     this.volumeClaimTemplates = volumeClaimTemplates;
     return this;
   }
 
-  public V1alpha1OpsRequestSpecVolumeExpansionInner addVolumeClaimTemplatesItem(V1alpha1OpsRequestSpecVolumeExpansionInnerVolumeClaimTemplatesInner volumeClaimTemplatesItem) {
+  public V1alpha1OpsRequestSpecVolumeExpansionInner addVolumeClaimTemplatesItem(V1alpha1OpsRequestSpecVolumeExpansionInnerInstancesInnerVolumeClaimTemplatesInner volumeClaimTemplatesItem) {
     if (this.volumeClaimTemplates == null) {
       this.volumeClaimTemplates = new ArrayList<>();
     }
@@ -102,16 +136,16 @@ public class V1alpha1OpsRequestSpecVolumeExpansionInner {
   }
 
    /**
-   * volumeClaimTemplates specifies the storage size and volumeClaimTemplate name.
+   * Specifies a list of OpsRequestVolumeClaimTemplate objects, defining the volumeClaimTemplates that are used to expand the storage and the desired storage size for each one.
    * @return volumeClaimTemplates
   **/
   @jakarta.annotation.Nonnull
-  public List<V1alpha1OpsRequestSpecVolumeExpansionInnerVolumeClaimTemplatesInner> getVolumeClaimTemplates() {
+  public List<V1alpha1OpsRequestSpecVolumeExpansionInnerInstancesInnerVolumeClaimTemplatesInner> getVolumeClaimTemplates() {
     return volumeClaimTemplates;
   }
 
 
-  public void setVolumeClaimTemplates(List<V1alpha1OpsRequestSpecVolumeExpansionInnerVolumeClaimTemplatesInner> volumeClaimTemplates) {
+  public void setVolumeClaimTemplates(List<V1alpha1OpsRequestSpecVolumeExpansionInnerInstancesInnerVolumeClaimTemplatesInner> volumeClaimTemplates) {
     this.volumeClaimTemplates = volumeClaimTemplates;
   }
 
@@ -127,12 +161,13 @@ public class V1alpha1OpsRequestSpecVolumeExpansionInner {
     }
     V1alpha1OpsRequestSpecVolumeExpansionInner v1alpha1OpsRequestSpecVolumeExpansionInner = (V1alpha1OpsRequestSpecVolumeExpansionInner) o;
     return Objects.equals(this.componentName, v1alpha1OpsRequestSpecVolumeExpansionInner.componentName) &&
+        Objects.equals(this.instances, v1alpha1OpsRequestSpecVolumeExpansionInner.instances) &&
         Objects.equals(this.volumeClaimTemplates, v1alpha1OpsRequestSpecVolumeExpansionInner.volumeClaimTemplates);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(componentName, volumeClaimTemplates);
+    return Objects.hash(componentName, instances, volumeClaimTemplates);
   }
 
   @Override
@@ -140,6 +175,7 @@ public class V1alpha1OpsRequestSpecVolumeExpansionInner {
     StringBuilder sb = new StringBuilder();
     sb.append("class V1alpha1OpsRequestSpecVolumeExpansionInner {\n");
     sb.append("    componentName: ").append(toIndentedString(componentName)).append("\n");
+    sb.append("    instances: ").append(toIndentedString(instances)).append("\n");
     sb.append("    volumeClaimTemplates: ").append(toIndentedString(volumeClaimTemplates)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -164,6 +200,7 @@ public class V1alpha1OpsRequestSpecVolumeExpansionInner {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("componentName");
+    openapiFields.add("instances");
     openapiFields.add("volumeClaimTemplates");
 
     // a set of required properties/fields (JSON key names)
@@ -202,6 +239,20 @@ public class V1alpha1OpsRequestSpecVolumeExpansionInner {
       if (!jsonObj.get("componentName").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `componentName` to be a primitive type in the JSON string but got `%s`", jsonObj.get("componentName").toString()));
       }
+      if (jsonObj.get("instances") != null && !jsonObj.get("instances").isJsonNull()) {
+        JsonArray jsonArrayinstances = jsonObj.getAsJsonArray("instances");
+        if (jsonArrayinstances != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("instances").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `instances` to be an array in the JSON string but got `%s`", jsonObj.get("instances").toString()));
+          }
+
+          // validate the optional field `instances` (array)
+          for (int i = 0; i < jsonArrayinstances.size(); i++) {
+            V1alpha1OpsRequestSpecVolumeExpansionInnerInstancesInner.validateJsonObject(jsonArrayinstances.get(i).getAsJsonObject());
+          };
+        }
+      }
       // ensure the json data is an array
       if (!jsonObj.get("volumeClaimTemplates").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `volumeClaimTemplates` to be an array in the JSON string but got `%s`", jsonObj.get("volumeClaimTemplates").toString()));
@@ -210,7 +261,7 @@ public class V1alpha1OpsRequestSpecVolumeExpansionInner {
       JsonArray jsonArrayvolumeClaimTemplates = jsonObj.getAsJsonArray("volumeClaimTemplates");
       // validate the required field `volumeClaimTemplates` (array)
       for (int i = 0; i < jsonArrayvolumeClaimTemplates.size(); i++) {
-        V1alpha1OpsRequestSpecVolumeExpansionInnerVolumeClaimTemplatesInner.validateJsonObject(jsonArrayvolumeClaimTemplates.get(i).getAsJsonObject());
+        V1alpha1OpsRequestSpecVolumeExpansionInnerInstancesInnerVolumeClaimTemplatesInner.validateJsonObject(jsonArrayvolumeClaimTemplates.get(i).getAsJsonObject());
       };
   }
 

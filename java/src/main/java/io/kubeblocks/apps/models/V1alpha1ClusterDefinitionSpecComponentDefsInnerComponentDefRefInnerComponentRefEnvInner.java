@@ -49,9 +49,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * ComponentRefEnv specifies name and value of an env.
+ * ComponentRefEnv specifies name and value of an env.   Deprecated since v0.8.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterDefinitionSpecComponentDefsInnerComponentDefRefInnerComponentRefEnvInner {
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)

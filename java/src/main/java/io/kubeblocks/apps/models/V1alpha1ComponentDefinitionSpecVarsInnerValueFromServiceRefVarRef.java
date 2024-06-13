@@ -20,6 +20,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecVarsInnerValueFromComponentVarRefMultipleClusterObjectOption;
 import java.io.IOException;
 
 import com.google.gson.Gson;
@@ -50,7 +51,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * Selects a defined var of a ServiceRef.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceRefVarRef {
   public static final String SERIALIZED_NAME_COMP_DEF = "compDef";
   @SerializedName(SERIALIZED_NAME_COMP_DEF)
@@ -106,6 +107,61 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceRefVarRef {
   public static final String SERIALIZED_NAME_ENDPOINT = "endpoint";
   @SerializedName(SERIALIZED_NAME_ENDPOINT)
   private EndpointEnum endpoint;
+
+  /**
+   * VarOption defines whether a variable is required or optional.
+   */
+  @JsonAdapter(HostEnum.Adapter.class)
+  public enum HostEnum {
+    REQUIRED("Required"),
+    
+    OPTIONAL("Optional");
+
+    private String value;
+
+    HostEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static HostEnum fromValue(String value) {
+      for (HostEnum b : HostEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+
+    public static class Adapter extends TypeAdapter<HostEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final HostEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public HostEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return HostEnum.fromValue(value);
+      }
+    }
+  }
+
+  public static final String SERIALIZED_NAME_HOST = "host";
+  @SerializedName(SERIALIZED_NAME_HOST)
+  private HostEnum host;
+
+  public static final String SERIALIZED_NAME_MULTIPLE_CLUSTER_OBJECT_OPTION = "multipleClusterObjectOption";
+  @SerializedName(SERIALIZED_NAME_MULTIPLE_CLUSTER_OBJECT_OPTION)
+  private V1alpha1ComponentDefinitionSpecVarsInnerValueFromComponentVarRefMultipleClusterObjectOption multipleClusterObjectOption;
 
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)
@@ -278,7 +334,7 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceRefVarRef {
   }
 
    /**
-   * CompDef specifies the definition used by the component that the referent object resident in.
+   * CompDef specifies the definition used by the component that the referent object resident in. If not specified, the component itself will be used.
    * @return compDef
   **/
   @jakarta.annotation.Nullable
@@ -310,6 +366,48 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceRefVarRef {
 
   public void setEndpoint(EndpointEnum endpoint) {
     this.endpoint = endpoint;
+  }
+
+
+  public V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceRefVarRef host(HostEnum host) {
+    
+    this.host = host;
+    return this;
+  }
+
+   /**
+   * VarOption defines whether a variable is required or optional.
+   * @return host
+  **/
+  @jakarta.annotation.Nullable
+  public HostEnum getHost() {
+    return host;
+  }
+
+
+  public void setHost(HostEnum host) {
+    this.host = host;
+  }
+
+
+  public V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceRefVarRef multipleClusterObjectOption(V1alpha1ComponentDefinitionSpecVarsInnerValueFromComponentVarRefMultipleClusterObjectOption multipleClusterObjectOption) {
+    
+    this.multipleClusterObjectOption = multipleClusterObjectOption;
+    return this;
+  }
+
+   /**
+   * Get multipleClusterObjectOption
+   * @return multipleClusterObjectOption
+  **/
+  @jakarta.annotation.Nullable
+  public V1alpha1ComponentDefinitionSpecVarsInnerValueFromComponentVarRefMultipleClusterObjectOption getMultipleClusterObjectOption() {
+    return multipleClusterObjectOption;
+  }
+
+
+  public void setMultipleClusterObjectOption(V1alpha1ComponentDefinitionSpecVarsInnerValueFromComponentVarRefMultipleClusterObjectOption multipleClusterObjectOption) {
+    this.multipleClusterObjectOption = multipleClusterObjectOption;
   }
 
 
@@ -430,6 +528,8 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceRefVarRef {
     V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceRefVarRef v1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceRefVarRef = (V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceRefVarRef) o;
     return Objects.equals(this.compDef, v1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceRefVarRef.compDef) &&
         Objects.equals(this.endpoint, v1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceRefVarRef.endpoint) &&
+        Objects.equals(this.host, v1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceRefVarRef.host) &&
+        Objects.equals(this.multipleClusterObjectOption, v1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceRefVarRef.multipleClusterObjectOption) &&
         Objects.equals(this.name, v1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceRefVarRef.name) &&
         Objects.equals(this.optional, v1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceRefVarRef.optional) &&
         Objects.equals(this.password, v1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceRefVarRef.password) &&
@@ -439,7 +539,7 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceRefVarRef {
 
   @Override
   public int hashCode() {
-    return Objects.hash(compDef, endpoint, name, optional, password, port, username);
+    return Objects.hash(compDef, endpoint, host, multipleClusterObjectOption, name, optional, password, port, username);
   }
 
   @Override
@@ -448,6 +548,8 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceRefVarRef {
     sb.append("class V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceRefVarRef {\n");
     sb.append("    compDef: ").append(toIndentedString(compDef)).append("\n");
     sb.append("    endpoint: ").append(toIndentedString(endpoint)).append("\n");
+    sb.append("    host: ").append(toIndentedString(host)).append("\n");
+    sb.append("    multipleClusterObjectOption: ").append(toIndentedString(multipleClusterObjectOption)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    optional: ").append(toIndentedString(optional)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
@@ -477,6 +579,8 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceRefVarRef {
     openapiFields = new HashSet<String>();
     openapiFields.add("compDef");
     openapiFields.add("endpoint");
+    openapiFields.add("host");
+    openapiFields.add("multipleClusterObjectOption");
     openapiFields.add("name");
     openapiFields.add("optional");
     openapiFields.add("password");
@@ -512,6 +616,13 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceRefVarRef {
       }
       if ((jsonObj.get("endpoint") != null && !jsonObj.get("endpoint").isJsonNull()) && !jsonObj.get("endpoint").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `endpoint` to be a primitive type in the JSON string but got `%s`", jsonObj.get("endpoint").toString()));
+      }
+      if ((jsonObj.get("host") != null && !jsonObj.get("host").isJsonNull()) && !jsonObj.get("host").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `host` to be a primitive type in the JSON string but got `%s`", jsonObj.get("host").toString()));
+      }
+      // validate the optional field `multipleClusterObjectOption`
+      if (jsonObj.get("multipleClusterObjectOption") != null && !jsonObj.get("multipleClusterObjectOption").isJsonNull()) {
+        V1alpha1ComponentDefinitionSpecVarsInnerValueFromComponentVarRefMultipleClusterObjectOption.validateJsonObject(jsonObj.getAsJsonObject("multipleClusterObjectOption"));
       }
       if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));

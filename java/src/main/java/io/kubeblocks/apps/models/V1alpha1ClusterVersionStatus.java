@@ -48,9 +48,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * ClusterVersionStatus defines the observed state of ClusterVersion
+ * ClusterVersionStatus defines the observed state of ClusterVersion.   Deprecated since v0.9. This struct is maintained for backward compatibility and its use is discouraged.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterVersionStatus {
   public static final String SERIALIZED_NAME_CLUSTER_DEF_GENERATION = "clusterDefGeneration";
   @SerializedName(SERIALIZED_NAME_CLUSTER_DEF_GENERATION)

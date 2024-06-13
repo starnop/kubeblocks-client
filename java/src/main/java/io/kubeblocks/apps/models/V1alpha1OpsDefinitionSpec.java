@@ -20,11 +20,11 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.kubeblocks.apps.models.V1alpha1OpsDefinitionSpecComponentDefinitionRefsInner;
-import io.kubeblocks.apps.models.V1alpha1OpsDefinitionSpecJobSpec;
+import io.kubeblocks.apps.models.V1alpha1OpsDefinitionSpecActionsInner;
+import io.kubeblocks.apps.models.V1alpha1OpsDefinitionSpecComponentInfosInner;
 import io.kubeblocks.apps.models.V1alpha1OpsDefinitionSpecParametersSchema;
+import io.kubeblocks.apps.models.V1alpha1OpsDefinitionSpecPodInfoExtractorsInner;
 import io.kubeblocks.apps.models.V1alpha1OpsDefinitionSpecPreConditionsInner;
-import io.kubeblocks.apps.models.V1alpha1OpsDefinitionSpecVarsRef;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,80 +55,88 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * OpsDefinitionSpec defines the desired state of OpsDefinition
+ * OpsDefinitionSpec defines the desired state of OpsDefinition.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsDefinitionSpec {
-  public static final String SERIALIZED_NAME_COMPONENT_DEFINITION_REFS = "componentDefinitionRefs";
-  @SerializedName(SERIALIZED_NAME_COMPONENT_DEFINITION_REFS)
-  private List<V1alpha1OpsDefinitionSpecComponentDefinitionRefsInner> componentDefinitionRefs;
+  public static final String SERIALIZED_NAME_ACTIONS = "actions";
+  @SerializedName(SERIALIZED_NAME_ACTIONS)
+  private List<V1alpha1OpsDefinitionSpecActionsInner> actions = new ArrayList<>();
 
-  public static final String SERIALIZED_NAME_JOB_SPEC = "jobSpec";
-  @SerializedName(SERIALIZED_NAME_JOB_SPEC)
-  private V1alpha1OpsDefinitionSpecJobSpec jobSpec;
+  public static final String SERIALIZED_NAME_COMPONENT_INFOS = "componentInfos";
+  @SerializedName(SERIALIZED_NAME_COMPONENT_INFOS)
+  private List<V1alpha1OpsDefinitionSpecComponentInfosInner> componentInfos;
 
   public static final String SERIALIZED_NAME_PARAMETERS_SCHEMA = "parametersSchema";
   @SerializedName(SERIALIZED_NAME_PARAMETERS_SCHEMA)
   private V1alpha1OpsDefinitionSpecParametersSchema parametersSchema;
 
+  public static final String SERIALIZED_NAME_POD_INFO_EXTRACTORS = "podInfoExtractors";
+  @SerializedName(SERIALIZED_NAME_POD_INFO_EXTRACTORS)
+  private List<V1alpha1OpsDefinitionSpecPodInfoExtractorsInner> podInfoExtractors;
+
   public static final String SERIALIZED_NAME_PRE_CONDITIONS = "preConditions";
   @SerializedName(SERIALIZED_NAME_PRE_CONDITIONS)
   private List<V1alpha1OpsDefinitionSpecPreConditionsInner> preConditions;
 
-  public static final String SERIALIZED_NAME_VARS_REF = "varsRef";
-  @SerializedName(SERIALIZED_NAME_VARS_REF)
-  private V1alpha1OpsDefinitionSpecVarsRef varsRef;
-
   public V1alpha1OpsDefinitionSpec() {
   }
 
-  public V1alpha1OpsDefinitionSpec componentDefinitionRefs(List<V1alpha1OpsDefinitionSpecComponentDefinitionRefsInner> componentDefinitionRefs) {
+  public V1alpha1OpsDefinitionSpec actions(List<V1alpha1OpsDefinitionSpecActionsInner> actions) {
     
-    this.componentDefinitionRefs = componentDefinitionRefs;
+    this.actions = actions;
     return this;
   }
 
-  public V1alpha1OpsDefinitionSpec addComponentDefinitionRefsItem(V1alpha1OpsDefinitionSpecComponentDefinitionRefsInner componentDefinitionRefsItem) {
-    if (this.componentDefinitionRefs == null) {
-      this.componentDefinitionRefs = new ArrayList<>();
+  public V1alpha1OpsDefinitionSpec addActionsItem(V1alpha1OpsDefinitionSpecActionsInner actionsItem) {
+    if (this.actions == null) {
+      this.actions = new ArrayList<>();
     }
-    this.componentDefinitionRefs.add(componentDefinitionRefsItem);
+    this.actions.add(actionsItem);
     return this;
   }
 
    /**
-   * Specifies the types of componentDefinitions that are supported by the operation. It can refer to some variables of the componentDefinition. If set, any component that does not meet the conditions will be intercepted.
-   * @return componentDefinitionRefs
-  **/
-  @jakarta.annotation.Nullable
-  public List<V1alpha1OpsDefinitionSpecComponentDefinitionRefsInner> getComponentDefinitionRefs() {
-    return componentDefinitionRefs;
-  }
-
-
-  public void setComponentDefinitionRefs(List<V1alpha1OpsDefinitionSpecComponentDefinitionRefsInner> componentDefinitionRefs) {
-    this.componentDefinitionRefs = componentDefinitionRefs;
-  }
-
-
-  public V1alpha1OpsDefinitionSpec jobSpec(V1alpha1OpsDefinitionSpecJobSpec jobSpec) {
-    
-    this.jobSpec = jobSpec;
-    return this;
-  }
-
-   /**
-   * Get jobSpec
-   * @return jobSpec
+   * Specifies a list of OpsAction where each customized action is executed sequentially.
+   * @return actions
   **/
   @jakarta.annotation.Nonnull
-  public V1alpha1OpsDefinitionSpecJobSpec getJobSpec() {
-    return jobSpec;
+  public List<V1alpha1OpsDefinitionSpecActionsInner> getActions() {
+    return actions;
   }
 
 
-  public void setJobSpec(V1alpha1OpsDefinitionSpecJobSpec jobSpec) {
-    this.jobSpec = jobSpec;
+  public void setActions(List<V1alpha1OpsDefinitionSpecActionsInner> actions) {
+    this.actions = actions;
+  }
+
+
+  public V1alpha1OpsDefinitionSpec componentInfos(List<V1alpha1OpsDefinitionSpecComponentInfosInner> componentInfos) {
+    
+    this.componentInfos = componentInfos;
+    return this;
+  }
+
+  public V1alpha1OpsDefinitionSpec addComponentInfosItem(V1alpha1OpsDefinitionSpecComponentInfosInner componentInfosItem) {
+    if (this.componentInfos == null) {
+      this.componentInfos = new ArrayList<>();
+    }
+    this.componentInfos.add(componentInfosItem);
+    return this;
+  }
+
+   /**
+   * Specifies a list of ComponentDefinition for Components associated with this OpsDefinition. It also includes connection credentials (address and account) for each Component.
+   * @return componentInfos
+  **/
+  @jakarta.annotation.Nullable
+  public List<V1alpha1OpsDefinitionSpecComponentInfosInner> getComponentInfos() {
+    return componentInfos;
+  }
+
+
+  public void setComponentInfos(List<V1alpha1OpsDefinitionSpecComponentInfosInner> componentInfos) {
+    this.componentInfos = componentInfos;
   }
 
 
@@ -153,6 +161,35 @@ public class V1alpha1OpsDefinitionSpec {
   }
 
 
+  public V1alpha1OpsDefinitionSpec podInfoExtractors(List<V1alpha1OpsDefinitionSpecPodInfoExtractorsInner> podInfoExtractors) {
+    
+    this.podInfoExtractors = podInfoExtractors;
+    return this;
+  }
+
+  public V1alpha1OpsDefinitionSpec addPodInfoExtractorsItem(V1alpha1OpsDefinitionSpecPodInfoExtractorsInner podInfoExtractorsItem) {
+    if (this.podInfoExtractors == null) {
+      this.podInfoExtractors = new ArrayList<>();
+    }
+    this.podInfoExtractors.add(podInfoExtractorsItem);
+    return this;
+  }
+
+   /**
+   * Specifies a list of PodInfoExtractor, each designed to select a specific Pod and extract selected runtime info from its PodSpec. The extracted information, such as environment variables, volumes and tolerations, are then injected into Jobs or Pods that execute the OpsActions defined in &#x60;actions&#x60;.
+   * @return podInfoExtractors
+  **/
+  @jakarta.annotation.Nullable
+  public List<V1alpha1OpsDefinitionSpecPodInfoExtractorsInner> getPodInfoExtractors() {
+    return podInfoExtractors;
+  }
+
+
+  public void setPodInfoExtractors(List<V1alpha1OpsDefinitionSpecPodInfoExtractorsInner> podInfoExtractors) {
+    this.podInfoExtractors = podInfoExtractors;
+  }
+
+
   public V1alpha1OpsDefinitionSpec preConditions(List<V1alpha1OpsDefinitionSpecPreConditionsInner> preConditions) {
     
     this.preConditions = preConditions;
@@ -168,7 +205,7 @@ public class V1alpha1OpsDefinitionSpec {
   }
 
    /**
-   * Specifies the preconditions that must be met to run the job for the operation.
+   * Specifies the preconditions that must be met to run the actions for the operation. if set, it will check the condition before the Component runs this operation. Example: &#x60;&#x60;&#x60;yaml preConditions: - rule: expression: &#39;{{ eq .component.status.phase \&quot;Running\&quot; }}&#39; message: Component is not in Running status. &#x60;&#x60;&#x60;
    * @return preConditions
   **/
   @jakarta.annotation.Nullable
@@ -182,27 +219,6 @@ public class V1alpha1OpsDefinitionSpec {
   }
 
 
-  public V1alpha1OpsDefinitionSpec varsRef(V1alpha1OpsDefinitionSpecVarsRef varsRef) {
-    
-    this.varsRef = varsRef;
-    return this;
-  }
-
-   /**
-   * Get varsRef
-   * @return varsRef
-  **/
-  @jakarta.annotation.Nullable
-  public V1alpha1OpsDefinitionSpecVarsRef getVarsRef() {
-    return varsRef;
-  }
-
-
-  public void setVarsRef(V1alpha1OpsDefinitionSpecVarsRef varsRef) {
-    this.varsRef = varsRef;
-  }
-
-
 
   @Override
   public boolean equals(Object o) {
@@ -213,27 +229,27 @@ public class V1alpha1OpsDefinitionSpec {
       return false;
     }
     V1alpha1OpsDefinitionSpec v1alpha1OpsDefinitionSpec = (V1alpha1OpsDefinitionSpec) o;
-    return Objects.equals(this.componentDefinitionRefs, v1alpha1OpsDefinitionSpec.componentDefinitionRefs) &&
-        Objects.equals(this.jobSpec, v1alpha1OpsDefinitionSpec.jobSpec) &&
+    return Objects.equals(this.actions, v1alpha1OpsDefinitionSpec.actions) &&
+        Objects.equals(this.componentInfos, v1alpha1OpsDefinitionSpec.componentInfos) &&
         Objects.equals(this.parametersSchema, v1alpha1OpsDefinitionSpec.parametersSchema) &&
-        Objects.equals(this.preConditions, v1alpha1OpsDefinitionSpec.preConditions) &&
-        Objects.equals(this.varsRef, v1alpha1OpsDefinitionSpec.varsRef);
+        Objects.equals(this.podInfoExtractors, v1alpha1OpsDefinitionSpec.podInfoExtractors) &&
+        Objects.equals(this.preConditions, v1alpha1OpsDefinitionSpec.preConditions);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(componentDefinitionRefs, jobSpec, parametersSchema, preConditions, varsRef);
+    return Objects.hash(actions, componentInfos, parametersSchema, podInfoExtractors, preConditions);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class V1alpha1OpsDefinitionSpec {\n");
-    sb.append("    componentDefinitionRefs: ").append(toIndentedString(componentDefinitionRefs)).append("\n");
-    sb.append("    jobSpec: ").append(toIndentedString(jobSpec)).append("\n");
+    sb.append("    actions: ").append(toIndentedString(actions)).append("\n");
+    sb.append("    componentInfos: ").append(toIndentedString(componentInfos)).append("\n");
     sb.append("    parametersSchema: ").append(toIndentedString(parametersSchema)).append("\n");
+    sb.append("    podInfoExtractors: ").append(toIndentedString(podInfoExtractors)).append("\n");
     sb.append("    preConditions: ").append(toIndentedString(preConditions)).append("\n");
-    sb.append("    varsRef: ").append(toIndentedString(varsRef)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -256,15 +272,15 @@ public class V1alpha1OpsDefinitionSpec {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("componentDefinitionRefs");
-    openapiFields.add("jobSpec");
+    openapiFields.add("actions");
+    openapiFields.add("componentInfos");
     openapiFields.add("parametersSchema");
+    openapiFields.add("podInfoExtractors");
     openapiFields.add("preConditions");
-    openapiFields.add("varsRef");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("jobSpec");
+    openapiRequiredFields.add("actions");
   }
 
  /**
@@ -294,25 +310,47 @@ public class V1alpha1OpsDefinitionSpec {
           throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
         }
       }
-      if (jsonObj.get("componentDefinitionRefs") != null && !jsonObj.get("componentDefinitionRefs").isJsonNull()) {
-        JsonArray jsonArraycomponentDefinitionRefs = jsonObj.getAsJsonArray("componentDefinitionRefs");
-        if (jsonArraycomponentDefinitionRefs != null) {
+      // ensure the json data is an array
+      if (!jsonObj.get("actions").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `actions` to be an array in the JSON string but got `%s`", jsonObj.get("actions").toString()));
+      }
+
+      JsonArray jsonArrayactions = jsonObj.getAsJsonArray("actions");
+      // validate the required field `actions` (array)
+      for (int i = 0; i < jsonArrayactions.size(); i++) {
+        V1alpha1OpsDefinitionSpecActionsInner.validateJsonObject(jsonArrayactions.get(i).getAsJsonObject());
+      };
+      if (jsonObj.get("componentInfos") != null && !jsonObj.get("componentInfos").isJsonNull()) {
+        JsonArray jsonArraycomponentInfos = jsonObj.getAsJsonArray("componentInfos");
+        if (jsonArraycomponentInfos != null) {
           // ensure the json data is an array
-          if (!jsonObj.get("componentDefinitionRefs").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `componentDefinitionRefs` to be an array in the JSON string but got `%s`", jsonObj.get("componentDefinitionRefs").toString()));
+          if (!jsonObj.get("componentInfos").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `componentInfos` to be an array in the JSON string but got `%s`", jsonObj.get("componentInfos").toString()));
           }
 
-          // validate the optional field `componentDefinitionRefs` (array)
-          for (int i = 0; i < jsonArraycomponentDefinitionRefs.size(); i++) {
-            V1alpha1OpsDefinitionSpecComponentDefinitionRefsInner.validateJsonObject(jsonArraycomponentDefinitionRefs.get(i).getAsJsonObject());
+          // validate the optional field `componentInfos` (array)
+          for (int i = 0; i < jsonArraycomponentInfos.size(); i++) {
+            V1alpha1OpsDefinitionSpecComponentInfosInner.validateJsonObject(jsonArraycomponentInfos.get(i).getAsJsonObject());
           };
         }
       }
-      // validate the required field `jobSpec`
-      V1alpha1OpsDefinitionSpecJobSpec.validateJsonObject(jsonObj.getAsJsonObject("jobSpec"));
       // validate the optional field `parametersSchema`
       if (jsonObj.get("parametersSchema") != null && !jsonObj.get("parametersSchema").isJsonNull()) {
         V1alpha1OpsDefinitionSpecParametersSchema.validateJsonObject(jsonObj.getAsJsonObject("parametersSchema"));
+      }
+      if (jsonObj.get("podInfoExtractors") != null && !jsonObj.get("podInfoExtractors").isJsonNull()) {
+        JsonArray jsonArraypodInfoExtractors = jsonObj.getAsJsonArray("podInfoExtractors");
+        if (jsonArraypodInfoExtractors != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("podInfoExtractors").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `podInfoExtractors` to be an array in the JSON string but got `%s`", jsonObj.get("podInfoExtractors").toString()));
+          }
+
+          // validate the optional field `podInfoExtractors` (array)
+          for (int i = 0; i < jsonArraypodInfoExtractors.size(); i++) {
+            V1alpha1OpsDefinitionSpecPodInfoExtractorsInner.validateJsonObject(jsonArraypodInfoExtractors.get(i).getAsJsonObject());
+          };
+        }
       }
       if (jsonObj.get("preConditions") != null && !jsonObj.get("preConditions").isJsonNull()) {
         JsonArray jsonArraypreConditions = jsonObj.getAsJsonArray("preConditions");
@@ -327,10 +365,6 @@ public class V1alpha1OpsDefinitionSpec {
             V1alpha1OpsDefinitionSpecPreConditionsInner.validateJsonObject(jsonArraypreConditions.get(i).getAsJsonObject());
           };
         }
-      }
-      // validate the optional field `varsRef`
-      if (jsonObj.get("varsRef") != null && !jsonObj.get("varsRef").isJsonNull()) {
-        V1alpha1OpsDefinitionSpecVarsRef.validateJsonObject(jsonObj.getAsJsonObject("varsRef"));
       }
   }
 

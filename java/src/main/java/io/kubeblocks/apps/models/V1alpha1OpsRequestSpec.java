@@ -20,14 +20,16 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.kubeblocks.apps.models.V1alpha1OpsRequestSpecBackup;
 import io.kubeblocks.apps.models.V1alpha1OpsRequestSpecBackupSpec;
-import io.kubeblocks.apps.models.V1alpha1OpsRequestSpecCustomSpec;
+import io.kubeblocks.apps.models.V1alpha1OpsRequestSpecCustom;
 import io.kubeblocks.apps.models.V1alpha1OpsRequestSpecExposeInner;
 import io.kubeblocks.apps.models.V1alpha1OpsRequestSpecHorizontalScalingInner;
+import io.kubeblocks.apps.models.V1alpha1OpsRequestSpecRebuildFromInner;
 import io.kubeblocks.apps.models.V1alpha1OpsRequestSpecReconfigure;
 import io.kubeblocks.apps.models.V1alpha1OpsRequestSpecReconfiguresInner;
 import io.kubeblocks.apps.models.V1alpha1OpsRequestSpecRestartInner;
-import io.kubeblocks.apps.models.V1alpha1OpsRequestSpecRestoreFrom;
+import io.kubeblocks.apps.models.V1alpha1OpsRequestSpecRestore;
 import io.kubeblocks.apps.models.V1alpha1OpsRequestSpecRestoreSpec;
 import io.kubeblocks.apps.models.V1alpha1OpsRequestSpecScriptSpec;
 import io.kubeblocks.apps.models.V1alpha1OpsRequestSpecSwitchoverInner;
@@ -65,8 +67,12 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * OpsRequestSpec defines the desired state of OpsRequest
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsRequestSpec {
+  public static final String SERIALIZED_NAME_BACKUP = "backup";
+  @SerializedName(SERIALIZED_NAME_BACKUP)
+  private V1alpha1OpsRequestSpecBackup backup;
+
   public static final String SERIALIZED_NAME_BACKUP_SPEC = "backupSpec";
   @SerializedName(SERIALIZED_NAME_BACKUP_SPEC)
   private V1alpha1OpsRequestSpecBackupSpec backupSpec;
@@ -75,21 +81,37 @@ public class V1alpha1OpsRequestSpec {
   @SerializedName(SERIALIZED_NAME_CANCEL)
   private Boolean cancel;
 
+  public static final String SERIALIZED_NAME_CLUSTER_NAME = "clusterName";
+  @SerializedName(SERIALIZED_NAME_CLUSTER_NAME)
+  private String clusterName;
+
   public static final String SERIALIZED_NAME_CLUSTER_REF = "clusterRef";
   @SerializedName(SERIALIZED_NAME_CLUSTER_REF)
   private String clusterRef;
 
-  public static final String SERIALIZED_NAME_CUSTOM_SPEC = "customSpec";
-  @SerializedName(SERIALIZED_NAME_CUSTOM_SPEC)
-  private V1alpha1OpsRequestSpecCustomSpec customSpec;
+  public static final String SERIALIZED_NAME_CUSTOM = "custom";
+  @SerializedName(SERIALIZED_NAME_CUSTOM)
+  private V1alpha1OpsRequestSpecCustom custom;
 
   public static final String SERIALIZED_NAME_EXPOSE = "expose";
   @SerializedName(SERIALIZED_NAME_EXPOSE)
   private List<V1alpha1OpsRequestSpecExposeInner> expose;
 
+  public static final String SERIALIZED_NAME_FORCE = "force";
+  @SerializedName(SERIALIZED_NAME_FORCE)
+  private Boolean force;
+
   public static final String SERIALIZED_NAME_HORIZONTAL_SCALING = "horizontalScaling";
   @SerializedName(SERIALIZED_NAME_HORIZONTAL_SCALING)
   private List<V1alpha1OpsRequestSpecHorizontalScalingInner> horizontalScaling;
+
+  public static final String SERIALIZED_NAME_PRE_CONDITION_DEADLINE_SECONDS = "preConditionDeadlineSeconds";
+  @SerializedName(SERIALIZED_NAME_PRE_CONDITION_DEADLINE_SECONDS)
+  private Integer preConditionDeadlineSeconds;
+
+  public static final String SERIALIZED_NAME_REBUILD_FROM = "rebuildFrom";
+  @SerializedName(SERIALIZED_NAME_REBUILD_FROM)
+  private List<V1alpha1OpsRequestSpecRebuildFromInner> rebuildFrom;
 
   public static final String SERIALIZED_NAME_RECONFIGURE = "reconfigure";
   @SerializedName(SERIALIZED_NAME_RECONFIGURE)
@@ -103,9 +125,9 @@ public class V1alpha1OpsRequestSpec {
   @SerializedName(SERIALIZED_NAME_RESTART)
   private List<V1alpha1OpsRequestSpecRestartInner> restart;
 
-  public static final String SERIALIZED_NAME_RESTORE_FROM = "restoreFrom";
-  @SerializedName(SERIALIZED_NAME_RESTORE_FROM)
-  private V1alpha1OpsRequestSpecRestoreFrom restoreFrom;
+  public static final String SERIALIZED_NAME_RESTORE = "restore";
+  @SerializedName(SERIALIZED_NAME_RESTORE)
+  private V1alpha1OpsRequestSpecRestore restore;
 
   public static final String SERIALIZED_NAME_RESTORE_SPEC = "restoreSpec";
   @SerializedName(SERIALIZED_NAME_RESTORE_SPEC)
@@ -123,12 +145,8 @@ public class V1alpha1OpsRequestSpec {
   @SerializedName(SERIALIZED_NAME_TTL_SECONDS_AFTER_SUCCEED)
   private Integer ttlSecondsAfterSucceed;
 
-  public static final String SERIALIZED_NAME_TTL_SECONDS_BEFORE_ABORT = "ttlSecondsBeforeAbort";
-  @SerializedName(SERIALIZED_NAME_TTL_SECONDS_BEFORE_ABORT)
-  private Integer ttlSecondsBeforeAbort;
-
   /**
-   * Defines the operation type.
+   * Specifies the type of this operation. Supported types include \&quot;Start\&quot;, \&quot;Stop\&quot;, \&quot;Restart\&quot;, \&quot;Switchover\&quot;, \&quot;VerticalScaling\&quot;, \&quot;HorizontalScaling\&quot;, \&quot;VolumeExpansion\&quot;, \&quot;Reconfiguring\&quot;, \&quot;Upgrade\&quot;, \&quot;Backup\&quot;, \&quot;Restore\&quot;, \&quot;Expose\&quot;, \&quot;DataScript\&quot;, \&quot;RebuildInstance\&quot;, \&quot;Custom\&quot;.   Note: This field is immutable once set.
    */
   @JsonAdapter(TypeEnum.Adapter.class)
   public enum TypeEnum {
@@ -157,6 +175,8 @@ public class V1alpha1OpsRequestSpec {
     BACKUP("Backup"),
     
     RESTORE("Restore"),
+    
+    REBUILDINSTANCE("RebuildInstance"),
     
     CUSTOM("Custom");
 
@@ -217,6 +237,27 @@ public class V1alpha1OpsRequestSpec {
   public V1alpha1OpsRequestSpec() {
   }
 
+  public V1alpha1OpsRequestSpec backup(V1alpha1OpsRequestSpecBackup backup) {
+    
+    this.backup = backup;
+    return this;
+  }
+
+   /**
+   * Get backup
+   * @return backup
+  **/
+  @jakarta.annotation.Nullable
+  public V1alpha1OpsRequestSpecBackup getBackup() {
+    return backup;
+  }
+
+
+  public void setBackup(V1alpha1OpsRequestSpecBackup backup) {
+    this.backup = backup;
+  }
+
+
   public V1alpha1OpsRequestSpec backupSpec(V1alpha1OpsRequestSpecBackupSpec backupSpec) {
     
     this.backupSpec = backupSpec;
@@ -245,7 +286,7 @@ public class V1alpha1OpsRequestSpec {
   }
 
    /**
-   * Defines the action to cancel the &#x60;Pending/Creating/Running&#x60; opsRequest, supported types: &#x60;VerticalScaling/HorizontalScaling&#x60;. Once set to true, this opsRequest will be canceled and modifying this property again will not take effect.
+   * Indicates whether the current operation should be canceled and terminated gracefully if it&#39;s in the \&quot;Pending\&quot;, \&quot;Creating\&quot;, or \&quot;Running\&quot; state.   This field applies only to \&quot;VerticalScaling\&quot; and \&quot;HorizontalScaling\&quot; opsRequests.   Note: Setting &#x60;cancel&#x60; to true is irreversible; further modifications to this field are ineffective.
    * @return cancel
   **/
   @jakarta.annotation.Nullable
@@ -259,6 +300,27 @@ public class V1alpha1OpsRequestSpec {
   }
 
 
+  public V1alpha1OpsRequestSpec clusterName(String clusterName) {
+    
+    this.clusterName = clusterName;
+    return this;
+  }
+
+   /**
+   * Specifies the name of the Cluster resource that this operation is targeting.
+   * @return clusterName
+  **/
+  @jakarta.annotation.Nullable
+  public String getClusterName() {
+    return clusterName;
+  }
+
+
+  public void setClusterName(String clusterName) {
+    this.clusterName = clusterName;
+  }
+
+
   public V1alpha1OpsRequestSpec clusterRef(String clusterRef) {
     
     this.clusterRef = clusterRef;
@@ -266,10 +328,10 @@ public class V1alpha1OpsRequestSpec {
   }
 
    /**
-   * References the cluster object.
+   * Deprecated: since v0.9, use clusterName instead. Specifies the name of the Cluster resource that this operation is targeting.
    * @return clusterRef
   **/
-  @jakarta.annotation.Nonnull
+  @jakarta.annotation.Nullable
   public String getClusterRef() {
     return clusterRef;
   }
@@ -280,24 +342,24 @@ public class V1alpha1OpsRequestSpec {
   }
 
 
-  public V1alpha1OpsRequestSpec customSpec(V1alpha1OpsRequestSpecCustomSpec customSpec) {
+  public V1alpha1OpsRequestSpec custom(V1alpha1OpsRequestSpecCustom custom) {
     
-    this.customSpec = customSpec;
+    this.custom = custom;
     return this;
   }
 
    /**
-   * Get customSpec
-   * @return customSpec
+   * Get custom
+   * @return custom
   **/
   @jakarta.annotation.Nullable
-  public V1alpha1OpsRequestSpecCustomSpec getCustomSpec() {
-    return customSpec;
+  public V1alpha1OpsRequestSpecCustom getCustom() {
+    return custom;
   }
 
 
-  public void setCustomSpec(V1alpha1OpsRequestSpecCustomSpec customSpec) {
-    this.customSpec = customSpec;
+  public void setCustom(V1alpha1OpsRequestSpecCustom custom) {
+    this.custom = custom;
   }
 
 
@@ -316,7 +378,7 @@ public class V1alpha1OpsRequestSpec {
   }
 
    /**
-   * Defines services the component needs to expose.
+   * Lists Expose objects, each specifying a Component and its services to be exposed.
    * @return expose
   **/
   @jakarta.annotation.Nullable
@@ -327,6 +389,27 @@ public class V1alpha1OpsRequestSpec {
 
   public void setExpose(List<V1alpha1OpsRequestSpecExposeInner> expose) {
     this.expose = expose;
+  }
+
+
+  public V1alpha1OpsRequestSpec force(Boolean force) {
+    
+    this.force = force;
+    return this;
+  }
+
+   /**
+   * Instructs the system to bypass pre-checks (including cluster state checks and customized pre-conditions hooks) and immediately execute the opsRequest, except for the opsRequest of &#39;Start&#39; type, which will still undergo pre-checks even if &#x60;force&#x60; is true.   This is useful for concurrent execution of &#39;VerticalScaling&#39; and &#39;HorizontalScaling&#39; opsRequests. By setting &#x60;force&#x60; to true, you can bypass the default checks and demand these opsRequests to run simultaneously.   Note: Once set, the &#x60;force&#x60; field is immutable and cannot be updated.
+   * @return force
+  **/
+  @jakarta.annotation.Nullable
+  public Boolean getForce() {
+    return force;
+  }
+
+
+  public void setForce(Boolean force) {
+    this.force = force;
   }
 
 
@@ -345,7 +428,7 @@ public class V1alpha1OpsRequestSpec {
   }
 
    /**
-   * Defines what component need to horizontal scale the specified replicas.
+   * Lists HorizontalScaling objects, each specifying scaling requirements for a Component, including desired replica changes, configurations for new instances, modifications for existing instances, and take offline/online the specified instances.
    * @return horizontalScaling
   **/
   @jakarta.annotation.Nullable
@@ -356,6 +439,56 @@ public class V1alpha1OpsRequestSpec {
 
   public void setHorizontalScaling(List<V1alpha1OpsRequestSpecHorizontalScalingInner> horizontalScaling) {
     this.horizontalScaling = horizontalScaling;
+  }
+
+
+  public V1alpha1OpsRequestSpec preConditionDeadlineSeconds(Integer preConditionDeadlineSeconds) {
+    
+    this.preConditionDeadlineSeconds = preConditionDeadlineSeconds;
+    return this;
+  }
+
+   /**
+   * Specifies the maximum time in seconds that the OpsRequest will wait for its pre-conditions to be met before it aborts the operation. If set to 0 (default), pre-conditions must be satisfied immediately for the OpsRequest to proceed.
+   * @return preConditionDeadlineSeconds
+  **/
+  @jakarta.annotation.Nullable
+  public Integer getPreConditionDeadlineSeconds() {
+    return preConditionDeadlineSeconds;
+  }
+
+
+  public void setPreConditionDeadlineSeconds(Integer preConditionDeadlineSeconds) {
+    this.preConditionDeadlineSeconds = preConditionDeadlineSeconds;
+  }
+
+
+  public V1alpha1OpsRequestSpec rebuildFrom(List<V1alpha1OpsRequestSpecRebuildFromInner> rebuildFrom) {
+    
+    this.rebuildFrom = rebuildFrom;
+    return this;
+  }
+
+  public V1alpha1OpsRequestSpec addRebuildFromItem(V1alpha1OpsRequestSpecRebuildFromInner rebuildFromItem) {
+    if (this.rebuildFrom == null) {
+      this.rebuildFrom = new ArrayList<>();
+    }
+    this.rebuildFrom.add(rebuildFromItem);
+    return this;
+  }
+
+   /**
+   * Specifies the parameters to rebuild some instances. Rebuilding an instance involves restoring its data from a backup or another database replica. The instances being rebuilt usually serve as standby in the cluster. Hence rebuilding instances is often also referred to as \&quot;standby reconstruction\&quot;.
+   * @return rebuildFrom
+  **/
+  @jakarta.annotation.Nullable
+  public List<V1alpha1OpsRequestSpecRebuildFromInner> getRebuildFrom() {
+    return rebuildFrom;
+  }
+
+
+  public void setRebuildFrom(List<V1alpha1OpsRequestSpecRebuildFromInner> rebuildFrom) {
+    this.rebuildFrom = rebuildFrom;
   }
 
 
@@ -395,7 +528,7 @@ public class V1alpha1OpsRequestSpec {
   }
 
    /**
-   * Defines the variables that need to input when updating configuration.
+   * Lists Reconfigure objects, each specifying a Component and its configuration updates.
    * @return reconfigures
   **/
   @jakarta.annotation.Nullable
@@ -424,7 +557,7 @@ public class V1alpha1OpsRequestSpec {
   }
 
    /**
-   * Restarts the specified components.
+   * Lists Components to be restarted.
    * @return restart
   **/
   @jakarta.annotation.Nullable
@@ -438,24 +571,24 @@ public class V1alpha1OpsRequestSpec {
   }
 
 
-  public V1alpha1OpsRequestSpec restoreFrom(V1alpha1OpsRequestSpecRestoreFrom restoreFrom) {
+  public V1alpha1OpsRequestSpec restore(V1alpha1OpsRequestSpecRestore restore) {
     
-    this.restoreFrom = restoreFrom;
+    this.restore = restore;
     return this;
   }
 
    /**
-   * Get restoreFrom
-   * @return restoreFrom
+   * Get restore
+   * @return restore
   **/
   @jakarta.annotation.Nullable
-  public V1alpha1OpsRequestSpecRestoreFrom getRestoreFrom() {
-    return restoreFrom;
+  public V1alpha1OpsRequestSpecRestore getRestore() {
+    return restore;
   }
 
 
-  public void setRestoreFrom(V1alpha1OpsRequestSpecRestoreFrom restoreFrom) {
-    this.restoreFrom = restoreFrom;
+  public void setRestore(V1alpha1OpsRequestSpecRestore restore) {
+    this.restore = restore;
   }
 
 
@@ -516,7 +649,7 @@ public class V1alpha1OpsRequestSpec {
   }
 
    /**
-   * Switches over the specified components.
+   * Lists Switchover objects, each specifying a Component to perform the switchover operation.
    * @return switchover
   **/
   @jakarta.annotation.Nullable
@@ -537,7 +670,7 @@ public class V1alpha1OpsRequestSpec {
   }
 
    /**
-   * OpsRequest will be deleted after TTLSecondsAfterSucceed second when OpsRequest.status.phase is Succeed.
+   * Specifies the duration in seconds that an OpsRequest will remain in the system after successfully completing (when &#x60;opsRequest.status.phase&#x60; is \&quot;Succeed\&quot;) before automatic deletion.
    * @return ttlSecondsAfterSucceed
   **/
   @jakarta.annotation.Nullable
@@ -551,27 +684,6 @@ public class V1alpha1OpsRequestSpec {
   }
 
 
-  public V1alpha1OpsRequestSpec ttlSecondsBeforeAbort(Integer ttlSecondsBeforeAbort) {
-    
-    this.ttlSecondsBeforeAbort = ttlSecondsBeforeAbort;
-    return this;
-  }
-
-   /**
-   * OpsRequest will wait at most TTLSecondsBeforeAbort seconds for start-conditions to be met. If not specified, the default value is 0, which means that the start-conditions must be met immediately.
-   * @return ttlSecondsBeforeAbort
-  **/
-  @jakarta.annotation.Nullable
-  public Integer getTtlSecondsBeforeAbort() {
-    return ttlSecondsBeforeAbort;
-  }
-
-
-  public void setTtlSecondsBeforeAbort(Integer ttlSecondsBeforeAbort) {
-    this.ttlSecondsBeforeAbort = ttlSecondsBeforeAbort;
-  }
-
-
   public V1alpha1OpsRequestSpec type(TypeEnum type) {
     
     this.type = type;
@@ -579,7 +691,7 @@ public class V1alpha1OpsRequestSpec {
   }
 
    /**
-   * Defines the operation type.
+   * Specifies the type of this operation. Supported types include \&quot;Start\&quot;, \&quot;Stop\&quot;, \&quot;Restart\&quot;, \&quot;Switchover\&quot;, \&quot;VerticalScaling\&quot;, \&quot;HorizontalScaling\&quot;, \&quot;VolumeExpansion\&quot;, \&quot;Reconfiguring\&quot;, \&quot;Upgrade\&quot;, \&quot;Backup\&quot;, \&quot;Restore\&quot;, \&quot;Expose\&quot;, \&quot;DataScript\&quot;, \&quot;RebuildInstance\&quot;, \&quot;Custom\&quot;.   Note: This field is immutable once set.
    * @return type
   **/
   @jakarta.annotation.Nonnull
@@ -629,7 +741,7 @@ public class V1alpha1OpsRequestSpec {
   }
 
    /**
-   * Note: Quantity struct can not do immutable check by CEL. Defines what component need to vertical scale the specified compute resources.
+   * Lists VerticalScaling objects, each specifying a component and its desired compute resources for vertical scaling.
    * @return verticalScaling
   **/
   @jakarta.annotation.Nullable
@@ -658,7 +770,7 @@ public class V1alpha1OpsRequestSpec {
   }
 
    /**
-   * Note: Quantity struct can not do immutable check by CEL. Defines what component and volumeClaimTemplate need to expand the specified storage.
+   * Lists VolumeExpansion objects, each specifying a component and its corresponding volumeClaimTemplates that requires storage expansion.
    * @return volumeExpansion
   **/
   @jakarta.annotation.Nullable
@@ -682,21 +794,25 @@ public class V1alpha1OpsRequestSpec {
       return false;
     }
     V1alpha1OpsRequestSpec v1alpha1OpsRequestSpec = (V1alpha1OpsRequestSpec) o;
-    return Objects.equals(this.backupSpec, v1alpha1OpsRequestSpec.backupSpec) &&
+    return Objects.equals(this.backup, v1alpha1OpsRequestSpec.backup) &&
+        Objects.equals(this.backupSpec, v1alpha1OpsRequestSpec.backupSpec) &&
         Objects.equals(this.cancel, v1alpha1OpsRequestSpec.cancel) &&
+        Objects.equals(this.clusterName, v1alpha1OpsRequestSpec.clusterName) &&
         Objects.equals(this.clusterRef, v1alpha1OpsRequestSpec.clusterRef) &&
-        Objects.equals(this.customSpec, v1alpha1OpsRequestSpec.customSpec) &&
+        Objects.equals(this.custom, v1alpha1OpsRequestSpec.custom) &&
         Objects.equals(this.expose, v1alpha1OpsRequestSpec.expose) &&
+        Objects.equals(this.force, v1alpha1OpsRequestSpec.force) &&
         Objects.equals(this.horizontalScaling, v1alpha1OpsRequestSpec.horizontalScaling) &&
+        Objects.equals(this.preConditionDeadlineSeconds, v1alpha1OpsRequestSpec.preConditionDeadlineSeconds) &&
+        Objects.equals(this.rebuildFrom, v1alpha1OpsRequestSpec.rebuildFrom) &&
         Objects.equals(this.reconfigure, v1alpha1OpsRequestSpec.reconfigure) &&
         Objects.equals(this.reconfigures, v1alpha1OpsRequestSpec.reconfigures) &&
         Objects.equals(this.restart, v1alpha1OpsRequestSpec.restart) &&
-        Objects.equals(this.restoreFrom, v1alpha1OpsRequestSpec.restoreFrom) &&
+        Objects.equals(this.restore, v1alpha1OpsRequestSpec.restore) &&
         Objects.equals(this.restoreSpec, v1alpha1OpsRequestSpec.restoreSpec) &&
         Objects.equals(this.scriptSpec, v1alpha1OpsRequestSpec.scriptSpec) &&
         Objects.equals(this.switchover, v1alpha1OpsRequestSpec.switchover) &&
         Objects.equals(this.ttlSecondsAfterSucceed, v1alpha1OpsRequestSpec.ttlSecondsAfterSucceed) &&
-        Objects.equals(this.ttlSecondsBeforeAbort, v1alpha1OpsRequestSpec.ttlSecondsBeforeAbort) &&
         Objects.equals(this.type, v1alpha1OpsRequestSpec.type) &&
         Objects.equals(this.upgrade, v1alpha1OpsRequestSpec.upgrade) &&
         Objects.equals(this.verticalScaling, v1alpha1OpsRequestSpec.verticalScaling) &&
@@ -705,28 +821,32 @@ public class V1alpha1OpsRequestSpec {
 
   @Override
   public int hashCode() {
-    return Objects.hash(backupSpec, cancel, clusterRef, customSpec, expose, horizontalScaling, reconfigure, reconfigures, restart, restoreFrom, restoreSpec, scriptSpec, switchover, ttlSecondsAfterSucceed, ttlSecondsBeforeAbort, type, upgrade, verticalScaling, volumeExpansion);
+    return Objects.hash(backup, backupSpec, cancel, clusterName, clusterRef, custom, expose, force, horizontalScaling, preConditionDeadlineSeconds, rebuildFrom, reconfigure, reconfigures, restart, restore, restoreSpec, scriptSpec, switchover, ttlSecondsAfterSucceed, type, upgrade, verticalScaling, volumeExpansion);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class V1alpha1OpsRequestSpec {\n");
+    sb.append("    backup: ").append(toIndentedString(backup)).append("\n");
     sb.append("    backupSpec: ").append(toIndentedString(backupSpec)).append("\n");
     sb.append("    cancel: ").append(toIndentedString(cancel)).append("\n");
+    sb.append("    clusterName: ").append(toIndentedString(clusterName)).append("\n");
     sb.append("    clusterRef: ").append(toIndentedString(clusterRef)).append("\n");
-    sb.append("    customSpec: ").append(toIndentedString(customSpec)).append("\n");
+    sb.append("    custom: ").append(toIndentedString(custom)).append("\n");
     sb.append("    expose: ").append(toIndentedString(expose)).append("\n");
+    sb.append("    force: ").append(toIndentedString(force)).append("\n");
     sb.append("    horizontalScaling: ").append(toIndentedString(horizontalScaling)).append("\n");
+    sb.append("    preConditionDeadlineSeconds: ").append(toIndentedString(preConditionDeadlineSeconds)).append("\n");
+    sb.append("    rebuildFrom: ").append(toIndentedString(rebuildFrom)).append("\n");
     sb.append("    reconfigure: ").append(toIndentedString(reconfigure)).append("\n");
     sb.append("    reconfigures: ").append(toIndentedString(reconfigures)).append("\n");
     sb.append("    restart: ").append(toIndentedString(restart)).append("\n");
-    sb.append("    restoreFrom: ").append(toIndentedString(restoreFrom)).append("\n");
+    sb.append("    restore: ").append(toIndentedString(restore)).append("\n");
     sb.append("    restoreSpec: ").append(toIndentedString(restoreSpec)).append("\n");
     sb.append("    scriptSpec: ").append(toIndentedString(scriptSpec)).append("\n");
     sb.append("    switchover: ").append(toIndentedString(switchover)).append("\n");
     sb.append("    ttlSecondsAfterSucceed: ").append(toIndentedString(ttlSecondsAfterSucceed)).append("\n");
-    sb.append("    ttlSecondsBeforeAbort: ").append(toIndentedString(ttlSecondsBeforeAbort)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    upgrade: ").append(toIndentedString(upgrade)).append("\n");
     sb.append("    verticalScaling: ").append(toIndentedString(verticalScaling)).append("\n");
@@ -753,21 +873,25 @@ public class V1alpha1OpsRequestSpec {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
+    openapiFields.add("backup");
     openapiFields.add("backupSpec");
     openapiFields.add("cancel");
+    openapiFields.add("clusterName");
     openapiFields.add("clusterRef");
-    openapiFields.add("customSpec");
+    openapiFields.add("custom");
     openapiFields.add("expose");
+    openapiFields.add("force");
     openapiFields.add("horizontalScaling");
+    openapiFields.add("preConditionDeadlineSeconds");
+    openapiFields.add("rebuildFrom");
     openapiFields.add("reconfigure");
     openapiFields.add("reconfigures");
     openapiFields.add("restart");
-    openapiFields.add("restoreFrom");
+    openapiFields.add("restore");
     openapiFields.add("restoreSpec");
     openapiFields.add("scriptSpec");
     openapiFields.add("switchover");
     openapiFields.add("ttlSecondsAfterSucceed");
-    openapiFields.add("ttlSecondsBeforeAbort");
     openapiFields.add("type");
     openapiFields.add("upgrade");
     openapiFields.add("verticalScaling");
@@ -775,7 +899,6 @@ public class V1alpha1OpsRequestSpec {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("clusterRef");
     openapiRequiredFields.add("type");
   }
 
@@ -806,16 +929,23 @@ public class V1alpha1OpsRequestSpec {
           throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
         }
       }
+      // validate the optional field `backup`
+      if (jsonObj.get("backup") != null && !jsonObj.get("backup").isJsonNull()) {
+        V1alpha1OpsRequestSpecBackup.validateJsonObject(jsonObj.getAsJsonObject("backup"));
+      }
       // validate the optional field `backupSpec`
       if (jsonObj.get("backupSpec") != null && !jsonObj.get("backupSpec").isJsonNull()) {
         V1alpha1OpsRequestSpecBackupSpec.validateJsonObject(jsonObj.getAsJsonObject("backupSpec"));
       }
-      if (!jsonObj.get("clusterRef").isJsonPrimitive()) {
+      if ((jsonObj.get("clusterName") != null && !jsonObj.get("clusterName").isJsonNull()) && !jsonObj.get("clusterName").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `clusterName` to be a primitive type in the JSON string but got `%s`", jsonObj.get("clusterName").toString()));
+      }
+      if ((jsonObj.get("clusterRef") != null && !jsonObj.get("clusterRef").isJsonNull()) && !jsonObj.get("clusterRef").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `clusterRef` to be a primitive type in the JSON string but got `%s`", jsonObj.get("clusterRef").toString()));
       }
-      // validate the optional field `customSpec`
-      if (jsonObj.get("customSpec") != null && !jsonObj.get("customSpec").isJsonNull()) {
-        V1alpha1OpsRequestSpecCustomSpec.validateJsonObject(jsonObj.getAsJsonObject("customSpec"));
+      // validate the optional field `custom`
+      if (jsonObj.get("custom") != null && !jsonObj.get("custom").isJsonNull()) {
+        V1alpha1OpsRequestSpecCustom.validateJsonObject(jsonObj.getAsJsonObject("custom"));
       }
       if (jsonObj.get("expose") != null && !jsonObj.get("expose").isJsonNull()) {
         JsonArray jsonArrayexpose = jsonObj.getAsJsonArray("expose");
@@ -842,6 +972,20 @@ public class V1alpha1OpsRequestSpec {
           // validate the optional field `horizontalScaling` (array)
           for (int i = 0; i < jsonArrayhorizontalScaling.size(); i++) {
             V1alpha1OpsRequestSpecHorizontalScalingInner.validateJsonObject(jsonArrayhorizontalScaling.get(i).getAsJsonObject());
+          };
+        }
+      }
+      if (jsonObj.get("rebuildFrom") != null && !jsonObj.get("rebuildFrom").isJsonNull()) {
+        JsonArray jsonArrayrebuildFrom = jsonObj.getAsJsonArray("rebuildFrom");
+        if (jsonArrayrebuildFrom != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("rebuildFrom").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `rebuildFrom` to be an array in the JSON string but got `%s`", jsonObj.get("rebuildFrom").toString()));
+          }
+
+          // validate the optional field `rebuildFrom` (array)
+          for (int i = 0; i < jsonArrayrebuildFrom.size(); i++) {
+            V1alpha1OpsRequestSpecRebuildFromInner.validateJsonObject(jsonArrayrebuildFrom.get(i).getAsJsonObject());
           };
         }
       }
@@ -877,9 +1021,9 @@ public class V1alpha1OpsRequestSpec {
           };
         }
       }
-      // validate the optional field `restoreFrom`
-      if (jsonObj.get("restoreFrom") != null && !jsonObj.get("restoreFrom").isJsonNull()) {
-        V1alpha1OpsRequestSpecRestoreFrom.validateJsonObject(jsonObj.getAsJsonObject("restoreFrom"));
+      // validate the optional field `restore`
+      if (jsonObj.get("restore") != null && !jsonObj.get("restore").isJsonNull()) {
+        V1alpha1OpsRequestSpecRestore.validateJsonObject(jsonObj.getAsJsonObject("restore"));
       }
       // validate the optional field `restoreSpec`
       if (jsonObj.get("restoreSpec") != null && !jsonObj.get("restoreSpec").isJsonNull()) {

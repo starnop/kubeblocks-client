@@ -52,9 +52,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * Defines the user-defined volumes.
+ * Allows users to specify custom ConfigMaps and Secrets to be mounted as volumes in the Cluster&#39;s Pods. This is useful in scenarios where users need to provide additional resources to the Cluster, such as:   - Mounting custom scripts or configuration files during Cluster startup. - Mounting Secrets as volumes to provide sensitive information, like S3 AK/SK, to the Cluster.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterSpecComponentSpecsInnerUserResourceRefs {
   public static final String SERIALIZED_NAME_CONFIG_MAP_REFS = "configMapRefs";
   @SerializedName(SERIALIZED_NAME_CONFIG_MAP_REFS)
@@ -82,7 +82,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerUserResourceRefs {
   }
 
    /**
-   * ConfigMapRefs defines the user-defined config maps.
+   * ConfigMapRefs defines the user-defined ConfigMaps.
    * @return configMapRefs
   **/
   @jakarta.annotation.Nullable
@@ -111,7 +111,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerUserResourceRefs {
   }
 
    /**
-   * SecretRefs defines the user-defined secrets.
+   * SecretRefs defines the user-defined Secrets.
    * @return secretRefs
   **/
   @jakarta.annotation.Nullable

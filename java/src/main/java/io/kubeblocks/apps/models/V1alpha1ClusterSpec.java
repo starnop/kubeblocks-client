@@ -23,7 +23,6 @@ import com.google.gson.stream.JsonWriter;
 import io.kubeblocks.apps.models.V1alpha1ClusterSpecAffinity;
 import io.kubeblocks.apps.models.V1alpha1ClusterSpecBackup;
 import io.kubeblocks.apps.models.V1alpha1ClusterSpecComponentSpecsInner;
-import io.kubeblocks.apps.models.V1alpha1ClusterSpecMonitor;
 import io.kubeblocks.apps.models.V1alpha1ClusterSpecNetwork;
 import io.kubeblocks.apps.models.V1alpha1ClusterSpecResources;
 import io.kubeblocks.apps.models.V1alpha1ClusterSpecShardingSpecsInner;
@@ -60,14 +59,14 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * ClusterSpec defines the desired state of Cluster.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterSpec {
   public static final String SERIALIZED_NAME_AFFINITY = "affinity";
   @SerializedName(SERIALIZED_NAME_AFFINITY)
   private V1alpha1ClusterSpecAffinity affinity;
 
   /**
-   * Describes the availability policy, including zone, node, and none.
+   * Describes the availability policy, including zone, node, and none.   Deprecated since v0.9. This field is maintained for backward compatibility and its use is discouraged. Existing usage should be updated to the current preferred approach to avoid compatibility issues in future releases.
    */
   @JsonAdapter(AvailabilityPolicyEnum.Adapter.class)
   public enum AvailabilityPolicyEnum {
@@ -135,10 +134,6 @@ public class V1alpha1ClusterSpec {
   @SerializedName(SERIALIZED_NAME_COMPONENT_SPECS)
   private List<V1alpha1ClusterSpecComponentSpecsInner> componentSpecs;
 
-  public static final String SERIALIZED_NAME_MONITOR = "monitor";
-  @SerializedName(SERIALIZED_NAME_MONITOR)
-  private V1alpha1ClusterSpecMonitor monitor;
-
   public static final String SERIALIZED_NAME_NETWORK = "network";
   @SerializedName(SERIALIZED_NAME_NETWORK)
   private V1alpha1ClusterSpecNetwork network;
@@ -150,6 +145,10 @@ public class V1alpha1ClusterSpec {
   public static final String SERIALIZED_NAME_RESOURCES = "resources";
   @SerializedName(SERIALIZED_NAME_RESOURCES)
   private V1alpha1ClusterSpecResources resources;
+
+  public static final String SERIALIZED_NAME_RUNTIME_CLASS_NAME = "runtimeClassName";
+  @SerializedName(SERIALIZED_NAME_RUNTIME_CLASS_NAME)
+  private String runtimeClassName;
 
   public static final String SERIALIZED_NAME_SERVICES = "services";
   @SerializedName(SERIALIZED_NAME_SERVICES)
@@ -164,7 +163,7 @@ public class V1alpha1ClusterSpec {
   private V1alpha1ClusterSpecStorage storage;
 
   /**
-   * Describes how pods are distributed across node.
+   * Describes how Pods are distributed across node.   Deprecated since v0.9. This field is maintained for backward compatibility and its use is discouraged. Existing usage should be updated to the current preferred approach to avoid compatibility issues in future releases.
    */
   @JsonAdapter(TenancyEnum.Adapter.class)
   public enum TenancyEnum {
@@ -215,7 +214,7 @@ public class V1alpha1ClusterSpec {
   private TenancyEnum tenancy;
 
   /**
-   * Specifies the cluster termination policy.   - DoNotTerminate will block delete operation. - Halt will delete workload resources such as statefulset, deployment workloads but keep PVCs. - Delete is based on Halt and deletes PVCs. - WipeOut is based on Delete and wipe out all volume snapshots and snapshot data from backup storage location.
+   * Specifies the behavior when a Cluster is deleted. It defines how resources, data, and backups associated with a Cluster are managed during termination. Choose a policy based on the desired level of resource cleanup and data preservation:   - &#x60;DoNotTerminate&#x60;: Prevents deletion of the Cluster. This policy ensures that all resources remain intact. - &#x60;Halt&#x60;: Deletes Cluster resources like Pods and Services but retains Persistent Volume Claims (PVCs), allowing for data preservation while stopping other operations. - &#x60;Delete&#x60;: Extends the &#x60;Halt&#x60; policy by also removing PVCs, leading to a thorough cleanup while removing all persistent data. - &#x60;WipeOut&#x60;: An aggressive policy that deletes all Cluster resources, including volume snapshots and backups in external storage. This results in complete data removal and should be used cautiously, primarily in non-production environments to avoid irreversible data loss.   Warning: Choosing an inappropriate termination policy can result in data loss. The &#x60;WipeOut&#x60; policy is particularly risky in production environments due to its irreversible nature.
    */
   @JsonAdapter(TerminationPolicyEnum.Adapter.class)
   public enum TerminationPolicyEnum {
@@ -273,6 +272,10 @@ public class V1alpha1ClusterSpec {
   @SerializedName(SERIALIZED_NAME_TOLERATIONS)
   private Object tolerations;
 
+  public static final String SERIALIZED_NAME_TOPOLOGY = "topology";
+  @SerializedName(SERIALIZED_NAME_TOPOLOGY)
+  private String topology;
+
   public V1alpha1ClusterSpec() {
   }
 
@@ -304,7 +307,7 @@ public class V1alpha1ClusterSpec {
   }
 
    /**
-   * Describes the availability policy, including zone, node, and none.
+   * Describes the availability policy, including zone, node, and none.   Deprecated since v0.9. This field is maintained for backward compatibility and its use is discouraged. Existing usage should be updated to the current preferred approach to avoid compatibility issues in future releases.
    * @return availabilityPolicy
   **/
   @jakarta.annotation.Nullable
@@ -346,7 +349,7 @@ public class V1alpha1ClusterSpec {
   }
 
    /**
-   * Refers to the ClusterDefinition name. If not specified, ComponentDef must be specified for each Component in ComponentSpecs.
+   * Specifies the name of the ClusterDefinition to use when creating a Cluster.   This field enables users to create a Cluster based on a specific ClusterDefinition. Which, in conjunction with the &#x60;topology&#x60; field, determine:   - The Components to be included in the Cluster. - The sequences in which the Components are created, updated, and terminate.   This facilitates multiple-components management with predefined ClusterDefinition.   Users with advanced requirements can bypass this general setting and specify more precise control over the composition of the Cluster by directly referencing specific ComponentDefinitions for each component within &#x60;componentSpecs[*].componentDef&#x60;.   If this field is not provided, each component must be explicitly defined in &#x60;componentSpecs[*].componentDef&#x60;.   Note: Once set, this field cannot be modified; it is immutable.
    * @return clusterDefinitionRef
   **/
   @jakarta.annotation.Nullable
@@ -367,7 +370,7 @@ public class V1alpha1ClusterSpec {
   }
 
    /**
-   * Refers to the ClusterVersion name.
+   * Refers to the ClusterVersion name.   Deprecated since v0.9, use ComponentVersion instead. This field is maintained for backward compatibility and its use is discouraged. Existing usage should be updated to the current preferred approach to avoid compatibility issues in future releases.
    * @return clusterVersionRef
   **/
   @jakarta.annotation.Nullable
@@ -396,7 +399,7 @@ public class V1alpha1ClusterSpec {
   }
 
    /**
-   * List of componentSpec used to define the components that make up a cluster. ComponentSpecs and ShardingSpecs cannot both be empty at the same time.
+   * Specifies a list of ClusterComponentSpec objects used to define the individual Components that make up a Cluster. This field allows for detailed configuration of each Component within the Cluster.   Note: &#x60;shardingSpecs&#x60; and &#x60;componentSpecs&#x60; cannot both be empty; at least one must be defined to configure a Cluster.
    * @return componentSpecs
   **/
   @jakarta.annotation.Nullable
@@ -407,27 +410,6 @@ public class V1alpha1ClusterSpec {
 
   public void setComponentSpecs(List<V1alpha1ClusterSpecComponentSpecsInner> componentSpecs) {
     this.componentSpecs = componentSpecs;
-  }
-
-
-  public V1alpha1ClusterSpec monitor(V1alpha1ClusterSpecMonitor monitor) {
-    
-    this.monitor = monitor;
-    return this;
-  }
-
-   /**
-   * Get monitor
-   * @return monitor
-  **/
-  @jakarta.annotation.Nullable
-  public V1alpha1ClusterSpecMonitor getMonitor() {
-    return monitor;
-  }
-
-
-  public void setMonitor(V1alpha1ClusterSpecMonitor monitor) {
-    this.monitor = monitor;
   }
 
 
@@ -459,7 +441,7 @@ public class V1alpha1ClusterSpec {
   }
 
    /**
-   * Specifies the replicas of the first componentSpec, if the replicas of the first componentSpec is specified, this value will be ignored.
+   * Specifies the replicas of the first componentSpec, if the replicas of the first componentSpec is specified, this value will be ignored.   Deprecated since v0.9. This field is maintained for backward compatibility and its use is discouraged. Existing usage should be updated to the current preferred approach to avoid compatibility issues in future releases.
    * @return replicas
   **/
   @jakarta.annotation.Nullable
@@ -494,6 +476,27 @@ public class V1alpha1ClusterSpec {
   }
 
 
+  public V1alpha1ClusterSpec runtimeClassName(String runtimeClassName) {
+    
+    this.runtimeClassName = runtimeClassName;
+    return this;
+  }
+
+   /**
+   * Specifies runtimeClassName for all Pods managed by this Cluster.
+   * @return runtimeClassName
+  **/
+  @jakarta.annotation.Nullable
+  public String getRuntimeClassName() {
+    return runtimeClassName;
+  }
+
+
+  public void setRuntimeClassName(String runtimeClassName) {
+    this.runtimeClassName = runtimeClassName;
+  }
+
+
   public V1alpha1ClusterSpec services(Object services) {
     
     this.services = services;
@@ -501,7 +504,7 @@ public class V1alpha1ClusterSpec {
   }
 
    /**
-   * Defines the services to access a cluster.
+   * Defines a list of additional Services that are exposed by a Cluster. This field allows Services of selected Components, either from &#x60;componentSpecs&#x60; or &#x60;shardingSpecs&#x60; to be exposed, alongside Services defined with ComponentService.   Services defined here can be referenced by other clusters using the ServiceRefClusterSelector.
    * @return services
   **/
   @jakarta.annotation.Nullable
@@ -530,7 +533,7 @@ public class V1alpha1ClusterSpec {
   }
 
    /**
-   * List of ShardingSpec used to define components with a sharding topology structure that make up a cluster. ShardingSpecs and ComponentSpecs cannot both be empty at the same time.
+   * Specifies a list of ShardingSpec objects that manage the sharding topology for Cluster Components. Each ShardingSpec organizes components into shards, with each shard corresponding to a Component. Components within a shard are all based on a common ClusterComponentSpec template, ensuring uniform configurations.   This field supports dynamic resharding by facilitating the addition or removal of shards through the &#x60;shards&#x60; field in ShardingSpec.   Note: &#x60;shardingSpecs&#x60; and &#x60;componentSpecs&#x60; cannot both be empty; at least one must be defined to configure a Cluster.
    * @return shardingSpecs
   **/
   @jakarta.annotation.Nullable
@@ -572,7 +575,7 @@ public class V1alpha1ClusterSpec {
   }
 
    /**
-   * Describes how pods are distributed across node.
+   * Describes how Pods are distributed across node.   Deprecated since v0.9. This field is maintained for backward compatibility and its use is discouraged. Existing usage should be updated to the current preferred approach to avoid compatibility issues in future releases.
    * @return tenancy
   **/
   @jakarta.annotation.Nullable
@@ -593,7 +596,7 @@ public class V1alpha1ClusterSpec {
   }
 
    /**
-   * Specifies the cluster termination policy.   - DoNotTerminate will block delete operation. - Halt will delete workload resources such as statefulset, deployment workloads but keep PVCs. - Delete is based on Halt and deletes PVCs. - WipeOut is based on Delete and wipe out all volume snapshots and snapshot data from backup storage location.
+   * Specifies the behavior when a Cluster is deleted. It defines how resources, data, and backups associated with a Cluster are managed during termination. Choose a policy based on the desired level of resource cleanup and data preservation:   - &#x60;DoNotTerminate&#x60;: Prevents deletion of the Cluster. This policy ensures that all resources remain intact. - &#x60;Halt&#x60;: Deletes Cluster resources like Pods and Services but retains Persistent Volume Claims (PVCs), allowing for data preservation while stopping other operations. - &#x60;Delete&#x60;: Extends the &#x60;Halt&#x60; policy by also removing PVCs, leading to a thorough cleanup while removing all persistent data. - &#x60;WipeOut&#x60;: An aggressive policy that deletes all Cluster resources, including volume snapshots and backups in external storage. This results in complete data removal and should be used cautiously, primarily in non-production environments to avoid irreversible data loss.   Warning: Choosing an inappropriate termination policy can result in data loss. The &#x60;WipeOut&#x60; policy is particularly risky in production environments due to its irreversible nature.
    * @return terminationPolicy
   **/
   @jakarta.annotation.Nonnull
@@ -614,7 +617,7 @@ public class V1alpha1ClusterSpec {
   }
 
    /**
-   * Attached to tolerate any taint that matches the triple &#x60;key,value,effect&#x60; using the matching operator &#x60;operator&#x60;.
+   * An array that specifies tolerations attached to the Cluster&#39;s Pods, allowing them to be scheduled onto nodes with matching taints.
    * @return tolerations
   **/
   @jakarta.annotation.Nullable
@@ -625,6 +628,27 @@ public class V1alpha1ClusterSpec {
 
   public void setTolerations(Object tolerations) {
     this.tolerations = tolerations;
+  }
+
+
+  public V1alpha1ClusterSpec topology(String topology) {
+    
+    this.topology = topology;
+    return this;
+  }
+
+   /**
+   * Specifies the name of the ClusterTopology to be used when creating the Cluster.   This field defines which set of Components, as outlined in the ClusterDefinition, will be used to construct the Cluster based on the named topology. The ClusterDefinition may list multiple topologies under &#x60;clusterdefinition.spec.topologies[*]&#x60;, each tailored to different use cases or environments.   If &#x60;topology&#x60; is not specified, the Cluster will use the default topology defined in the ClusterDefinition.   Note: Once set during the Cluster creation, the &#x60;topology&#x60; field cannot be modified. It establishes the initial composition and structure of the Cluster and is intended for one-time configuration.
+   * @return topology
+  **/
+  @jakarta.annotation.Nullable
+  public String getTopology() {
+    return topology;
+  }
+
+
+  public void setTopology(String topology) {
+    this.topology = topology;
   }
 
 
@@ -644,21 +668,22 @@ public class V1alpha1ClusterSpec {
         Objects.equals(this.clusterDefinitionRef, v1alpha1ClusterSpec.clusterDefinitionRef) &&
         Objects.equals(this.clusterVersionRef, v1alpha1ClusterSpec.clusterVersionRef) &&
         Objects.equals(this.componentSpecs, v1alpha1ClusterSpec.componentSpecs) &&
-        Objects.equals(this.monitor, v1alpha1ClusterSpec.monitor) &&
         Objects.equals(this.network, v1alpha1ClusterSpec.network) &&
         Objects.equals(this.replicas, v1alpha1ClusterSpec.replicas) &&
         Objects.equals(this.resources, v1alpha1ClusterSpec.resources) &&
+        Objects.equals(this.runtimeClassName, v1alpha1ClusterSpec.runtimeClassName) &&
         Objects.equals(this.services, v1alpha1ClusterSpec.services) &&
         Objects.equals(this.shardingSpecs, v1alpha1ClusterSpec.shardingSpecs) &&
         Objects.equals(this.storage, v1alpha1ClusterSpec.storage) &&
         Objects.equals(this.tenancy, v1alpha1ClusterSpec.tenancy) &&
         Objects.equals(this.terminationPolicy, v1alpha1ClusterSpec.terminationPolicy) &&
-        Objects.equals(this.tolerations, v1alpha1ClusterSpec.tolerations);
+        Objects.equals(this.tolerations, v1alpha1ClusterSpec.tolerations) &&
+        Objects.equals(this.topology, v1alpha1ClusterSpec.topology);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(affinity, availabilityPolicy, backup, clusterDefinitionRef, clusterVersionRef, componentSpecs, monitor, network, replicas, resources, services, shardingSpecs, storage, tenancy, terminationPolicy, tolerations);
+    return Objects.hash(affinity, availabilityPolicy, backup, clusterDefinitionRef, clusterVersionRef, componentSpecs, network, replicas, resources, runtimeClassName, services, shardingSpecs, storage, tenancy, terminationPolicy, tolerations, topology);
   }
 
   @Override
@@ -671,16 +696,17 @@ public class V1alpha1ClusterSpec {
     sb.append("    clusterDefinitionRef: ").append(toIndentedString(clusterDefinitionRef)).append("\n");
     sb.append("    clusterVersionRef: ").append(toIndentedString(clusterVersionRef)).append("\n");
     sb.append("    componentSpecs: ").append(toIndentedString(componentSpecs)).append("\n");
-    sb.append("    monitor: ").append(toIndentedString(monitor)).append("\n");
     sb.append("    network: ").append(toIndentedString(network)).append("\n");
     sb.append("    replicas: ").append(toIndentedString(replicas)).append("\n");
     sb.append("    resources: ").append(toIndentedString(resources)).append("\n");
+    sb.append("    runtimeClassName: ").append(toIndentedString(runtimeClassName)).append("\n");
     sb.append("    services: ").append(toIndentedString(services)).append("\n");
     sb.append("    shardingSpecs: ").append(toIndentedString(shardingSpecs)).append("\n");
     sb.append("    storage: ").append(toIndentedString(storage)).append("\n");
     sb.append("    tenancy: ").append(toIndentedString(tenancy)).append("\n");
     sb.append("    terminationPolicy: ").append(toIndentedString(terminationPolicy)).append("\n");
     sb.append("    tolerations: ").append(toIndentedString(tolerations)).append("\n");
+    sb.append("    topology: ").append(toIndentedString(topology)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -709,16 +735,17 @@ public class V1alpha1ClusterSpec {
     openapiFields.add("clusterDefinitionRef");
     openapiFields.add("clusterVersionRef");
     openapiFields.add("componentSpecs");
-    openapiFields.add("monitor");
     openapiFields.add("network");
     openapiFields.add("replicas");
     openapiFields.add("resources");
+    openapiFields.add("runtimeClassName");
     openapiFields.add("services");
     openapiFields.add("shardingSpecs");
     openapiFields.add("storage");
     openapiFields.add("tenancy");
     openapiFields.add("terminationPolicy");
     openapiFields.add("tolerations");
+    openapiFields.add("topology");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -783,10 +810,6 @@ public class V1alpha1ClusterSpec {
           };
         }
       }
-      // validate the optional field `monitor`
-      if (jsonObj.get("monitor") != null && !jsonObj.get("monitor").isJsonNull()) {
-        V1alpha1ClusterSpecMonitor.validateJsonObject(jsonObj.getAsJsonObject("monitor"));
-      }
       // validate the optional field `network`
       if (jsonObj.get("network") != null && !jsonObj.get("network").isJsonNull()) {
         V1alpha1ClusterSpecNetwork.validateJsonObject(jsonObj.getAsJsonObject("network"));
@@ -794,6 +817,9 @@ public class V1alpha1ClusterSpec {
       // validate the optional field `resources`
       if (jsonObj.get("resources") != null && !jsonObj.get("resources").isJsonNull()) {
         V1alpha1ClusterSpecResources.validateJsonObject(jsonObj.getAsJsonObject("resources"));
+      }
+      if ((jsonObj.get("runtimeClassName") != null && !jsonObj.get("runtimeClassName").isJsonNull()) && !jsonObj.get("runtimeClassName").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `runtimeClassName` to be a primitive type in the JSON string but got `%s`", jsonObj.get("runtimeClassName").toString()));
       }
       if (jsonObj.get("shardingSpecs") != null && !jsonObj.get("shardingSpecs").isJsonNull()) {
         JsonArray jsonArrayshardingSpecs = jsonObj.getAsJsonArray("shardingSpecs");
@@ -818,6 +844,9 @@ public class V1alpha1ClusterSpec {
       }
       if (!jsonObj.get("terminationPolicy").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `terminationPolicy` to be a primitive type in the JSON string but got `%s`", jsonObj.get("terminationPolicy").toString()));
+      }
+      if ((jsonObj.get("topology") != null && !jsonObj.get("topology").isJsonNull()) && !jsonObj.get("topology").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `topology` to be a primitive type in the JSON string but got `%s`", jsonObj.get("topology").toString()));
       }
   }
 

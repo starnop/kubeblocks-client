@@ -51,7 +51,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * Defines the images for the component to perform a switchover. This overrides the image and env attributes defined in clusterDefinition.spec.componentDefs.SwitchoverSpec.CommandExecutorEnvItem.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterVersionSpecComponentVersionsInnerSwitchoverSpec {
   public static final String SERIALIZED_NAME_CMD_EXECUTOR_CONFIG = "cmdExecutorConfig";
   @SerializedName(SERIALIZED_NAME_CMD_EXECUTOR_CONFIG)

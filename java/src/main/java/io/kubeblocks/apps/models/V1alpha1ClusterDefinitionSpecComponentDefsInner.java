@@ -24,6 +24,7 @@ import io.kubeblocks.apps.models.V1alpha1ClusterDefinitionSpecComponentDefsInner
 import io.kubeblocks.apps.models.V1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner;
 import io.kubeblocks.apps.models.V1alpha1ClusterDefinitionSpecComponentDefsInnerConsensusSpec;
 import io.kubeblocks.apps.models.V1alpha1ClusterDefinitionSpecComponentDefsInnerCustomLabelSpecsInner;
+import io.kubeblocks.apps.models.V1alpha1ClusterDefinitionSpecComponentDefsInnerExporter;
 import io.kubeblocks.apps.models.V1alpha1ClusterDefinitionSpecComponentDefsInnerHorizontalScalePolicy;
 import io.kubeblocks.apps.models.V1alpha1ClusterDefinitionSpecComponentDefsInnerLogConfigsInner;
 import io.kubeblocks.apps.models.V1alpha1ClusterDefinitionSpecComponentDefsInnerMonitor;
@@ -70,9 +71,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * ClusterComponentDefinition provides a workload component specification template. Attributes are designed to work effectively with stateful workloads and day-2 operations behaviors.
+ * ClusterComponentDefinition defines a Component within a ClusterDefinition but is deprecated and has been replaced by ComponentDefinition.   Deprecated: Use ComponentDefinition instead. This type is deprecated as of version 0.8.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterDefinitionSpecComponentDefsInner {
   public static final String SERIALIZED_NAME_CHARACTER_TYPE = "characterType";
   @SerializedName(SERIALIZED_NAME_CHARACTER_TYPE)
@@ -97,6 +98,10 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInner {
   public static final String SERIALIZED_NAME_DESCRIPTION = "description";
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
   private String description;
+
+  public static final String SERIALIZED_NAME_EXPORTER = "exporter";
+  @SerializedName(SERIALIZED_NAME_EXPORTER)
+  private V1alpha1ClusterDefinitionSpecComponentDefsInnerExporter exporter;
 
   public static final String SERIALIZED_NAME_HORIZONTAL_SCALE_POLICY = "horizontalScalePolicy";
   @SerializedName(SERIALIZED_NAME_HORIZONTAL_SCALE_POLICY)
@@ -375,6 +380,27 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInner {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+
+  public V1alpha1ClusterDefinitionSpecComponentDefsInner exporter(V1alpha1ClusterDefinitionSpecComponentDefsInnerExporter exporter) {
+    
+    this.exporter = exporter;
+    return this;
+  }
+
+   /**
+   * Get exporter
+   * @return exporter
+  **/
+  @jakarta.annotation.Nullable
+  public V1alpha1ClusterDefinitionSpecComponentDefsInnerExporter getExporter() {
+    return exporter;
+  }
+
+
+  public void setExporter(V1alpha1ClusterDefinitionSpecComponentDefsInnerExporter exporter) {
+    this.exporter = exporter;
   }
 
 
@@ -825,6 +851,7 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInner {
         Objects.equals(this.consensusSpec, v1alpha1ClusterDefinitionSpecComponentDefsInner.consensusSpec) &&
         Objects.equals(this.customLabelSpecs, v1alpha1ClusterDefinitionSpecComponentDefsInner.customLabelSpecs) &&
         Objects.equals(this.description, v1alpha1ClusterDefinitionSpecComponentDefsInner.description) &&
+        Objects.equals(this.exporter, v1alpha1ClusterDefinitionSpecComponentDefsInner.exporter) &&
         Objects.equals(this.horizontalScalePolicy, v1alpha1ClusterDefinitionSpecComponentDefsInner.horizontalScalePolicy) &&
         Objects.equals(this.logConfigs, v1alpha1ClusterDefinitionSpecComponentDefsInner.logConfigs) &&
         Objects.equals(this.monitor, v1alpha1ClusterDefinitionSpecComponentDefsInner.monitor) &&
@@ -848,7 +875,7 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInner {
 
   @Override
   public int hashCode() {
-    return Objects.hash(characterType, componentDefRef, configSpecs, consensusSpec, customLabelSpecs, description, horizontalScalePolicy, logConfigs, monitor, name, podSpec, postStartSpec, probes, replicationSpec, rsmSpec, scriptSpecs, service, serviceRefDeclarations, statefulSpec, statelessSpec, switchoverSpec, systemAccounts, volumeProtectionSpec, volumeTypes, workloadType);
+    return Objects.hash(characterType, componentDefRef, configSpecs, consensusSpec, customLabelSpecs, description, exporter, horizontalScalePolicy, logConfigs, monitor, name, podSpec, postStartSpec, probes, replicationSpec, rsmSpec, scriptSpecs, service, serviceRefDeclarations, statefulSpec, statelessSpec, switchoverSpec, systemAccounts, volumeProtectionSpec, volumeTypes, workloadType);
   }
 
   @Override
@@ -861,6 +888,7 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInner {
     sb.append("    consensusSpec: ").append(toIndentedString(consensusSpec)).append("\n");
     sb.append("    customLabelSpecs: ").append(toIndentedString(customLabelSpecs)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    exporter: ").append(toIndentedString(exporter)).append("\n");
     sb.append("    horizontalScalePolicy: ").append(toIndentedString(horizontalScalePolicy)).append("\n");
     sb.append("    logConfigs: ").append(toIndentedString(logConfigs)).append("\n");
     sb.append("    monitor: ").append(toIndentedString(monitor)).append("\n");
@@ -908,6 +936,7 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInner {
     openapiFields.add("consensusSpec");
     openapiFields.add("customLabelSpecs");
     openapiFields.add("description");
+    openapiFields.add("exporter");
     openapiFields.add("horizontalScalePolicy");
     openapiFields.add("logConfigs");
     openapiFields.add("monitor");
@@ -1012,6 +1041,10 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInner {
       }
       if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull()) && !jsonObj.get("description").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
+      }
+      // validate the optional field `exporter`
+      if (jsonObj.get("exporter") != null && !jsonObj.get("exporter").isJsonNull()) {
+        V1alpha1ClusterDefinitionSpecComponentDefsInnerExporter.validateJsonObject(jsonObj.getAsJsonObject("exporter"));
       }
       // validate the optional field `horizontalScalePolicy`
       if (jsonObj.get("horizontalScalePolicy") != null && !jsonObj.get("horizontalScalePolicy").isJsonNull()) {

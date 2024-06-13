@@ -48,24 +48,24 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * Defines how to restore the cluster. Note that this restore operation will roll back cluster services.
+ * Deprecated: since v0.9, use restore instead. Specifies the parameters to restore a Cluster. Note that this restore operation will roll back cluster services.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsRequestSpecRestoreSpec {
   public static final String SERIALIZED_NAME_BACKUP_NAME = "backupName";
   @SerializedName(SERIALIZED_NAME_BACKUP_NAME)
   private String backupName;
 
-  public static final String SERIALIZED_NAME_EFFECTIVE_COMMON_COMPONENT_DEF = "effectiveCommonComponentDef";
-  @SerializedName(SERIALIZED_NAME_EFFECTIVE_COMMON_COMPONENT_DEF)
-  private Boolean effectiveCommonComponentDef;
+  public static final String SERIALIZED_NAME_DEFER_POST_READY_UNTIL_CLUSTER_RUNNING = "deferPostReadyUntilClusterRunning";
+  @SerializedName(SERIALIZED_NAME_DEFER_POST_READY_UNTIL_CLUSTER_RUNNING)
+  private Boolean deferPostReadyUntilClusterRunning;
 
-  public static final String SERIALIZED_NAME_RESTORE_TIME_STR = "restoreTimeStr";
-  @SerializedName(SERIALIZED_NAME_RESTORE_TIME_STR)
-  private String restoreTimeStr;
+  public static final String SERIALIZED_NAME_RESTORE_POINT_IN_TIME = "restorePointInTime";
+  @SerializedName(SERIALIZED_NAME_RESTORE_POINT_IN_TIME)
+  private String restorePointInTime;
 
   /**
-   * Specifies the volume claim restore policy, support values: [Serial, Parallel]
+   * Specifies the policy for restoring volume claims of a Component&#39;s Pods. It determines whether the volume claims should be restored sequentially (one by one) or in parallel (all at once). Support values:   - \&quot;Serial\&quot; - \&quot;Parallel\&quot;
    */
   @JsonAdapter(VolumeRestorePolicyEnum.Adapter.class)
   public enum VolumeRestorePolicyEnum {
@@ -125,7 +125,7 @@ public class V1alpha1OpsRequestSpecRestoreSpec {
   }
 
    /**
-   * Specifies the name of the backup.
+   * Specifies the name of the Backup custom resource.
    * @return backupName
   **/
   @jakarta.annotation.Nonnull
@@ -139,45 +139,45 @@ public class V1alpha1OpsRequestSpecRestoreSpec {
   }
 
 
-  public V1alpha1OpsRequestSpecRestoreSpec effectiveCommonComponentDef(Boolean effectiveCommonComponentDef) {
+  public V1alpha1OpsRequestSpecRestoreSpec deferPostReadyUntilClusterRunning(Boolean deferPostReadyUntilClusterRunning) {
     
-    this.effectiveCommonComponentDef = effectiveCommonComponentDef;
+    this.deferPostReadyUntilClusterRunning = deferPostReadyUntilClusterRunning;
     return this;
   }
 
    /**
-   * Indicates if this backup will be restored for all components which refer to common ComponentDefinition.
-   * @return effectiveCommonComponentDef
+   * Controls the timing of PostReady actions during the recovery process.   If false (default), PostReady actions execute when the Component reaches the \&quot;Running\&quot; state. If true, PostReady actions are delayed until the entire Cluster is \&quot;Running,\&quot; ensuring the cluster&#39;s overall stability before proceeding.   This setting is useful for coordinating PostReady operations across the Cluster for optimal cluster conditions.
+   * @return deferPostReadyUntilClusterRunning
   **/
   @jakarta.annotation.Nullable
-  public Boolean getEffectiveCommonComponentDef() {
-    return effectiveCommonComponentDef;
+  public Boolean getDeferPostReadyUntilClusterRunning() {
+    return deferPostReadyUntilClusterRunning;
   }
 
 
-  public void setEffectiveCommonComponentDef(Boolean effectiveCommonComponentDef) {
-    this.effectiveCommonComponentDef = effectiveCommonComponentDef;
+  public void setDeferPostReadyUntilClusterRunning(Boolean deferPostReadyUntilClusterRunning) {
+    this.deferPostReadyUntilClusterRunning = deferPostReadyUntilClusterRunning;
   }
 
 
-  public V1alpha1OpsRequestSpecRestoreSpec restoreTimeStr(String restoreTimeStr) {
+  public V1alpha1OpsRequestSpecRestoreSpec restorePointInTime(String restorePointInTime) {
     
-    this.restoreTimeStr = restoreTimeStr;
+    this.restorePointInTime = restorePointInTime;
     return this;
   }
 
    /**
-   * Defines the point in time to restore.
-   * @return restoreTimeStr
+   * Specifies the point in time to which the restore should be performed. Supported time formats:   - RFC3339 format, e.g. \&quot;2023-11-25T18:52:53Z\&quot; - A human-readable date-time format, e.g. \&quot;Jul 25,2023 18:52:53 UTC+0800\&quot;
+   * @return restorePointInTime
   **/
   @jakarta.annotation.Nullable
-  public String getRestoreTimeStr() {
-    return restoreTimeStr;
+  public String getRestorePointInTime() {
+    return restorePointInTime;
   }
 
 
-  public void setRestoreTimeStr(String restoreTimeStr) {
-    this.restoreTimeStr = restoreTimeStr;
+  public void setRestorePointInTime(String restorePointInTime) {
+    this.restorePointInTime = restorePointInTime;
   }
 
 
@@ -188,7 +188,7 @@ public class V1alpha1OpsRequestSpecRestoreSpec {
   }
 
    /**
-   * Specifies the volume claim restore policy, support values: [Serial, Parallel]
+   * Specifies the policy for restoring volume claims of a Component&#39;s Pods. It determines whether the volume claims should be restored sequentially (one by one) or in parallel (all at once). Support values:   - \&quot;Serial\&quot; - \&quot;Parallel\&quot;
    * @return volumeRestorePolicy
   **/
   @jakarta.annotation.Nullable
@@ -213,14 +213,14 @@ public class V1alpha1OpsRequestSpecRestoreSpec {
     }
     V1alpha1OpsRequestSpecRestoreSpec v1alpha1OpsRequestSpecRestoreSpec = (V1alpha1OpsRequestSpecRestoreSpec) o;
     return Objects.equals(this.backupName, v1alpha1OpsRequestSpecRestoreSpec.backupName) &&
-        Objects.equals(this.effectiveCommonComponentDef, v1alpha1OpsRequestSpecRestoreSpec.effectiveCommonComponentDef) &&
-        Objects.equals(this.restoreTimeStr, v1alpha1OpsRequestSpecRestoreSpec.restoreTimeStr) &&
+        Objects.equals(this.deferPostReadyUntilClusterRunning, v1alpha1OpsRequestSpecRestoreSpec.deferPostReadyUntilClusterRunning) &&
+        Objects.equals(this.restorePointInTime, v1alpha1OpsRequestSpecRestoreSpec.restorePointInTime) &&
         Objects.equals(this.volumeRestorePolicy, v1alpha1OpsRequestSpecRestoreSpec.volumeRestorePolicy);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(backupName, effectiveCommonComponentDef, restoreTimeStr, volumeRestorePolicy);
+    return Objects.hash(backupName, deferPostReadyUntilClusterRunning, restorePointInTime, volumeRestorePolicy);
   }
 
   @Override
@@ -228,8 +228,8 @@ public class V1alpha1OpsRequestSpecRestoreSpec {
     StringBuilder sb = new StringBuilder();
     sb.append("class V1alpha1OpsRequestSpecRestoreSpec {\n");
     sb.append("    backupName: ").append(toIndentedString(backupName)).append("\n");
-    sb.append("    effectiveCommonComponentDef: ").append(toIndentedString(effectiveCommonComponentDef)).append("\n");
-    sb.append("    restoreTimeStr: ").append(toIndentedString(restoreTimeStr)).append("\n");
+    sb.append("    deferPostReadyUntilClusterRunning: ").append(toIndentedString(deferPostReadyUntilClusterRunning)).append("\n");
+    sb.append("    restorePointInTime: ").append(toIndentedString(restorePointInTime)).append("\n");
     sb.append("    volumeRestorePolicy: ").append(toIndentedString(volumeRestorePolicy)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -254,8 +254,8 @@ public class V1alpha1OpsRequestSpecRestoreSpec {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("backupName");
-    openapiFields.add("effectiveCommonComponentDef");
-    openapiFields.add("restoreTimeStr");
+    openapiFields.add("deferPostReadyUntilClusterRunning");
+    openapiFields.add("restorePointInTime");
     openapiFields.add("volumeRestorePolicy");
 
     // a set of required properties/fields (JSON key names)
@@ -293,8 +293,8 @@ public class V1alpha1OpsRequestSpecRestoreSpec {
       if (!jsonObj.get("backupName").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `backupName` to be a primitive type in the JSON string but got `%s`", jsonObj.get("backupName").toString()));
       }
-      if ((jsonObj.get("restoreTimeStr") != null && !jsonObj.get("restoreTimeStr").isJsonNull()) && !jsonObj.get("restoreTimeStr").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `restoreTimeStr` to be a primitive type in the JSON string but got `%s`", jsonObj.get("restoreTimeStr").toString()));
+      if ((jsonObj.get("restorePointInTime") != null && !jsonObj.get("restorePointInTime").isJsonNull()) && !jsonObj.get("restorePointInTime").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `restorePointInTime` to be a primitive type in the JSON string but got `%s`", jsonObj.get("restorePointInTime").toString()));
       }
       if ((jsonObj.get("volumeRestorePolicy") != null && !jsonObj.get("volumeRestorePolicy").isJsonNull()) && !jsonObj.get("volumeRestorePolicy").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `volumeRestorePolicy` to be a primitive type in the JSON string but got `%s`", jsonObj.get("volumeRestorePolicy").toString()));

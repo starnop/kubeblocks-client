@@ -49,9 +49,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * ShardingSpec defines the sharding spec.
+ * ShardingSpec defines how KubeBlocks manage dynamic provisioned shards. A typical design pattern for distributed databases is to distribute data across multiple shards, with each shard consisting of multiple replicas. Therefore, KubeBlocks supports representing a shard with a Component and dynamically instantiating Components using a template when shards are added. When shards are removed, the corresponding Components are also deleted.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterSpecShardingSpecsInner {
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)
@@ -75,7 +75,7 @@ public class V1alpha1ClusterSpecShardingSpecsInner {
   }
 
    /**
-   * Specifies the identifier for the sharding configuration. This identifier is included as part of the Service DNS name and must comply with IANA Service Naming rules. It is used to generate the names of underlying components following the pattern &#x60;$(ShardingSpec.Name)-$(ShardID)&#x60;. Note that the name of the component template defined in ShardingSpec.Template.Name will be disregarded.
+   * Represents the common parent part of all shard names. This identifier is included as part of the Service DNS name and must comply with IANA service naming rules. It is used to generate the names of underlying Components following the pattern &#x60;$(shardingSpec.name)-$(ShardID)&#x60;. ShardID is a random string that is appended to the Name to generate unique identifiers for each shard. For example, if the sharding specification name is \&quot;my-shard\&quot; and the ShardID is \&quot;abc\&quot;, the resulting Component name would be \&quot;my-shard-abc\&quot;.   Note that the name defined in Component template(&#x60;shardingSpec.template.name&#x60;) will be disregarded when generating the Component names of the shards. The &#x60;shardingSpec.name&#x60; field takes precedence.
    * @return name
   **/
   @jakarta.annotation.Nonnull
@@ -96,7 +96,7 @@ public class V1alpha1ClusterSpecShardingSpecsInner {
   }
 
    /**
-   * Specifies the number of components, all of which will have identical specifications and definitions.   The number of replicas for each component should be defined by template.replicas. The logical relationship between these components should be maintained by the components themselves. KubeBlocks only provides lifecycle management for sharding, including:   1. Executing the postProvision Action defined in the ComponentDefinition when the number of shards increases, provided the conditions are met. 2. Executing the preTerminate Action defined in the ComponentDefinition when the number of shards decreases, provided the conditions are met. Resources and data associated with the corresponding Component will also be deleted.
+   * Specifies the desired number of shards. Users can declare the desired number of shards through this field. KubeBlocks dynamically creates and deletes Components based on the difference between the desired and actual number of shards. KubeBlocks provides lifecycle management for sharding, including:   - Executing the postProvision Action defined in the ComponentDefinition when the number of shards increases. This allows for custom actions to be performed after a new shard is provisioned. - Executing the preTerminate Action defined in the ComponentDefinition when the number of shards decreases. This enables custom cleanup or data migration tasks to be executed before a shard is terminated. Resources and data associated with the corresponding Component will also be deleted.
    * minimum: 0
    * maximum: 2048
    * @return shards

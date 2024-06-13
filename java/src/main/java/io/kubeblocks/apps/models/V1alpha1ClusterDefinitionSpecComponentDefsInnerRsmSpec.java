@@ -53,9 +53,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * Defines workload spec of this component. From KB 0.7.0, RSM(ReplicatedStateMachineSpec) will be the underlying CR which powers all kinds of workload in KB. RSM is an enhanced stateful workload extension dedicated for heavy-state workloads like databases.
+ * Defines workload spec of this component. From KB 0.7.0, RSM(InstanceSetSpec) will be the underlying CR which powers all kinds of workload in KB. RSM is an enhanced stateful workload extension dedicated for heavy-state workloads like databases.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterDefinitionSpecComponentDefsInnerRsmSpec {
   /**
    * Describes the strategy for updating Members (Pods).   - &#x60;Serial&#x60;: Updates Members sequentially to ensure minimum component downtime. - &#x60;BestEffortParallel&#x60;: Updates Members in parallel to ensure minimum component write downtime. - &#x60;Parallel&#x60;: Forces parallel updates.

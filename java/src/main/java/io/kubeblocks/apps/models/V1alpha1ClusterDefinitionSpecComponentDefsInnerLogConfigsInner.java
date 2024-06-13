@@ -50,7 +50,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * V1alpha1ClusterDefinitionSpecComponentDefsInnerLogConfigsInner
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterDefinitionSpecComponentDefsInnerLogConfigsInner {
   public static final String SERIALIZED_NAME_FILE_PATH_PATTERN = "filePathPattern";
   @SerializedName(SERIALIZED_NAME_FILE_PATH_PATTERN)
@@ -70,7 +70,7 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerLogConfigsInner {
   }
 
    /**
-   * Indicates the path to the log file using a pattern, it corresponds to the variable (log path) in the database kernel.
+   * Specifies the paths or patterns identifying where the log files are stored. This field allows the system to locate and manage log files effectively.   Examples:   - /home/postgres/pgdata/pgroot/data/log/postgresql-* - /data/mysql/log/mysqld-error.log
    * @return filePathPattern
   **/
   @jakarta.annotation.Nonnull
@@ -91,7 +91,7 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerLogConfigsInner {
   }
 
    /**
-   * Specifies the type of log, such as &#39;slow&#39; for a MySQL slow log file.
+   * Specifies a descriptive label for the log type, such as &#39;slow&#39; for a MySQL slow log file. It provides a clear identification of the log&#39;s purpose and content.
    * @return name
   **/
   @jakarta.annotation.Nonnull

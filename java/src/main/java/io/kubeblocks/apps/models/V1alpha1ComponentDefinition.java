@@ -51,9 +51,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * ComponentDefinition is the Schema for the componentdefinitions API
+ * ComponentDefinition serves as a reusable blueprint for creating Components, encapsulating essential static settings such as Component description, Pod templates, configuration file templates, scripts, parameter lists, injected environment variables and their sources, and event handlers. ComponentDefinition works in conjunction with dynamic settings from the ClusterComponentSpec, to instantiate Components during Cluster creation.   Key aspects that can be defined in a ComponentDefinition include:   - PodSpec template: Specifies the PodSpec template used by the Component. - Configuration templates: Specify the configuration file templates required by the Component. - Scripts: Provide the necessary scripts for Component management and operations. - Storage volumes: Specify the storage volumes and their configurations for the Component. - Pod roles: Outlines various roles of Pods within the Component along with their capabilities. - Exposed Kubernetes Services: Specify the Services that need to be exposed by the Component. - System accounts: Define the system accounts required for the Component. - Monitoring and logging: Configure the exporter and logging settings for the Component.   ComponentDefinitions also enable defining reactive behaviors of the Component in response to events, such as member join/leave, Component addition/deletion, role changes, switch over, and more. This allows for automatic event handling, thus encapsulating complex behaviors within the Component.   Referencing a ComponentDefinition when creating individual Components ensures inheritance of predefined configurations, promoting reusability and consistency across different deployments and cluster topologies.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ComponentDefinition implements io.kubernetes.client.common.KubernetesObject {
   public static final String SERIALIZED_NAME_API_VERSION = "apiVersion";
   @SerializedName(SERIALIZED_NAME_API_VERSION)

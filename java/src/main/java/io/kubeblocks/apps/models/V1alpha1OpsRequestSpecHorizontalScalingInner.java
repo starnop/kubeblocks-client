@@ -20,10 +20,9 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.kubeblocks.apps.models.V1alpha1ClusterSpecComponentSpecsInnerInstancesInner;
+import io.kubeblocks.apps.models.V1alpha1OpsRequestSpecHorizontalScalingInnerScaleIn;
+import io.kubeblocks.apps.models.V1alpha1OpsRequestSpecHorizontalScalingInnerScaleOut;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -51,29 +50,25 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * HorizontalScaling defines the variables of horizontal scaling operation
+ * HorizontalScaling defines the parameters of a horizontal scaling operation.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsRequestSpecHorizontalScalingInner {
   public static final String SERIALIZED_NAME_COMPONENT_NAME = "componentName";
   @SerializedName(SERIALIZED_NAME_COMPONENT_NAME)
   private String componentName;
 
-  public static final String SERIALIZED_NAME_INSTANCES_TO_ADD = "instancesToAdd";
-  @SerializedName(SERIALIZED_NAME_INSTANCES_TO_ADD)
-  private List<V1alpha1ClusterSpecComponentSpecsInnerInstancesInner> instancesToAdd;
-
-  public static final String SERIALIZED_NAME_INSTANCES_TO_DELETE = "instancesToDelete";
-  @SerializedName(SERIALIZED_NAME_INSTANCES_TO_DELETE)
-  private List<V1alpha1ClusterSpecComponentSpecsInnerInstancesInner> instancesToDelete;
-
-  public static final String SERIALIZED_NAME_INSTANCES_TO_UPDATE = "instancesToUpdate";
-  @SerializedName(SERIALIZED_NAME_INSTANCES_TO_UPDATE)
-  private List<V1alpha1ClusterSpecComponentSpecsInnerInstancesInner> instancesToUpdate;
-
   public static final String SERIALIZED_NAME_REPLICAS = "replicas";
   @SerializedName(SERIALIZED_NAME_REPLICAS)
   private Integer replicas;
+
+  public static final String SERIALIZED_NAME_SCALE_IN = "scaleIn";
+  @SerializedName(SERIALIZED_NAME_SCALE_IN)
+  private V1alpha1OpsRequestSpecHorizontalScalingInnerScaleIn scaleIn;
+
+  public static final String SERIALIZED_NAME_SCALE_OUT = "scaleOut";
+  @SerializedName(SERIALIZED_NAME_SCALE_OUT)
+  private V1alpha1OpsRequestSpecHorizontalScalingInnerScaleOut scaleOut;
 
   public V1alpha1OpsRequestSpecHorizontalScalingInner() {
   }
@@ -85,7 +80,7 @@ public class V1alpha1OpsRequestSpecHorizontalScalingInner {
   }
 
    /**
-   * Specifies the name of the cluster component.
+   * Specifies the name of the Component.
    * @return componentName
   **/
   @jakarta.annotation.Nonnull
@@ -99,93 +94,6 @@ public class V1alpha1OpsRequestSpecHorizontalScalingInner {
   }
 
 
-  public V1alpha1OpsRequestSpecHorizontalScalingInner instancesToAdd(List<V1alpha1ClusterSpecComponentSpecsInnerInstancesInner> instancesToAdd) {
-    
-    this.instancesToAdd = instancesToAdd;
-    return this;
-  }
-
-  public V1alpha1OpsRequestSpecHorizontalScalingInner addInstancesToAddItem(V1alpha1ClusterSpecComponentSpecsInnerInstancesInner instancesToAddItem) {
-    if (this.instancesToAdd == null) {
-      this.instancesToAdd = new ArrayList<>();
-    }
-    this.instancesToAdd.add(instancesToAddItem);
-    return this;
-  }
-
-   /**
-   * Specifies instances to add for the workloads.
-   * @return instancesToAdd
-  **/
-  @jakarta.annotation.Nullable
-  public List<V1alpha1ClusterSpecComponentSpecsInnerInstancesInner> getInstancesToAdd() {
-    return instancesToAdd;
-  }
-
-
-  public void setInstancesToAdd(List<V1alpha1ClusterSpecComponentSpecsInnerInstancesInner> instancesToAdd) {
-    this.instancesToAdd = instancesToAdd;
-  }
-
-
-  public V1alpha1OpsRequestSpecHorizontalScalingInner instancesToDelete(List<V1alpha1ClusterSpecComponentSpecsInnerInstancesInner> instancesToDelete) {
-    
-    this.instancesToDelete = instancesToDelete;
-    return this;
-  }
-
-  public V1alpha1OpsRequestSpecHorizontalScalingInner addInstancesToDeleteItem(V1alpha1ClusterSpecComponentSpecsInnerInstancesInner instancesToDeleteItem) {
-    if (this.instancesToDelete == null) {
-      this.instancesToDelete = new ArrayList<>();
-    }
-    this.instancesToDelete.add(instancesToDeleteItem);
-    return this;
-  }
-
-   /**
-   * Specifies instances to delete for the workloads.
-   * @return instancesToDelete
-  **/
-  @jakarta.annotation.Nullable
-  public List<V1alpha1ClusterSpecComponentSpecsInnerInstancesInner> getInstancesToDelete() {
-    return instancesToDelete;
-  }
-
-
-  public void setInstancesToDelete(List<V1alpha1ClusterSpecComponentSpecsInnerInstancesInner> instancesToDelete) {
-    this.instancesToDelete = instancesToDelete;
-  }
-
-
-  public V1alpha1OpsRequestSpecHorizontalScalingInner instancesToUpdate(List<V1alpha1ClusterSpecComponentSpecsInnerInstancesInner> instancesToUpdate) {
-    
-    this.instancesToUpdate = instancesToUpdate;
-    return this;
-  }
-
-  public V1alpha1OpsRequestSpecHorizontalScalingInner addInstancesToUpdateItem(V1alpha1ClusterSpecComponentSpecsInnerInstancesInner instancesToUpdateItem) {
-    if (this.instancesToUpdate == null) {
-      this.instancesToUpdate = new ArrayList<>();
-    }
-    this.instancesToUpdate.add(instancesToUpdateItem);
-    return this;
-  }
-
-   /**
-   * Specifies instances to update for the workloads.
-   * @return instancesToUpdate
-  **/
-  @jakarta.annotation.Nullable
-  public List<V1alpha1ClusterSpecComponentSpecsInnerInstancesInner> getInstancesToUpdate() {
-    return instancesToUpdate;
-  }
-
-
-  public void setInstancesToUpdate(List<V1alpha1ClusterSpecComponentSpecsInnerInstancesInner> instancesToUpdate) {
-    this.instancesToUpdate = instancesToUpdate;
-  }
-
-
   public V1alpha1OpsRequestSpecHorizontalScalingInner replicas(Integer replicas) {
     
     this.replicas = replicas;
@@ -193,11 +101,11 @@ public class V1alpha1OpsRequestSpecHorizontalScalingInner {
   }
 
    /**
-   * Specifies the number of replicas for the workloads.
+   * Deprecated: since v0.9, use scaleOut and scaleIn instead. Specifies the number of replicas for the component. Cannot be used with \&quot;scaleIn\&quot; and \&quot;scaleOut\&quot;.
    * minimum: 0
    * @return replicas
   **/
-  @jakarta.annotation.Nonnull
+  @jakarta.annotation.Nullable
   public Integer getReplicas() {
     return replicas;
   }
@@ -205,6 +113,48 @@ public class V1alpha1OpsRequestSpecHorizontalScalingInner {
 
   public void setReplicas(Integer replicas) {
     this.replicas = replicas;
+  }
+
+
+  public V1alpha1OpsRequestSpecHorizontalScalingInner scaleIn(V1alpha1OpsRequestSpecHorizontalScalingInnerScaleIn scaleIn) {
+    
+    this.scaleIn = scaleIn;
+    return this;
+  }
+
+   /**
+   * Get scaleIn
+   * @return scaleIn
+  **/
+  @jakarta.annotation.Nullable
+  public V1alpha1OpsRequestSpecHorizontalScalingInnerScaleIn getScaleIn() {
+    return scaleIn;
+  }
+
+
+  public void setScaleIn(V1alpha1OpsRequestSpecHorizontalScalingInnerScaleIn scaleIn) {
+    this.scaleIn = scaleIn;
+  }
+
+
+  public V1alpha1OpsRequestSpecHorizontalScalingInner scaleOut(V1alpha1OpsRequestSpecHorizontalScalingInnerScaleOut scaleOut) {
+    
+    this.scaleOut = scaleOut;
+    return this;
+  }
+
+   /**
+   * Get scaleOut
+   * @return scaleOut
+  **/
+  @jakarta.annotation.Nullable
+  public V1alpha1OpsRequestSpecHorizontalScalingInnerScaleOut getScaleOut() {
+    return scaleOut;
+  }
+
+
+  public void setScaleOut(V1alpha1OpsRequestSpecHorizontalScalingInnerScaleOut scaleOut) {
+    this.scaleOut = scaleOut;
   }
 
 
@@ -219,15 +169,14 @@ public class V1alpha1OpsRequestSpecHorizontalScalingInner {
     }
     V1alpha1OpsRequestSpecHorizontalScalingInner v1alpha1OpsRequestSpecHorizontalScalingInner = (V1alpha1OpsRequestSpecHorizontalScalingInner) o;
     return Objects.equals(this.componentName, v1alpha1OpsRequestSpecHorizontalScalingInner.componentName) &&
-        Objects.equals(this.instancesToAdd, v1alpha1OpsRequestSpecHorizontalScalingInner.instancesToAdd) &&
-        Objects.equals(this.instancesToDelete, v1alpha1OpsRequestSpecHorizontalScalingInner.instancesToDelete) &&
-        Objects.equals(this.instancesToUpdate, v1alpha1OpsRequestSpecHorizontalScalingInner.instancesToUpdate) &&
-        Objects.equals(this.replicas, v1alpha1OpsRequestSpecHorizontalScalingInner.replicas);
+        Objects.equals(this.replicas, v1alpha1OpsRequestSpecHorizontalScalingInner.replicas) &&
+        Objects.equals(this.scaleIn, v1alpha1OpsRequestSpecHorizontalScalingInner.scaleIn) &&
+        Objects.equals(this.scaleOut, v1alpha1OpsRequestSpecHorizontalScalingInner.scaleOut);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(componentName, instancesToAdd, instancesToDelete, instancesToUpdate, replicas);
+    return Objects.hash(componentName, replicas, scaleIn, scaleOut);
   }
 
   @Override
@@ -235,10 +184,9 @@ public class V1alpha1OpsRequestSpecHorizontalScalingInner {
     StringBuilder sb = new StringBuilder();
     sb.append("class V1alpha1OpsRequestSpecHorizontalScalingInner {\n");
     sb.append("    componentName: ").append(toIndentedString(componentName)).append("\n");
-    sb.append("    instancesToAdd: ").append(toIndentedString(instancesToAdd)).append("\n");
-    sb.append("    instancesToDelete: ").append(toIndentedString(instancesToDelete)).append("\n");
-    sb.append("    instancesToUpdate: ").append(toIndentedString(instancesToUpdate)).append("\n");
     sb.append("    replicas: ").append(toIndentedString(replicas)).append("\n");
+    sb.append("    scaleIn: ").append(toIndentedString(scaleIn)).append("\n");
+    sb.append("    scaleOut: ").append(toIndentedString(scaleOut)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -262,15 +210,13 @@ public class V1alpha1OpsRequestSpecHorizontalScalingInner {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("componentName");
-    openapiFields.add("instancesToAdd");
-    openapiFields.add("instancesToDelete");
-    openapiFields.add("instancesToUpdate");
     openapiFields.add("replicas");
+    openapiFields.add("scaleIn");
+    openapiFields.add("scaleOut");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
     openapiRequiredFields.add("componentName");
-    openapiRequiredFields.add("replicas");
   }
 
  /**
@@ -303,47 +249,13 @@ public class V1alpha1OpsRequestSpecHorizontalScalingInner {
       if (!jsonObj.get("componentName").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `componentName` to be a primitive type in the JSON string but got `%s`", jsonObj.get("componentName").toString()));
       }
-      if (jsonObj.get("instancesToAdd") != null && !jsonObj.get("instancesToAdd").isJsonNull()) {
-        JsonArray jsonArrayinstancesToAdd = jsonObj.getAsJsonArray("instancesToAdd");
-        if (jsonArrayinstancesToAdd != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("instancesToAdd").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `instancesToAdd` to be an array in the JSON string but got `%s`", jsonObj.get("instancesToAdd").toString()));
-          }
-
-          // validate the optional field `instancesToAdd` (array)
-          for (int i = 0; i < jsonArrayinstancesToAdd.size(); i++) {
-            V1alpha1ClusterSpecComponentSpecsInnerInstancesInner.validateJsonObject(jsonArrayinstancesToAdd.get(i).getAsJsonObject());
-          };
-        }
+      // validate the optional field `scaleIn`
+      if (jsonObj.get("scaleIn") != null && !jsonObj.get("scaleIn").isJsonNull()) {
+        V1alpha1OpsRequestSpecHorizontalScalingInnerScaleIn.validateJsonObject(jsonObj.getAsJsonObject("scaleIn"));
       }
-      if (jsonObj.get("instancesToDelete") != null && !jsonObj.get("instancesToDelete").isJsonNull()) {
-        JsonArray jsonArrayinstancesToDelete = jsonObj.getAsJsonArray("instancesToDelete");
-        if (jsonArrayinstancesToDelete != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("instancesToDelete").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `instancesToDelete` to be an array in the JSON string but got `%s`", jsonObj.get("instancesToDelete").toString()));
-          }
-
-          // validate the optional field `instancesToDelete` (array)
-          for (int i = 0; i < jsonArrayinstancesToDelete.size(); i++) {
-            V1alpha1ClusterSpecComponentSpecsInnerInstancesInner.validateJsonObject(jsonArrayinstancesToDelete.get(i).getAsJsonObject());
-          };
-        }
-      }
-      if (jsonObj.get("instancesToUpdate") != null && !jsonObj.get("instancesToUpdate").isJsonNull()) {
-        JsonArray jsonArrayinstancesToUpdate = jsonObj.getAsJsonArray("instancesToUpdate");
-        if (jsonArrayinstancesToUpdate != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("instancesToUpdate").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `instancesToUpdate` to be an array in the JSON string but got `%s`", jsonObj.get("instancesToUpdate").toString()));
-          }
-
-          // validate the optional field `instancesToUpdate` (array)
-          for (int i = 0; i < jsonArrayinstancesToUpdate.size(); i++) {
-            V1alpha1ClusterSpecComponentSpecsInnerInstancesInner.validateJsonObject(jsonArrayinstancesToUpdate.get(i).getAsJsonObject());
-          };
-        }
+      // validate the optional field `scaleOut`
+      if (jsonObj.get("scaleOut") != null && !jsonObj.get("scaleOut").isJsonNull()) {
+        V1alpha1OpsRequestSpecHorizontalScalingInnerScaleOut.validateJsonObject(jsonObj.getAsJsonObject("scaleOut"));
       }
   }
 

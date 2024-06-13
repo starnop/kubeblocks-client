@@ -52,9 +52,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * Defines the script to be executed from a configMap or secret.
+ * Specifies the sources of the scripts to be executed. Each script can be imported either from a ConfigMap or a Secret.   All scripts obtained from the sources specified in this field will be executed after any scripts provided in the &#x60;script&#x60; field.   Execution order: 1. Scripts provided in the &#x60;script&#x60; field, in the order of the scripts listed. 2. Scripts imported from ConfigMaps, in the order of the sources listed. 3. Scripts imported from Secrets, in the order of the sources listed.   Note: this field cannot be modified once set.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsRequestSpecScriptSpecScriptFrom {
   public static final String SERIALIZED_NAME_CONFIG_MAP_REF = "configMapRef";
   @SerializedName(SERIALIZED_NAME_CONFIG_MAP_REF)
@@ -82,7 +82,7 @@ public class V1alpha1OpsRequestSpecScriptSpecScriptFrom {
   }
 
    /**
-   * Specifies the configMap that is to be executed.
+   * A list of ConfigMapKeySelector objects, each specifies a ConfigMap and a key containing the script.   Note: This field cannot be modified once set.
    * @return configMapRef
   **/
   @jakarta.annotation.Nullable
@@ -111,7 +111,7 @@ public class V1alpha1OpsRequestSpecScriptSpecScriptFrom {
   }
 
    /**
-   * Specifies the secret that is to be executed.
+   * A list of SecretKeySelector objects, each specifies a Secret and a key containing the script.   Note: This field cannot be modified once set.
    * @return secretRef
   **/
   @jakarta.annotation.Nullable

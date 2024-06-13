@@ -53,9 +53,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * ComponentStatus represents the observed state of a Component within the cluster.
+ * ComponentStatus represents the observed state of a Component within the Cluster.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ComponentStatus {
   public static final String SERIALIZED_NAME_CONDITIONS = "conditions";
   @SerializedName(SERIALIZED_NAME_CONDITIONS)
@@ -70,7 +70,7 @@ public class V1alpha1ComponentStatus {
   private Long observedGeneration;
 
   /**
-   * Indicates the phase of the component. Detailed information for each phase is as follows:   - Creating: A special &#x60;Updating&#x60; phase with previous phase &#x60;empty&#x60;(means \&quot;\&quot;) or &#x60;Creating&#x60;. - Running: Component replicas &gt; 0 and all pod specs are latest with a Running state. - Updating: Component replicas &gt; 0 and no failed pods. The component is being updated. - Abnormal: Component replicas &gt; 0 but some pods have failed. The component is functional but in a fragile state. - Failed: Component replicas &gt; 0 but some pods have failed. The component is no longer functional. - Stopping: Component replicas &#x3D; 0 and pods are terminating. - Stopped: Component replicas &#x3D; 0 and all pods have been deleted. - Deleting: The component is being deleted.
+   * Indicates the current phase of the Component, with each phase indicating specific conditions:   - Creating: The initial phase for new Components, transitioning from &#39;empty&#39;(\&quot;\&quot;). - Running: All Pods in a Running state. - Updating: The Component is currently being updated, with no failed Pods present. - Abnormal: Some Pods have failed, indicating a potentially unstable state. However, the cluster remains available as long as a quorum of members is functioning. - Failed: A significant number of Pods or critical Pods have failed The cluster may be non-functional or may offer only limited services (e.g, read-only). - Stopping: All Pods are being terminated, with current replica count at zero. - Stopped: All associated Pods have been successfully deleted. - Deleting: The Component is being deleted.
    */
   @JsonAdapter(PhaseEnum.Adapter.class)
   public enum PhaseEnum {
@@ -150,7 +150,7 @@ public class V1alpha1ComponentStatus {
   }
 
    /**
-   * Defines the current state of the component API Resource, such as warnings.
+   * Represents a list of detailed status of the Component object. Each condition in the list provides real-time information about certain aspect of the Component object.   This field is crucial for administrators and developers to monitor and respond to changes within the Component. It provides a history of state transitions and a snapshot of the current state that can be used for automated logic or direct inspection.
    * @return conditions
   **/
   @jakarta.annotation.Nullable
@@ -179,7 +179,7 @@ public class V1alpha1ComponentStatus {
   }
 
    /**
-   * Records the detailed message of the component in its current phase. Keys can be podName, deployName, or statefulSetName. The format is &#x60;ObjectKind/Name&#x60;.
+   * A map that stores detailed message about the Component. Each entry in the map provides insights into specific elements of the Component, such as Pods or workloads.   Keys in this map are formatted as &#x60;ObjectKind/Name&#x60;, where &#x60;ObjectKind&#x60; could be a type like Pod, and &#x60;Name&#x60; is the specific name of the object.
    * @return message
   **/
   @jakarta.annotation.Nullable
@@ -200,7 +200,7 @@ public class V1alpha1ComponentStatus {
   }
 
    /**
-   * Specifies the most recent generation observed for this Component. This corresponds to the Cluster&#39;s generation, which is updated by the API Server upon mutation.
+   * Specifies the most recent generation observed for this Component object.
    * @return observedGeneration
   **/
   @jakarta.annotation.Nullable
@@ -221,7 +221,7 @@ public class V1alpha1ComponentStatus {
   }
 
    /**
-   * Indicates the phase of the component. Detailed information for each phase is as follows:   - Creating: A special &#x60;Updating&#x60; phase with previous phase &#x60;empty&#x60;(means \&quot;\&quot;) or &#x60;Creating&#x60;. - Running: Component replicas &gt; 0 and all pod specs are latest with a Running state. - Updating: Component replicas &gt; 0 and no failed pods. The component is being updated. - Abnormal: Component replicas &gt; 0 but some pods have failed. The component is functional but in a fragile state. - Failed: Component replicas &gt; 0 but some pods have failed. The component is no longer functional. - Stopping: Component replicas &#x3D; 0 and pods are terminating. - Stopped: Component replicas &#x3D; 0 and all pods have been deleted. - Deleting: The component is being deleted.
+   * Indicates the current phase of the Component, with each phase indicating specific conditions:   - Creating: The initial phase for new Components, transitioning from &#39;empty&#39;(\&quot;\&quot;). - Running: All Pods in a Running state. - Updating: The Component is currently being updated, with no failed Pods present. - Abnormal: Some Pods have failed, indicating a potentially unstable state. However, the cluster remains available as long as a quorum of members is functioning. - Failed: A significant number of Pods or critical Pods have failed The cluster may be non-functional or may offer only limited services (e.g, read-only). - Stopping: All Pods are being terminated, with current replica count at zero. - Stopped: All associated Pods have been successfully deleted. - Deleting: The Component is being deleted.
    * @return phase
   **/
   @jakarta.annotation.Nullable

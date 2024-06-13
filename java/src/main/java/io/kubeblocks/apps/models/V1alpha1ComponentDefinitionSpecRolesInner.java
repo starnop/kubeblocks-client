@@ -50,7 +50,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * ReplicaRole represents a role that can be assumed by a component instance.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ComponentDefinitionSpecRolesInner {
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)
@@ -78,7 +78,7 @@ public class V1alpha1ComponentDefinitionSpecRolesInner {
   }
 
    /**
-   * Defines the role&#39;s identifier. This will be applied to the \&quot;apps.kubeblocks.io/role\&quot; object label value. This field is immutable once set.
+   * Defines the role&#39;s identifier. It is used to set the \&quot;apps.kubeblocks.io/role\&quot; label value on the corresponding object.   This field is immutable once set.
    * @return name
   **/
   @jakarta.annotation.Nonnull
@@ -99,7 +99,7 @@ public class V1alpha1ComponentDefinitionSpecRolesInner {
   }
 
    /**
-   * Specifies if a replica assuming this role can provide services. This field is immutable once set.
+   * Indicates whether a replica assigned this role is capable of providing services.   This field is immutable once set.
    * @return serviceable
   **/
   @jakarta.annotation.Nullable
@@ -120,7 +120,7 @@ public class V1alpha1ComponentDefinitionSpecRolesInner {
   }
 
    /**
-   * Specifies if a replica assuming this role is permitted to vote. This field is immutable once set.
+   * Specifies whether a replica with this role has voting rights. In distributed systems, this typically means the replica can participate in consensus decisions, configuration changes, or other processes that require a quorum.   This field is immutable once set.
    * @return votable
   **/
   @jakarta.annotation.Nullable
@@ -141,7 +141,7 @@ public class V1alpha1ComponentDefinitionSpecRolesInner {
   }
 
    /**
-   * Specifies if a replica assuming this role is permitted to write data. This field is immutable once set.
+   * Determines if a replica in this role has the authority to perform write operations. A writable replica can modify data, handle update operations.   This field is immutable once set.
    * @return writable
   **/
   @jakarta.annotation.Nullable
