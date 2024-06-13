@@ -51,19 +51,11 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * V1alpha1ClusterStatusComponentsValueMembersStatusInner
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterStatusComponentsValueMembersStatusInner {
   public static final String SERIALIZED_NAME_POD_NAME = "podName";
   @SerializedName(SERIALIZED_NAME_POD_NAME)
   private String podName;
-
-  public static final String SERIALIZED_NAME_READY = "ready";
-  @SerializedName(SERIALIZED_NAME_READY)
-  private Boolean ready;
-
-  public static final String SERIALIZED_NAME_READY_WITHOUT_PRIMARY = "readyWithoutPrimary";
-  @SerializedName(SERIALIZED_NAME_READY_WITHOUT_PRIMARY)
-  private Boolean readyWithoutPrimary;
 
   public static final String SERIALIZED_NAME_ROLE = "role";
   @SerializedName(SERIALIZED_NAME_ROLE)
@@ -90,48 +82,6 @@ public class V1alpha1ClusterStatusComponentsValueMembersStatusInner {
 
   public void setPodName(String podName) {
     this.podName = podName;
-  }
-
-
-  public V1alpha1ClusterStatusComponentsValueMembersStatusInner ready(Boolean ready) {
-    
-    this.ready = ready;
-    return this;
-  }
-
-   /**
-   * Whether the corresponding Pod is in ready condition.
-   * @return ready
-  **/
-  @jakarta.annotation.Nullable
-  public Boolean getReady() {
-    return ready;
-  }
-
-
-  public void setReady(Boolean ready) {
-    this.ready = ready;
-  }
-
-
-  public V1alpha1ClusterStatusComponentsValueMembersStatusInner readyWithoutPrimary(Boolean readyWithoutPrimary) {
-    
-    this.readyWithoutPrimary = readyWithoutPrimary;
-    return this;
-  }
-
-   /**
-   * Indicates whether it is required for the replica set manager (rsm) to have at least one primary pod ready.
-   * @return readyWithoutPrimary
-  **/
-  @jakarta.annotation.Nullable
-  public Boolean getReadyWithoutPrimary() {
-    return readyWithoutPrimary;
-  }
-
-
-  public void setReadyWithoutPrimary(Boolean readyWithoutPrimary) {
-    this.readyWithoutPrimary = readyWithoutPrimary;
   }
 
 
@@ -167,14 +117,12 @@ public class V1alpha1ClusterStatusComponentsValueMembersStatusInner {
     }
     V1alpha1ClusterStatusComponentsValueMembersStatusInner v1alpha1ClusterStatusComponentsValueMembersStatusInner = (V1alpha1ClusterStatusComponentsValueMembersStatusInner) o;
     return Objects.equals(this.podName, v1alpha1ClusterStatusComponentsValueMembersStatusInner.podName) &&
-        Objects.equals(this.ready, v1alpha1ClusterStatusComponentsValueMembersStatusInner.ready) &&
-        Objects.equals(this.readyWithoutPrimary, v1alpha1ClusterStatusComponentsValueMembersStatusInner.readyWithoutPrimary) &&
         Objects.equals(this.role, v1alpha1ClusterStatusComponentsValueMembersStatusInner.role);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(podName, ready, readyWithoutPrimary, role);
+    return Objects.hash(podName, role);
   }
 
   @Override
@@ -182,8 +130,6 @@ public class V1alpha1ClusterStatusComponentsValueMembersStatusInner {
     StringBuilder sb = new StringBuilder();
     sb.append("class V1alpha1ClusterStatusComponentsValueMembersStatusInner {\n");
     sb.append("    podName: ").append(toIndentedString(podName)).append("\n");
-    sb.append("    ready: ").append(toIndentedString(ready)).append("\n");
-    sb.append("    readyWithoutPrimary: ").append(toIndentedString(readyWithoutPrimary)).append("\n");
     sb.append("    role: ").append(toIndentedString(role)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -208,8 +154,6 @@ public class V1alpha1ClusterStatusComponentsValueMembersStatusInner {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("podName");
-    openapiFields.add("ready");
-    openapiFields.add("readyWithoutPrimary");
     openapiFields.add("role");
 
     // a set of required properties/fields (JSON key names)

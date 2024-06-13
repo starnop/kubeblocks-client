@@ -53,7 +53,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * downwardAPI represents downward API about the pod that should populate this volume
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerDownwardAPI {
   public static final String SERIALIZED_NAME_DEFAULT_MODE = "defaultMode";
   @SerializedName(SERIALIZED_NAME_DEFAULT_MODE)

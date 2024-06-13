@@ -22,17 +22,19 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.kubeblocks.apps.models.V1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner;
 import io.kubeblocks.apps.models.V1alpha1ClusterDefinitionSpecComponentDefsInnerLogConfigsInner;
+import io.kubeblocks.apps.models.V1alpha1ClusterDefinitionSpecComponentDefsInnerMonitor;
 import io.kubeblocks.apps.models.V1alpha1ClusterDefinitionSpecComponentDefsInnerScriptSpecsInner;
 import io.kubeblocks.apps.models.V1alpha1ClusterDefinitionSpecComponentDefsInnerServiceRefDeclarationsInner;
+import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecExporter;
+import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecHostNetwork;
 import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecLifecycleActions;
-import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecMonitor;
 import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecPolicyRulesInner;
 import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecReplicasLimit;
 import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecRolesInner;
-import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecServicesInner;
 import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecSystemAccountsInner;
 import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecVarsInner;
 import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecVolumesInner;
+import io.kubeblocks.apps.models.V1alpha1ComponentSpecServicesInner;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,10 +67,14 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * ComponentDefinitionSpec provides a workload component specification with attributes that strongly work with stateful workloads and day-2 operation behaviors.
+ * V1alpha1ComponentDefinitionSpec
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ComponentDefinitionSpec {
+  public static final String SERIALIZED_NAME_ANNOTATIONS = "annotations";
+  @SerializedName(SERIALIZED_NAME_ANNOTATIONS)
+  private Map<String, String> annotations = new HashMap<>();
+
   public static final String SERIALIZED_NAME_CONFIGS = "configs";
   @SerializedName(SERIALIZED_NAME_CONFIGS)
   private List<V1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner> configs;
@@ -76,6 +82,14 @@ public class V1alpha1ComponentDefinitionSpec {
   public static final String SERIALIZED_NAME_DESCRIPTION = "description";
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
   private String description;
+
+  public static final String SERIALIZED_NAME_EXPORTER = "exporter";
+  @SerializedName(SERIALIZED_NAME_EXPORTER)
+  private V1alpha1ComponentDefinitionSpecExporter exporter;
+
+  public static final String SERIALIZED_NAME_HOST_NETWORK = "hostNetwork";
+  @SerializedName(SERIALIZED_NAME_HOST_NETWORK)
+  private V1alpha1ComponentDefinitionSpecHostNetwork hostNetwork;
 
   public static final String SERIALIZED_NAME_LABELS = "labels";
   @SerializedName(SERIALIZED_NAME_LABELS)
@@ -95,7 +109,7 @@ public class V1alpha1ComponentDefinitionSpec {
 
   public static final String SERIALIZED_NAME_MONITOR = "monitor";
   @SerializedName(SERIALIZED_NAME_MONITOR)
-  private V1alpha1ComponentDefinitionSpecMonitor monitor;
+  private V1alpha1ClusterDefinitionSpecComponentDefsInnerMonitor monitor;
 
   public static final String SERIALIZED_NAME_POLICY_RULES = "policyRules";
   @SerializedName(SERIALIZED_NAME_POLICY_RULES)
@@ -110,7 +124,7 @@ public class V1alpha1ComponentDefinitionSpec {
   private V1alpha1ComponentDefinitionSpecReplicasLimit replicasLimit;
 
   /**
-   * Defines the strategy for electing the component&#39;s active role. This field is immutable.
+   * This field has been deprecated since v0.9. This field is maintained for backward compatibility and its use is discouraged. Existing usage should be updated to the current preferred approach to avoid compatibility issues in future releases.   This field is immutable.
    */
   @JsonAdapter(RoleArbitratorEnum.Adapter.class)
   public enum RoleArbitratorEnum {
@@ -186,14 +200,14 @@ public class V1alpha1ComponentDefinitionSpec {
 
   public static final String SERIALIZED_NAME_SERVICES = "services";
   @SerializedName(SERIALIZED_NAME_SERVICES)
-  private List<V1alpha1ComponentDefinitionSpecServicesInner> services;
+  private List<V1alpha1ComponentSpecServicesInner> services;
 
   public static final String SERIALIZED_NAME_SYSTEM_ACCOUNTS = "systemAccounts";
   @SerializedName(SERIALIZED_NAME_SYSTEM_ACCOUNTS)
   private List<V1alpha1ComponentDefinitionSpecSystemAccountsInner> systemAccounts;
 
   /**
-   * Defines the strategy for updating the component instance. This field is immutable.
+   * Specifies the concurrency strategy for updating multiple instances of the Component. Available strategies:   - &#x60;Serial&#x60;: Updates replicas one at a time, ensuring minimal downtime by waiting for each replica to become ready before updating the next. - &#x60;Parallel&#x60;: Updates all replicas simultaneously, optimizing for speed but potentially reducing availability during the update. - &#x60;BestEffortParallel&#x60;: Updates replicas concurrently with a limit on simultaneous updates to ensure a minimum number of operational replicas for maintaining quorum. For example, in a 5-replica component, updating a maximum of 2 replicas simultaneously keeps at least 3 operational for quorum.   This field is immutable and defaults to &#39;Serial&#39;.
    */
   @JsonAdapter(UpdateStrategyEnum.Adapter.class)
   public enum UpdateStrategyEnum {
@@ -256,6 +270,35 @@ public class V1alpha1ComponentDefinitionSpec {
   public V1alpha1ComponentDefinitionSpec() {
   }
 
+  public V1alpha1ComponentDefinitionSpec annotations(Map<String, String> annotations) {
+    
+    this.annotations = annotations;
+    return this;
+  }
+
+  public V1alpha1ComponentDefinitionSpec putAnnotationsItem(String key, String annotationsItem) {
+    if (this.annotations == null) {
+      this.annotations = new HashMap<>();
+    }
+    this.annotations.put(key, annotationsItem);
+    return this;
+  }
+
+   /**
+   * Specifies static annotations that will be patched to all Kubernetes resources created for the Component.   Note: If an annotation key in the &#x60;annotations&#x60; field conflicts with any system annotations or user-specified annotations, it will be silently ignored to avoid overriding higher-priority annotations.   This field is immutable.
+   * @return annotations
+  **/
+  @jakarta.annotation.Nullable
+  public Map<String, String> getAnnotations() {
+    return annotations;
+  }
+
+
+  public void setAnnotations(Map<String, String> annotations) {
+    this.annotations = annotations;
+  }
+
+
   public V1alpha1ComponentDefinitionSpec configs(List<V1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner> configs) {
     
     this.configs = configs;
@@ -271,7 +314,7 @@ public class V1alpha1ComponentDefinitionSpec {
   }
 
    /**
-   * The configs field is provided by the provider, and finally, these configTemplateRefs will be rendered into the user&#39;s own configuration file according to the user&#39;s cluster. This field is immutable.   TODO: support referencing configs from other components or clusters.
+   * Specifies the configuration file templates and volume mount parameters used by the Component. It also includes descriptions of the parameters in the ConfigMaps, such as value range limitations.   This field specifies a list of templates that will be rendered into Component containers&#39; configuration files. Each template is represented as a ConfigMap and may contain multiple configuration files, with each file being a key in the ConfigMap.   The rendered configuration files will be mounted into the Component&#39;s containers according to the specified volume mount parameters.   This field is immutable.   TODO: support referencing configs from other components or clusters.
    * @return configs
   **/
   @jakarta.annotation.Nullable
@@ -292,7 +335,7 @@ public class V1alpha1ComponentDefinitionSpec {
   }
 
    /**
-   * Provides a brief description of the component.
+   * Provides a brief and concise explanation of the Component&#39;s purpose, functionality, and any relevant details. It serves as a quick reference for users to understand the Component&#39;s role and characteristics.
    * @return description
   **/
   @jakarta.annotation.Nullable
@@ -303,6 +346,48 @@ public class V1alpha1ComponentDefinitionSpec {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+
+  public V1alpha1ComponentDefinitionSpec exporter(V1alpha1ComponentDefinitionSpecExporter exporter) {
+    
+    this.exporter = exporter;
+    return this;
+  }
+
+   /**
+   * Get exporter
+   * @return exporter
+  **/
+  @jakarta.annotation.Nullable
+  public V1alpha1ComponentDefinitionSpecExporter getExporter() {
+    return exporter;
+  }
+
+
+  public void setExporter(V1alpha1ComponentDefinitionSpecExporter exporter) {
+    this.exporter = exporter;
+  }
+
+
+  public V1alpha1ComponentDefinitionSpec hostNetwork(V1alpha1ComponentDefinitionSpecHostNetwork hostNetwork) {
+    
+    this.hostNetwork = hostNetwork;
+    return this;
+  }
+
+   /**
+   * Get hostNetwork
+   * @return hostNetwork
+  **/
+  @jakarta.annotation.Nullable
+  public V1alpha1ComponentDefinitionSpecHostNetwork getHostNetwork() {
+    return hostNetwork;
+  }
+
+
+  public void setHostNetwork(V1alpha1ComponentDefinitionSpecHostNetwork hostNetwork) {
+    this.hostNetwork = hostNetwork;
   }
 
 
@@ -321,7 +406,7 @@ public class V1alpha1ComponentDefinitionSpec {
   }
 
    /**
-   * Defines static labels that will be patched to all k8s resources created for the component. If a label key conflicts with any other system labels or user-specified labels, it will be silently ignored. This field is immutable.
+   * Specifies static labels that will be patched to all Kubernetes resources created for the Component.   Note: If a label key in the &#x60;labels&#x60; field conflicts with any system labels or user-specified labels, it will be silently ignored to avoid overriding higher-priority labels.   This field is immutable.
    * @return labels
   **/
   @jakarta.annotation.Nullable
@@ -371,7 +456,7 @@ public class V1alpha1ComponentDefinitionSpec {
   }
 
    /**
-   * LogConfigs is a detailed log file config provided by the provider. This field is immutable.
+   * Defines the types of logs generated by instances of the Component and their corresponding file paths. These logs can be collected for further analysis and monitoring.   The &#x60;logConfigs&#x60; field is an optional list of LogConfig objects, where each object represents a specific log type and its configuration. It allows you to specify multiple log types and their respective file paths for the Component.   Examples:   &#x60;&#x60;&#x60;yaml logConfigs: - filePathPattern: /data/mysql/log/mysqld-error.log name: error - filePathPattern: /data/mysql/log/mysqld.log name: general - filePathPattern: /data/mysql/log/mysqld-slowquery.log name: slow &#x60;&#x60;&#x60;   This field is immutable.
    * @return logConfigs
   **/
   @jakarta.annotation.Nullable
@@ -392,7 +477,7 @@ public class V1alpha1ComponentDefinitionSpec {
   }
 
    /**
-   * Specifies the minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+   * &#x60;minReadySeconds&#x60; is the minimum duration in seconds that a new Pod should remain in the ready state without any of its containers crashing to be considered available. This ensures the Pod&#39;s stability and readiness to serve requests.   A default value of 0 seconds means the Pod is considered available as soon as it enters the ready state.
    * minimum: 0
    * @return minReadySeconds
   **/
@@ -407,7 +492,7 @@ public class V1alpha1ComponentDefinitionSpec {
   }
 
 
-  public V1alpha1ComponentDefinitionSpec monitor(V1alpha1ComponentDefinitionSpecMonitor monitor) {
+  public V1alpha1ComponentDefinitionSpec monitor(V1alpha1ClusterDefinitionSpecComponentDefsInnerMonitor monitor) {
     
     this.monitor = monitor;
     return this;
@@ -418,12 +503,12 @@ public class V1alpha1ComponentDefinitionSpec {
    * @return monitor
   **/
   @jakarta.annotation.Nullable
-  public V1alpha1ComponentDefinitionSpecMonitor getMonitor() {
+  public V1alpha1ClusterDefinitionSpecComponentDefsInnerMonitor getMonitor() {
     return monitor;
   }
 
 
-  public void setMonitor(V1alpha1ComponentDefinitionSpecMonitor monitor) {
+  public void setMonitor(V1alpha1ClusterDefinitionSpecComponentDefsInnerMonitor monitor) {
     this.monitor = monitor;
   }
 
@@ -443,7 +528,7 @@ public class V1alpha1ComponentDefinitionSpec {
   }
 
    /**
-   * Defines the namespaced policy rules required by the component. If any rule application fails (e.g., due to lack of permissions), the provisioning of the component instance will also fail. This field is immutable.
+   * Defines the namespaced policy rules required by the Component.   The &#x60;policyRules&#x60; field is an array of &#x60;rbacv1.PolicyRule&#x60; objects that define the policy rules needed by the Component to operate within a namespace. These policy rules determine the permissions and verbs the Component is allowed to perform on Kubernetes resources within the namespace.   The purpose of this field is to automatically generate the necessary RBAC roles for the Component based on the specified policy rules. This ensures that the Pods in the Component has appropriate permissions to function.   Note: This field is currently non-functional and is reserved for future implementation.   This field is immutable.
    * @return policyRules
   **/
   @jakarta.annotation.Nullable
@@ -464,7 +549,7 @@ public class V1alpha1ComponentDefinitionSpec {
   }
 
    /**
-   * Specifies the name of the component provider.
+   * Specifies the name of the Component provider, typically the vendor or developer name. It identifies the entity responsible for creating and maintaining the Component.   When specifying the provider name, consider the following guidelines:   - Keep the name concise and relevant to the Component. - Use a consistent naming convention across Components from the same provider. - Avoid using trademarked or copyrighted names without proper permission.
    * @return provider
   **/
   @jakarta.annotation.Nullable
@@ -506,7 +591,7 @@ public class V1alpha1ComponentDefinitionSpec {
   }
 
    /**
-   * Defines the strategy for electing the component&#39;s active role. This field is immutable.
+   * This field has been deprecated since v0.9. This field is maintained for backward compatibility and its use is discouraged. Existing usage should be updated to the current preferred approach to avoid compatibility issues in future releases.   This field is immutable.
    * @return roleArbitrator
   **/
   @jakarta.annotation.Nullable
@@ -535,7 +620,7 @@ public class V1alpha1ComponentDefinitionSpec {
   }
 
    /**
-   * Defines all the roles that the component can assume. This field is immutable.
+   * Enumerate all possible roles assigned to each replica of the Component, influencing its behavior.   A replica can have zero to multiple roles. KubeBlocks operator determines the roles of each replica by invoking the &#x60;lifecycleActions.roleProbe&#x60; method. This action returns a list of roles for each replica, and the returned roles must be predefined in the &#x60;roles&#x60; field.   The roles assigned to a replica can influence various aspects of the Component&#39;s behavior, such as:   - Service selection: The Component&#39;s exposed Services may target replicas based on their roles using &#x60;roleSelector&#x60;. - Update order: The roles can determine the order in which replicas are updated during a Component update. For instance, replicas with a \&quot;follower\&quot; role can be updated first, while the replica with the \&quot;leader\&quot; role is updated last. This helps minimize the number of leader changes during the update process.   This field is immutable.
    * @return roles
   **/
   @jakarta.annotation.Nullable
@@ -556,7 +641,7 @@ public class V1alpha1ComponentDefinitionSpec {
   }
 
    /**
-   * Primarily defines runtime information for the component, including:   - Init containers - Containers - Image - Commands - Args - Envs - Mounts - Ports - Security context - Probes - Lifecycle - Volumes   CPU and memory resource limits, as well as scheduling settings (affinity, toleration, priority), should not be configured within this structure. This field is immutable.
+   * Specifies the PodSpec template used in the Component. It includes the following elements:   - Init containers - Containers - Image - Commands - Args - Envs - Mounts - Ports - Security context - Probes - Lifecycle - Volumes   This field is intended to define static settings that remain consistent across all instantiated Components. Dynamic settings such as CPU and memory resource limits, as well as scheduling settings (affinity, toleration, priority), may vary among different instantiated Components. They should be specified in the &#x60;cluster.spec.componentSpecs&#x60; (ClusterComponentSpec).   Specific instances of a Component may override settings defined here, such as using a different container image or modifying environment variable values. These instance-specific overrides can be specified in &#x60;cluster.spec.componentSpecs[*].instances&#x60;.   This field is immutable and cannot be updated once set.
    * @return runtime
   **/
   @jakarta.annotation.Nonnull
@@ -585,7 +670,7 @@ public class V1alpha1ComponentDefinitionSpec {
   }
 
    /**
-   * The scripts field is provided by the provider, and finally, these configTemplateRefs will be rendered into the user&#39;s own configuration file according to the user&#39;s cluster. This field is immutable.
+   * Specifies groups of scripts, each provided via a ConfigMap, to be mounted as volumes in the container. These scripts can be executed during container startup or via specific actions.   Each script group is encapsulated in a ComponentTemplateSpec that includes:   - The ConfigMap containing the scripts. - The mount point where the scripts will be mounted inside the container.   This field is immutable.
    * @return scripts
   **/
   @jakarta.annotation.Nullable
@@ -606,7 +691,7 @@ public class V1alpha1ComponentDefinitionSpec {
   }
 
    /**
-   * Defines the type of well-known service that the component provides (e.g., MySQL, Redis, ETCD, case insensitive). This field is immutable.
+   * Defines the type of well-known service protocol that the Component provides. It specifies the standard or widely recognized protocol used by the Component to offer its Services.   The &#x60;serviceKind&#x60; field allows users to quickly identify the type of Service provided by the Component based on common protocols or service types. This information helps in understanding the compatibility, interoperability, and usage of the Component within a system.   Some examples of well-known service protocols include:   - \&quot;MySQL\&quot;: Indicates that the Component provides a MySQL database service. - \&quot;PostgreSQL\&quot;: Indicates that the Component offers a PostgreSQL database service. - \&quot;Redis\&quot;: Signifies that the Component functions as a Redis key-value store. - \&quot;ETCD\&quot;: Denotes that the Component serves as an ETCD distributed key-value store.   The &#x60;serviceKind&#x60; value is case-insensitive, allowing for flexibility in specifying the protocol name.   When specifying the &#x60;serviceKind&#x60;, consider the following guidelines:   - Use well-established and widely recognized protocol names or service types. - Ensure that the &#x60;serviceKind&#x60; accurately represents the primary service type offered by the Component. - If the Component provides multiple services, choose the most prominent or commonly used protocol. - Limit the &#x60;serviceKind&#x60; to a maximum of 32 characters for conciseness and readability.   Note: The &#x60;serviceKind&#x60; field is optional and can be left empty if the Component does not fit into a well-known service category or if the protocol is not widely recognized. It is primarily used to convey information about the Component&#39;s service type to users and facilitate discovery and integration.   The &#x60;serviceKind&#x60; field is immutable and cannot be updated.
    * @return serviceKind
   **/
   @jakarta.annotation.Nullable
@@ -635,7 +720,7 @@ public class V1alpha1ComponentDefinitionSpec {
   }
 
    /**
-   * Used to declare the service reference of the current component. This field is immutable.
+   * Lists external service dependencies of the Component, including services from other Clusters or outside the K8s environment.   This field is immutable.
    * @return serviceRefDeclarations
   **/
   @jakarta.annotation.Nullable
@@ -656,7 +741,7 @@ public class V1alpha1ComponentDefinitionSpec {
   }
 
    /**
-   * Specifies the version of the well-known service that the component provides. This field is immutable.
+   * Specifies the version of the Service provided by the Component. It follows the syntax and semantics of the \&quot;Semantic Versioning\&quot; specification (http://semver.org/).   The Semantic Versioning specification defines a version number format of X.Y.Z (MAJOR.MINOR.PATCH), where:   - X represents the major version and indicates incompatible API changes. - Y represents the minor version and indicates added functionality in a backward-compatible manner. - Z represents the patch version and indicates backward-compatible bug fixes.   Additional labels for pre-release and build metadata are available as extensions to the X.Y.Z format:   - Use pre-release labels (e.g., -alpha, -beta) for versions that are not yet stable or ready for production use. - Use build metadata (e.g., +build.1) for additional version information if needed.   Examples of valid ServiceVersion values:   - \&quot;1.0.0\&quot; - \&quot;2.3.1\&quot; - \&quot;3.0.0-alpha.1\&quot; - \&quot;4.5.2+build.1\&quot;   The &#x60;serviceVersion&#x60; field is immutable and cannot be updated.
    * @return serviceVersion
   **/
   @jakarta.annotation.Nullable
@@ -670,13 +755,13 @@ public class V1alpha1ComponentDefinitionSpec {
   }
 
 
-  public V1alpha1ComponentDefinitionSpec services(List<V1alpha1ComponentDefinitionSpecServicesInner> services) {
+  public V1alpha1ComponentDefinitionSpec services(List<V1alpha1ComponentSpecServicesInner> services) {
     
     this.services = services;
     return this;
   }
 
-  public V1alpha1ComponentDefinitionSpec addServicesItem(V1alpha1ComponentDefinitionSpecServicesInner servicesItem) {
+  public V1alpha1ComponentDefinitionSpec addServicesItem(V1alpha1ComponentSpecServicesInner servicesItem) {
     if (this.services == null) {
       this.services = new ArrayList<>();
     }
@@ -685,16 +770,16 @@ public class V1alpha1ComponentDefinitionSpec {
   }
 
    /**
-   * Defines endpoints that can be used to access the component service to manage the component.   In addition, a reserved headless service will be created by default, with the name pattern &#x60;{clusterName}-{componentName}-headless&#x60;. This field is immutable.
+   * Defines additional Services to expose the Component&#39;s endpoints.   A default headless Service, named &#x60;{cluster.name}-{component.name}-headless&#x60;, is automatically created for internal Cluster communication.   This field enables customization of additional Services to expose the Component&#39;s endpoints to other Components within the same or different Clusters, and to external applications. Each Service entry in this list can include properties such as ports, type, and selectors.   - For intra-Cluster access, Components can reference Services using variables declared in &#x60;componentDefinition.spec.vars[*].valueFrom.serviceVarRef&#x60;. - For inter-Cluster access, reference Services use variables declared in &#x60;componentDefinition.spec.vars[*].valueFrom.serviceRefVarRef&#x60;, and bind Services at Cluster creation time with &#x60;clusterComponentSpec.ServiceRef[*].clusterServiceSelector&#x60;.   This field is immutable.
    * @return services
   **/
   @jakarta.annotation.Nullable
-  public List<V1alpha1ComponentDefinitionSpecServicesInner> getServices() {
+  public List<V1alpha1ComponentSpecServicesInner> getServices() {
     return services;
   }
 
 
-  public void setServices(List<V1alpha1ComponentDefinitionSpecServicesInner> services) {
+  public void setServices(List<V1alpha1ComponentSpecServicesInner> services) {
     this.services = services;
   }
 
@@ -714,7 +799,7 @@ public class V1alpha1ComponentDefinitionSpec {
   }
 
    /**
-   * Defines the pre-defined system accounts required to manage the component. TODO(component): accounts KB required This field is immutable.
+   * An array of &#x60;SystemAccount&#x60; objects that define the system accounts needed for the management operations of the Component.   Each &#x60;SystemAccount&#x60; includes:   - Account name. - The SQL statement template: Used to create the system account. - Password Source: Either generated based on certain rules or retrieved from a Secret.   Use cases for system accounts typically involve tasks like system initialization, backups, monitoring, health checks, replication, and other system-level operations.   System accounts are distinct from user accounts, although both are database accounts.   - **System Accounts**: Created during Cluster setup by the KubeBlocks operator, these accounts have higher privileges for system management and are fully managed through a declarative API by the operator. - **User Accounts**: Managed by users or administrator. User account permissions should follow the principle of least privilege, granting only the necessary access rights to complete their required tasks.   This field is immutable.
    * @return systemAccounts
   **/
   @jakarta.annotation.Nullable
@@ -735,7 +820,7 @@ public class V1alpha1ComponentDefinitionSpec {
   }
 
    /**
-   * Defines the strategy for updating the component instance. This field is immutable.
+   * Specifies the concurrency strategy for updating multiple instances of the Component. Available strategies:   - &#x60;Serial&#x60;: Updates replicas one at a time, ensuring minimal downtime by waiting for each replica to become ready before updating the next. - &#x60;Parallel&#x60;: Updates all replicas simultaneously, optimizing for speed but potentially reducing availability during the update. - &#x60;BestEffortParallel&#x60;: Updates replicas concurrently with a limit on simultaneous updates to ensure a minimum number of operational replicas for maintaining quorum. For example, in a 5-replica component, updating a maximum of 2 replicas simultaneously keeps at least 3 operational for quorum.   This field is immutable and defaults to &#39;Serial&#39;.
    * @return updateStrategy
   **/
   @jakarta.annotation.Nullable
@@ -764,7 +849,7 @@ public class V1alpha1ComponentDefinitionSpec {
   }
 
    /**
-   * Represents user-defined variables.   These variables can be utilized as environment variables for Pods and Actions, or to render the templates of config and script. When used as environment variables, these variables are placed in front of the environment variables declared in the Pod. This field is immutable.
+   * Defines variables which are determined after Cluster instantiation and reflect dynamic or runtime attributes of instantiated Clusters. These variables serve as placeholders for setting environment variables in Pods and Actions, or for rendering configuration and script templates before actual values are finalized.   These variables are placed in front of the environment variables declared in the Pod if used as environment variables.   Variable values can be sourced from:   - ConfigMap: Select and extract a value from a specific key within a ConfigMap. - Secret: Select and extract a value from a specific key within a Secret. - HostNetwork: Retrieves values (including ports) from host-network resources. - Service: Retrieves values (including address, port, NodePort) from a selected Service. Intended to obtain the address of a ComponentService within the same Cluster. - Credential: Retrieves account name and password from a SystemAccount variable. - ServiceRef: Retrieves address, port, account name and password from a selected ServiceRefDeclaration. Designed to obtain the address bound to a ServiceRef, such as a ClusterService or ComponentService of another cluster or an external service. - Component: Retrieves values from a selected Component, including replicas and instance name list.   This field is immutable.
    * @return vars
   **/
   @jakarta.annotation.Nullable
@@ -793,7 +878,7 @@ public class V1alpha1ComponentDefinitionSpec {
   }
 
    /**
-   * Defines the persistent volumes needed by the component. Users are responsible for providing these volumes when creating a component instance. This field is immutable.
+   * Defines the volumes used by the Component and some static attributes of the volumes. After defining the volumes here, user can reference them in the &#x60;cluster.spec.componentSpecs[*].volumeClaimTemplates&#x60; field to configure dynamic properties such as volume capacity and storage class.   This field allows you to specify the following:   - Snapshot behavior: Determines whether a snapshot of the volume should be taken when performing a snapshot backup of the Component. - Disk high watermark: Sets the high watermark for the volume&#39;s disk usage. When the disk usage reaches the specified threshold, it triggers an alert or action.   By configuring these volume behaviors, you can control how the volumes are managed and monitored within the Component.   This field is immutable.
    * @return volumes
   **/
   @jakarta.annotation.Nullable
@@ -817,8 +902,11 @@ public class V1alpha1ComponentDefinitionSpec {
       return false;
     }
     V1alpha1ComponentDefinitionSpec v1alpha1ComponentDefinitionSpec = (V1alpha1ComponentDefinitionSpec) o;
-    return Objects.equals(this.configs, v1alpha1ComponentDefinitionSpec.configs) &&
+    return Objects.equals(this.annotations, v1alpha1ComponentDefinitionSpec.annotations) &&
+        Objects.equals(this.configs, v1alpha1ComponentDefinitionSpec.configs) &&
         Objects.equals(this.description, v1alpha1ComponentDefinitionSpec.description) &&
+        Objects.equals(this.exporter, v1alpha1ComponentDefinitionSpec.exporter) &&
+        Objects.equals(this.hostNetwork, v1alpha1ComponentDefinitionSpec.hostNetwork) &&
         Objects.equals(this.labels, v1alpha1ComponentDefinitionSpec.labels) &&
         Objects.equals(this.lifecycleActions, v1alpha1ComponentDefinitionSpec.lifecycleActions) &&
         Objects.equals(this.logConfigs, v1alpha1ComponentDefinitionSpec.logConfigs) &&
@@ -843,15 +931,18 @@ public class V1alpha1ComponentDefinitionSpec {
 
   @Override
   public int hashCode() {
-    return Objects.hash(configs, description, labels, lifecycleActions, logConfigs, minReadySeconds, monitor, policyRules, provider, replicasLimit, roleArbitrator, roles, runtime, scripts, serviceKind, serviceRefDeclarations, serviceVersion, services, systemAccounts, updateStrategy, vars, volumes);
+    return Objects.hash(annotations, configs, description, exporter, hostNetwork, labels, lifecycleActions, logConfigs, minReadySeconds, monitor, policyRules, provider, replicasLimit, roleArbitrator, roles, runtime, scripts, serviceKind, serviceRefDeclarations, serviceVersion, services, systemAccounts, updateStrategy, vars, volumes);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class V1alpha1ComponentDefinitionSpec {\n");
+    sb.append("    annotations: ").append(toIndentedString(annotations)).append("\n");
     sb.append("    configs: ").append(toIndentedString(configs)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    exporter: ").append(toIndentedString(exporter)).append("\n");
+    sb.append("    hostNetwork: ").append(toIndentedString(hostNetwork)).append("\n");
     sb.append("    labels: ").append(toIndentedString(labels)).append("\n");
     sb.append("    lifecycleActions: ").append(toIndentedString(lifecycleActions)).append("\n");
     sb.append("    logConfigs: ").append(toIndentedString(logConfigs)).append("\n");
@@ -894,8 +985,11 @@ public class V1alpha1ComponentDefinitionSpec {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
+    openapiFields.add("annotations");
     openapiFields.add("configs");
     openapiFields.add("description");
+    openapiFields.add("exporter");
+    openapiFields.add("hostNetwork");
     openapiFields.add("labels");
     openapiFields.add("lifecycleActions");
     openapiFields.add("logConfigs");
@@ -966,6 +1060,14 @@ public class V1alpha1ComponentDefinitionSpec {
       if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull()) && !jsonObj.get("description").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
       }
+      // validate the optional field `exporter`
+      if (jsonObj.get("exporter") != null && !jsonObj.get("exporter").isJsonNull()) {
+        V1alpha1ComponentDefinitionSpecExporter.validateJsonObject(jsonObj.getAsJsonObject("exporter"));
+      }
+      // validate the optional field `hostNetwork`
+      if (jsonObj.get("hostNetwork") != null && !jsonObj.get("hostNetwork").isJsonNull()) {
+        V1alpha1ComponentDefinitionSpecHostNetwork.validateJsonObject(jsonObj.getAsJsonObject("hostNetwork"));
+      }
       // validate the optional field `lifecycleActions`
       if (jsonObj.get("lifecycleActions") != null && !jsonObj.get("lifecycleActions").isJsonNull()) {
         V1alpha1ComponentDefinitionSpecLifecycleActions.validateJsonObject(jsonObj.getAsJsonObject("lifecycleActions"));
@@ -986,7 +1088,7 @@ public class V1alpha1ComponentDefinitionSpec {
       }
       // validate the optional field `monitor`
       if (jsonObj.get("monitor") != null && !jsonObj.get("monitor").isJsonNull()) {
-        V1alpha1ComponentDefinitionSpecMonitor.validateJsonObject(jsonObj.getAsJsonObject("monitor"));
+        V1alpha1ClusterDefinitionSpecComponentDefsInnerMonitor.validateJsonObject(jsonObj.getAsJsonObject("monitor"));
       }
       if (jsonObj.get("policyRules") != null && !jsonObj.get("policyRules").isJsonNull()) {
         JsonArray jsonArraypolicyRules = jsonObj.getAsJsonArray("policyRules");
@@ -1070,7 +1172,7 @@ public class V1alpha1ComponentDefinitionSpec {
 
           // validate the optional field `services` (array)
           for (int i = 0; i < jsonArrayservices.size(); i++) {
-            V1alpha1ComponentDefinitionSpecServicesInner.validateJsonObject(jsonArrayservices.get(i).getAsJsonObject());
+            V1alpha1ComponentSpecServicesInner.validateJsonObject(jsonArrayservices.get(i).getAsJsonObject());
           };
         }
       }

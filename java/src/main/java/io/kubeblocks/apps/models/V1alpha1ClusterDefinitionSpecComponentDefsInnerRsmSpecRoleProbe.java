@@ -53,7 +53,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * Defines the method used to probe a role.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterDefinitionSpecComponentDefsInnerRsmSpecRoleProbe {
   public static final String SERIALIZED_NAME_BUILTIN_HANDLER_NAME = "builtinHandlerName";
   @SerializedName(SERIALIZED_NAME_BUILTIN_HANDLER_NAME)
@@ -173,7 +173,7 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerRsmSpecRoleProbe {
   }
 
    /**
-   * Defines a custom method for role probing. If the BuiltinHandler meets the requirement, use it instead. Actions defined here are executed in series. Upon completion of all actions, the final output should be a single string representing the role name defined in spec.Roles. The latest [BusyBox](https://busybox.net/) image will be used if Image is not configured. Environment variables can be used in Command: - v_KB_RSM_LAST_STDOUT: stdout from the last action, watch for &#39;v_&#39; prefix - KB_RSM_USERNAME: username part of the credential - KB_RSM_PASSWORD: password part of the credential
+   * Defines a custom method for role probing. If the BuiltinHandler meets the requirement, use it instead. Actions defined here are executed in series. Upon completion of all actions, the final output should be a single string representing the role name defined in spec.Roles. The latest [BusyBox](https://busybox.net/) image will be used if Image is not configured. Environment variables can be used in Command: - v_KB_ITS_LAST_STDOUT: stdout from the last action, watch for &#39;v_&#39; prefix - KB_ITS_USERNAME: username part of the credential - KB_ITS_PASSWORD: password part of the credential
    * @return customHandler
   **/
   @jakarta.annotation.Nullable

@@ -52,16 +52,16 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * A group of affinity scheduling rules.
+ * Defines a set of node affinity scheduling rules for the Cluster&#39;s Pods. This field helps control the placement of Pods on nodes within the Cluster.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterSpecAffinity {
   public static final String SERIALIZED_NAME_NODE_LABELS = "nodeLabels";
   @SerializedName(SERIALIZED_NAME_NODE_LABELS)
   private Map<String, String> nodeLabels = new HashMap<>();
 
   /**
-   * Specifies the anti-affinity level of pods within a component.
+   * Specifies the anti-affinity level of Pods within a Component. It determines how pods should be spread across nodes to improve availability and performance. It can have the following values: &#x60;Preferred&#x60; and &#x60;Required&#x60;. The default value is &#x60;Preferred&#x60;.
    */
   @JsonAdapter(PodAntiAffinityEnum.Adapter.class)
   public enum PodAntiAffinityEnum {
@@ -112,7 +112,7 @@ public class V1alpha1ClusterSpecAffinity {
   private PodAntiAffinityEnum podAntiAffinity;
 
   /**
-   * Defines how pods are distributed across nodes.
+   * Determines the level of resource isolation between Pods. It can have the following values: &#x60;SharedNode&#x60; and &#x60;DedicatedNode&#x60;.   - SharedNode: Allow that multiple Pods may share the same node, which is the default behavior of K8s. - DedicatedNode: Each Pod runs on a dedicated node, ensuring that no two Pods share the same node. In other words, if a Pod is already running on a node, no other Pods will be scheduled on that node. Which provides a higher level of isolation and resource guarantee for Pods.   The default value is &#x60;SharedNode&#x60;.
    */
   @JsonAdapter(TenancyEnum.Adapter.class)
   public enum TenancyEnum {
@@ -184,7 +184,7 @@ public class V1alpha1ClusterSpecAffinity {
   }
 
    /**
-   * Indicates that pods must be scheduled to the nodes with the specified node labels.
+   * Indicates the node labels that must be present on nodes for pods to be scheduled on them. It is a map where the keys are the label keys and the values are the corresponding label values. Pods will only be scheduled on nodes that have all the specified labels with the corresponding values.   For example, if NodeLabels is set to {\&quot;nodeType\&quot;: \&quot;ssd\&quot;, \&quot;environment\&quot;: \&quot;production\&quot;}, pods will only be scheduled on nodes that have both the \&quot;nodeType\&quot; label with value \&quot;ssd\&quot; and the \&quot;environment\&quot; label with value \&quot;production\&quot;.   This field allows users to control Pod placement based on specific node labels. It can be used to ensure that Pods are scheduled on nodes with certain characteristics, such as specific hardware (e.g., SSD), environment (e.g., production, staging), or any other custom labels assigned to nodes.
    * @return nodeLabels
   **/
   @jakarta.annotation.Nullable
@@ -205,7 +205,7 @@ public class V1alpha1ClusterSpecAffinity {
   }
 
    /**
-   * Specifies the anti-affinity level of pods within a component.
+   * Specifies the anti-affinity level of Pods within a Component. It determines how pods should be spread across nodes to improve availability and performance. It can have the following values: &#x60;Preferred&#x60; and &#x60;Required&#x60;. The default value is &#x60;Preferred&#x60;.
    * @return podAntiAffinity
   **/
   @jakarta.annotation.Nullable
@@ -226,7 +226,7 @@ public class V1alpha1ClusterSpecAffinity {
   }
 
    /**
-   * Defines how pods are distributed across nodes.
+   * Determines the level of resource isolation between Pods. It can have the following values: &#x60;SharedNode&#x60; and &#x60;DedicatedNode&#x60;.   - SharedNode: Allow that multiple Pods may share the same node, which is the default behavior of K8s. - DedicatedNode: Each Pod runs on a dedicated node, ensuring that no two Pods share the same node. In other words, if a Pod is already running on a node, no other Pods will be scheduled on that node. Which provides a higher level of isolation and resource guarantee for Pods.   The default value is &#x60;SharedNode&#x60;.
    * @return tenancy
   **/
   @jakarta.annotation.Nullable
@@ -255,7 +255,7 @@ public class V1alpha1ClusterSpecAffinity {
   }
 
    /**
-   * Represents the key of node labels.   Nodes with a label containing this key and identical values are considered to be in the same topology. This is used as the topology domain for pod anti-affinity and pod spread constraint. Some well-known label keys, such as &#x60;kubernetes.io/hostname&#x60; and &#x60;topology.kubernetes.io/zone&#x60;, are often used as TopologyKey, along with any other custom label key.
+   * Represents the key of node labels used to define the topology domain for Pod anti-affinity and Pod spread constraints.   In K8s, a topology domain is a set of nodes that have the same value for a specific label key. Nodes with labels containing any of the specified TopologyKeys and identical values are considered to be in the same topology domain.   Note: The concept of topology in the context of K8s TopologyKeys is different from the concept of topology in the ClusterDefinition.   When a Pod has anti-affinity or spread constraints specified, Kubernetes will attempt to schedule the Pod on nodes with different values for the specified TopologyKeys. This ensures that Pods are spread across different topology domains, promoting high availability and reducing the impact of node failures.   Some well-known label keys, such as &#x60;kubernetes.io/hostname&#x60; and &#x60;topology.kubernetes.io/zone&#x60;, are often used as TopologyKey. These keys represent the hostname and zone of a node, respectively. By including these keys in the TopologyKeys list, Pods will be spread across nodes with different hostnames or zones.   In addition to the well-known keys, users can also specify custom label keys as TopologyKeys. This allows for more flexible and custom topology definitions based on the specific needs of the application or environment.   The TopologyKeys field is a slice of strings, where each string represents a label key. The order of the keys in the slice does not matter.
    * @return topologyKeys
   **/
   @jakarta.annotation.Nullable

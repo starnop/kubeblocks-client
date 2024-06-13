@@ -20,6 +20,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.kubeblocks.apps.models.V1alpha1OpsRequestStatusComponentsValuePreCheck;
 import io.kubeblocks.apps.models.V1alpha1OpsRequestStatusComponentsValueProgressDetailsInner;
 import java.io.IOException;
 import java.time.OffsetDateTime;
@@ -54,7 +55,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * V1alpha1OpsRequestStatusComponentsValue
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsRequestStatusComponentsValue {
   public static final String SERIALIZED_NAME_LAST_FAILED_TIME = "lastFailedTime";
   @SerializedName(SERIALIZED_NAME_LAST_FAILED_TIME)
@@ -65,7 +66,7 @@ public class V1alpha1OpsRequestStatusComponentsValue {
   private String message;
 
   /**
-   * Describes the component phase, referencing Cluster.status.component.phase.
+   * Records the current phase of the Component, mirroring &#x60;cluster.status.components[componentName].phase&#x60;. Possible values include \&quot;Creating\&quot;, \&quot;Running\&quot;, \&quot;Updating\&quot;, \&quot;Stopping\&quot;, \&quot;Stopped\&quot;, \&quot;Deleting\&quot;, \&quot;Failed\&quot;, \&quot;Abnormal\&quot;.
    */
   @JsonAdapter(PhaseEnum.Adapter.class)
   public enum PhaseEnum {
@@ -127,6 +128,10 @@ public class V1alpha1OpsRequestStatusComponentsValue {
   @SerializedName(SERIALIZED_NAME_PHASE)
   private PhaseEnum phase;
 
+  public static final String SERIALIZED_NAME_PRE_CHECK = "preCheck";
+  @SerializedName(SERIALIZED_NAME_PRE_CHECK)
+  private V1alpha1OpsRequestStatusComponentsValuePreCheck preCheck;
+
   public static final String SERIALIZED_NAME_PROGRESS_DETAILS = "progressDetails";
   @SerializedName(SERIALIZED_NAME_PROGRESS_DETAILS)
   private List<V1alpha1OpsRequestStatusComponentsValueProgressDetailsInner> progressDetails;
@@ -136,7 +141,7 @@ public class V1alpha1OpsRequestStatusComponentsValue {
   private String reason;
 
   /**
-   * References the workload type of component in ClusterDefinition.
+   * Records the workload type of Component in ClusterDefinition. Deprecated and should be removed in the future version.
    */
   @JsonAdapter(WorkloadTypeEnum.Adapter.class)
   public enum WorkloadTypeEnum {
@@ -200,7 +205,7 @@ public class V1alpha1OpsRequestStatusComponentsValue {
   }
 
    /**
-   * Indicates the last time the component phase transitioned to Failed or Abnormal.
+   * Records the timestamp when the Component last transitioned to a \&quot;Failed\&quot; or \&quot;Abnormal\&quot; phase.
    * @return lastFailedTime
   **/
   @jakarta.annotation.Nullable
@@ -242,7 +247,7 @@ public class V1alpha1OpsRequestStatusComponentsValue {
   }
 
    /**
-   * Describes the component phase, referencing Cluster.status.component.phase.
+   * Records the current phase of the Component, mirroring &#x60;cluster.status.components[componentName].phase&#x60;. Possible values include \&quot;Creating\&quot;, \&quot;Running\&quot;, \&quot;Updating\&quot;, \&quot;Stopping\&quot;, \&quot;Stopped\&quot;, \&quot;Deleting\&quot;, \&quot;Failed\&quot;, \&quot;Abnormal\&quot;.
    * @return phase
   **/
   @jakarta.annotation.Nullable
@@ -253,6 +258,27 @@ public class V1alpha1OpsRequestStatusComponentsValue {
 
   public void setPhase(PhaseEnum phase) {
     this.phase = phase;
+  }
+
+
+  public V1alpha1OpsRequestStatusComponentsValue preCheck(V1alpha1OpsRequestStatusComponentsValuePreCheck preCheck) {
+    
+    this.preCheck = preCheck;
+    return this;
+  }
+
+   /**
+   * Get preCheck
+   * @return preCheck
+  **/
+  @jakarta.annotation.Nullable
+  public V1alpha1OpsRequestStatusComponentsValuePreCheck getPreCheck() {
+    return preCheck;
+  }
+
+
+  public void setPreCheck(V1alpha1OpsRequestStatusComponentsValuePreCheck preCheck) {
+    this.preCheck = preCheck;
   }
 
 
@@ -271,7 +297,7 @@ public class V1alpha1OpsRequestStatusComponentsValue {
   }
 
    /**
-   * Describes the progress details of the component for this operation.
+   * Describes the progress details of objects or actions associated with the Component.
    * @return progressDetails
   **/
   @jakarta.annotation.Nullable
@@ -292,7 +318,7 @@ public class V1alpha1OpsRequestStatusComponentsValue {
   }
 
    /**
-   * Describes the reason for the component phase.
+   * Provides an explanation for the Component being in its current state.
    * @return reason
   **/
   @jakarta.annotation.Nullable
@@ -313,7 +339,7 @@ public class V1alpha1OpsRequestStatusComponentsValue {
   }
 
    /**
-   * References the workload type of component in ClusterDefinition.
+   * Records the workload type of Component in ClusterDefinition. Deprecated and should be removed in the future version.
    * @return workloadType
   **/
   @jakarta.annotation.Nullable
@@ -340,6 +366,7 @@ public class V1alpha1OpsRequestStatusComponentsValue {
     return Objects.equals(this.lastFailedTime, v1alpha1OpsRequestStatusComponentsValue.lastFailedTime) &&
         Objects.equals(this.message, v1alpha1OpsRequestStatusComponentsValue.message) &&
         Objects.equals(this.phase, v1alpha1OpsRequestStatusComponentsValue.phase) &&
+        Objects.equals(this.preCheck, v1alpha1OpsRequestStatusComponentsValue.preCheck) &&
         Objects.equals(this.progressDetails, v1alpha1OpsRequestStatusComponentsValue.progressDetails) &&
         Objects.equals(this.reason, v1alpha1OpsRequestStatusComponentsValue.reason) &&
         Objects.equals(this.workloadType, v1alpha1OpsRequestStatusComponentsValue.workloadType);
@@ -347,7 +374,7 @@ public class V1alpha1OpsRequestStatusComponentsValue {
 
   @Override
   public int hashCode() {
-    return Objects.hash(lastFailedTime, message, phase, progressDetails, reason, workloadType);
+    return Objects.hash(lastFailedTime, message, phase, preCheck, progressDetails, reason, workloadType);
   }
 
   @Override
@@ -357,6 +384,7 @@ public class V1alpha1OpsRequestStatusComponentsValue {
     sb.append("    lastFailedTime: ").append(toIndentedString(lastFailedTime)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    phase: ").append(toIndentedString(phase)).append("\n");
+    sb.append("    preCheck: ").append(toIndentedString(preCheck)).append("\n");
     sb.append("    progressDetails: ").append(toIndentedString(progressDetails)).append("\n");
     sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
     sb.append("    workloadType: ").append(toIndentedString(workloadType)).append("\n");
@@ -385,6 +413,7 @@ public class V1alpha1OpsRequestStatusComponentsValue {
     openapiFields.add("lastFailedTime");
     openapiFields.add("message");
     openapiFields.add("phase");
+    openapiFields.add("preCheck");
     openapiFields.add("progressDetails");
     openapiFields.add("reason");
     openapiFields.add("workloadType");
@@ -418,6 +447,10 @@ public class V1alpha1OpsRequestStatusComponentsValue {
       }
       if ((jsonObj.get("phase") != null && !jsonObj.get("phase").isJsonNull()) && !jsonObj.get("phase").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `phase` to be a primitive type in the JSON string but got `%s`", jsonObj.get("phase").toString()));
+      }
+      // validate the optional field `preCheck`
+      if (jsonObj.get("preCheck") != null && !jsonObj.get("preCheck").isJsonNull()) {
+        V1alpha1OpsRequestStatusComponentsValuePreCheck.validateJsonObject(jsonObj.getAsJsonObject("preCheck"));
       }
       if (jsonObj.get("progressDetails") != null && !jsonObj.get("progressDetails").isJsonNull()) {
         JsonArray jsonArrayprogressDetails = jsonObj.getAsJsonArray("progressDetails");

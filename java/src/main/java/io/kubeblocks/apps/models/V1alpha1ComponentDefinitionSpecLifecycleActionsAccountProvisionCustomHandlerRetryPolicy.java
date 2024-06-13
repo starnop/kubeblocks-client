@@ -48,9 +48,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * Defines the strategy for retrying the action in case of failure. This field cannot be updated.
+ * Defines the strategy to be taken when retrying the Action after a failure.   It specifies the conditions under which the Action should be retried and the limits to apply, such as the maximum number of retries and backoff strategy.   This field cannot be updated.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ComponentDefinitionSpecLifecycleActionsAccountProvisionCustomHandlerRetryPolicy {
   public static final String SERIALIZED_NAME_MAX_RETRIES = "maxRetries";
   @SerializedName(SERIALIZED_NAME_MAX_RETRIES)
@@ -70,7 +70,7 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActionsAccountProvisionCust
   }
 
    /**
-   * Defines the maximum number of retry attempts that should be made for a given action. This value is set to 0 by default, indicating that no retries will be made.
+   * Defines the maximum number of retry attempts that should be made for a given Action. This value is set to 0 by default, indicating that no retries will be made.
    * @return maxRetries
   **/
   @jakarta.annotation.Nullable

@@ -20,6 +20,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.kubeblocks.apps.models.V1alpha1ClusterSpecComponentSpecsInnerServiceRefsInnerClusterServiceSelector;
 import java.io.IOException;
 
 import com.google.gson.Gson;
@@ -50,11 +51,15 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * V1alpha1ClusterSpecComponentSpecsInnerServiceRefsInner
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterSpecComponentSpecsInnerServiceRefsInner {
   public static final String SERIALIZED_NAME_CLUSTER = "cluster";
   @SerializedName(SERIALIZED_NAME_CLUSTER)
   private String cluster;
+
+  public static final String SERIALIZED_NAME_CLUSTER_SERVICE_SELECTOR = "clusterServiceSelector";
+  @SerializedName(SERIALIZED_NAME_CLUSTER_SERVICE_SELECTOR)
+  private V1alpha1ClusterSpecComponentSpecsInnerServiceRefsInnerClusterServiceSelector clusterServiceSelector;
 
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)
@@ -78,7 +83,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerServiceRefsInner {
   }
 
    /**
-   * The name of the KubeBlocks cluster being referenced when a service provided by another KubeBlocks cluster is being referenced.   By default, the clusterDefinition.spec.connectionCredential secret corresponding to the referenced Cluster will be used to bind to the current component. The connection credential secret should include and correspond to the following fields: endpoint, port, username, and password when a KubeBlocks cluster is being referenced.   Under this referencing approach, the ServiceKind and ServiceVersion of service reference declaration defined in the ClusterDefinition will not be validated. If both Cluster and ServiceDescriptor are specified, the Cluster takes precedence.
+   * Specifies the name of the KubeBlocks Cluster being referenced. This is used when services from another KubeBlocks Cluster are consumed.   By default, the referenced KubeBlocks Cluster&#39;s &#x60;clusterDefinition.spec.connectionCredential&#x60; will be utilized to bind to the current Component. This credential should include: &#x60;endpoint&#x60;, &#x60;port&#x60;, &#x60;username&#x60;, and &#x60;password&#x60;.   Note:   - The &#x60;ServiceKind&#x60; and &#x60;ServiceVersion&#x60; specified in the service reference within the ClusterDefinition are not validated when using this approach. - If both &#x60;cluster&#x60; and &#x60;serviceDescriptor&#x60; are present, &#x60;cluster&#x60; will take precedence.   Deprecated since v0.9 since &#x60;clusterDefinition.spec.connectionCredential&#x60; is deprecated, use &#x60;clusterServiceSelector&#x60; instead. This field is maintained for backward compatibility and its use is discouraged. Existing usage should be updated to the current preferred approach to avoid compatibility issues in future releases.
    * @return cluster
   **/
   @jakarta.annotation.Nullable
@@ -92,6 +97,27 @@ public class V1alpha1ClusterSpecComponentSpecsInnerServiceRefsInner {
   }
 
 
+  public V1alpha1ClusterSpecComponentSpecsInnerServiceRefsInner clusterServiceSelector(V1alpha1ClusterSpecComponentSpecsInnerServiceRefsInnerClusterServiceSelector clusterServiceSelector) {
+    
+    this.clusterServiceSelector = clusterServiceSelector;
+    return this;
+  }
+
+   /**
+   * Get clusterServiceSelector
+   * @return clusterServiceSelector
+  **/
+  @jakarta.annotation.Nullable
+  public V1alpha1ClusterSpecComponentSpecsInnerServiceRefsInnerClusterServiceSelector getClusterServiceSelector() {
+    return clusterServiceSelector;
+  }
+
+
+  public void setClusterServiceSelector(V1alpha1ClusterSpecComponentSpecsInnerServiceRefsInnerClusterServiceSelector clusterServiceSelector) {
+    this.clusterServiceSelector = clusterServiceSelector;
+  }
+
+
   public V1alpha1ClusterSpecComponentSpecsInnerServiceRefsInner name(String name) {
     
     this.name = name;
@@ -99,7 +125,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerServiceRefsInner {
   }
 
    /**
-   * Specifies the identifier of the service reference declaration. It corresponds to the serviceRefDeclaration name defined in the clusterDefinition.componentDefs[*].serviceRefDeclarations[*].name.
+   * Specifies the identifier of the service reference declaration. It corresponds to the serviceRefDeclaration name defined in either:   - &#x60;componentDefinition.spec.serviceRefDeclarations[*].name&#x60; - &#x60;clusterDefinition.spec.componentDefs[*].serviceRefDeclarations[*].name&#x60; (deprecated)
    * @return name
   **/
   @jakarta.annotation.Nonnull
@@ -120,7 +146,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerServiceRefsInner {
   }
 
    /**
-   * Specifies the namespace of the referenced Cluster or the namespace of the referenced ServiceDescriptor object. If not provided, the referenced Cluster and ServiceDescriptor will be searched in the namespace of the current cluster by default.
+   * Specifies the namespace of the referenced Cluster or the namespace of the referenced ServiceDescriptor object. If not provided, the referenced Cluster and ServiceDescriptor will be searched in the namespace of the current Cluster by default.
    * @return namespace
   **/
   @jakarta.annotation.Nullable
@@ -141,7 +167,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerServiceRefsInner {
   }
 
    /**
-   * The service descriptor of the service provided by external sources.   When referencing a service provided by external sources, the ServiceDescriptor object name is required to establish the service binding. The &#x60;serviceDescriptor.spec.serviceKind&#x60; and &#x60;serviceDescriptor.spec.serviceVersion&#x60; should match the serviceKind and serviceVersion defined in the service reference declaration in the ClusterDefinition.   If both Cluster and ServiceDescriptor are specified, the Cluster takes precedence.
+   * Specifies the name of the ServiceDescriptor object that describes a service provided by external sources.   When referencing a service provided by external sources, a ServiceDescriptor object is required to establish the service binding. The &#x60;serviceDescriptor.spec.serviceKind&#x60; and &#x60;serviceDescriptor.spec.serviceVersion&#x60; should match the serviceKind and serviceVersion declared in the definition.   If both &#x60;cluster&#x60; and &#x60;serviceDescriptor&#x60; are specified, the &#x60;cluster&#x60; takes precedence.
    * @return serviceDescriptor
   **/
   @jakarta.annotation.Nullable
@@ -166,6 +192,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerServiceRefsInner {
     }
     V1alpha1ClusterSpecComponentSpecsInnerServiceRefsInner v1alpha1ClusterSpecComponentSpecsInnerServiceRefsInner = (V1alpha1ClusterSpecComponentSpecsInnerServiceRefsInner) o;
     return Objects.equals(this.cluster, v1alpha1ClusterSpecComponentSpecsInnerServiceRefsInner.cluster) &&
+        Objects.equals(this.clusterServiceSelector, v1alpha1ClusterSpecComponentSpecsInnerServiceRefsInner.clusterServiceSelector) &&
         Objects.equals(this.name, v1alpha1ClusterSpecComponentSpecsInnerServiceRefsInner.name) &&
         Objects.equals(this.namespace, v1alpha1ClusterSpecComponentSpecsInnerServiceRefsInner.namespace) &&
         Objects.equals(this.serviceDescriptor, v1alpha1ClusterSpecComponentSpecsInnerServiceRefsInner.serviceDescriptor);
@@ -173,7 +200,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerServiceRefsInner {
 
   @Override
   public int hashCode() {
-    return Objects.hash(cluster, name, namespace, serviceDescriptor);
+    return Objects.hash(cluster, clusterServiceSelector, name, namespace, serviceDescriptor);
   }
 
   @Override
@@ -181,6 +208,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerServiceRefsInner {
     StringBuilder sb = new StringBuilder();
     sb.append("class V1alpha1ClusterSpecComponentSpecsInnerServiceRefsInner {\n");
     sb.append("    cluster: ").append(toIndentedString(cluster)).append("\n");
+    sb.append("    clusterServiceSelector: ").append(toIndentedString(clusterServiceSelector)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
     sb.append("    serviceDescriptor: ").append(toIndentedString(serviceDescriptor)).append("\n");
@@ -207,6 +235,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerServiceRefsInner {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("cluster");
+    openapiFields.add("clusterServiceSelector");
     openapiFields.add("name");
     openapiFields.add("namespace");
     openapiFields.add("serviceDescriptor");
@@ -245,6 +274,10 @@ public class V1alpha1ClusterSpecComponentSpecsInnerServiceRefsInner {
       }
       if ((jsonObj.get("cluster") != null && !jsonObj.get("cluster").isJsonNull()) && !jsonObj.get("cluster").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `cluster` to be a primitive type in the JSON string but got `%s`", jsonObj.get("cluster").toString()));
+      }
+      // validate the optional field `clusterServiceSelector`
+      if (jsonObj.get("clusterServiceSelector") != null && !jsonObj.get("clusterServiceSelector").isJsonNull()) {
+        V1alpha1ClusterSpecComponentSpecsInnerServiceRefsInnerClusterServiceSelector.validateJsonObject(jsonObj.getAsJsonObject("clusterServiceSelector"));
       }
       if (!jsonObj.get("name").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));

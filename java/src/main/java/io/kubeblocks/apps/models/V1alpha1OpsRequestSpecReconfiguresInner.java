@@ -51,9 +51,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * Reconfigure represents the variables required for updating a configuration.
+ * Reconfigure defines the parameters for updating a Component&#39;s configuration.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsRequestSpecReconfiguresInner {
   public static final String SERIALIZED_NAME_COMPONENT_NAME = "componentName";
   @SerializedName(SERIALIZED_NAME_COMPONENT_NAME)
@@ -73,7 +73,7 @@ public class V1alpha1OpsRequestSpecReconfiguresInner {
   }
 
    /**
-   * Specifies the name of the cluster component.
+   * Specifies the name of the Component.
    * @return componentName
   **/
   @jakarta.annotation.Nonnull
@@ -102,7 +102,7 @@ public class V1alpha1OpsRequestSpecReconfiguresInner {
   }
 
    /**
-   * Specifies the components that will perform the operation.
+   * Contains a list of ConfigurationItem objects, specifying the Component&#39;s configuration template name, upgrade policy, and parameter key-value pairs to be updated.
    * @return configurations
   **/
   @jakarta.annotation.Nonnull

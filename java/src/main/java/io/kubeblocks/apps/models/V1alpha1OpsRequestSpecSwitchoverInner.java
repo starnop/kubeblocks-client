@@ -50,7 +50,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * V1alpha1OpsRequestSpecSwitchoverInner
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsRequestSpecSwitchoverInner {
   public static final String SERIALIZED_NAME_COMPONENT_NAME = "componentName";
   @SerializedName(SERIALIZED_NAME_COMPONENT_NAME)
@@ -70,7 +70,7 @@ public class V1alpha1OpsRequestSpecSwitchoverInner {
   }
 
    /**
-   * Specifies the name of the cluster component.
+   * Specifies the name of the Component.
    * @return componentName
   **/
   @jakarta.annotation.Nonnull
@@ -91,7 +91,7 @@ public class V1alpha1OpsRequestSpecSwitchoverInner {
   }
 
    /**
-   * Utilized to designate the candidate primary or leader instance for the switchover process. If assigned \&quot;*\&quot;, it signifies that no specific primary or leader is designated for the switchover, and the switchoverAction defined in &#x60;clusterDefinition.componentDefs[x].switchoverSpec.withoutCandidate&#x60; will be executed.   It is mandatory that &#x60;clusterDefinition.componentDefs[x].switchoverSpec.withoutCandidate&#x60; is not left blank.   If assigned a valid instance name other than \&quot;*\&quot;, it signifies that a specific candidate primary or leader is designated for the switchover. The value can be retrieved using &#x60;kbcli cluster list-instances&#x60;, any other value is considered invalid.   In this scenario, the &#x60;switchoverAction&#x60; defined in clusterDefinition.componentDefs[x].switchoverSpec.withCandidate will be executed, and it is mandatory that clusterDefinition.componentDefs[x].switchoverSpec.withCandidate is not left blank.
+   * Specifies the instance to become the primary or leader during a switchover operation.   The value of &#x60;instanceName&#x60; can be either:   1. \&quot;*\&quot; (wildcard value): - Indicates no specific instance is designated as the primary or leader. - Executes the switchover action from &#x60;clusterDefinition.componentDefs[*].switchoverSpec.withoutCandidate&#x60;. - &#x60;clusterDefinition.componentDefs[x].switchoverSpec.withoutCandidate&#x60; must be defined when using \&quot;*\&quot;.   2. A valid instance name (pod name): - Designates a specific instance (pod) as the primary or leader. - The name must match one of the pods in the component. Any non-valid pod name is considered invalid. - Executes the switchover action from &#x60;clusterDefinition.componentDefs[*].switchoverSpec.withCandidate&#x60;. - &#x60;clusterDefinition.componentDefs[*].switchoverSpec.withCandidate&#x60; must be defined when specifying a valid instance name.
    * @return instanceName
   **/
   @jakarta.annotation.Nonnull

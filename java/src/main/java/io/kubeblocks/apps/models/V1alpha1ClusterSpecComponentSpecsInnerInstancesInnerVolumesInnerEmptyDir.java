@@ -50,7 +50,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * emptyDir represents a temporary directory that shares a pod&#39;s lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEmptyDir {
   public static final String SERIALIZED_NAME_MEDIUM = "medium";
   @SerializedName(SERIALIZED_NAME_MEDIUM)

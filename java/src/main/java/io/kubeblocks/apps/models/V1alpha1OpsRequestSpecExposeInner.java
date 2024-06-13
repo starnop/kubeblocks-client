@@ -53,7 +53,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * V1alpha1OpsRequestSpecExposeInner
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsRequestSpecExposeInner {
   public static final String SERIALIZED_NAME_COMPONENT_NAME = "componentName";
   @SerializedName(SERIALIZED_NAME_COMPONENT_NAME)
@@ -64,7 +64,7 @@ public class V1alpha1OpsRequestSpecExposeInner {
   private List<V1alpha1OpsRequestSpecExposeInnerServicesInner> services = new ArrayList<>();
 
   /**
-   * Controls the expose operation. If set to Enable, the corresponding service will be exposed. Conversely, if set to Disable, the service will be removed.
+   * Indicates whether the services will be exposed. &#39;Enable&#39; exposes the services. while &#39;Disable&#39; removes the exposed Service.
    */
   @JsonAdapter(SwitchEnum.Adapter.class)
   public enum SwitchEnum {
@@ -124,10 +124,10 @@ public class V1alpha1OpsRequestSpecExposeInner {
   }
 
    /**
-   * Specifies the name of the cluster component.
+   * Specifies the name of the Component.
    * @return componentName
   **/
-  @jakarta.annotation.Nonnull
+  @jakarta.annotation.Nullable
   public String getComponentName() {
     return componentName;
   }
@@ -153,7 +153,7 @@ public class V1alpha1OpsRequestSpecExposeInner {
   }
 
    /**
-   * A list of services that are to be exposed or removed. If componentNamem is not specified, each &#x60;OpsService&#x60; in the list must specify ports and selectors.
+   * Specifies a list of OpsService. When an OpsService is exposed, a corresponding ClusterService will be added to &#x60;cluster.spec.services&#x60;. On the other hand, when an OpsService is unexposed, the corresponding ClusterService will be removed from &#x60;cluster.spec.services&#x60;.   Note: If &#x60;componentName&#x60; is not specified, the &#x60;ports&#x60; and &#x60;selector&#x60; fields must be provided in each OpsService definition.
    * @return services
   **/
   @jakarta.annotation.Nonnull
@@ -174,7 +174,7 @@ public class V1alpha1OpsRequestSpecExposeInner {
   }
 
    /**
-   * Controls the expose operation. If set to Enable, the corresponding service will be exposed. Conversely, if set to Disable, the service will be removed.
+   * Indicates whether the services will be exposed. &#39;Enable&#39; exposes the services. while &#39;Disable&#39; removes the exposed Service.
    * @return _switch
   **/
   @jakarta.annotation.Nonnull
@@ -243,7 +243,6 @@ public class V1alpha1OpsRequestSpecExposeInner {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("componentName");
     openapiRequiredFields.add("services");
     openapiRequiredFields.add("switch");
   }
@@ -275,7 +274,7 @@ public class V1alpha1OpsRequestSpecExposeInner {
           throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
         }
       }
-      if (!jsonObj.get("componentName").isJsonPrimitive()) {
+      if ((jsonObj.get("componentName") != null && !jsonObj.get("componentName").isJsonNull()) && !jsonObj.get("componentName").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `componentName` to be a primitive type in the JSON string but got `%s`", jsonObj.get("componentName").toString()));
       }
       // ensure the json data is an array

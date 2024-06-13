@@ -53,7 +53,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * V1alpha1OpsRequestStatusReconfiguringStatusConfigurationStatusInner
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsRequestStatusReconfiguringStatusConfigurationStatusInner {
   public static final String SERIALIZED_NAME_EXPECTED_COUNT = "expectedCount";
   @SerializedName(SERIALIZED_NAME_EXPECTED_COUNT)
@@ -84,7 +84,7 @@ public class V1alpha1OpsRequestStatusReconfiguringStatusConfigurationStatusInner
   private Integer succeedCount;
 
   /**
-   * Defines the policy for reconfiguration.
+   * Records the UpgradePolicy of the configuration change operation.
    */
   @JsonAdapter(UpdatePolicyEnum.Adapter.class)
   public enum UpdatePolicyEnum {
@@ -96,7 +96,9 @@ public class V1alpha1OpsRequestStatusReconfiguringStatusConfigurationStatusInner
     
     AUTORELOAD("autoReload"),
     
-    OPERATORSYNCUPDATE("operatorSyncUpdate");
+    OPERATORSYNCUPDATE("operatorSyncUpdate"),
+    
+    DYNAMICRELOADBEGINRESTART("dynamicReloadBeginRestart");
 
     private String value;
 
@@ -154,7 +156,7 @@ public class V1alpha1OpsRequestStatusReconfiguringStatusConfigurationStatusInner
   }
 
    /**
-   * Specifies the number of expected reconfigurations.
+   * Represents the total count of pods intended to be updated by a configuration change.
    * @return expectedCount
   **/
   @jakarta.annotation.Nullable
@@ -204,7 +206,7 @@ public class V1alpha1OpsRequestStatusReconfiguringStatusConfigurationStatusInner
   }
 
    /**
-   * Records the last status of the reconfiguration controller.
+   * Records the last state of the reconfiguration finite state machine. Possible values include \&quot;None\&quot;, \&quot;Retry\&quot;, \&quot;Failed\&quot;, \&quot;NotSupport\&quot;, \&quot;FailedAndRetry\&quot;.   - \&quot;None\&quot; describes fsm has finished and quit. - \&quot;Retry\&quot; describes fsm is running. - \&quot;Failed\&quot; describes fsm is failed and exited. - \&quot;NotSupport\&quot; describes fsm does not support the feature. - \&quot;FailedAndRetry\&quot; describes fsm is failed in current state, but can be retried.
    * @return lastStatus
   **/
   @jakarta.annotation.Nullable
@@ -246,7 +248,7 @@ public class V1alpha1OpsRequestStatusReconfiguringStatusConfigurationStatusInner
   }
 
    /**
-   * Specifies the name of the configuration template.
+   * Indicates the name of the configuration template (as ConfigMap).
    * @return name
   **/
   @jakarta.annotation.Nonnull
@@ -267,7 +269,7 @@ public class V1alpha1OpsRequestStatusReconfiguringStatusConfigurationStatusInner
   }
 
    /**
-   * Indicates the current state of the reconfiguration state machine.
+   * Represents the current state of the reconfiguration state machine. Possible values include \&quot;Creating\&quot;, \&quot;Init\&quot;, \&quot;Running\&quot;, \&quot;Pending\&quot;, \&quot;Merged\&quot;, \&quot;MergeFailed\&quot;, \&quot;FailedAndPause\&quot;, \&quot;Upgrading\&quot;, \&quot;Deleting\&quot;, \&quot;FailedAndRetry\&quot;, \&quot;Finished\&quot;, \&quot;ReconfigurePersisting\&quot;, \&quot;ReconfigurePersisted\&quot;.
    * @return status
   **/
   @jakarta.annotation.Nullable
@@ -288,7 +290,7 @@ public class V1alpha1OpsRequestStatusReconfiguringStatusConfigurationStatusInner
   }
 
    /**
-   * Counts the number of successful reconfigurations.
+   * Records the number of pods successfully updated following a configuration change.
    * @return succeedCount
   **/
   @jakarta.annotation.Nullable
@@ -309,7 +311,7 @@ public class V1alpha1OpsRequestStatusReconfiguringStatusConfigurationStatusInner
   }
 
    /**
-   * Defines the policy for reconfiguration.
+   * Records the UpgradePolicy of the configuration change operation.
    * @return updatePolicy
   **/
   @jakarta.annotation.Nullable

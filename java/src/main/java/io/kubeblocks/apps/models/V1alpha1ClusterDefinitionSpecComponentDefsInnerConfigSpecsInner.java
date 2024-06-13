@@ -53,7 +53,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * V1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner {
   public static final String SERIALIZED_NAME_AS_ENV_FROM = "asEnvFrom";
   @SerializedName(SERIALIZED_NAME_AS_ENV_FROM)
@@ -66,6 +66,10 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner {
   public static final String SERIALIZED_NAME_DEFAULT_MODE = "defaultMode";
   @SerializedName(SERIALIZED_NAME_DEFAULT_MODE)
   private Integer defaultMode;
+
+  public static final String SERIALIZED_NAME_INJECT_ENV_TO = "injectEnvTo";
+  @SerializedName(SERIALIZED_NAME_INJECT_ENV_TO)
+  private List<String> injectEnvTo;
 
   public static final String SERIALIZED_NAME_KEYS = "keys";
   @SerializedName(SERIALIZED_NAME_KEYS)
@@ -82,6 +86,59 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner {
   public static final String SERIALIZED_NAME_NAMESPACE = "namespace";
   @SerializedName(SERIALIZED_NAME_NAMESPACE)
   private String namespace;
+
+  /**
+   * RerenderResourceType defines the resource requirements for a component.
+   */
+  @JsonAdapter(ReRenderResourceTypesEnum.Adapter.class)
+  public enum ReRenderResourceTypesEnum {
+    VSCALE("vscale"),
+    
+    HSCALE("hscale"),
+    
+    TLS("tls");
+
+    private String value;
+
+    ReRenderResourceTypesEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static ReRenderResourceTypesEnum fromValue(String value) {
+      for (ReRenderResourceTypesEnum b : ReRenderResourceTypesEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+
+    public static class Adapter extends TypeAdapter<ReRenderResourceTypesEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final ReRenderResourceTypesEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public ReRenderResourceTypesEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return ReRenderResourceTypesEnum.fromValue(value);
+      }
+    }
+  }
+
+  public static final String SERIALIZED_NAME_RE_RENDER_RESOURCE_TYPES = "reRenderResourceTypes";
+  @SerializedName(SERIALIZED_NAME_RE_RENDER_RESOURCE_TYPES)
+  private List<ReRenderResourceTypesEnum> reRenderResourceTypes;
 
   public static final String SERIALIZED_NAME_TEMPLATE_REF = "templateRef";
   @SerializedName(SERIALIZED_NAME_TEMPLATE_REF)
@@ -109,7 +166,7 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner {
   }
 
    /**
-   * An optional field where the list of containers will be injected into EnvFrom.
+   * Specifies the containers to inject the ConfigMap parameters as environment variables.   This is useful when application images accept parameters through environment variables and generate the final configuration file in the startup script based on these variables.   This field allows users to specify a list of container names, and KubeBlocks will inject the environment variables converted from the ConfigMap into these designated containers. This provides a flexible way to pass the configuration items from the ConfigMap to the container without modifying the image.   Deprecated: &#x60;asEnvFrom&#x60; has been deprecated since 0.9.0 and will be removed in 0.10.0. Use &#x60;injectEnvTo&#x60; instead.
    * @return asEnvFrom
   **/
   @jakarta.annotation.Nullable
@@ -130,7 +187,7 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner {
   }
 
    /**
-   * An optional field that defines the name of the referenced configuration constraints object.
+   * Specifies the name of the referenced configuration constraints object.
    * @return constraintRef
   **/
   @jakarta.annotation.Nullable
@@ -151,7 +208,7 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner {
   }
 
    /**
-   * Refers to the mode bits used to set permissions on created files by default.   Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644.   Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+   * The operator attempts to set default file permissions for scripts (0555) and configurations (0444). However, certain database engines may require different file permissions. You can specify the desired file permissions here.   Must be specified as an octal value between 0000 and 0777 (inclusive), or as a decimal value between 0 and 511 (inclusive). YAML supports both octal and decimal values for file permissions.   Please note that this setting only affects the permissions of the files themselves. Directories within the specified path are not impacted by this setting. It&#39;s important to be aware that this setting might conflict with other options that influence the file mode, such as fsGroup. In such cases, the resulting file mode may have additional bits set. Refers to documents of k8s.ConfigMapVolumeSource.defaultMode for more information.
    * @return defaultMode
   **/
   @jakarta.annotation.Nullable
@@ -162,6 +219,35 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner {
 
   public void setDefaultMode(Integer defaultMode) {
     this.defaultMode = defaultMode;
+  }
+
+
+  public V1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner injectEnvTo(List<String> injectEnvTo) {
+    
+    this.injectEnvTo = injectEnvTo;
+    return this;
+  }
+
+  public V1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner addInjectEnvToItem(String injectEnvToItem) {
+    if (this.injectEnvTo == null) {
+      this.injectEnvTo = new ArrayList<>();
+    }
+    this.injectEnvTo.add(injectEnvToItem);
+    return this;
+  }
+
+   /**
+   * Specifies the containers to inject the ConfigMap parameters as environment variables.   This is useful when application images accept parameters through environment variables and generate the final configuration file in the startup script based on these variables.   This field allows users to specify a list of container names, and KubeBlocks will inject the environment variables converted from the ConfigMap into these designated containers. This provides a flexible way to pass the configuration items from the ConfigMap to the container without modifying the image.
+   * @return injectEnvTo
+  **/
+  @jakarta.annotation.Nullable
+  public List<String> getInjectEnvTo() {
+    return injectEnvTo;
+  }
+
+
+  public void setInjectEnvTo(List<String> injectEnvTo) {
+    this.injectEnvTo = injectEnvTo;
   }
 
 
@@ -180,7 +266,7 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner {
   }
 
    /**
-   * Defines a list of keys. If left empty, ConfigConstraint applies to all keys in the configmap.
+   * Specifies the configuration files within the ConfigMap that support dynamic updates.   A configuration template (provided in the form of a ConfigMap) may contain templates for multiple configuration files. Each configuration file corresponds to a key in the ConfigMap. Some of these configuration files may support dynamic modification and reloading without requiring a pod restart.   If empty or omitted, all configuration files in the ConfigMap are assumed to support dynamic updates, and ConfigConstraint applies to all keys.
    * @return keys
   **/
   @jakarta.annotation.Nullable
@@ -257,6 +343,35 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner {
   }
 
 
+  public V1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner reRenderResourceTypes(List<ReRenderResourceTypesEnum> reRenderResourceTypes) {
+    
+    this.reRenderResourceTypes = reRenderResourceTypes;
+    return this;
+  }
+
+  public V1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner addReRenderResourceTypesItem(ReRenderResourceTypesEnum reRenderResourceTypesItem) {
+    if (this.reRenderResourceTypes == null) {
+      this.reRenderResourceTypes = new ArrayList<>();
+    }
+    this.reRenderResourceTypes.add(reRenderResourceTypesItem);
+    return this;
+  }
+
+   /**
+   * Specifies whether the configuration needs to be re-rendered after v-scale or h-scale operations to reflect changes.   In some scenarios, the configuration may need to be updated to reflect the changes in resource allocation or cluster topology. Examples:   - Redis: adjust maxmemory after v-scale operation. - MySQL: increase max connections after v-scale operation. - Zookeeper: update zoo.cfg with new node addresses after h-scale operation.
+   * @return reRenderResourceTypes
+  **/
+  @jakarta.annotation.Nullable
+  public List<ReRenderResourceTypesEnum> getReRenderResourceTypes() {
+    return reRenderResourceTypes;
+  }
+
+
+  public void setReRenderResourceTypes(List<ReRenderResourceTypesEnum> reRenderResourceTypes) {
+    this.reRenderResourceTypes = reRenderResourceTypes;
+  }
+
+
   public V1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner templateRef(String templateRef) {
     
     this.templateRef = templateRef;
@@ -312,17 +427,19 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner {
     return Objects.equals(this.asEnvFrom, v1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner.asEnvFrom) &&
         Objects.equals(this.constraintRef, v1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner.constraintRef) &&
         Objects.equals(this.defaultMode, v1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner.defaultMode) &&
+        Objects.equals(this.injectEnvTo, v1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner.injectEnvTo) &&
         Objects.equals(this.keys, v1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner.keys) &&
         Objects.equals(this.legacyRenderedConfigSpec, v1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner.legacyRenderedConfigSpec) &&
         Objects.equals(this.name, v1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner.name) &&
         Objects.equals(this.namespace, v1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner.namespace) &&
+        Objects.equals(this.reRenderResourceTypes, v1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner.reRenderResourceTypes) &&
         Objects.equals(this.templateRef, v1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner.templateRef) &&
         Objects.equals(this.volumeName, v1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner.volumeName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(asEnvFrom, constraintRef, defaultMode, keys, legacyRenderedConfigSpec, name, namespace, templateRef, volumeName);
+    return Objects.hash(asEnvFrom, constraintRef, defaultMode, injectEnvTo, keys, legacyRenderedConfigSpec, name, namespace, reRenderResourceTypes, templateRef, volumeName);
   }
 
   @Override
@@ -332,10 +449,12 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner {
     sb.append("    asEnvFrom: ").append(toIndentedString(asEnvFrom)).append("\n");
     sb.append("    constraintRef: ").append(toIndentedString(constraintRef)).append("\n");
     sb.append("    defaultMode: ").append(toIndentedString(defaultMode)).append("\n");
+    sb.append("    injectEnvTo: ").append(toIndentedString(injectEnvTo)).append("\n");
     sb.append("    keys: ").append(toIndentedString(keys)).append("\n");
     sb.append("    legacyRenderedConfigSpec: ").append(toIndentedString(legacyRenderedConfigSpec)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
+    sb.append("    reRenderResourceTypes: ").append(toIndentedString(reRenderResourceTypes)).append("\n");
     sb.append("    templateRef: ").append(toIndentedString(templateRef)).append("\n");
     sb.append("    volumeName: ").append(toIndentedString(volumeName)).append("\n");
     sb.append("}");
@@ -363,10 +482,12 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner {
     openapiFields.add("asEnvFrom");
     openapiFields.add("constraintRef");
     openapiFields.add("defaultMode");
+    openapiFields.add("injectEnvTo");
     openapiFields.add("keys");
     openapiFields.add("legacyRenderedConfigSpec");
     openapiFields.add("name");
     openapiFields.add("namespace");
+    openapiFields.add("reRenderResourceTypes");
     openapiFields.add("templateRef");
     openapiFields.add("volumeName");
 
@@ -412,6 +533,10 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner {
         throw new IllegalArgumentException(String.format("Expected the field `constraintRef` to be a primitive type in the JSON string but got `%s`", jsonObj.get("constraintRef").toString()));
       }
       // ensure the optional json data is an array if present
+      if (jsonObj.get("injectEnvTo") != null && !jsonObj.get("injectEnvTo").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `injectEnvTo` to be an array in the JSON string but got `%s`", jsonObj.get("injectEnvTo").toString()));
+      }
+      // ensure the optional json data is an array if present
       if (jsonObj.get("keys") != null && !jsonObj.get("keys").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `keys` to be an array in the JSON string but got `%s`", jsonObj.get("keys").toString()));
       }
@@ -424,6 +549,10 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInner {
       }
       if ((jsonObj.get("namespace") != null && !jsonObj.get("namespace").isJsonNull()) && !jsonObj.get("namespace").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `namespace` to be a primitive type in the JSON string but got `%s`", jsonObj.get("namespace").toString()));
+      }
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("reRenderResourceTypes") != null && !jsonObj.get("reRenderResourceTypes").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `reRenderResourceTypes` to be an array in the JSON string but got `%s`", jsonObj.get("reRenderResourceTypes").toString()));
       }
       if (!jsonObj.get("templateRef").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `templateRef` to be a primitive type in the JSON string but got `%s`", jsonObj.get("templateRef").toString()));

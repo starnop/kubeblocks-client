@@ -50,9 +50,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * Specifies the environment variables that can be used in all following Actions: - KB_RSM_USERNAME: Represents the username part of the credential - KB_RSM_PASSWORD: Represents the password part of the credential - KB_RSM_LEADER_HOST: Represents the leader host - KB_RSM_TARGET_HOST: Represents the target host - KB_RSM_SERVICE_PORT: Represents the service port   Defines the action to perform a switchover. If the Image is not configured, the latest [BusyBox](https://busybox.net/) image will be used.
+ * Specifies the environment variables that can be used in all following Actions: - KB_ITS_USERNAME: Represents the username part of the credential - KB_ITS_PASSWORD: Represents the password part of the credential - KB_ITS_LEADER_HOST: Represents the leader host - KB_ITS_TARGET_HOST: Represents the target host - KB_ITS_SERVICE_PORT: Represents the service port   Defines the action to perform a switchover. If the Image is not configured, the latest [BusyBox](https://busybox.net/) image will be used.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterDefinitionSpecComponentDefsInnerRsmSpecMembershipReconfigurationSwitchoverAction {
   public static final String SERIALIZED_NAME_ARGS = "args";
   @SerializedName(SERIALIZED_NAME_ARGS)

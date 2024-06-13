@@ -48,9 +48,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * Cluster backup configuration.
+ * Specifies the backup configuration of the Cluster.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterSpecBackup {
   public static final String SERIALIZED_NAME_CRON_EXPRESSION = "cronExpression";
   @SerializedName(SERIALIZED_NAME_CRON_EXPRESSION)
@@ -111,7 +111,7 @@ public class V1alpha1ClusterSpecBackup {
   }
 
    /**
-   * Specifies whether automated backup is enabled.
+   * Specifies whether automated backup is enabled for the Cluster.
    * @return enabled
   **/
   @jakarta.annotation.Nullable
@@ -195,7 +195,7 @@ public class V1alpha1ClusterSpecBackup {
   }
 
    /**
-   * Determines the duration for which the backup should be retained. All backups older than this period will be removed by the controller.   For example, RetentionPeriod of &#x60;30d&#x60; will keep only the backups of last 30 days. Sample duration format:   - years:  2y - months:  6mo - days:   30d - hours:  12h - minutes:  30m   You can also combine the above durations. For example: 30d12h30m
+   * Determines the duration to retain backups. Backups older than this period are automatically removed.   For example, RetentionPeriod of &#x60;30d&#x60; will keep only the backups of last 30 days. Sample duration format:   - years:  2y - months:  6mo - days:   30d - hours:  12h - minutes:  30m   You can also combine the above durations. For example: 30d12h30m. Default value is 7d.
    * @return retentionPeriod
   **/
   @jakarta.annotation.Nullable
@@ -216,7 +216,7 @@ public class V1alpha1ClusterSpecBackup {
   }
 
    /**
-   * Defines the deadline in minutes for starting the backup job if it misses its scheduled time for any reason.
+   * Specifies the maximum time in minutes that the system will wait to start a missed backup job. If the scheduled backup time is missed for any reason, the backup job must start within this deadline. Values must be between 0 (immediate execution) and 1440 (one day).
    * minimum: 0
    * maximum: 1440
    * @return startingDeadlineMinutes

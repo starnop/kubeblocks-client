@@ -21,7 +21,9 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.kubeblocks.apps.models.V1alpha1BackupPolicyTemplateSpecBackupPoliciesInnerBackupMethodsInnerEnvInnerValueFromConfigMapKeyRef;
+import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecVarsInnerValueFromComponentVarRef;
 import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecVarsInnerValueFromCredentialVarRef;
+import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecVarsInnerValueFromHostNetworkVarRef;
 import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecVarsInnerValueFromSecretKeyRef;
 import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceRefVarRef;
 import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecVarsInnerValueFromServiceVarRef;
@@ -55,8 +57,12 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * Source for the variable&#39;s value. Cannot be used if value is not empty.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ComponentDefinitionSpecVarsInnerValueFrom {
+  public static final String SERIALIZED_NAME_COMPONENT_VAR_REF = "componentVarRef";
+  @SerializedName(SERIALIZED_NAME_COMPONENT_VAR_REF)
+  private V1alpha1ComponentDefinitionSpecVarsInnerValueFromComponentVarRef componentVarRef;
+
   public static final String SERIALIZED_NAME_CONFIG_MAP_KEY_REF = "configMapKeyRef";
   @SerializedName(SERIALIZED_NAME_CONFIG_MAP_KEY_REF)
   private V1alpha1BackupPolicyTemplateSpecBackupPoliciesInnerBackupMethodsInnerEnvInnerValueFromConfigMapKeyRef configMapKeyRef;
@@ -64,6 +70,10 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFrom {
   public static final String SERIALIZED_NAME_CREDENTIAL_VAR_REF = "credentialVarRef";
   @SerializedName(SERIALIZED_NAME_CREDENTIAL_VAR_REF)
   private V1alpha1ComponentDefinitionSpecVarsInnerValueFromCredentialVarRef credentialVarRef;
+
+  public static final String SERIALIZED_NAME_HOST_NETWORK_VAR_REF = "hostNetworkVarRef";
+  @SerializedName(SERIALIZED_NAME_HOST_NETWORK_VAR_REF)
+  private V1alpha1ComponentDefinitionSpecVarsInnerValueFromHostNetworkVarRef hostNetworkVarRef;
 
   public static final String SERIALIZED_NAME_SECRET_KEY_REF = "secretKeyRef";
   @SerializedName(SERIALIZED_NAME_SECRET_KEY_REF)
@@ -79,6 +89,27 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFrom {
 
   public V1alpha1ComponentDefinitionSpecVarsInnerValueFrom() {
   }
+
+  public V1alpha1ComponentDefinitionSpecVarsInnerValueFrom componentVarRef(V1alpha1ComponentDefinitionSpecVarsInnerValueFromComponentVarRef componentVarRef) {
+    
+    this.componentVarRef = componentVarRef;
+    return this;
+  }
+
+   /**
+   * Get componentVarRef
+   * @return componentVarRef
+  **/
+  @jakarta.annotation.Nullable
+  public V1alpha1ComponentDefinitionSpecVarsInnerValueFromComponentVarRef getComponentVarRef() {
+    return componentVarRef;
+  }
+
+
+  public void setComponentVarRef(V1alpha1ComponentDefinitionSpecVarsInnerValueFromComponentVarRef componentVarRef) {
+    this.componentVarRef = componentVarRef;
+  }
+
 
   public V1alpha1ComponentDefinitionSpecVarsInnerValueFrom configMapKeyRef(V1alpha1BackupPolicyTemplateSpecBackupPoliciesInnerBackupMethodsInnerEnvInnerValueFromConfigMapKeyRef configMapKeyRef) {
     
@@ -119,6 +150,27 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFrom {
 
   public void setCredentialVarRef(V1alpha1ComponentDefinitionSpecVarsInnerValueFromCredentialVarRef credentialVarRef) {
     this.credentialVarRef = credentialVarRef;
+  }
+
+
+  public V1alpha1ComponentDefinitionSpecVarsInnerValueFrom hostNetworkVarRef(V1alpha1ComponentDefinitionSpecVarsInnerValueFromHostNetworkVarRef hostNetworkVarRef) {
+    
+    this.hostNetworkVarRef = hostNetworkVarRef;
+    return this;
+  }
+
+   /**
+   * Get hostNetworkVarRef
+   * @return hostNetworkVarRef
+  **/
+  @jakarta.annotation.Nullable
+  public V1alpha1ComponentDefinitionSpecVarsInnerValueFromHostNetworkVarRef getHostNetworkVarRef() {
+    return hostNetworkVarRef;
+  }
+
+
+  public void setHostNetworkVarRef(V1alpha1ComponentDefinitionSpecVarsInnerValueFromHostNetworkVarRef hostNetworkVarRef) {
+    this.hostNetworkVarRef = hostNetworkVarRef;
   }
 
 
@@ -195,8 +247,10 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFrom {
       return false;
     }
     V1alpha1ComponentDefinitionSpecVarsInnerValueFrom v1alpha1ComponentDefinitionSpecVarsInnerValueFrom = (V1alpha1ComponentDefinitionSpecVarsInnerValueFrom) o;
-    return Objects.equals(this.configMapKeyRef, v1alpha1ComponentDefinitionSpecVarsInnerValueFrom.configMapKeyRef) &&
+    return Objects.equals(this.componentVarRef, v1alpha1ComponentDefinitionSpecVarsInnerValueFrom.componentVarRef) &&
+        Objects.equals(this.configMapKeyRef, v1alpha1ComponentDefinitionSpecVarsInnerValueFrom.configMapKeyRef) &&
         Objects.equals(this.credentialVarRef, v1alpha1ComponentDefinitionSpecVarsInnerValueFrom.credentialVarRef) &&
+        Objects.equals(this.hostNetworkVarRef, v1alpha1ComponentDefinitionSpecVarsInnerValueFrom.hostNetworkVarRef) &&
         Objects.equals(this.secretKeyRef, v1alpha1ComponentDefinitionSpecVarsInnerValueFrom.secretKeyRef) &&
         Objects.equals(this.serviceRefVarRef, v1alpha1ComponentDefinitionSpecVarsInnerValueFrom.serviceRefVarRef) &&
         Objects.equals(this.serviceVarRef, v1alpha1ComponentDefinitionSpecVarsInnerValueFrom.serviceVarRef);
@@ -204,15 +258,17 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFrom {
 
   @Override
   public int hashCode() {
-    return Objects.hash(configMapKeyRef, credentialVarRef, secretKeyRef, serviceRefVarRef, serviceVarRef);
+    return Objects.hash(componentVarRef, configMapKeyRef, credentialVarRef, hostNetworkVarRef, secretKeyRef, serviceRefVarRef, serviceVarRef);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class V1alpha1ComponentDefinitionSpecVarsInnerValueFrom {\n");
+    sb.append("    componentVarRef: ").append(toIndentedString(componentVarRef)).append("\n");
     sb.append("    configMapKeyRef: ").append(toIndentedString(configMapKeyRef)).append("\n");
     sb.append("    credentialVarRef: ").append(toIndentedString(credentialVarRef)).append("\n");
+    sb.append("    hostNetworkVarRef: ").append(toIndentedString(hostNetworkVarRef)).append("\n");
     sb.append("    secretKeyRef: ").append(toIndentedString(secretKeyRef)).append("\n");
     sb.append("    serviceRefVarRef: ").append(toIndentedString(serviceRefVarRef)).append("\n");
     sb.append("    serviceVarRef: ").append(toIndentedString(serviceVarRef)).append("\n");
@@ -238,8 +294,10 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFrom {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
+    openapiFields.add("componentVarRef");
     openapiFields.add("configMapKeyRef");
     openapiFields.add("credentialVarRef");
+    openapiFields.add("hostNetworkVarRef");
     openapiFields.add("secretKeyRef");
     openapiFields.add("serviceRefVarRef");
     openapiFields.add("serviceVarRef");
@@ -268,6 +326,10 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFrom {
           throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `V1alpha1ComponentDefinitionSpecVarsInnerValueFrom` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
         }
       }
+      // validate the optional field `componentVarRef`
+      if (jsonObj.get("componentVarRef") != null && !jsonObj.get("componentVarRef").isJsonNull()) {
+        V1alpha1ComponentDefinitionSpecVarsInnerValueFromComponentVarRef.validateJsonObject(jsonObj.getAsJsonObject("componentVarRef"));
+      }
       // validate the optional field `configMapKeyRef`
       if (jsonObj.get("configMapKeyRef") != null && !jsonObj.get("configMapKeyRef").isJsonNull()) {
         V1alpha1BackupPolicyTemplateSpecBackupPoliciesInnerBackupMethodsInnerEnvInnerValueFromConfigMapKeyRef.validateJsonObject(jsonObj.getAsJsonObject("configMapKeyRef"));
@@ -275,6 +337,10 @@ public class V1alpha1ComponentDefinitionSpecVarsInnerValueFrom {
       // validate the optional field `credentialVarRef`
       if (jsonObj.get("credentialVarRef") != null && !jsonObj.get("credentialVarRef").isJsonNull()) {
         V1alpha1ComponentDefinitionSpecVarsInnerValueFromCredentialVarRef.validateJsonObject(jsonObj.getAsJsonObject("credentialVarRef"));
+      }
+      // validate the optional field `hostNetworkVarRef`
+      if (jsonObj.get("hostNetworkVarRef") != null && !jsonObj.get("hostNetworkVarRef").isJsonNull()) {
+        V1alpha1ComponentDefinitionSpecVarsInnerValueFromHostNetworkVarRef.validateJsonObject(jsonObj.getAsJsonObject("hostNetworkVarRef"));
       }
       // validate the optional field `secretKeyRef`
       if (jsonObj.get("secretKeyRef") != null && !jsonObj.get("secretKeyRef").isJsonNull()) {

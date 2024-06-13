@@ -50,7 +50,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * ClusterDefinitionStatus defines the observed state of ClusterDefinition
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterDefinitionStatus {
   public static final String SERIALIZED_NAME_MESSAGE = "message";
   @SerializedName(SERIALIZED_NAME_MESSAGE)
@@ -110,6 +110,14 @@ public class V1alpha1ClusterDefinitionStatus {
   public static final String SERIALIZED_NAME_PHASE = "phase";
   @SerializedName(SERIALIZED_NAME_PHASE)
   private PhaseEnum phase;
+
+  public static final String SERIALIZED_NAME_SERVICE_REFS = "serviceRefs";
+  @SerializedName(SERIALIZED_NAME_SERVICE_REFS)
+  private String serviceRefs;
+
+  public static final String SERIALIZED_NAME_TOPOLOGIES = "topologies";
+  @SerializedName(SERIALIZED_NAME_TOPOLOGIES)
+  private String topologies;
 
   public V1alpha1ClusterDefinitionStatus() {
   }
@@ -177,6 +185,48 @@ public class V1alpha1ClusterDefinitionStatus {
   }
 
 
+  public V1alpha1ClusterDefinitionStatus serviceRefs(String serviceRefs) {
+    
+    this.serviceRefs = serviceRefs;
+    return this;
+  }
+
+   /**
+   * The service references declared by this ClusterDefinition.
+   * @return serviceRefs
+  **/
+  @jakarta.annotation.Nullable
+  public String getServiceRefs() {
+    return serviceRefs;
+  }
+
+
+  public void setServiceRefs(String serviceRefs) {
+    this.serviceRefs = serviceRefs;
+  }
+
+
+  public V1alpha1ClusterDefinitionStatus topologies(String topologies) {
+    
+    this.topologies = topologies;
+    return this;
+  }
+
+   /**
+   * Topologies this ClusterDefinition supported.
+   * @return topologies
+  **/
+  @jakarta.annotation.Nullable
+  public String getTopologies() {
+    return topologies;
+  }
+
+
+  public void setTopologies(String topologies) {
+    this.topologies = topologies;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -189,12 +239,14 @@ public class V1alpha1ClusterDefinitionStatus {
     V1alpha1ClusterDefinitionStatus v1alpha1ClusterDefinitionStatus = (V1alpha1ClusterDefinitionStatus) o;
     return Objects.equals(this.message, v1alpha1ClusterDefinitionStatus.message) &&
         Objects.equals(this.observedGeneration, v1alpha1ClusterDefinitionStatus.observedGeneration) &&
-        Objects.equals(this.phase, v1alpha1ClusterDefinitionStatus.phase);
+        Objects.equals(this.phase, v1alpha1ClusterDefinitionStatus.phase) &&
+        Objects.equals(this.serviceRefs, v1alpha1ClusterDefinitionStatus.serviceRefs) &&
+        Objects.equals(this.topologies, v1alpha1ClusterDefinitionStatus.topologies);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(message, observedGeneration, phase);
+    return Objects.hash(message, observedGeneration, phase, serviceRefs, topologies);
   }
 
   @Override
@@ -204,6 +256,8 @@ public class V1alpha1ClusterDefinitionStatus {
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    observedGeneration: ").append(toIndentedString(observedGeneration)).append("\n");
     sb.append("    phase: ").append(toIndentedString(phase)).append("\n");
+    sb.append("    serviceRefs: ").append(toIndentedString(serviceRefs)).append("\n");
+    sb.append("    topologies: ").append(toIndentedString(topologies)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -229,6 +283,8 @@ public class V1alpha1ClusterDefinitionStatus {
     openapiFields.add("message");
     openapiFields.add("observedGeneration");
     openapiFields.add("phase");
+    openapiFields.add("serviceRefs");
+    openapiFields.add("topologies");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -259,6 +315,12 @@ public class V1alpha1ClusterDefinitionStatus {
       }
       if ((jsonObj.get("phase") != null && !jsonObj.get("phase").isJsonNull()) && !jsonObj.get("phase").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `phase` to be a primitive type in the JSON string but got `%s`", jsonObj.get("phase").toString()));
+      }
+      if ((jsonObj.get("serviceRefs") != null && !jsonObj.get("serviceRefs").isJsonNull()) && !jsonObj.get("serviceRefs").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `serviceRefs` to be a primitive type in the JSON string but got `%s`", jsonObj.get("serviceRefs").toString()));
+      }
+      if ((jsonObj.get("topologies") != null && !jsonObj.get("topologies").isJsonNull()) && !jsonObj.get("topologies").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `topologies` to be a primitive type in the JSON string but got `%s`", jsonObj.get("topologies").toString()));
       }
   }
 

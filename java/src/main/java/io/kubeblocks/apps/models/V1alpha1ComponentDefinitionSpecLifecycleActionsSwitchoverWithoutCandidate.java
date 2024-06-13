@@ -56,7 +56,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * Represents a switchover process that does not involve a specific candidate primary or leader instance. As with the previous field, only Action.Exec is currently supported, not Action.HTTP.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ComponentDefinitionSpecLifecycleActionsSwitchoverWithoutCandidate {
   public static final String SERIALIZED_NAME_CONTAINER = "container";
   @SerializedName(SERIALIZED_NAME_CONTAINER)
@@ -91,7 +91,7 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActionsSwitchoverWithoutCan
   private V1alpha1ComponentDefinitionSpecLifecycleActionsAccountProvisionCustomHandlerRetryPolicy retryPolicy;
 
   /**
-   * Defines how to select the target Pod where the action will be performed, if there may not have a target replica by default. This field cannot be updated.
+   * Defines the criteria used to select the target Pod(s) for executing the Action. This is useful when there is no default target replica identified. It allows for precise control over which Pod(s) the Action should run in.   This field cannot be updated.   Note: This field is reserved for future use and is not currently active.
    */
   @JsonAdapter(TargetPodSelectorEnum.Adapter.class)
   public enum TargetPodSelectorEnum {
@@ -159,7 +159,7 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActionsSwitchoverWithoutCan
   }
 
    /**
-   * Defines the name of the container within the target Pod where the action will be executed. If specified, it must be one of container declared in @Runtime. If not specified, the first container declared in @Runtime will be used. This field cannot be updated.
+   * Defines the name of the container within the target Pod where the action will be executed.   This name must correspond to one of the containers defined in &#x60;componentDefinition.spec.runtime&#x60;. If this field is not specified, the default behavior is to use the first container listed in &#x60;componentDefinition.spec.runtime&#x60;.   This field cannot be updated.   Note: This field is reserved for future use and is not currently active.
    * @return container
   **/
   @jakarta.annotation.Nullable
@@ -188,7 +188,7 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActionsSwitchoverWithoutCan
   }
 
    /**
-   * Represents a list of environment variables to set in the container. This field cannot be updated.
+   * Represents a list of environment variables that will be injected into the container. These variables enable the container to adapt its behavior based on the environment it&#39;s running in.   This field cannot be updated.
    * @return env
   **/
   @jakarta.annotation.Nullable
@@ -251,7 +251,7 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActionsSwitchoverWithoutCan
   }
 
    /**
-   * Specifies the container image to run the action. This field cannot be updated.
+   * Specifies the container image to be used for running the Action.   When specified, a dedicated container will be created using this image to execute the Action. This field is mutually exclusive with the &#x60;container&#x60; field; only one of them should be provided.   This field cannot be updated.
    * @return image
   **/
   @jakarta.annotation.Nullable
@@ -272,7 +272,7 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActionsSwitchoverWithoutCan
   }
 
    /**
-   * Used to select the target pod(s) actually. If the selector is AnyReplica or AllReplicas, this field will be ignored. If the selector is RoleSelector, any replica which has the same role with this field will be chosen. This field cannot be updated.
+   * Used in conjunction with the &#x60;targetPodSelector&#x60; field to refine the selection of target pod(s) for Action execution. The impact of this field depends on the &#x60;targetPodSelector&#x60; value:   - When &#x60;targetPodSelector&#x60; is set to &#x60;Any&#x60; or &#x60;All&#x60;, this field will be ignored. - When &#x60;targetPodSelector&#x60; is set to &#x60;Role&#x60;, only those replicas whose role matches the &#x60;matchingKey&#x60; will be selected for the Action.   This field cannot be updated.   Note: This field is reserved for future use and is not currently active.
    * @return matchingKey
   **/
   @jakarta.annotation.Nullable
@@ -293,7 +293,7 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActionsSwitchoverWithoutCan
   }
 
    /**
-   * Defines the condition when the action will be executed.   - Immediately: The Action is executed immediately after the Component object is created, without guaranteeing the availability of the Component and its underlying resources. Only after the action is successfully executed will the Component&#39;s state turn to ready. - RuntimeReady: The Action is executed after the Component object is created and once all underlying Runtimes are ready. Only after the action is successfully executed will the Component&#39;s state turn to ready. - ComponentReady: The Action is executed after the Component object is created and once the Component is ready. The execution process does not impact the state of the Component and the Cluster. - ClusterReady: The Action is executed after the Cluster object is created and once the Cluster is ready.   The execution process does not impact the state of the Component and the Cluster. This field cannot be updated.
+   * Specifies the state that the cluster must reach before the Action is executed. Currently, this is only applicable to the &#x60;postProvision&#x60; action.   The conditions are as follows:   - &#x60;Immediately&#x60;: Executed right after the Component object is created. The readiness of the Component and its resources is not guaranteed at this stage. - &#x60;RuntimeReady&#x60;: The Action is triggered after the Component object has been created and all associated runtime resources (e.g. Pods) are in a ready state. - &#x60;ComponentReady&#x60;: The Action is triggered after the Component itself is in a ready state. This process does not affect the readiness state of the Component or the Cluster. - &#x60;ClusterReady&#x60;: The Action is executed after the Cluster is in a ready state. This execution does not alter the Component or the Cluster&#39;s state of readiness.   This field cannot be updated.
    * @return preCondition
   **/
   @jakarta.annotation.Nullable
@@ -335,7 +335,7 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActionsSwitchoverWithoutCan
   }
 
    /**
-   * Defines how to select the target Pod where the action will be performed, if there may not have a target replica by default. This field cannot be updated.
+   * Defines the criteria used to select the target Pod(s) for executing the Action. This is useful when there is no default target replica identified. It allows for precise control over which Pod(s) the Action should run in.   This field cannot be updated.   Note: This field is reserved for future use and is not currently active.
    * @return targetPodSelector
   **/
   @jakarta.annotation.Nullable
@@ -356,7 +356,7 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActionsSwitchoverWithoutCan
   }
 
    /**
-   * Defines the timeout duration for the action in seconds. This field cannot be updated.
+   * Specifies the maximum duration in seconds that the Action is allowed to run.   If the Action does not complete within this time frame, it will be terminated.   This field cannot be updated.
    * @return timeoutSeconds
   **/
   @jakarta.annotation.Nullable

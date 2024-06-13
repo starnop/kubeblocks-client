@@ -53,9 +53,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * By default, KubeBlocks will execute the script on the primary pod with role&#x3D;leader. Exceptions exist, such as Redis, which does not synchronize account information between primary and secondary. In such cases, the script needs to be executed on all pods matching the selector. Indicates the components on which the script is executed.
+ * Specifies the labels used to select the Pods on which the script should be executed.   By default, the script is executed on the Pod associated with the service named \&quot;{clusterName}-{componentName}\&quot;, which typically routes to the Pod with the primary/leader role.   However, some Components, such as Redis, do not synchronize account information between primary and secondary Pods. In these cases, the script must be executed on all replica Pods matching the selector.   Note: this field cannot be modified once set.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsRequestSpecScriptSpecSelector {
   public static final String SERIALIZED_NAME_MATCH_EXPRESSIONS = "matchExpressions";
   @SerializedName(SERIALIZED_NAME_MATCH_EXPRESSIONS)

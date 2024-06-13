@@ -48,9 +48,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * An optional field that defines the secondary rendered config spec.
+ * Specifies the secondary rendered config spec for pod-specific customization.   The template is rendered inside the pod (by the \&quot;config-manager\&quot; sidecar container) and merged with the main template&#39;s render result to generate the final configuration file.   This field is intended to handle scenarios where different pods within the same Component have varying configurations. It allows for pod-specific customization of the configuration.   Note: This field will be deprecated in future versions, and the functionality will be moved to &#x60;cluster.spec.componentSpecs[*].instances[*]&#x60;.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterDefinitionSpecComponentDefsInnerConfigSpecsInnerLegacyRenderedConfigSpec {
   public static final String SERIALIZED_NAME_NAMESPACE = "namespace";
   @SerializedName(SERIALIZED_NAME_NAMESPACE)

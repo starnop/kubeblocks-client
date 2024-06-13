@@ -20,7 +20,6 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.kubeblocks.apps.models.V1alpha1OpsDefinitionSpecPreConditionsInnerExec;
 import io.kubeblocks.apps.models.V1alpha1OpsDefinitionSpecPreConditionsInnerRule;
 import java.io.IOException;
 
@@ -52,39 +51,14 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * V1alpha1OpsDefinitionSpecPreConditionsInner
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsDefinitionSpecPreConditionsInner {
-  public static final String SERIALIZED_NAME_EXEC = "exec";
-  @SerializedName(SERIALIZED_NAME_EXEC)
-  private V1alpha1OpsDefinitionSpecPreConditionsInnerExec exec;
-
   public static final String SERIALIZED_NAME_RULE = "rule";
   @SerializedName(SERIALIZED_NAME_RULE)
   private V1alpha1OpsDefinitionSpecPreConditionsInnerRule rule;
 
   public V1alpha1OpsDefinitionSpecPreConditionsInner() {
   }
-
-  public V1alpha1OpsDefinitionSpecPreConditionsInner exec(V1alpha1OpsDefinitionSpecPreConditionsInnerExec exec) {
-    
-    this.exec = exec;
-    return this;
-  }
-
-   /**
-   * Get exec
-   * @return exec
-  **/
-  @jakarta.annotation.Nullable
-  public V1alpha1OpsDefinitionSpecPreConditionsInnerExec getExec() {
-    return exec;
-  }
-
-
-  public void setExec(V1alpha1OpsDefinitionSpecPreConditionsInnerExec exec) {
-    this.exec = exec;
-  }
-
 
   public V1alpha1OpsDefinitionSpecPreConditionsInner rule(V1alpha1OpsDefinitionSpecPreConditionsInnerRule rule) {
     
@@ -117,20 +91,18 @@ public class V1alpha1OpsDefinitionSpecPreConditionsInner {
       return false;
     }
     V1alpha1OpsDefinitionSpecPreConditionsInner v1alpha1OpsDefinitionSpecPreConditionsInner = (V1alpha1OpsDefinitionSpecPreConditionsInner) o;
-    return Objects.equals(this.exec, v1alpha1OpsDefinitionSpecPreConditionsInner.exec) &&
-        Objects.equals(this.rule, v1alpha1OpsDefinitionSpecPreConditionsInner.rule);
+    return Objects.equals(this.rule, v1alpha1OpsDefinitionSpecPreConditionsInner.rule);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(exec, rule);
+    return Objects.hash(rule);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class V1alpha1OpsDefinitionSpecPreConditionsInner {\n");
-    sb.append("    exec: ").append(toIndentedString(exec)).append("\n");
     sb.append("    rule: ").append(toIndentedString(rule)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -154,7 +126,6 @@ public class V1alpha1OpsDefinitionSpecPreConditionsInner {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("exec");
     openapiFields.add("rule");
 
     // a set of required properties/fields (JSON key names)
@@ -180,10 +151,6 @@ public class V1alpha1OpsDefinitionSpecPreConditionsInner {
         if (!V1alpha1OpsDefinitionSpecPreConditionsInner.openapiFields.contains(entry.getKey())) {
           throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `V1alpha1OpsDefinitionSpecPreConditionsInner` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
         }
-      }
-      // validate the optional field `exec`
-      if (jsonObj.get("exec") != null && !jsonObj.get("exec").isJsonNull()) {
-        V1alpha1OpsDefinitionSpecPreConditionsInnerExec.validateJsonObject(jsonObj.getAsJsonObject("exec"));
       }
       // validate the optional field `rule`
       if (jsonObj.get("rule") != null && !jsonObj.get("rule").isJsonNull()) {

@@ -20,8 +20,11 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.kubeblocks.apps.models.V1alpha1OpsRequestStatusComponentsValueProgressDetailsInnerActionTasksInner;
 import java.io.IOException;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -51,8 +54,16 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * V1alpha1OpsRequestStatusComponentsValueProgressDetailsInner
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsRequestStatusComponentsValueProgressDetailsInner {
+  public static final String SERIALIZED_NAME_ACTION_NAME = "actionName";
+  @SerializedName(SERIALIZED_NAME_ACTION_NAME)
+  private String actionName;
+
+  public static final String SERIALIZED_NAME_ACTION_TASKS = "actionTasks";
+  @SerializedName(SERIALIZED_NAME_ACTION_TASKS)
+  private List<V1alpha1OpsRequestStatusComponentsValueProgressDetailsInnerActionTasksInner> actionTasks;
+
   public static final String SERIALIZED_NAME_END_TIME = "endTime";
   @SerializedName(SERIALIZED_NAME_END_TIME)
   private OffsetDateTime endTime;
@@ -74,7 +85,7 @@ public class V1alpha1OpsRequestStatusComponentsValueProgressDetailsInner {
   private OffsetDateTime startTime;
 
   /**
-   * Indicates the state of processing the object.
+   * Represents the current processing state of the object, including \&quot;Processing\&quot;, \&quot;Pending\&quot;, \&quot;Failed\&quot;, \&quot;Succeed\&quot;
    */
   @JsonAdapter(StatusEnum.Adapter.class)
   public enum StatusEnum {
@@ -131,6 +142,56 @@ public class V1alpha1OpsRequestStatusComponentsValueProgressDetailsInner {
   public V1alpha1OpsRequestStatusComponentsValueProgressDetailsInner() {
   }
 
+  public V1alpha1OpsRequestStatusComponentsValueProgressDetailsInner actionName(String actionName) {
+    
+    this.actionName = actionName;
+    return this;
+  }
+
+   /**
+   * Indicates the name of an OpsAction, as defined in &#x60;opsDefinition.spec.actions[*].name&#x60;. Either &#x60;objectKey&#x60; or &#x60;actionName&#x60; must be provided.
+   * @return actionName
+  **/
+  @jakarta.annotation.Nullable
+  public String getActionName() {
+    return actionName;
+  }
+
+
+  public void setActionName(String actionName) {
+    this.actionName = actionName;
+  }
+
+
+  public V1alpha1OpsRequestStatusComponentsValueProgressDetailsInner actionTasks(List<V1alpha1OpsRequestStatusComponentsValueProgressDetailsInnerActionTasksInner> actionTasks) {
+    
+    this.actionTasks = actionTasks;
+    return this;
+  }
+
+  public V1alpha1OpsRequestStatusComponentsValueProgressDetailsInner addActionTasksItem(V1alpha1OpsRequestStatusComponentsValueProgressDetailsInnerActionTasksInner actionTasksItem) {
+    if (this.actionTasks == null) {
+      this.actionTasks = new ArrayList<>();
+    }
+    this.actionTasks.add(actionTasksItem);
+    return this;
+  }
+
+   /**
+   * Lists the tasks, such as Jobs or Pods, that carry out the action.
+   * @return actionTasks
+  **/
+  @jakarta.annotation.Nullable
+  public List<V1alpha1OpsRequestStatusComponentsValueProgressDetailsInnerActionTasksInner> getActionTasks() {
+    return actionTasks;
+  }
+
+
+  public void setActionTasks(List<V1alpha1OpsRequestStatusComponentsValueProgressDetailsInnerActionTasksInner> actionTasks) {
+    this.actionTasks = actionTasks;
+  }
+
+
   public V1alpha1OpsRequestStatusComponentsValueProgressDetailsInner endTime(OffsetDateTime endTime) {
     
     this.endTime = endTime;
@@ -138,7 +199,7 @@ public class V1alpha1OpsRequestStatusComponentsValueProgressDetailsInner {
   }
 
    /**
-   * Represents the completion time of object processing.
+   * Records the completion time of object processing.
    * @return endTime
   **/
   @jakarta.annotation.Nullable
@@ -159,7 +220,7 @@ public class V1alpha1OpsRequestStatusComponentsValueProgressDetailsInner {
   }
 
    /**
-   * Specifies the group to which the current object belongs. If the objects of a component belong to the same group, they can be ignored.
+   * Specifies the group to which the current object belongs to.
    * @return group
   **/
   @jakarta.annotation.Nullable
@@ -180,7 +241,7 @@ public class V1alpha1OpsRequestStatusComponentsValueProgressDetailsInner {
   }
 
    /**
-   * Provides a human-readable message detailing the condition of the object.
+   * Provides a human-readable explanation of the object&#39;s condition.
    * @return message
   **/
   @jakarta.annotation.Nullable
@@ -201,10 +262,10 @@ public class V1alpha1OpsRequestStatusComponentsValueProgressDetailsInner {
   }
 
    /**
-   * Represents the unique key of the object.
+   * &#x60;objectKey&#x60; uniquely identifies the object, which can be any K8s object, like a Pod, Job, Component, or PVC. Either &#x60;objectKey&#x60; or &#x60;actionName&#x60; must be provided.
    * @return objectKey
   **/
-  @jakarta.annotation.Nonnull
+  @jakarta.annotation.Nullable
   public String getObjectKey() {
     return objectKey;
   }
@@ -222,7 +283,7 @@ public class V1alpha1OpsRequestStatusComponentsValueProgressDetailsInner {
   }
 
    /**
-   * Represents the start time of object processing.
+   * Records the start time of object processing.
    * @return startTime
   **/
   @jakarta.annotation.Nullable
@@ -243,7 +304,7 @@ public class V1alpha1OpsRequestStatusComponentsValueProgressDetailsInner {
   }
 
    /**
-   * Indicates the state of processing the object.
+   * Represents the current processing state of the object, including \&quot;Processing\&quot;, \&quot;Pending\&quot;, \&quot;Failed\&quot;, \&quot;Succeed\&quot;
    * @return status
   **/
   @jakarta.annotation.Nonnull
@@ -267,7 +328,9 @@ public class V1alpha1OpsRequestStatusComponentsValueProgressDetailsInner {
       return false;
     }
     V1alpha1OpsRequestStatusComponentsValueProgressDetailsInner v1alpha1OpsRequestStatusComponentsValueProgressDetailsInner = (V1alpha1OpsRequestStatusComponentsValueProgressDetailsInner) o;
-    return Objects.equals(this.endTime, v1alpha1OpsRequestStatusComponentsValueProgressDetailsInner.endTime) &&
+    return Objects.equals(this.actionName, v1alpha1OpsRequestStatusComponentsValueProgressDetailsInner.actionName) &&
+        Objects.equals(this.actionTasks, v1alpha1OpsRequestStatusComponentsValueProgressDetailsInner.actionTasks) &&
+        Objects.equals(this.endTime, v1alpha1OpsRequestStatusComponentsValueProgressDetailsInner.endTime) &&
         Objects.equals(this.group, v1alpha1OpsRequestStatusComponentsValueProgressDetailsInner.group) &&
         Objects.equals(this.message, v1alpha1OpsRequestStatusComponentsValueProgressDetailsInner.message) &&
         Objects.equals(this.objectKey, v1alpha1OpsRequestStatusComponentsValueProgressDetailsInner.objectKey) &&
@@ -277,13 +340,15 @@ public class V1alpha1OpsRequestStatusComponentsValueProgressDetailsInner {
 
   @Override
   public int hashCode() {
-    return Objects.hash(endTime, group, message, objectKey, startTime, status);
+    return Objects.hash(actionName, actionTasks, endTime, group, message, objectKey, startTime, status);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class V1alpha1OpsRequestStatusComponentsValueProgressDetailsInner {\n");
+    sb.append("    actionName: ").append(toIndentedString(actionName)).append("\n");
+    sb.append("    actionTasks: ").append(toIndentedString(actionTasks)).append("\n");
     sb.append("    endTime: ").append(toIndentedString(endTime)).append("\n");
     sb.append("    group: ").append(toIndentedString(group)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
@@ -312,6 +377,8 @@ public class V1alpha1OpsRequestStatusComponentsValueProgressDetailsInner {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
+    openapiFields.add("actionName");
+    openapiFields.add("actionTasks");
     openapiFields.add("endTime");
     openapiFields.add("group");
     openapiFields.add("message");
@@ -321,7 +388,6 @@ public class V1alpha1OpsRequestStatusComponentsValueProgressDetailsInner {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("objectKey");
     openapiRequiredFields.add("status");
   }
 
@@ -352,13 +418,30 @@ public class V1alpha1OpsRequestStatusComponentsValueProgressDetailsInner {
           throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
         }
       }
+      if ((jsonObj.get("actionName") != null && !jsonObj.get("actionName").isJsonNull()) && !jsonObj.get("actionName").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `actionName` to be a primitive type in the JSON string but got `%s`", jsonObj.get("actionName").toString()));
+      }
+      if (jsonObj.get("actionTasks") != null && !jsonObj.get("actionTasks").isJsonNull()) {
+        JsonArray jsonArrayactionTasks = jsonObj.getAsJsonArray("actionTasks");
+        if (jsonArrayactionTasks != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("actionTasks").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `actionTasks` to be an array in the JSON string but got `%s`", jsonObj.get("actionTasks").toString()));
+          }
+
+          // validate the optional field `actionTasks` (array)
+          for (int i = 0; i < jsonArrayactionTasks.size(); i++) {
+            V1alpha1OpsRequestStatusComponentsValueProgressDetailsInnerActionTasksInner.validateJsonObject(jsonArrayactionTasks.get(i).getAsJsonObject());
+          };
+        }
+      }
       if ((jsonObj.get("group") != null && !jsonObj.get("group").isJsonNull()) && !jsonObj.get("group").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `group` to be a primitive type in the JSON string but got `%s`", jsonObj.get("group").toString()));
       }
       if ((jsonObj.get("message") != null && !jsonObj.get("message").isJsonNull()) && !jsonObj.get("message").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `message` to be a primitive type in the JSON string but got `%s`", jsonObj.get("message").toString()));
       }
-      if (!jsonObj.get("objectKey").isJsonPrimitive()) {
+      if ((jsonObj.get("objectKey") != null && !jsonObj.get("objectKey").isJsonNull()) && !jsonObj.get("objectKey").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `objectKey` to be a primitive type in the JSON string but got `%s`", jsonObj.get("objectKey").toString()));
       }
       if (!jsonObj.get("status").isJsonPrimitive()) {

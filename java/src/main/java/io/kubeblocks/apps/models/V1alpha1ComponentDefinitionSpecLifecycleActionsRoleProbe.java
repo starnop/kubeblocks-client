@@ -49,9 +49,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * RoleProbe defines the mechanism to probe the role of replicas periodically. The specified action will be executed by Lorry at the configured interval. If the execution is successful, the output will be used as the replica&#39;s assigned role, and the role must be one of the names defined in the componentdefinition roles. The output will be compared with the last successful result.  If there is a change, a role change event will be created to notify the controller and trigger updating the replica&#39;s role. Defining a RoleProbe is required if roles are configured for the component. Otherwise, the replicas&#39; pods will lack role information after the cluster is created, and services will not route to the replica correctly.   The following dedicated environment variables are available for the action:   - KB_POD_FQDN: The pod FQDN of the replica to check the role. - KB_SERVICE_PORT: The port on which the DB service listens. - KB_SERVICE_USER: The username used to access the DB service and retrieve the role information with sufficient privileges. - KB_SERVICE_PASSWORD: The password of the user used to access the DB service and retrieve the role information.   Output of the action: - ROLE: the role of the replica. It must be one of the names defined in the roles. - ERROR: Any error message if the action fails.   This field cannot be updated.
+ * Defines the procedure which is invoked regularly to assess the role of replicas.   This action is periodically triggered by Lorry at the specified interval to determine the role of each replica. Upon successful execution, the action&#39;s output designates the role of the replica, which should match one of the predefined role names within &#x60;componentDefinition.spec.roles&#x60;. The output is then compared with the previous successful execution result. If a role change is detected, an event is generated to inform the controller, which initiates an update of the replica&#39;s role.   Defining a RoleProbe Action for a Component is required if roles are defined for the Component. It ensures replicas are correctly labeled with their respective roles. Without this, services that rely on roleSelectors might improperly direct traffic to wrong replicas.   The container executing this action has access to following environment variables:   - KB_POD_FQDN: The FQDN of the Pod whose role is being assessed. - KB_SERVICE_PORT: The port used by the database service. - KB_SERVICE_USER: The username with the necessary permissions to interact with the database service. - KB_SERVICE_PASSWORD: The corresponding password for KB_SERVICE_USER to authenticate with the database service.   Expected output of this action: - On Success: The determined role of the replica, which must align with one of the roles specified in the component definition. - On Failure: An error message, if applicable, indicating why the action failed.   Note: This field is immutable once it has been set.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ComponentDefinitionSpecLifecycleActionsRoleProbe {
   public static final String SERIALIZED_NAME_BUILTIN_HANDLER = "builtinHandler";
   @SerializedName(SERIALIZED_NAME_BUILTIN_HANDLER)
@@ -83,7 +83,7 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActionsRoleProbe {
   }
 
    /**
-   * BuiltinHandler specifies the builtin action handler name to do the action. the BuiltinHandler within the same ComponentLifecycleActions should be consistent. Details can be queried through official documentation in the future. use CustomHandler to define your own actions if none of them satisfies the requirement.
+   * Specifies the name of the predefined action handler to be invoked for lifecycle actions.   Lorry, as a sidecar agent co-located with the database container in the same Pod, includes a suite of built-in action implementations that are tailored to different database engines. These are known as \&quot;builtin\&quot; handlers, includes: &#x60;mysql&#x60;, &#x60;redis&#x60;, &#x60;mongodb&#x60;, &#x60;etcd&#x60;, &#x60;postgresql&#x60;, &#x60;official-postgresql&#x60;, &#x60;apecloud-postgresql&#x60;, &#x60;wesql&#x60;, &#x60;oceanbase&#x60;, &#x60;polardbx&#x60;.   If the &#x60;builtinHandler&#x60; field is specified, it instructs Lorry to utilize its internal built-in action handler to execute the specified lifecycle actions.   The &#x60;builtinHandler&#x60; field is of type &#x60;BuiltinActionHandlerType&#x60;, which represents the name of the built-in handler. The &#x60;builtinHandler&#x60; specified within the same &#x60;ComponentLifecycleActions&#x60; should be consistent across all actions. This means that if you specify a built-in handler for one action, you should use the same handler for all other actions throughout the entire &#x60;ComponentLifecycleActions&#x60; collection.   If you need to define lifecycle actions for database engines not covered by the existing built-in support, or when the pre-existing built-in handlers do not meet your specific needs, you can use the &#x60;customHandler&#x60; field to define your own action implementation.   Deprecation Notice:   - In the future, the &#x60;builtinHandler&#x60; field will be deprecated in favor of using the &#x60;customHandler&#x60; field for configuring all lifecycle actions. - Instead of using a name to indicate the built-in action implementations in Lorry, the recommended approach will be to explicitly invoke the desired action implementation through a gRPC interface exposed by the sidecar agent. - Developers will have the flexibility to either use the built-in action implementations provided by Lorry or develop their own sidecar agent to implement custom actions and expose them via gRPC interfaces. - This change will allow for greater customization and extensibility of lifecycle actions, as developers can create their own \&quot;builtin\&quot; implementations tailored to their specific requirements.
    * @return builtinHandler
   **/
   @jakarta.annotation.Nullable
@@ -125,7 +125,7 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActionsRoleProbe {
   }
 
    /**
-   * Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+   * Specifies the number of seconds to wait after the container has started before the RoleProbe begins to detect the container&#39;s role.
    * @return initialDelaySeconds
   **/
   @jakarta.annotation.Nullable
@@ -146,7 +146,7 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActionsRoleProbe {
   }
 
    /**
-   * How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
+   * Specifies the frequency at which the probe is conducted. This value is expressed in seconds. Default to 10 seconds. Minimum value is 1.
    * @return periodSeconds
   **/
   @jakarta.annotation.Nullable
@@ -167,7 +167,7 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActionsRoleProbe {
   }
 
    /**
-   * Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+   * Specifies the number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1.
    * @return timeoutSeconds
   **/
   @jakarta.annotation.Nullable

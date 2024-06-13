@@ -60,7 +60,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * OpsRequestStatus represents the observed state of an OpsRequest.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsRequestStatus {
   public static final String SERIALIZED_NAME_CANCEL_TIMESTAMP = "cancelTimestamp";
   @SerializedName(SERIALIZED_NAME_CANCEL_TIMESTAMP)
@@ -82,12 +82,16 @@ public class V1alpha1OpsRequestStatus {
   @SerializedName(SERIALIZED_NAME_CONDITIONS)
   private List<V1alpha1ClusterStatusConditionsInner> conditions;
 
+  public static final String SERIALIZED_NAME_EXTRAS = "extras";
+  @SerializedName(SERIALIZED_NAME_EXTRAS)
+  private List<Map<String, String>> extras;
+
   public static final String SERIALIZED_NAME_LAST_CONFIGURATION = "lastConfiguration";
   @SerializedName(SERIALIZED_NAME_LAST_CONFIGURATION)
   private V1alpha1OpsRequestStatusLastConfiguration lastConfiguration;
 
   /**
-   * Defines the phase of the OpsRequest.
+   * Represents the phase of the OpsRequest. Possible values include \&quot;Pending\&quot;, \&quot;Creating\&quot;, \&quot;Running\&quot;, \&quot;Cancelling\&quot;, \&quot;Cancelled\&quot;, \&quot;Failed\&quot;, \&quot;Succeed\&quot;.
    */
   @JsonAdapter(PhaseEnum.Adapter.class)
   public enum PhaseEnum {
@@ -100,6 +104,8 @@ public class V1alpha1OpsRequestStatus {
     CANCELLING("Cancelling"),
     
     CANCELLED("Cancelled"),
+    
+    ABORTED("Aborted"),
     
     FAILED("Failed"),
     
@@ -173,7 +179,7 @@ public class V1alpha1OpsRequestStatus {
   }
 
    /**
-   * Defines the time when the OpsRequest was cancelled.
+   * Records the time when the OpsRequest was cancelled.
    * @return cancelTimestamp
   **/
   @jakarta.annotation.Nullable
@@ -194,7 +200,7 @@ public class V1alpha1OpsRequestStatus {
   }
 
    /**
-   * Specifies the cluster generation after the OpsRequest action has been handled.
+   * Records the cluster generation after the OpsRequest action has been handled.
    * @return clusterGeneration
   **/
   @jakarta.annotation.Nullable
@@ -215,7 +221,7 @@ public class V1alpha1OpsRequestStatus {
   }
 
    /**
-   * Specifies the time when the OpsRequest was completed.
+   * Records the time when the OpsRequest was completed.
    * @return completionTimestamp
   **/
   @jakarta.annotation.Nullable
@@ -244,7 +250,7 @@ public class V1alpha1OpsRequestStatus {
   }
 
    /**
-   * Records the status information of components changed due to the operation request.
+   * Records the status information of Components changed due to the OpsRequest.
    * @return components
   **/
   @jakarta.annotation.Nullable
@@ -273,7 +279,7 @@ public class V1alpha1OpsRequestStatus {
   }
 
    /**
-   * Describes the detailed status of the OpsRequest.
+   * Describes the detailed status of the OpsRequest. Possible condition types include \&quot;Cancelled\&quot;, \&quot;WaitForProgressing\&quot;, \&quot;Validated\&quot;, \&quot;Succeed\&quot;, \&quot;Failed\&quot;, \&quot;Restarting\&quot;, \&quot;VerticalScaling\&quot;, \&quot;HorizontalScaling\&quot;, \&quot;VolumeExpanding\&quot;, \&quot;Reconfigure\&quot;, \&quot;Switchover\&quot;, \&quot;Stopping\&quot;, \&quot;Starting\&quot;, \&quot;VersionUpgrading\&quot;, \&quot;Exposing\&quot;, \&quot;ExecuteDataScript\&quot;, \&quot;Backup\&quot;, \&quot;InstancesRebuilding\&quot;, \&quot;CustomOperation\&quot;.
    * @return conditions
   **/
   @jakarta.annotation.Nullable
@@ -284,6 +290,35 @@ public class V1alpha1OpsRequestStatus {
 
   public void setConditions(List<V1alpha1ClusterStatusConditionsInner> conditions) {
     this.conditions = conditions;
+  }
+
+
+  public V1alpha1OpsRequestStatus extras(List<Map<String, String>> extras) {
+    
+    this.extras = extras;
+    return this;
+  }
+
+  public V1alpha1OpsRequestStatus addExtrasItem(Map<String, String> extrasItem) {
+    if (this.extras == null) {
+      this.extras = new ArrayList<>();
+    }
+    this.extras.add(extrasItem);
+    return this;
+  }
+
+   /**
+   * A collection of additional key-value pairs that provide supplementary information for the OpsRequest.
+   * @return extras
+  **/
+  @jakarta.annotation.Nullable
+  public List<Map<String, String>> getExtras() {
+    return extras;
+  }
+
+
+  public void setExtras(List<Map<String, String>> extras) {
+    this.extras = extras;
   }
 
 
@@ -315,7 +350,7 @@ public class V1alpha1OpsRequestStatus {
   }
 
    /**
-   * Defines the phase of the OpsRequest.
+   * Represents the phase of the OpsRequest. Possible values include \&quot;Pending\&quot;, \&quot;Creating\&quot;, \&quot;Running\&quot;, \&quot;Cancelling\&quot;, \&quot;Cancelled\&quot;, \&quot;Failed\&quot;, \&quot;Succeed\&quot;.
    * @return phase
   **/
   @jakarta.annotation.Nullable
@@ -386,7 +421,7 @@ public class V1alpha1OpsRequestStatus {
   }
 
    /**
-   * Represents the status information of reconfiguring.
+   * Records the status of a reconfiguring operation if &#x60;opsRequest.spec.type&#x60; equals to \&quot;Reconfiguring\&quot;.
    * @return reconfiguringStatusAsComponent
   **/
   @jakarta.annotation.Nullable
@@ -407,7 +442,7 @@ public class V1alpha1OpsRequestStatus {
   }
 
    /**
-   * Indicates the time when the OpsRequest started processing.
+   * Records the time when the OpsRequest started processing.
    * @return startTimestamp
   **/
   @jakarta.annotation.Nullable
@@ -436,6 +471,7 @@ public class V1alpha1OpsRequestStatus {
         Objects.equals(this.completionTimestamp, v1alpha1OpsRequestStatus.completionTimestamp) &&
         Objects.equals(this.components, v1alpha1OpsRequestStatus.components) &&
         Objects.equals(this.conditions, v1alpha1OpsRequestStatus.conditions) &&
+        Objects.equals(this.extras, v1alpha1OpsRequestStatus.extras) &&
         Objects.equals(this.lastConfiguration, v1alpha1OpsRequestStatus.lastConfiguration) &&
         Objects.equals(this.phase, v1alpha1OpsRequestStatus.phase) &&
         Objects.equals(this.progress, v1alpha1OpsRequestStatus.progress) &&
@@ -446,7 +482,7 @@ public class V1alpha1OpsRequestStatus {
 
   @Override
   public int hashCode() {
-    return Objects.hash(cancelTimestamp, clusterGeneration, completionTimestamp, components, conditions, lastConfiguration, phase, progress, reconfiguringStatus, reconfiguringStatusAsComponent, startTimestamp);
+    return Objects.hash(cancelTimestamp, clusterGeneration, completionTimestamp, components, conditions, extras, lastConfiguration, phase, progress, reconfiguringStatus, reconfiguringStatusAsComponent, startTimestamp);
   }
 
   @Override
@@ -458,6 +494,7 @@ public class V1alpha1OpsRequestStatus {
     sb.append("    completionTimestamp: ").append(toIndentedString(completionTimestamp)).append("\n");
     sb.append("    components: ").append(toIndentedString(components)).append("\n");
     sb.append("    conditions: ").append(toIndentedString(conditions)).append("\n");
+    sb.append("    extras: ").append(toIndentedString(extras)).append("\n");
     sb.append("    lastConfiguration: ").append(toIndentedString(lastConfiguration)).append("\n");
     sb.append("    phase: ").append(toIndentedString(phase)).append("\n");
     sb.append("    progress: ").append(toIndentedString(progress)).append("\n");
@@ -491,6 +528,7 @@ public class V1alpha1OpsRequestStatus {
     openapiFields.add("completionTimestamp");
     openapiFields.add("components");
     openapiFields.add("conditions");
+    openapiFields.add("extras");
     openapiFields.add("lastConfiguration");
     openapiFields.add("phase");
     openapiFields.add("progress");
@@ -543,6 +581,10 @@ public class V1alpha1OpsRequestStatus {
             V1alpha1ClusterStatusConditionsInner.validateJsonObject(jsonArrayconditions.get(i).getAsJsonObject());
           };
         }
+      }
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("extras") != null && !jsonObj.get("extras").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `extras` to be an array in the JSON string but got `%s`", jsonObj.get("extras").toString()));
       }
       // validate the optional field `lastConfiguration`
       if (jsonObj.get("lastConfiguration") != null && !jsonObj.get("lastConfiguration").isJsonNull()) {

@@ -20,9 +20,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.kubeblocks.apps.models.V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerMetadata;
 import io.kubeblocks.apps.models.V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpec;
-import io.kubeblocks.apps.models.V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerStatus;
 import java.io.IOException;
 
 import com.google.gson.Gson;
@@ -51,93 +49,39 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * PersistentVolumeClaim is a user&#39;s request for and claim to a persistent volume
+ * V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInner
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInner {
-  public static final String SERIALIZED_NAME_API_VERSION = "apiVersion";
-  @SerializedName(SERIALIZED_NAME_API_VERSION)
-  private String apiVersion;
-
-  public static final String SERIALIZED_NAME_KIND = "kind";
-  @SerializedName(SERIALIZED_NAME_KIND)
-  private String kind;
-
-  public static final String SERIALIZED_NAME_METADATA = "metadata";
-  @SerializedName(SERIALIZED_NAME_METADATA)
-  private V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerMetadata metadata;
+  public static final String SERIALIZED_NAME_NAME = "name";
+  @SerializedName(SERIALIZED_NAME_NAME)
+  private String name;
 
   public static final String SERIALIZED_NAME_SPEC = "spec";
   @SerializedName(SERIALIZED_NAME_SPEC)
   private V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpec spec;
 
-  public static final String SERIALIZED_NAME_STATUS = "status";
-  @SerializedName(SERIALIZED_NAME_STATUS)
-  private V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerStatus status;
-
   public V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInner() {
   }
 
-  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInner apiVersion(String apiVersion) {
+  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInner name(String name) {
     
-    this.apiVersion = apiVersion;
+    this.name = name;
     return this;
   }
 
    /**
-   * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-   * @return apiVersion
+   * Refers to the name of a volumeMount defined in either:   - &#x60;componentDefinition.spec.runtime.containers[*].volumeMounts&#x60; - &#x60;clusterDefinition.spec.componentDefs[*].podSpec.containers[*].volumeMounts&#x60; (deprecated)   The value of &#x60;name&#x60; must match the &#x60;name&#x60; field of a volumeMount specified in the corresponding &#x60;volumeMounts&#x60; array.
+   * @return name
   **/
-  @jakarta.annotation.Nullable
-  public String getApiVersion() {
-    return apiVersion;
+  @jakarta.annotation.Nonnull
+  public String getName() {
+    return name;
   }
 
 
-  public void setApiVersion(String apiVersion) {
-    this.apiVersion = apiVersion;
-  }
-
-
-  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInner kind(String kind) {
-    
-    this.kind = kind;
-    return this;
-  }
-
-   /**
-   * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-   * @return kind
-  **/
-  @jakarta.annotation.Nullable
-  public String getKind() {
-    return kind;
-  }
-
-
-  public void setKind(String kind) {
-    this.kind = kind;
-  }
-
-
-  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInner metadata(V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerMetadata metadata) {
-    
-    this.metadata = metadata;
-    return this;
-  }
-
-   /**
-   * Get metadata
-   * @return metadata
-  **/
-  @jakarta.annotation.Nullable
-  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerMetadata getMetadata() {
-    return metadata;
-  }
-
-
-  public void setMetadata(V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerMetadata metadata) {
-    this.metadata = metadata;
+  public void setName(String name) {
+    this.name = name;
   }
 
 
@@ -162,27 +106,6 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemp
   }
 
 
-  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInner status(V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerStatus status) {
-    
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * Get status
-   * @return status
-  **/
-  @jakarta.annotation.Nullable
-  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerStatus getStatus() {
-    return status;
-  }
-
-
-  public void setStatus(V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerStatus status) {
-    this.status = status;
-  }
-
-
 
   @Override
   public boolean equals(Object o) {
@@ -193,27 +116,21 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemp
       return false;
     }
     V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInner v1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInner = (V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInner) o;
-    return Objects.equals(this.apiVersion, v1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInner.apiVersion) &&
-        Objects.equals(this.kind, v1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInner.kind) &&
-        Objects.equals(this.metadata, v1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInner.metadata) &&
-        Objects.equals(this.spec, v1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInner.spec) &&
-        Objects.equals(this.status, v1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInner.status);
+    return Objects.equals(this.name, v1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInner.name) &&
+        Objects.equals(this.spec, v1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInner.spec);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(apiVersion, kind, metadata, spec, status);
+    return Objects.hash(name, spec);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInner {\n");
-    sb.append("    apiVersion: ").append(toIndentedString(apiVersion)).append("\n");
-    sb.append("    kind: ").append(toIndentedString(kind)).append("\n");
-    sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    spec: ").append(toIndentedString(spec)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -236,14 +153,12 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemp
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("apiVersion");
-    openapiFields.add("kind");
-    openapiFields.add("metadata");
+    openapiFields.add("name");
     openapiFields.add("spec");
-    openapiFields.add("status");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("name");
   }
 
  /**
@@ -266,23 +181,19 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemp
           throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInner` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
         }
       }
-      if ((jsonObj.get("apiVersion") != null && !jsonObj.get("apiVersion").isJsonNull()) && !jsonObj.get("apiVersion").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `apiVersion` to be a primitive type in the JSON string but got `%s`", jsonObj.get("apiVersion").toString()));
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInner.openapiRequiredFields) {
+        if (jsonObj.get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
+        }
       }
-      if ((jsonObj.get("kind") != null && !jsonObj.get("kind").isJsonNull()) && !jsonObj.get("kind").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `kind` to be a primitive type in the JSON string but got `%s`", jsonObj.get("kind").toString()));
-      }
-      // validate the optional field `metadata`
-      if (jsonObj.get("metadata") != null && !jsonObj.get("metadata").isJsonNull()) {
-        V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerMetadata.validateJsonObject(jsonObj.getAsJsonObject("metadata"));
+      if (!jsonObj.get("name").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
       }
       // validate the optional field `spec`
       if (jsonObj.get("spec") != null && !jsonObj.get("spec").isJsonNull()) {
         V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpec.validateJsonObject(jsonObj.getAsJsonObject("spec"));
-      }
-      // validate the optional field `status`
-      if (jsonObj.get("status") != null && !jsonObj.get("status").isJsonNull()) {
-        V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerStatus.validateJsonObject(jsonObj.getAsJsonObject("status"));
       }
   }
 

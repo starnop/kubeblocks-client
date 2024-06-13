@@ -20,7 +20,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.kubeblocks.apps.models.V1alpha1ComponentSpecTlsConfigIssuer;
+import io.kubeblocks.apps.models.V1alpha1ClusterSpecComponentSpecsInnerIssuer;
 import java.io.IOException;
 
 import com.google.gson.Gson;
@@ -49,9 +49,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * Specifies the TLS configuration for the component.
+ * Specifies the TLS configuration for the Component, including:   - A boolean flag that indicates whether the Component should use Transport Layer Security (TLS) for secure communication. - An optional field that specifies the configuration for the TLS certificates issuer when TLS is enabled. It allows defining the issuer name and the reference to the secret containing the TLS certificates and key. The secret should contain the CA certificate, TLS certificate, and private key in the specified keys.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ComponentSpecTlsConfig {
   public static final String SERIALIZED_NAME_ENABLE = "enable";
   @SerializedName(SERIALIZED_NAME_ENABLE)
@@ -59,7 +59,7 @@ public class V1alpha1ComponentSpecTlsConfig {
 
   public static final String SERIALIZED_NAME_ISSUER = "issuer";
   @SerializedName(SERIALIZED_NAME_ISSUER)
-  private V1alpha1ComponentSpecTlsConfigIssuer issuer;
+  private V1alpha1ClusterSpecComponentSpecsInnerIssuer issuer;
 
   public V1alpha1ComponentSpecTlsConfig() {
   }
@@ -71,7 +71,7 @@ public class V1alpha1ComponentSpecTlsConfig {
   }
 
    /**
-   * Get enable
+   * A boolean flag that indicates whether the Component should use Transport Layer Security (TLS) for secure communication. When set to true, the Component will be configured to use TLS encryption for its network connections. This ensures that the data transmitted between the Component and its clients or other Components is encrypted and protected from unauthorized access. If TLS is enabled, the Component may require additional configuration, such as specifying TLS certificates and keys, to properly set up the secure communication channel.
    * @return enable
   **/
   @jakarta.annotation.Nullable
@@ -85,7 +85,7 @@ public class V1alpha1ComponentSpecTlsConfig {
   }
 
 
-  public V1alpha1ComponentSpecTlsConfig issuer(V1alpha1ComponentSpecTlsConfigIssuer issuer) {
+  public V1alpha1ComponentSpecTlsConfig issuer(V1alpha1ClusterSpecComponentSpecsInnerIssuer issuer) {
     
     this.issuer = issuer;
     return this;
@@ -96,12 +96,12 @@ public class V1alpha1ComponentSpecTlsConfig {
    * @return issuer
   **/
   @jakarta.annotation.Nullable
-  public V1alpha1ComponentSpecTlsConfigIssuer getIssuer() {
+  public V1alpha1ClusterSpecComponentSpecsInnerIssuer getIssuer() {
     return issuer;
   }
 
 
-  public void setIssuer(V1alpha1ComponentSpecTlsConfigIssuer issuer) {
+  public void setIssuer(V1alpha1ClusterSpecComponentSpecsInnerIssuer issuer) {
     this.issuer = issuer;
   }
 
@@ -182,7 +182,7 @@ public class V1alpha1ComponentSpecTlsConfig {
       }
       // validate the optional field `issuer`
       if (jsonObj.get("issuer") != null && !jsonObj.get("issuer").isJsonNull()) {
-        V1alpha1ComponentSpecTlsConfigIssuer.validateJsonObject(jsonObj.getAsJsonObject("issuer"));
+        V1alpha1ClusterSpecComponentSpecsInnerIssuer.validateJsonObject(jsonObj.getAsJsonObject("issuer"));
       }
   }
 

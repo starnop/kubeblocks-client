@@ -50,9 +50,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * Records the last configuration before this operation took effect.
+ * Records the configuration prior to any changes.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsRequestStatusLastConfiguration {
   public static final String SERIALIZED_NAME_CLUSTER_VERSION_REF = "clusterVersionRef";
   @SerializedName(SERIALIZED_NAME_CLUSTER_VERSION_REF)
@@ -72,7 +72,7 @@ public class V1alpha1OpsRequestStatusLastConfiguration {
   }
 
    /**
-   * Specifies the reference to the ClusterVersion name.
+   * Specifies the name of the ClusterVersion. Deprecated and should be removed in the future version.
    * @return clusterVersionRef
   **/
   @jakarta.annotation.Nullable
@@ -101,7 +101,7 @@ public class V1alpha1OpsRequestStatusLastConfiguration {
   }
 
    /**
-   * Records the last configuration of the component.
+   * Records the configuration of each Component prior to any changes.
    * @return components
   **/
   @jakarta.annotation.Nullable

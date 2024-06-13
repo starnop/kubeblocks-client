@@ -52,7 +52,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * Contains the updated parameters.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsRequestStatusReconfiguringStatusConfigurationStatusInnerUpdatedParameters {
   public static final String SERIALIZED_NAME_ADDED_KEYS = "addedKeys";
   @SerializedName(SERIALIZED_NAME_ADDED_KEYS)
@@ -84,7 +84,7 @@ public class V1alpha1OpsRequestStatusReconfiguringStatusConfigurationStatusInner
   }
 
    /**
-   * Lists the keys that have been added.
+   * Maps newly added configuration files to their content.
    * @return addedKeys
   **/
   @jakarta.annotation.Nullable
@@ -113,7 +113,7 @@ public class V1alpha1OpsRequestStatusReconfiguringStatusConfigurationStatusInner
   }
 
    /**
-   * Lists the keys that have been deleted.
+   * Lists the name of configuration files that have been deleted.
    * @return deletedKeys
   **/
   @jakarta.annotation.Nullable
@@ -142,7 +142,7 @@ public class V1alpha1OpsRequestStatusReconfiguringStatusConfigurationStatusInner
   }
 
    /**
-   * Lists the keys that have been updated.
+   * Maps the name of configuration files to their updated content, detailing the changes made.
    * @return updatedKeys
   **/
   @jakarta.annotation.Nullable

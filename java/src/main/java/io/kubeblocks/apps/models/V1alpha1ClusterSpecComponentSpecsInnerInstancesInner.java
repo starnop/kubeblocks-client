@@ -20,9 +20,10 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.kubeblocks.apps.models.V1alpha1BackupPolicyTemplateSpecBackupPoliciesInnerBackupMethodsInnerEnvInner;
 import io.kubeblocks.apps.models.V1alpha1BackupPolicyTemplateSpecBackupPoliciesInnerBackupMethodsInnerTargetVolumesVolumeMountsInner;
 import io.kubeblocks.apps.models.V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerResources;
-import io.kubeblocks.apps.models.V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerTolerationsInner;
+import io.kubeblocks.apps.models.V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerSchedulingPolicy;
 import io.kubeblocks.apps.models.V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInner;
 import io.kubeblocks.apps.models.V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInner;
 import java.io.IOException;
@@ -57,17 +58,17 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * V1alpha1ClusterSpecComponentSpecsInnerInstancesInner
+ * InstanceTemplate allows customization of individual replica configurations in a Component.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInner {
   public static final String SERIALIZED_NAME_ANNOTATIONS = "annotations";
   @SerializedName(SERIALIZED_NAME_ANNOTATIONS)
   private Map<String, String> annotations = new HashMap<>();
 
-  public static final String SERIALIZED_NAME_GENERATE_NAME = "generateName";
-  @SerializedName(SERIALIZED_NAME_GENERATE_NAME)
-  private String generateName;
+  public static final String SERIALIZED_NAME_ENV = "env";
+  @SerializedName(SERIALIZED_NAME_ENV)
+  private List<V1alpha1BackupPolicyTemplateSpecBackupPoliciesInnerBackupMethodsInnerEnvInner> env;
 
   public static final String SERIALIZED_NAME_IMAGE = "image";
   @SerializedName(SERIALIZED_NAME_IMAGE)
@@ -81,14 +82,6 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInner {
   @SerializedName(SERIALIZED_NAME_NAME)
   private String name;
 
-  public static final String SERIALIZED_NAME_NODE_NAME = "nodeName";
-  @SerializedName(SERIALIZED_NAME_NODE_NAME)
-  private String nodeName;
-
-  public static final String SERIALIZED_NAME_NODE_SELECTOR = "nodeSelector";
-  @SerializedName(SERIALIZED_NAME_NODE_SELECTOR)
-  private Map<String, String> nodeSelector = new HashMap<>();
-
   public static final String SERIALIZED_NAME_REPLICAS = "replicas";
   @SerializedName(SERIALIZED_NAME_REPLICAS)
   private Integer replicas;
@@ -97,9 +90,9 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInner {
   @SerializedName(SERIALIZED_NAME_RESOURCES)
   private V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerResources resources;
 
-  public static final String SERIALIZED_NAME_TOLERATIONS = "tolerations";
-  @SerializedName(SERIALIZED_NAME_TOLERATIONS)
-  private List<V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerTolerationsInner> tolerations;
+  public static final String SERIALIZED_NAME_SCHEDULING_POLICY = "schedulingPolicy";
+  @SerializedName(SERIALIZED_NAME_SCHEDULING_POLICY)
+  private V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerSchedulingPolicy schedulingPolicy;
 
   public static final String SERIALIZED_NAME_VOLUME_CLAIM_TEMPLATES = "volumeClaimTemplates";
   @SerializedName(SERIALIZED_NAME_VOLUME_CLAIM_TEMPLATES)
@@ -131,7 +124,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInner {
   }
 
    /**
-   * Defines annotations to override. Add new or override existing annotations.
+   * Specifies a map of key-value pairs to be merged into the Pod&#39;s existing annotations. Existing keys will have their values overwritten, while new keys will be added to the annotations.
    * @return annotations
   **/
   @jakarta.annotation.Nullable
@@ -145,24 +138,32 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInner {
   }
 
 
-  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInner generateName(String generateName) {
+  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInner env(List<V1alpha1BackupPolicyTemplateSpecBackupPoliciesInnerBackupMethodsInnerEnvInner> env) {
     
-    this.generateName = generateName;
+    this.env = env;
+    return this;
+  }
+
+  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInner addEnvItem(V1alpha1BackupPolicyTemplateSpecBackupPoliciesInnerBackupMethodsInnerEnvInner envItem) {
+    if (this.env == null) {
+      this.env = new ArrayList<>();
+    }
+    this.env.add(envItem);
     return this;
   }
 
    /**
-   * GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server.   Applied only if Name is not specified.
-   * @return generateName
+   * Defines Env to override. Add new or override existing envs.
+   * @return env
   **/
   @jakarta.annotation.Nullable
-  public String getGenerateName() {
-    return generateName;
+  public List<V1alpha1BackupPolicyTemplateSpecBackupPoliciesInnerBackupMethodsInnerEnvInner> getEnv() {
+    return env;
   }
 
 
-  public void setGenerateName(String generateName) {
-    this.generateName = generateName;
+  public void setEnv(List<V1alpha1BackupPolicyTemplateSpecBackupPoliciesInnerBackupMethodsInnerEnvInner> env) {
+    this.env = env;
   }
 
 
@@ -173,7 +174,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInner {
   }
 
    /**
-   * Defines image to override. Will override the first container&#39;s image of the pod.
+   * Specifies an override for the first container&#39;s image in the Pod.
    * @return image
   **/
   @jakarta.annotation.Nullable
@@ -202,7 +203,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInner {
   }
 
    /**
-   * Defines labels to override. Add new or override existing labels.
+   * Specifies a map of key-value pairs that will be merged into the Pod&#39;s existing labels. Values for existing keys will be overwritten, and new keys will be added.
    * @return labels
   **/
   @jakarta.annotation.Nullable
@@ -223,10 +224,10 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInner {
   }
 
    /**
-   * Defines the name of the instance. Only applied when Replicas is 1.
+   * Name specifies the unique name of the instance Pod created using this InstanceTemplate. This name is constructed by concatenating the Component&#39;s name, the template&#39;s name, and the instance&#39;s ordinal using the pattern: $(cluster.name)-$(component.name)-$(template.name)-$(ordinal). Ordinals start from 0. The specified name overrides any default naming conventions or patterns.
    * @return name
   **/
-  @jakarta.annotation.Nullable
+  @jakarta.annotation.Nonnull
   public String getName() {
     return name;
   }
@@ -237,56 +238,6 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInner {
   }
 
 
-  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInner nodeName(String nodeName) {
-    
-    this.nodeName = nodeName;
-    return this;
-  }
-
-   /**
-   * Defines NodeName to override.
-   * @return nodeName
-  **/
-  @jakarta.annotation.Nullable
-  public String getNodeName() {
-    return nodeName;
-  }
-
-
-  public void setNodeName(String nodeName) {
-    this.nodeName = nodeName;
-  }
-
-
-  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInner nodeSelector(Map<String, String> nodeSelector) {
-    
-    this.nodeSelector = nodeSelector;
-    return this;
-  }
-
-  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInner putNodeSelectorItem(String key, String nodeSelectorItem) {
-    if (this.nodeSelector == null) {
-      this.nodeSelector = new HashMap<>();
-    }
-    this.nodeSelector.put(key, nodeSelectorItem);
-    return this;
-  }
-
-   /**
-   * Defines NodeSelector to override.
-   * @return nodeSelector
-  **/
-  @jakarta.annotation.Nullable
-  public Map<String, String> getNodeSelector() {
-    return nodeSelector;
-  }
-
-
-  public void setNodeSelector(Map<String, String> nodeSelector) {
-    this.nodeSelector = nodeSelector;
-  }
-
-
   public V1alpha1ClusterSpecComponentSpecsInnerInstancesInner replicas(Integer replicas) {
     
     this.replicas = replicas;
@@ -294,7 +245,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInner {
   }
 
    /**
-   * Number of replicas of this template. Default is 1.
+   * Specifies the number of instances (Pods) to create from this InstanceTemplate. This field allows setting how many replicated instances of the Component, with the specific overrides in the InstanceTemplate, are created. The default value is 1. A value of 0 disables instance creation.
    * minimum: 0
    * @return replicas
   **/
@@ -330,32 +281,24 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInner {
   }
 
 
-  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInner tolerations(List<V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerTolerationsInner> tolerations) {
+  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInner schedulingPolicy(V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerSchedulingPolicy schedulingPolicy) {
     
-    this.tolerations = tolerations;
-    return this;
-  }
-
-  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInner addTolerationsItem(V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerTolerationsInner tolerationsItem) {
-    if (this.tolerations == null) {
-      this.tolerations = new ArrayList<>();
-    }
-    this.tolerations.add(tolerationsItem);
+    this.schedulingPolicy = schedulingPolicy;
     return this;
   }
 
    /**
-   * Defines Tolerations to override. Add new or override existing tolerations.
-   * @return tolerations
+   * Get schedulingPolicy
+   * @return schedulingPolicy
   **/
   @jakarta.annotation.Nullable
-  public List<V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerTolerationsInner> getTolerations() {
-    return tolerations;
+  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerSchedulingPolicy getSchedulingPolicy() {
+    return schedulingPolicy;
   }
 
 
-  public void setTolerations(List<V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerTolerationsInner> tolerations) {
-    this.tolerations = tolerations;
+  public void setSchedulingPolicy(V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerSchedulingPolicy schedulingPolicy) {
+    this.schedulingPolicy = schedulingPolicy;
   }
 
 
@@ -403,7 +346,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInner {
   }
 
    /**
-   * Defines VolumeMounts to override. Add new or override existing volume mounts of the first container in the pod.
+   * Defines VolumeMounts to override. Add new or override existing volume mounts of the first container in the Pod.
    * @return volumeMounts
   **/
   @jakarta.annotation.Nullable
@@ -457,15 +400,13 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInner {
     }
     V1alpha1ClusterSpecComponentSpecsInnerInstancesInner v1alpha1ClusterSpecComponentSpecsInnerInstancesInner = (V1alpha1ClusterSpecComponentSpecsInnerInstancesInner) o;
     return Objects.equals(this.annotations, v1alpha1ClusterSpecComponentSpecsInnerInstancesInner.annotations) &&
-        Objects.equals(this.generateName, v1alpha1ClusterSpecComponentSpecsInnerInstancesInner.generateName) &&
+        Objects.equals(this.env, v1alpha1ClusterSpecComponentSpecsInnerInstancesInner.env) &&
         Objects.equals(this.image, v1alpha1ClusterSpecComponentSpecsInnerInstancesInner.image) &&
         Objects.equals(this.labels, v1alpha1ClusterSpecComponentSpecsInnerInstancesInner.labels) &&
         Objects.equals(this.name, v1alpha1ClusterSpecComponentSpecsInnerInstancesInner.name) &&
-        Objects.equals(this.nodeName, v1alpha1ClusterSpecComponentSpecsInnerInstancesInner.nodeName) &&
-        Objects.equals(this.nodeSelector, v1alpha1ClusterSpecComponentSpecsInnerInstancesInner.nodeSelector) &&
         Objects.equals(this.replicas, v1alpha1ClusterSpecComponentSpecsInnerInstancesInner.replicas) &&
         Objects.equals(this.resources, v1alpha1ClusterSpecComponentSpecsInnerInstancesInner.resources) &&
-        Objects.equals(this.tolerations, v1alpha1ClusterSpecComponentSpecsInnerInstancesInner.tolerations) &&
+        Objects.equals(this.schedulingPolicy, v1alpha1ClusterSpecComponentSpecsInnerInstancesInner.schedulingPolicy) &&
         Objects.equals(this.volumeClaimTemplates, v1alpha1ClusterSpecComponentSpecsInnerInstancesInner.volumeClaimTemplates) &&
         Objects.equals(this.volumeMounts, v1alpha1ClusterSpecComponentSpecsInnerInstancesInner.volumeMounts) &&
         Objects.equals(this.volumes, v1alpha1ClusterSpecComponentSpecsInnerInstancesInner.volumes);
@@ -473,7 +414,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInner {
 
   @Override
   public int hashCode() {
-    return Objects.hash(annotations, generateName, image, labels, name, nodeName, nodeSelector, replicas, resources, tolerations, volumeClaimTemplates, volumeMounts, volumes);
+    return Objects.hash(annotations, env, image, labels, name, replicas, resources, schedulingPolicy, volumeClaimTemplates, volumeMounts, volumes);
   }
 
   @Override
@@ -481,15 +422,13 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInner {
     StringBuilder sb = new StringBuilder();
     sb.append("class V1alpha1ClusterSpecComponentSpecsInnerInstancesInner {\n");
     sb.append("    annotations: ").append(toIndentedString(annotations)).append("\n");
-    sb.append("    generateName: ").append(toIndentedString(generateName)).append("\n");
+    sb.append("    env: ").append(toIndentedString(env)).append("\n");
     sb.append("    image: ").append(toIndentedString(image)).append("\n");
     sb.append("    labels: ").append(toIndentedString(labels)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    nodeName: ").append(toIndentedString(nodeName)).append("\n");
-    sb.append("    nodeSelector: ").append(toIndentedString(nodeSelector)).append("\n");
     sb.append("    replicas: ").append(toIndentedString(replicas)).append("\n");
     sb.append("    resources: ").append(toIndentedString(resources)).append("\n");
-    sb.append("    tolerations: ").append(toIndentedString(tolerations)).append("\n");
+    sb.append("    schedulingPolicy: ").append(toIndentedString(schedulingPolicy)).append("\n");
     sb.append("    volumeClaimTemplates: ").append(toIndentedString(volumeClaimTemplates)).append("\n");
     sb.append("    volumeMounts: ").append(toIndentedString(volumeMounts)).append("\n");
     sb.append("    volumes: ").append(toIndentedString(volumes)).append("\n");
@@ -516,21 +455,20 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInner {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("annotations");
-    openapiFields.add("generateName");
+    openapiFields.add("env");
     openapiFields.add("image");
     openapiFields.add("labels");
     openapiFields.add("name");
-    openapiFields.add("nodeName");
-    openapiFields.add("nodeSelector");
     openapiFields.add("replicas");
     openapiFields.add("resources");
-    openapiFields.add("tolerations");
+    openapiFields.add("schedulingPolicy");
     openapiFields.add("volumeClaimTemplates");
     openapiFields.add("volumeMounts");
     openapiFields.add("volumes");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("name");
   }
 
  /**
@@ -553,35 +491,40 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInner {
           throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `V1alpha1ClusterSpecComponentSpecsInnerInstancesInner` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
         }
       }
-      if ((jsonObj.get("generateName") != null && !jsonObj.get("generateName").isJsonNull()) && !jsonObj.get("generateName").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `generateName` to be a primitive type in the JSON string but got `%s`", jsonObj.get("generateName").toString()));
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : V1alpha1ClusterSpecComponentSpecsInnerInstancesInner.openapiRequiredFields) {
+        if (jsonObj.get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
+        }
+      }
+      if (jsonObj.get("env") != null && !jsonObj.get("env").isJsonNull()) {
+        JsonArray jsonArrayenv = jsonObj.getAsJsonArray("env");
+        if (jsonArrayenv != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("env").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `env` to be an array in the JSON string but got `%s`", jsonObj.get("env").toString()));
+          }
+
+          // validate the optional field `env` (array)
+          for (int i = 0; i < jsonArrayenv.size(); i++) {
+            V1alpha1BackupPolicyTemplateSpecBackupPoliciesInnerBackupMethodsInnerEnvInner.validateJsonObject(jsonArrayenv.get(i).getAsJsonObject());
+          };
+        }
       }
       if ((jsonObj.get("image") != null && !jsonObj.get("image").isJsonNull()) && !jsonObj.get("image").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `image` to be a primitive type in the JSON string but got `%s`", jsonObj.get("image").toString()));
       }
-      if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
+      if (!jsonObj.get("name").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
-      }
-      if ((jsonObj.get("nodeName") != null && !jsonObj.get("nodeName").isJsonNull()) && !jsonObj.get("nodeName").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `nodeName` to be a primitive type in the JSON string but got `%s`", jsonObj.get("nodeName").toString()));
       }
       // validate the optional field `resources`
       if (jsonObj.get("resources") != null && !jsonObj.get("resources").isJsonNull()) {
         V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerResources.validateJsonObject(jsonObj.getAsJsonObject("resources"));
       }
-      if (jsonObj.get("tolerations") != null && !jsonObj.get("tolerations").isJsonNull()) {
-        JsonArray jsonArraytolerations = jsonObj.getAsJsonArray("tolerations");
-        if (jsonArraytolerations != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("tolerations").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `tolerations` to be an array in the JSON string but got `%s`", jsonObj.get("tolerations").toString()));
-          }
-
-          // validate the optional field `tolerations` (array)
-          for (int i = 0; i < jsonArraytolerations.size(); i++) {
-            V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerTolerationsInner.validateJsonObject(jsonArraytolerations.get(i).getAsJsonObject());
-          };
-        }
+      // validate the optional field `schedulingPolicy`
+      if (jsonObj.get("schedulingPolicy") != null && !jsonObj.get("schedulingPolicy").isJsonNull()) {
+        V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerSchedulingPolicy.validateJsonObject(jsonObj.getAsJsonObject("schedulingPolicy"));
       }
       if (jsonObj.get("volumeClaimTemplates") != null && !jsonObj.get("volumeClaimTemplates").isJsonNull()) {
         JsonArray jsonArrayvolumeClaimTemplates = jsonObj.getAsJsonArray("volumeClaimTemplates");

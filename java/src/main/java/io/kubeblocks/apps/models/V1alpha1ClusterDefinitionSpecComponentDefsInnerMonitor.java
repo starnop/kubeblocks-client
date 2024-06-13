@@ -49,9 +49,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * Specify the config that how to monitor the component.
+ * Deprecated since v0.9 monitor is monitoring config which provided by provider.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterDefinitionSpecComponentDefsInnerMonitor {
   public static final String SERIALIZED_NAME_BUILT_IN = "builtIn";
   @SerializedName(SERIALIZED_NAME_BUILT_IN)
@@ -71,7 +71,7 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerMonitor {
   }
 
    /**
-   * To enable the built-in monitoring. When set to true, monitoring metrics will be automatically scraped. When set to false, the provider is expected to configure the ExporterConfig and manage the Sidecar container.
+   * builtIn is a switch to enable KubeBlocks builtIn monitoring. If BuiltIn is set to true, monitor metrics will be scraped automatically. If BuiltIn is set to false, the provider should set ExporterConfig and Sidecar container own.
    * @return builtIn
   **/
   @jakarta.annotation.Nullable

@@ -52,7 +52,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * V1alpha1ClusterSpecComponentSpecsInnerServicesInner
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterSpecComponentSpecsInnerServicesInner {
   public static final String SERIALIZED_NAME_ANNOTATIONS = "annotations";
   @SerializedName(SERIALIZED_NAME_ANNOTATIONS)
@@ -62,8 +62,12 @@ public class V1alpha1ClusterSpecComponentSpecsInnerServicesInner {
   @SerializedName(SERIALIZED_NAME_NAME)
   private String name;
 
+  public static final String SERIALIZED_NAME_POD_SERVICE = "podService";
+  @SerializedName(SERIALIZED_NAME_POD_SERVICE)
+  private Boolean podService;
+
   /**
-   * Determines how the Service is exposed. Valid options are ClusterIP, NodePort, and LoadBalancer.   - &#x60;ClusterIP&#x60; allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, they are determined by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is \&quot;None\&quot;, no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. - &#x60;NodePort&#x60; builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. - &#x60;LoadBalancer&#x60; builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP.   More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types.
+   * Determines how the Service is exposed. Valid options are &#x60;ClusterIP&#x60;, &#x60;NodePort&#x60;, and &#x60;LoadBalancer&#x60;.   - &#x60;ClusterIP&#x60; allocates a Cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, they are determined by manual construction of an Endpoints object or EndpointSlice objects. - &#x60;NodePort&#x60; builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the ClusterIP. - &#x60;LoadBalancer&#x60; builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the ClusterIP.   Note: although K8s Service type allows the &#39;ExternalName&#39; type, it is not a valid option for ClusterComponentService.   For more info, see: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types.
    */
   @JsonAdapter(ServiceTypeEnum.Adapter.class)
   public enum ServiceTypeEnum {
@@ -154,7 +158,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerServicesInner {
   }
 
    /**
-   * The name of the service.
+   * References the ComponentService name defined in the &#x60;componentDefinition.spec.services[*].name&#x60;.
    * @return name
   **/
   @jakarta.annotation.Nonnull
@@ -168,6 +172,27 @@ public class V1alpha1ClusterSpecComponentSpecsInnerServicesInner {
   }
 
 
+  public V1alpha1ClusterSpecComponentSpecsInnerServicesInner podService(Boolean podService) {
+    
+    this.podService = podService;
+    return this;
+  }
+
+   /**
+   * Indicates whether to generate individual Services for each Pod. If set to true, a separate Service will be created for each Pod in the Cluster.
+   * @return podService
+  **/
+  @jakarta.annotation.Nullable
+  public Boolean getPodService() {
+    return podService;
+  }
+
+
+  public void setPodService(Boolean podService) {
+    this.podService = podService;
+  }
+
+
   public V1alpha1ClusterSpecComponentSpecsInnerServicesInner serviceType(ServiceTypeEnum serviceType) {
     
     this.serviceType = serviceType;
@@ -175,7 +200,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerServicesInner {
   }
 
    /**
-   * Determines how the Service is exposed. Valid options are ClusterIP, NodePort, and LoadBalancer.   - &#x60;ClusterIP&#x60; allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, they are determined by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is \&quot;None\&quot;, no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. - &#x60;NodePort&#x60; builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. - &#x60;LoadBalancer&#x60; builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP.   More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types.
+   * Determines how the Service is exposed. Valid options are &#x60;ClusterIP&#x60;, &#x60;NodePort&#x60;, and &#x60;LoadBalancer&#x60;.   - &#x60;ClusterIP&#x60; allocates a Cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, they are determined by manual construction of an Endpoints object or EndpointSlice objects. - &#x60;NodePort&#x60; builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the ClusterIP. - &#x60;LoadBalancer&#x60; builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the ClusterIP.   Note: although K8s Service type allows the &#39;ExternalName&#39; type, it is not a valid option for ClusterComponentService.   For more info, see: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types.
    * @return serviceType
   **/
   @jakarta.annotation.Nullable
@@ -201,12 +226,13 @@ public class V1alpha1ClusterSpecComponentSpecsInnerServicesInner {
     V1alpha1ClusterSpecComponentSpecsInnerServicesInner v1alpha1ClusterSpecComponentSpecsInnerServicesInner = (V1alpha1ClusterSpecComponentSpecsInnerServicesInner) o;
     return Objects.equals(this.annotations, v1alpha1ClusterSpecComponentSpecsInnerServicesInner.annotations) &&
         Objects.equals(this.name, v1alpha1ClusterSpecComponentSpecsInnerServicesInner.name) &&
+        Objects.equals(this.podService, v1alpha1ClusterSpecComponentSpecsInnerServicesInner.podService) &&
         Objects.equals(this.serviceType, v1alpha1ClusterSpecComponentSpecsInnerServicesInner.serviceType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(annotations, name, serviceType);
+    return Objects.hash(annotations, name, podService, serviceType);
   }
 
   @Override
@@ -215,6 +241,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerServicesInner {
     sb.append("class V1alpha1ClusterSpecComponentSpecsInnerServicesInner {\n");
     sb.append("    annotations: ").append(toIndentedString(annotations)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    podService: ").append(toIndentedString(podService)).append("\n");
     sb.append("    serviceType: ").append(toIndentedString(serviceType)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -240,6 +267,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerServicesInner {
     openapiFields = new HashSet<String>();
     openapiFields.add("annotations");
     openapiFields.add("name");
+    openapiFields.add("podService");
     openapiFields.add("serviceType");
 
     // a set of required properties/fields (JSON key names)

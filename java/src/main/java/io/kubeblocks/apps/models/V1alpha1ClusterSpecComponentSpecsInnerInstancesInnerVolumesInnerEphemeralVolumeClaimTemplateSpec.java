@@ -20,10 +20,10 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.kubeblocks.apps.models.V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecDataSource;
-import io.kubeblocks.apps.models.V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecDataSourceRef;
-import io.kubeblocks.apps.models.V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecResources;
-import io.kubeblocks.apps.models.V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecSelector;
+import io.kubeblocks.apps.models.V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpecDataSource;
+import io.kubeblocks.apps.models.V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpecDataSourceRef;
+import io.kubeblocks.apps.models.V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpecResources;
+import io.kubeblocks.apps.models.V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpecSelector;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +56,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpec {
   public static final String SERIALIZED_NAME_ACCESS_MODES = "accessModes";
   @SerializedName(SERIALIZED_NAME_ACCESS_MODES)
@@ -64,19 +64,19 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEph
 
   public static final String SERIALIZED_NAME_DATA_SOURCE = "dataSource";
   @SerializedName(SERIALIZED_NAME_DATA_SOURCE)
-  private V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecDataSource dataSource;
+  private V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpecDataSource dataSource;
 
   public static final String SERIALIZED_NAME_DATA_SOURCE_REF = "dataSourceRef";
   @SerializedName(SERIALIZED_NAME_DATA_SOURCE_REF)
-  private V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecDataSourceRef dataSourceRef;
+  private V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpecDataSourceRef dataSourceRef;
 
   public static final String SERIALIZED_NAME_RESOURCES = "resources";
   @SerializedName(SERIALIZED_NAME_RESOURCES)
-  private V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecResources resources;
+  private V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpecResources resources;
 
   public static final String SERIALIZED_NAME_SELECTOR = "selector";
   @SerializedName(SERIALIZED_NAME_SELECTOR)
-  private V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecSelector selector;
+  private V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpecSelector selector;
 
   public static final String SERIALIZED_NAME_STORAGE_CLASS_NAME = "storageClassName";
   @SerializedName(SERIALIZED_NAME_STORAGE_CLASS_NAME)
@@ -122,7 +122,7 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEph
   }
 
 
-  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpec dataSource(V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecDataSource dataSource) {
+  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpec dataSource(V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpecDataSource dataSource) {
     
     this.dataSource = dataSource;
     return this;
@@ -133,17 +133,17 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEph
    * @return dataSource
   **/
   @jakarta.annotation.Nullable
-  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecDataSource getDataSource() {
+  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpecDataSource getDataSource() {
     return dataSource;
   }
 
 
-  public void setDataSource(V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecDataSource dataSource) {
+  public void setDataSource(V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpecDataSource dataSource) {
     this.dataSource = dataSource;
   }
 
 
-  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpec dataSourceRef(V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecDataSourceRef dataSourceRef) {
+  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpec dataSourceRef(V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpecDataSourceRef dataSourceRef) {
     
     this.dataSourceRef = dataSourceRef;
     return this;
@@ -154,17 +154,17 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEph
    * @return dataSourceRef
   **/
   @jakarta.annotation.Nullable
-  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecDataSourceRef getDataSourceRef() {
+  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpecDataSourceRef getDataSourceRef() {
     return dataSourceRef;
   }
 
 
-  public void setDataSourceRef(V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecDataSourceRef dataSourceRef) {
+  public void setDataSourceRef(V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpecDataSourceRef dataSourceRef) {
     this.dataSourceRef = dataSourceRef;
   }
 
 
-  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpec resources(V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecResources resources) {
+  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpec resources(V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpecResources resources) {
     
     this.resources = resources;
     return this;
@@ -175,17 +175,17 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEph
    * @return resources
   **/
   @jakarta.annotation.Nullable
-  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecResources getResources() {
+  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpecResources getResources() {
     return resources;
   }
 
 
-  public void setResources(V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecResources resources) {
+  public void setResources(V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpecResources resources) {
     this.resources = resources;
   }
 
 
-  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpec selector(V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecSelector selector) {
+  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpec selector(V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpecSelector selector) {
     
     this.selector = selector;
     return this;
@@ -196,12 +196,12 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEph
    * @return selector
   **/
   @jakarta.annotation.Nullable
-  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecSelector getSelector() {
+  public V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpecSelector getSelector() {
     return selector;
   }
 
 
-  public void setSelector(V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecSelector selector) {
+  public void setSelector(V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpecSelector selector) {
     this.selector = selector;
   }
 
@@ -367,19 +367,19 @@ public class V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEph
       }
       // validate the optional field `dataSource`
       if (jsonObj.get("dataSource") != null && !jsonObj.get("dataSource").isJsonNull()) {
-        V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecDataSource.validateJsonObject(jsonObj.getAsJsonObject("dataSource"));
+        V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpecDataSource.validateJsonObject(jsonObj.getAsJsonObject("dataSource"));
       }
       // validate the optional field `dataSourceRef`
       if (jsonObj.get("dataSourceRef") != null && !jsonObj.get("dataSourceRef").isJsonNull()) {
-        V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecDataSourceRef.validateJsonObject(jsonObj.getAsJsonObject("dataSourceRef"));
+        V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpecDataSourceRef.validateJsonObject(jsonObj.getAsJsonObject("dataSourceRef"));
       }
       // validate the optional field `resources`
       if (jsonObj.get("resources") != null && !jsonObj.get("resources").isJsonNull()) {
-        V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecResources.validateJsonObject(jsonObj.getAsJsonObject("resources"));
+        V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpecResources.validateJsonObject(jsonObj.getAsJsonObject("resources"));
       }
       // validate the optional field `selector`
       if (jsonObj.get("selector") != null && !jsonObj.get("selector").isJsonNull()) {
-        V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumeClaimTemplatesInnerSpecSelector.validateJsonObject(jsonObj.getAsJsonObject("selector"));
+        V1alpha1ClusterSpecComponentSpecsInnerInstancesInnerVolumesInnerEphemeralVolumeClaimTemplateSpecSelector.validateJsonObject(jsonObj.getAsJsonObject("selector"));
       }
       if ((jsonObj.get("storageClassName") != null && !jsonObj.get("storageClassName").isJsonNull()) && !jsonObj.get("storageClassName").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `storageClassName` to be a primitive type in the JSON string but got `%s`", jsonObj.get("storageClassName").toString()));

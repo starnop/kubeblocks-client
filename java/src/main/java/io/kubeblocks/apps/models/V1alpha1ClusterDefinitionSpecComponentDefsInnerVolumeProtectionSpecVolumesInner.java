@@ -48,9 +48,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * V1alpha1ClusterDefinitionSpecComponentDefsInnerVolumeProtectionSpecVolumesInner
+ * ProtectedVolume is deprecated since v0.9, replaced with ComponentVolume.HighWatermark.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterDefinitionSpecComponentDefsInnerVolumeProtectionSpecVolumesInner {
   public static final String SERIALIZED_NAME_HIGH_WATERMARK = "highWatermark";
   @SerializedName(SERIALIZED_NAME_HIGH_WATERMARK)

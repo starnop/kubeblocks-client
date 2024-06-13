@@ -20,8 +20,8 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecSystemAccountsInnerPasswordGenerationPolicy;
-import io.kubeblocks.apps.models.V1alpha1ComponentDefinitionSpecSystemAccountsInnerSecretRef;
+import io.kubeblocks.apps.models.V1alpha1ClusterSpecComponentSpecsInnerSystemAccountsInnerPasswordConfig;
+import io.kubeblocks.apps.models.V1alpha1ClusterSpecComponentSpecsInnerSystemAccountsInnerSecretRef;
 import java.io.IOException;
 
 import com.google.gson.Gson;
@@ -52,7 +52,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * V1alpha1ComponentDefinitionSpecSystemAccountsInner
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ComponentDefinitionSpecSystemAccountsInner {
   public static final String SERIALIZED_NAME_INIT_ACCOUNT = "initAccount";
   @SerializedName(SERIALIZED_NAME_INIT_ACCOUNT)
@@ -64,11 +64,11 @@ public class V1alpha1ComponentDefinitionSpecSystemAccountsInner {
 
   public static final String SERIALIZED_NAME_PASSWORD_GENERATION_POLICY = "passwordGenerationPolicy";
   @SerializedName(SERIALIZED_NAME_PASSWORD_GENERATION_POLICY)
-  private V1alpha1ComponentDefinitionSpecSystemAccountsInnerPasswordGenerationPolicy passwordGenerationPolicy;
+  private V1alpha1ClusterSpecComponentSpecsInnerSystemAccountsInnerPasswordConfig passwordGenerationPolicy;
 
   public static final String SERIALIZED_NAME_SECRET_REF = "secretRef";
   @SerializedName(SERIALIZED_NAME_SECRET_REF)
-  private V1alpha1ComponentDefinitionSpecSystemAccountsInnerSecretRef secretRef;
+  private V1alpha1ClusterSpecComponentSpecsInnerSystemAccountsInnerSecretRef secretRef;
 
   public static final String SERIALIZED_NAME_STATEMENT = "statement";
   @SerializedName(SERIALIZED_NAME_STATEMENT)
@@ -84,7 +84,7 @@ public class V1alpha1ComponentDefinitionSpecSystemAccountsInner {
   }
 
    /**
-   * Indicates if this account is the unique system initialization account (e.g., MySQL root). Only one system initialization account is permitted. This field is immutable once set.
+   * Indicates if this account is the unique system initialization account (e.g., MySQL root). Only one system initialization account is permitted.   This field is immutable once set.
    * @return initAccount
   **/
   @jakarta.annotation.Nullable
@@ -105,7 +105,7 @@ public class V1alpha1ComponentDefinitionSpecSystemAccountsInner {
   }
 
    /**
-   * Specifies the unique identifier for the account. This name is used by other entities to reference the account. This field is immutable once set.
+   * Specifies the unique identifier for the account. This name is used by other entities to reference the account.   This field is immutable once set.
    * @return name
   **/
   @jakarta.annotation.Nonnull
@@ -119,7 +119,7 @@ public class V1alpha1ComponentDefinitionSpecSystemAccountsInner {
   }
 
 
-  public V1alpha1ComponentDefinitionSpecSystemAccountsInner passwordGenerationPolicy(V1alpha1ComponentDefinitionSpecSystemAccountsInnerPasswordGenerationPolicy passwordGenerationPolicy) {
+  public V1alpha1ComponentDefinitionSpecSystemAccountsInner passwordGenerationPolicy(V1alpha1ClusterSpecComponentSpecsInnerSystemAccountsInnerPasswordConfig passwordGenerationPolicy) {
     
     this.passwordGenerationPolicy = passwordGenerationPolicy;
     return this;
@@ -130,17 +130,17 @@ public class V1alpha1ComponentDefinitionSpecSystemAccountsInner {
    * @return passwordGenerationPolicy
   **/
   @jakarta.annotation.Nullable
-  public V1alpha1ComponentDefinitionSpecSystemAccountsInnerPasswordGenerationPolicy getPasswordGenerationPolicy() {
+  public V1alpha1ClusterSpecComponentSpecsInnerSystemAccountsInnerPasswordConfig getPasswordGenerationPolicy() {
     return passwordGenerationPolicy;
   }
 
 
-  public void setPasswordGenerationPolicy(V1alpha1ComponentDefinitionSpecSystemAccountsInnerPasswordGenerationPolicy passwordGenerationPolicy) {
+  public void setPasswordGenerationPolicy(V1alpha1ClusterSpecComponentSpecsInnerSystemAccountsInnerPasswordConfig passwordGenerationPolicy) {
     this.passwordGenerationPolicy = passwordGenerationPolicy;
   }
 
 
-  public V1alpha1ComponentDefinitionSpecSystemAccountsInner secretRef(V1alpha1ComponentDefinitionSpecSystemAccountsInnerSecretRef secretRef) {
+  public V1alpha1ComponentDefinitionSpecSystemAccountsInner secretRef(V1alpha1ClusterSpecComponentSpecsInnerSystemAccountsInnerSecretRef secretRef) {
     
     this.secretRef = secretRef;
     return this;
@@ -151,12 +151,12 @@ public class V1alpha1ComponentDefinitionSpecSystemAccountsInner {
    * @return secretRef
   **/
   @jakarta.annotation.Nullable
-  public V1alpha1ComponentDefinitionSpecSystemAccountsInnerSecretRef getSecretRef() {
+  public V1alpha1ClusterSpecComponentSpecsInnerSystemAccountsInnerSecretRef getSecretRef() {
     return secretRef;
   }
 
 
-  public void setSecretRef(V1alpha1ComponentDefinitionSpecSystemAccountsInnerSecretRef secretRef) {
+  public void setSecretRef(V1alpha1ClusterSpecComponentSpecsInnerSystemAccountsInnerSecretRef secretRef) {
     this.secretRef = secretRef;
   }
 
@@ -168,7 +168,7 @@ public class V1alpha1ComponentDefinitionSpecSystemAccountsInner {
   }
 
    /**
-   * Defines the statement used to create the account with the necessary privileges. This field is immutable once set.
+   * Defines the statement used to create the account with the necessary privileges.   This field is immutable once set.
    * @return statement
   **/
   @jakarta.annotation.Nullable
@@ -278,11 +278,11 @@ public class V1alpha1ComponentDefinitionSpecSystemAccountsInner {
       }
       // validate the optional field `passwordGenerationPolicy`
       if (jsonObj.get("passwordGenerationPolicy") != null && !jsonObj.get("passwordGenerationPolicy").isJsonNull()) {
-        V1alpha1ComponentDefinitionSpecSystemAccountsInnerPasswordGenerationPolicy.validateJsonObject(jsonObj.getAsJsonObject("passwordGenerationPolicy"));
+        V1alpha1ClusterSpecComponentSpecsInnerSystemAccountsInnerPasswordConfig.validateJsonObject(jsonObj.getAsJsonObject("passwordGenerationPolicy"));
       }
       // validate the optional field `secretRef`
       if (jsonObj.get("secretRef") != null && !jsonObj.get("secretRef").isJsonNull()) {
-        V1alpha1ComponentDefinitionSpecSystemAccountsInnerSecretRef.validateJsonObject(jsonObj.getAsJsonObject("secretRef"));
+        V1alpha1ClusterSpecComponentSpecsInnerSystemAccountsInnerSecretRef.validateJsonObject(jsonObj.getAsJsonObject("secretRef"));
       }
       if ((jsonObj.get("statement") != null && !jsonObj.get("statement").isJsonNull()) && !jsonObj.get("statement").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `statement` to be a primitive type in the JSON string but got `%s`", jsonObj.get("statement").toString()));

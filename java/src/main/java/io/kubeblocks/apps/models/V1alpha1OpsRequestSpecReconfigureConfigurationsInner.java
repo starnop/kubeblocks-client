@@ -53,7 +53,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * V1alpha1OpsRequestSpecReconfigureConfigurationsInner
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsRequestSpecReconfigureConfigurationsInner {
   public static final String SERIALIZED_NAME_KEYS = "keys";
   @SerializedName(SERIALIZED_NAME_KEYS)
@@ -64,7 +64,7 @@ public class V1alpha1OpsRequestSpecReconfigureConfigurationsInner {
   private String name;
 
   /**
-   * Defines the upgrade policy for the configuration. This field is optional.
+   * Defines the upgrade policy for the configuration.
    */
   @JsonAdapter(PolicyEnum.Adapter.class)
   public enum PolicyEnum {
@@ -76,7 +76,9 @@ public class V1alpha1OpsRequestSpecReconfigureConfigurationsInner {
     
     AUTORELOAD("autoReload"),
     
-    OPERATORSYNCUPDATE("operatorSyncUpdate");
+    OPERATORSYNCUPDATE("operatorSyncUpdate"),
+    
+    DYNAMICRELOADBEGINRESTART("dynamicReloadBeginRestart");
 
     private String value;
 
@@ -138,7 +140,7 @@ public class V1alpha1OpsRequestSpecReconfigureConfigurationsInner {
   }
 
    /**
-   * Sets the parameters to be updated. It should contain at least one item. The keys are merged and retained during patch operations.
+   * Sets the configuration files and their associated parameters that need to be updated. It should contain at least one item.
    * @return keys
   **/
   @jakarta.annotation.Nonnull
@@ -180,7 +182,7 @@ public class V1alpha1OpsRequestSpecReconfigureConfigurationsInner {
   }
 
    /**
-   * Defines the upgrade policy for the configuration. This field is optional.
+   * Defines the upgrade policy for the configuration.
    * @return policy
   **/
   @jakarta.annotation.Nullable

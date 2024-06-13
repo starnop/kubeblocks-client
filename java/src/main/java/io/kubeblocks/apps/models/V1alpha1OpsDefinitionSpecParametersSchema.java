@@ -48,9 +48,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * Describes the schema used for validation, pruning, and defaulting.
+ * Specifies the schema for validating the data types and value ranges of parameters in OpsActions before their usage.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsDefinitionSpecParametersSchema {
   public static final String SERIALIZED_NAME_OPEN_A_P_I_V3_SCHEMA = "openAPIV3Schema";
   @SerializedName(SERIALIZED_NAME_OPEN_A_P_I_V3_SCHEMA)
@@ -66,7 +66,7 @@ public class V1alpha1OpsDefinitionSpecParametersSchema {
   }
 
    /**
-   * Defines the OpenAPI v3 schema used for the parameter schema. The supported property types include: - string - number - integer - array: Note that only items of string type are supported.
+   * Defines the schema for parameters using the OpenAPI v3. The supported property types include: - string - number - integer - array: Note that only items of string type are supported.
    * @return openAPIV3Schema
   **/
   @jakarta.annotation.Nullable

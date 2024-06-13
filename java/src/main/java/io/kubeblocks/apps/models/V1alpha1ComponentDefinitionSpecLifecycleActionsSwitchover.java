@@ -53,9 +53,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * Defines the method to proactively switch the current leader to a new replica to minimize the impact on availability. This action is typically invoked when the leader is about to become unavailable due to events, such as:   - switchover - stop - restart - scale-in   The following dedicated environment variables are available for the action:   - KB_SWITCHOVER_CANDIDATE_NAME: The name of the new candidate replica&#39;s Pod. It may be empty. - KB_SWITCHOVER_CANDIDATE_FQDN: The FQDN of the new candidate replica. It may be empty. - KB_LEADER_POD_IP: The IP address of the original leader&#39;s Pod before switchover. - KB_LEADER_POD_NAME: The name of the original leader&#39;s Pod before switchover. - KB_LEADER_POD_FQDN: The FQDN of the original leader&#39;s Pod before switchover.   The environment variables with the following prefixes are deprecated and will be removed in the future:   - KB_REPLICATION_PRIMARY_POD_: The prefix of the environment variables of the original primary&#39;s Pod before switchover. - KB_CONSENSUS_LEADER_POD_: The prefix of the environment variables of the original leader&#39;s Pod before switchover.   This field cannot be updated.
+ * Defines the procedure for a controlled transition of leadership from the current leader to a new replica. This approach aims to minimize downtime and maintain availability in systems with a leader-follower topology, during events such as planned maintenance or when performing stop, shutdown, restart, or upgrade operations involving the current leader node.   The container executing this action has access to following environment variables:   - KB_SWITCHOVER_CANDIDATE_NAME: The name of the pod for the new leader candidate, which may not be specified (empty). - KB_SWITCHOVER_CANDIDATE_FQDN: The FQDN of the new leader candidate&#39;s pod, which may not be specified (empty). - KB_LEADER_POD_IP: The IP address of the current leader&#39;s pod prior to the switchover. - KB_LEADER_POD_NAME: The name of the current leader&#39;s pod prior to the switchover. - KB_LEADER_POD_FQDN: The FQDN of the current leader&#39;s pod prior to the switchover.   The environment variables with the following prefixes are deprecated and will be removed in future releases:   - KB_REPLICATION_PRIMARY_POD_ - KB_CONSENSUS_LEADER_POD_   Note: This field is immutable once it has been set.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ComponentDefinitionSpecLifecycleActionsSwitchover {
   public static final String SERIALIZED_NAME_SCRIPT_SPEC_SELECTORS = "scriptSpecSelectors";
   @SerializedName(SERIALIZED_NAME_SCRIPT_SPEC_SELECTORS)
@@ -87,7 +87,7 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActionsSwitchover {
   }
 
    /**
-   * Used to define the selectors for the scriptSpecs that need to be referenced. When this field is defined, the scripts specified in the scripts field can be referenced in the Action.
+   * Used to define the selectors for the scriptSpecs that need to be referenced. If this field is set, the scripts defined under the &#39;scripts&#39; field can be invoked or referenced within an Action.   This field is deprecated from v0.9. This field is maintained for backward compatibility and its use is discouraged. Existing usage should be updated to the current preferred approach to avoid compatibility issues in future releases.
    * @return scriptSpecSelectors
   **/
   @jakarta.annotation.Nullable

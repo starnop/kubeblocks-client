@@ -51,9 +51,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * Component is the Schema for the components API
+ * Component is a fundamental building block of a Cluster object. For example, a Redis Cluster can include Components like &#39;redis&#39;, &#39;sentinel&#39;, and potentially a proxy like &#39;twemproxy&#39;.   The Component object is responsible for managing the lifecycle of all replicas within a Cluster component, It supports a wide range of operations including provisioning, stopping, restarting, termination, upgrading, configuration changes, vertical and horizontal scaling, failover, switchover, cross-node migration, scheduling configuration, exposing Services, managing system accounts, enabling/disabling exporter, and configuring log collection.   Component is an internal sub-object derived from the user-submitted Cluster object. It is designed primarily to be used by the KubeBlocks controllers, users are discouraged from modifying Component objects directly and should use them only for monitoring Component statuses.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1Component implements io.kubernetes.client.common.KubernetesObject {
   public static final String SERIALIZED_NAME_API_VERSION = "apiVersion";
   @SerializedName(SERIALIZED_NAME_API_VERSION)

@@ -50,7 +50,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * The statement to provision an account.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ClusterDefinitionSpecComponentDefsInnerSystemAccountsAccountsInnerProvisionPolicyStatements {
   public static final String SERIALIZED_NAME_CREATION = "creation";
   @SerializedName(SERIALIZED_NAME_CREATION)
@@ -95,7 +95,7 @@ public class V1alpha1ClusterDefinitionSpecComponentDefsInnerSystemAccountsAccoun
   }
 
    /**
-   * Defines the statement required to delete an existing account. Typically used in conjunction with the creation statement to delete an account before recreating it. For example, one might use a &#x60;drop user if exists&#x60; statement followed by a &#x60;create user&#x60; statement to ensure a fresh account. Deprecated: This field is deprecated and the update statement should be used instead.
+   * Defines the statement required to delete an existing account. Typically used in conjunction with the creation statement to delete an account before recreating it. For example, one might use a &#x60;drop user if exists&#x60; statement followed by a &#x60;create user&#x60; statement to ensure a fresh account.   Deprecated: This field is deprecated and the update statement should be used instead.
    * @return deletion
   **/
   @jakarta.annotation.Nullable

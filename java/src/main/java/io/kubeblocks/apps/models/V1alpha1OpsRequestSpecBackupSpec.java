@@ -48,9 +48,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * Defines how to backup the cluster.
+ * Deprecated: since v0.9, use backup instead. Specifies the parameters to backup a Cluster.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsRequestSpecBackupSpec {
   public static final String SERIALIZED_NAME_BACKUP_METHOD = "backupMethod";
   @SerializedName(SERIALIZED_NAME_BACKUP_METHOD)
@@ -65,7 +65,7 @@ public class V1alpha1OpsRequestSpecBackupSpec {
   private String backupPolicyName;
 
   /**
-   * Determines whether the backup contents stored in backup repository should be deleted when the backup custom resource is deleted. Supported values are &#x60;Retain&#x60; and &#x60;Delete&#x60;. - &#x60;Retain&#x60; means that the backup content and its physical snapshot on backup repository are kept. - &#x60;Delete&#x60; means that the backup content and its physical snapshot on backup repository are deleted.
+   * Determines whether the backup contents stored in backup repository should be deleted when the Backup custom resource is deleted. Supported values are &#x60;Retain&#x60; and &#x60;Delete&#x60;. - &#x60;Retain&#x60; means that the backup content and its physical snapshot on backup repository are kept. - &#x60;Delete&#x60; means that the backup content and its physical snapshot on backup repository are deleted.
    */
   @JsonAdapter(DeletionPolicyEnum.Adapter.class)
   public enum DeletionPolicyEnum {
@@ -133,7 +133,7 @@ public class V1alpha1OpsRequestSpecBackupSpec {
   }
 
    /**
-   * Defines the backup method that is defined in backupPolicy.
+   * Specifies the name of BackupMethod. The specified BackupMethod must be defined in the BackupPolicy.
    * @return backupMethod
   **/
   @jakarta.annotation.Nullable
@@ -154,7 +154,7 @@ public class V1alpha1OpsRequestSpecBackupSpec {
   }
 
    /**
-   * Specifies the name of the backup.
+   * Specifies the name of the Backup custom resource.
    * @return backupName
   **/
   @jakarta.annotation.Nullable
@@ -175,7 +175,7 @@ public class V1alpha1OpsRequestSpecBackupSpec {
   }
 
    /**
-   * Indicates the backupPolicy applied to perform this backup.
+   * Indicates the name of the BackupPolicy applied to perform this Backup.
    * @return backupPolicyName
   **/
   @jakarta.annotation.Nullable
@@ -196,7 +196,7 @@ public class V1alpha1OpsRequestSpecBackupSpec {
   }
 
    /**
-   * Determines whether the backup contents stored in backup repository should be deleted when the backup custom resource is deleted. Supported values are &#x60;Retain&#x60; and &#x60;Delete&#x60;. - &#x60;Retain&#x60; means that the backup content and its physical snapshot on backup repository are kept. - &#x60;Delete&#x60; means that the backup content and its physical snapshot on backup repository are deleted.
+   * Determines whether the backup contents stored in backup repository should be deleted when the Backup custom resource is deleted. Supported values are &#x60;Retain&#x60; and &#x60;Delete&#x60;. - &#x60;Retain&#x60; means that the backup content and its physical snapshot on backup repository are kept. - &#x60;Delete&#x60; means that the backup content and its physical snapshot on backup repository are deleted.
    * @return deletionPolicy
   **/
   @jakarta.annotation.Nullable
@@ -217,7 +217,7 @@ public class V1alpha1OpsRequestSpecBackupSpec {
   }
 
    /**
-   * If backupType is incremental, parentBackupName is required.
+   * If the specified BackupMethod is incremental, &#x60;parentBackupName&#x60; is required.
    * @return parentBackupName
   **/
   @jakarta.annotation.Nullable
@@ -238,7 +238,7 @@ public class V1alpha1OpsRequestSpecBackupSpec {
   }
 
    /**
-   * Determines a duration up to which the backup should be kept. Controller will remove all backups that are older than the RetentionPeriod. For example, RetentionPeriod of &#x60;30d&#x60; will keep only the backups of last 30 days. Sample duration format:   - years: 2y - months: 6mo - days: 30d - hours: 12h - minutes: 30m   You can also combine the above durations. For example: 30d12h30m. If not set, the backup will be kept forever.
+   * Determines the duration for which the Backup custom resources should be retained.   The controller will automatically remove all Backup objects that are older than the specified RetentionPeriod. For example, RetentionPeriod of &#x60;30d&#x60; will keep only the Backup objects of last 30 days. Sample duration format:   - years: 2y - months: 6mo - days: 30d - hours: 12h - minutes: 30m   You can also combine the above durations. For example: 30d12h30m. If not set, the Backup objects will be kept forever.   If the &#x60;deletionPolicy&#x60; is set to &#39;Delete&#39;, then the associated backup data will also be deleted along with the Backup object. Otherwise, only the Backup custom resource will be deleted.
    * @return retentionPeriod
   **/
   @jakarta.annotation.Nullable

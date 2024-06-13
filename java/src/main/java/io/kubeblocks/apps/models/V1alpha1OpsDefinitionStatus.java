@@ -50,7 +50,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * OpsDefinitionStatus defines the observed state of OpsDefinition
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsDefinitionStatus {
   public static final String SERIALIZED_NAME_MESSAGE = "message";
   @SerializedName(SERIALIZED_NAME_MESSAGE)
@@ -61,7 +61,7 @@ public class V1alpha1OpsDefinitionStatus {
   private Long observedGeneration;
 
   /**
-   * Represents the current state of the OpsDefinition. Valid values are &#x60;&#x60;, &#x60;Available&#x60;, &#x60;Unavailable&#x60;. When the state is &#x60;Available&#x60;, the OpsDefinition is ready and can be used for related objects.
+   * Represents the current state of the OpsDefinition. Valid values are \&quot;\&quot;, \&quot;Available\&quot;, \&quot;Unavailable\&quot;. When it equals to \&quot;Available\&quot;, the OpsDefinition is ready and can be used in a \&quot;Custom\&quot; OpsRequest.
    */
   @JsonAdapter(PhaseEnum.Adapter.class)
   public enum PhaseEnum {
@@ -142,7 +142,7 @@ public class V1alpha1OpsDefinitionStatus {
   }
 
    /**
-   * Refers to the most recent generation observed for this OpsDefinition.
+   * Represents the most recent generation observed of this OpsDefinition.
    * @return observedGeneration
   **/
   @jakarta.annotation.Nullable
@@ -163,7 +163,7 @@ public class V1alpha1OpsDefinitionStatus {
   }
 
    /**
-   * Represents the current state of the OpsDefinition. Valid values are &#x60;&#x60;, &#x60;Available&#x60;, &#x60;Unavailable&#x60;. When the state is &#x60;Available&#x60;, the OpsDefinition is ready and can be used for related objects.
+   * Represents the current state of the OpsDefinition. Valid values are \&quot;\&quot;, \&quot;Available\&quot;, \&quot;Unavailable\&quot;. When it equals to \&quot;Available\&quot;, the OpsDefinition is ready and can be used in a \&quot;Custom\&quot; OpsRequest.
    * @return phase
   **/
   @jakarta.annotation.Nullable

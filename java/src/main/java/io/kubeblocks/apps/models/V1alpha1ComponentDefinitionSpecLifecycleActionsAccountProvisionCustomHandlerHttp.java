@@ -51,9 +51,9 @@ import java.util.Set;
 import io.kubernetes.client.openapi.JSON;
 
 /**
- * Specifies the HTTP request to perform. This field cannot be updated.
+ * Specifies the HTTP request to perform.   This field cannot be updated.   Note: HTTPAction is to be implemented in future version.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1ComponentDefinitionSpecLifecycleActionsAccountProvisionCustomHandlerHttp {
   public static final String SERIALIZED_NAME_HOST = "host";
   @SerializedName(SERIALIZED_NAME_HOST)
@@ -89,7 +89,7 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActionsAccountProvisionCust
   }
 
    /**
-   * Indicates the host name to connect to, which defaults to the pod IP. It is recommended to set \&quot;Host\&quot; in httpHeaders instead.
+   * Indicates the server&#39;s domain name or IP address. Defaults to the Pod&#39;s IP. Prefer setting the \&quot;Host\&quot; header in httpHeaders when needed.
    * @return host
   **/
   @jakarta.annotation.Nullable
@@ -118,7 +118,7 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActionsAccountProvisionCust
   }
 
    /**
-   * Allows for the setting of custom headers in the request. HTTP supports repeated headers.
+   * Allows for the inclusion of custom headers in the request. HTTP permits the use of repeated headers.
    * @return httpHeaders
   **/
   @jakarta.annotation.Nullable
@@ -139,7 +139,7 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActionsAccountProvisionCust
   }
 
    /**
-   * Represents the HTTP request method, which can be one of the standard HTTP methods such as \&quot;GET,\&quot; \&quot;POST,\&quot; \&quot;PUT,\&quot; etc. The default method is Get.
+   * Represents the type of HTTP request to be made, such as \&quot;GET,\&quot; \&quot;POST,\&quot; \&quot;PUT,\&quot; etc. If not specified, \&quot;GET\&quot; is the default method.
    * @return method
   **/
   @jakarta.annotation.Nullable
@@ -160,7 +160,7 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActionsAccountProvisionCust
   }
 
    /**
-   * Specifies the path to be accessed on the HTTP server.
+   * Specifies the endpoint to be requested on the HTTP server.
    * @return path
   **/
   @jakarta.annotation.Nullable
@@ -181,7 +181,7 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActionsAccountProvisionCust
   }
 
    /**
-   * Defines the name or number of the port to be accessed on the container. The number must fall within the range of 1 to 65535. The name must conform to the IANA_SVC_NAME standard.
+   * Specifies the target port for the HTTP request. It can be specified either as a numeric value in the range of 1 to 65535, or as a named port that meets the IANA_SVC_NAME specification.
    * @return port
   **/
   @jakarta.annotation.Nonnull
@@ -202,7 +202,7 @@ public class V1alpha1ComponentDefinitionSpecLifecycleActionsAccountProvisionCust
   }
 
    /**
-   * Specifies the scheme to be used for connecting to the host. The default scheme is HTTP.
+   * Designates the protocol used to make the request, such as HTTP or HTTPS. If not specified, HTTP is used by default.
    * @return scheme
   **/
   @jakarta.annotation.Nullable

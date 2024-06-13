@@ -53,7 +53,7 @@ import io.kubernetes.client.openapi.JSON;
 /**
  * V1alpha1OpsRequestSpecReconfigureConfigurationsInnerKeysInner
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T14:34:07.299798Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-13T15:59:08.817252Z[Etc/UTC]")
 public class V1alpha1OpsRequestSpecReconfigureConfigurationsInnerKeysInner {
   public static final String SERIALIZED_NAME_FILE_CONTENT = "fileContent";
   @SerializedName(SERIALIZED_NAME_FILE_CONTENT)
@@ -77,7 +77,7 @@ public class V1alpha1OpsRequestSpecReconfigureConfigurationsInnerKeysInner {
   }
 
    /**
-   * Represents the content of the configuration file. This field is used to update the entire content of the file.
+   * Specifies the content of the entire configuration file. This field is used to update the complete configuration file.   Either the &#x60;parameters&#x60; field or the &#x60;fileContent&#x60; field must be set, but not both.
    * @return fileContent
   **/
   @jakarta.annotation.Nullable
@@ -98,7 +98,7 @@ public class V1alpha1OpsRequestSpecReconfigureConfigurationsInnerKeysInner {
   }
 
    /**
-   * Represents the unique identifier for the ConfigMap.
+   * Represents a key in the configuration template(as ConfigMap). Each key in the ConfigMap corresponds to a specific configuration file.
    * @return key
   **/
   @jakarta.annotation.Nonnull
@@ -127,7 +127,7 @@ public class V1alpha1OpsRequestSpecReconfigureConfigurationsInnerKeysInner {
   }
 
    /**
-   * Defines a list of key-value pairs for a single configuration file. These parameters are used to update the specified configuration settings.
+   * Specifies a list of key-value pairs representing parameters and their corresponding values within a single configuration file. This field is used to override or set the values of parameters without modifying the entire configuration file.   Either the &#x60;parameters&#x60; field or the &#x60;fileContent&#x60; field must be set, but not both.
    * @return parameters
   **/
   @jakarta.annotation.Nullable
